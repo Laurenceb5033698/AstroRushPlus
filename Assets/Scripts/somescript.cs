@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour {
+public class somescript : MonoBehaviour {
 
-	int newvar = 0;
 	// Use this for initialization
 	void Start () {
 	
