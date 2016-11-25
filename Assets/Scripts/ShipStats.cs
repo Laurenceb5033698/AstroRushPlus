@@ -154,10 +154,12 @@ public class ShipStats : MonoBehaviour {
             if (value > 0)
             {
                 fuel = (fuel + value > 100.0f) ? 100.0f : fuel + value;
+                Debug.Log("Refueling");
             }
             else if (value < 0)
             {
                 fuel = (fuel + value < 0.0f) ? 0.0f : fuel + value;
+                Debug.Log("Fuel used");
             }
         }
 

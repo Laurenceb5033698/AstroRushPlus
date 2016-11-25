@@ -102,7 +102,7 @@ public class ShipController : MonoBehaviour
 		if (controls.xAxis != 0)   tempFuelUsed += Mathf.Abs(controls.xAxis) * tempFuelUsage * Time.deltaTime;
 		if (controls.yawAxis != 0) tempFuelUsed += Mathf.Abs(controls.yawAxis) * tempFuelUsage * Time.deltaTime;
 
-        stats.ShipFuel = tempFuelUsed;
+        stats.ShipFuel = -tempFuelUsed;
     }
 
 	private void SetShipToYPlane()
