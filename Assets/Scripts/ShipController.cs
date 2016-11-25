@@ -11,6 +11,7 @@ public class ShipController : MonoBehaviour
 	public GameObject SSIpanel;
 	public UI ui;
 	public GameObject station;
+    public GameObject pointer;
 
 	// ship parts ------------------------------------------------
 	private GameObject target;
@@ -25,6 +26,8 @@ public class ShipController : MonoBehaviour
 	public Laser shipLaser;
 	// -----------------------------------------------------------
 
+    public Vector3 angleVel;
+
 
 	void Start () // Use this for initialization
     {
@@ -33,6 +36,7 @@ public class ShipController : MonoBehaviour
 	}
 	void Update () // Update is called once per frame
     {
+        UpdatePointer();
 		CheckInputs();
 		ToggleStationWindow ();
 
@@ -46,7 +50,36 @@ public class ShipController : MonoBehaviour
 		}
 		
 		UpdateUI ();
+        angleVel = rb.angularVelocity;
 	}
+
+    private void UpdatePointer()
+    {
+        // REALLY BUGGY
+        Vector3 posA = ship.transform.position;
+        Vector3 posB = station.transform.position;
+        
+        const float dist = 8f;
+        Vector3 pointDir = Vector3.zero;
+        Quaternion stationDir = Quaternion.identity;
+
+        pointDir = (posB - posA).normalized;
+        stationDir = Quaternion.LookRotation(-pointDir);
+
+        Quaternion sRot = ship.transform.rotation;
+
+        Vector3 pdir = pointer.transform.position - posA;
+        pdir = Quaternion.Euler(pointDir) * pdir;
+        pointer.transform.position = pdir + posA;
+
+        //pointer.transform.position = new Vector3(posA.x + Mathf.Sin(pointDir.y) + dist, posA.y, posA.z + Mathf.Cos(pointDir.y));
+        pointer.transform.localRotation = stationDir;
+
+        
+
+
+
+    }
 		
 	private void UpdateUI()
 	{
@@ -108,6 +141,7 @@ public class ShipController : MonoBehaviour
 	private void SetShipToYPlane()
 	{
 		rb.velocity = new Vector3(rb.velocity.x,0f,rb.velocity.z);
+        rb.angularVelocity = new Vector3(0f, rb.angularVelocity.y,0f);
 		ship.transform.position = new Vector3(ship.transform.position.x,0f,ship.transform.position.z);
 	}
 		
