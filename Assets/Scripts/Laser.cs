@@ -44,22 +44,22 @@ public class Laser : MonoBehaviour
         {
 			if (temp != null && Vector3.Distance (TGun.transform.position, hitInfo.point) < stats.GetLaserRange())
             {
-				laser.SetPosition(1, hitInfo.point);
-                laser.GetComponent<Renderer>().material.color = (temp.name == "Asteroid") ? stats.GetLaserColor(false) : stats.GetLaserColor(true);    
+				tempPos = hitInfo.point;
+				tempColor = (temp.name == "Asteroid") ? stats.GetLaserColor(false) : stats.GetLaserColor(true); 
             }
             else
             {
-				laser.SetPosition(1, TGun.transform.position + -TGun.transform.up * stats.GetLaserRange());
-                laser.GetComponent<Renderer>().material.color = stats.GetLaserColor(true); // idle laser
+				tempPos = (TGun.transform.position + -TGun.transform.up * stats.GetLaserRange());
+				tempColor = stats.GetLaserColor(true);
             }
         }
         else
         {
-            laser.SetPosition(1, TGun.transform.position);
+			tempPos = TGun.transform.position;
         }
         
-        //laser.SetPosition(1, tempPos);
-        //laser.GetComponent<Renderer>().material.color = tempColor; // idle laser
+        laser.SetPosition(1, tempPos);
+        laser.GetComponent<Renderer>().material.color = tempColor;
         
         
 

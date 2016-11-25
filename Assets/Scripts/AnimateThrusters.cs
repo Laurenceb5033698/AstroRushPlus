@@ -5,6 +5,7 @@ public class AnimateThrusters : MonoBehaviour {
 
 	private bool ThrustersEnabled = true;
 	public Inputs controls;
+	//public GameObject ship;
 
     // particle effect for thrusters
     public ParticleSystem fThrust1; 	// forward thrust
@@ -21,14 +22,19 @@ public class AnimateThrusters : MonoBehaviour {
     public ParticleSystem rlThrust;	// rear left thrust
     public ParticleSystem rrThrust;	// rear right thrust
 
+	//private Vector3 prevPos;
+
+
 	void Start () 	// Use this for initialization
     {
         InitaliseThrusters();
+		//prevPos = ship.transform.position;
+
 	}
 	void Update () 	// Update is called once per frame
     {
 		if (ThrustersEnabled)
-			AnimateThrust ();
+			AnimateThrust2 ();
 		else
 			InitaliseThrusters ();
 	}
@@ -97,5 +103,57 @@ public class AnimateThrusters : MonoBehaviour {
 		else 										
 			SetEmission (rrThrust, false);
     }
+
+	private void AnimateThrust2()
+	{
+		/*
+		// ship variables
+		Vector3 cPos = ship.transform.position;
+		//Vector3 vel = (cPos - prevPos) / Time.deltaTime;
+		Vector3 mDir = cPos - prevPos;
+		Vector3 dir = ship.transform.right;
+		float angle = ship.transform.localEulerAngles.y;
+
+		prevPos = cPos;
+
+		// thruster variables
+		//Debug.Log("Thruster FL: "+flThrust.transform.forward);
+		//Debug.Log("Thruster FL: "+Vector3.Angle(ship.transform.right,flThrust.transform.forward));
+		Debug.Log("Thruster FL: "+Vector3.Angle(ship.transform.right,mDir));
+		*/
+
+		// ----------------- Forward Thrusters -------------------------------
+		bool fThrusters = (controls.zAxis > 0);
+		SetEmission (fThrust1, fThrusters);
+		SetEmission (fThrust2, fThrusters);
+		SetEmission (fThrust3, fThrusters);
+		SetEmission (fThrust4, fThrusters);
+
+		// ----------------- Backward Thrusters -------------------------------
+		SetEmission (rThrustLeft, controls.zAxis < 0);
+		SetEmission (rThrustRight, controls.zAxis < 0);
+
+		// ----------------- Left & Right Thrusters -----------------------------------
+
+		if (controls.yawAxis > 0 || controls.xAxis > 0)
+			SetEmission (flThrust, true);
+		else 										
+			SetEmission (flThrust, false);
+
+		if (controls.yawAxis < 0 || controls.xAxis > 0)
+			SetEmission (rlThrust, true);
+		else 
+			SetEmission (rlThrust, false);
+
+		if (controls.yawAxis < 0 || controls.xAxis < 0)
+			SetEmission (frThrust, true);
+		else 
+			SetEmission (frThrust, false);
+
+		if (controls.yawAxis > 0 || controls.xAxis < 0) 	
+			SetEmission (rrThrust, true);
+		else 										
+			SetEmission (rrThrust, false);
+	}
 
 }

@@ -12,6 +12,7 @@ public class ShipController : MonoBehaviour
 	public UI ui;
 	public GameObject station;
     public GameObject pointer;
+	public TextMesh distanceDisplay;
 
 	// ship parts ------------------------------------------------
 	private GameObject target;
@@ -33,6 +34,7 @@ public class ShipController : MonoBehaviour
     {
 		target = station;
 		SSIpanel.SetActive (false);
+		rb.centerOfMass = ship.transform.position;
 	}
 	void Update () // Update is called once per frame
     {
@@ -50,41 +52,26 @@ public class ShipController : MonoBehaviour
 		}
 		
 		UpdateUI ();
-        angleVel = rb.angularVelocity;
+        angleVel = rb.angularVelocity; // for testing only
 	}
 
     private void UpdatePointer()
     {
-        // REALLY BUGGY
         Vector3 posA = ship.transform.position;
         Vector3 posB = station.transform.position;
-        
-        const float dist = 8f;
-        Vector3 pointDir = Vector3.zero;
-        Quaternion stationDir = Quaternion.identity;
 
-        pointDir = (posB - posA).normalized;
-        stationDir = Quaternion.LookRotation(-pointDir);
-
-        Quaternion sRot = ship.transform.rotation;
-
-        Vector3 pdir = pointer.transform.position - posA;
-        pdir = Quaternion.Euler(pointDir) * pdir;
-        pointer.transform.position = pdir + posA;
-
-        //pointer.transform.position = new Vector3(posA.x + Mathf.Sin(pointDir.y) + dist, posA.y, posA.z + Mathf.Cos(pointDir.y));
-        pointer.transform.localRotation = stationDir;
-
-        
-
-
-
+		Vector3 pointDir = (posB - posA).normalized;
+		pointer.transform.position = posA + pointDir * 8f;
+		pointer.transform.rotation = Quaternion.LookRotation(-pointDir);
     }
 		
 	private void UpdateUI()
 	{
-		float temp = stats.ShipCargo / stats.GetMaxCargoSpace() * stats.ShipCargo;
-		ui.UpdateShipStats (stats.Units,stats.ShipFuel,temp,stats.ShipDamage);
+		string tempCargo = "" + stats.ShipCargo.ToString("F2") + "/" + stats.GetMaxCargoSpace ();
+		ui.UpdateShipStats (stats.Units,stats.ShipFuel,tempCargo,stats.ShipDamage);
+
+		distanceDisplay.text = Vector3.Distance (ship.transform.position, station.transform.position).ToString("F2");
+		distanceDisplay.transform.position = new Vector3 (pointer.transform.position.x + 1.21f,pointer.transform.position.y + 1.46f,pointer.transform.position.z + 1.79f);
 	}
 	private void CheckInputs()
 	{
@@ -126,10 +113,22 @@ public class ShipController : MonoBehaviour
 			rb.AddForce (ship.transform.right * stats.GetBoostSpeed());
 			tempFuelUsed += tempFuelUsage * 10;
 		}
-			
-		rb.AddForce (ship.transform.right * (controls.zAxis * stats.GetMainThrust()) * Time.deltaTime);
-		rb.AddForce (ship.transform.forward * (controls.xAxis * -stats.GetMainThrust()) * Time.deltaTime);
+
+		// this is for world axis movement controls
+		//rb.AddForce (Vector3.right * controls.xAxis * stats.GetMainThrust() * Time.deltaTime);
+		//rb.AddForce (Vector3.forward * controls.zAxis * stats.GetMainThrust() * Time.deltaTime);
+
+		// this is for ship axis controls
+		/*
+		float shipRot = ship.transform.transform.localEulerAngles.y;
+		float xAxisValue = (shipRot >= 45 && shipRot <= 135) ? -controls.xAxis : controls.xAxis;  // invert side-ways movement when ship is facing down
+		rb.AddForce (ship.transform.forward * (xAxisValue * -stats.GetMainThrust()) * Time.deltaTime); // x axis
+		*/
+
+		rb.AddForce (ship.transform.forward * (controls.xAxis * -stats.GetMainThrust()) * Time.deltaTime); // x axis
 		rb.AddTorque (ship.transform.up * (controls.yawAxis * stats.GetRotSpeed()) * Time.deltaTime);
+		rb.AddForce (ship.transform.right * (controls.zAxis * stats.GetMainThrust()) * Time.deltaTime); // z axis
+
 
 		if (controls.zAxis != 0)   tempFuelUsed += Mathf.Abs(controls.zAxis) * tempFuelUsage * Time.deltaTime;
 		if (controls.xAxis != 0)   tempFuelUsed += Mathf.Abs(controls.xAxis) * tempFuelUsage * Time.deltaTime;
@@ -140,9 +139,10 @@ public class ShipController : MonoBehaviour
 
 	private void SetShipToYPlane()
 	{
-		rb.velocity = new Vector3(rb.velocity.x,0f,rb.velocity.z);
-        rb.angularVelocity = new Vector3(0f, rb.angularVelocity.y,0f);
-		ship.transform.position = new Vector3(ship.transform.position.x,0f,ship.transform.position.z);
+		rb.velocity = new Vector3(rb.velocity.x,0.00f,rb.velocity.z);
+        rb.angularVelocity = new Vector3(0.00f, rb.angularVelocity.y,0.00f);
+		ship.transform.position = new Vector3(ship.transform.position.x,0.00f,ship.transform.position.z);
+		ship.transform.eulerAngles = new Vector3(0f,ship.transform.eulerAngles.y,0f); // fix the weird rotation applied to x and z axis
 	}
 		
 	private void SpawnMissile ()
@@ -194,7 +194,7 @@ public class ShipController : MonoBehaviour
 
 	void OnCollisionEnter(Collision c)
 	{
-		stats.ShipDamage = Convert.ToInt32(c.relativeVelocity.magnitude);
+		stats.ShipDamage = Convert.ToInt32(c.relativeVelocity.magnitude)/2;
 	}
 
 	void BuyButton()

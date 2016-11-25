@@ -27,9 +27,9 @@ public class Inputs : MonoBehaviour
 
 	private void CheckInputs()
 	{
-		yawAxis = Input.GetAxis ("LeftStickX");
+		yawAxis = Input.GetAxis ("RightStickX");
 		zAxis = Input.GetAxis ("LeftStickY");
-		xAxis = Input.GetAxis ("RightStickX");
+		xAxis = Input.GetAxis ("LeftStickX");
 
 		rocket = Input.GetKeyDown (KeyCode.JoystickButton0);
 		targeting = Input.GetMouseButtonDown (0);
