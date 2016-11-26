@@ -12,9 +12,10 @@ public class UI : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () {
-	
-	}
+	void Start ()
+    {
+        SSIpanel.SetActive(false);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -28,4 +29,9 @@ public class UI : MonoBehaviour {
 		cargo.text = "Cargo: " + c;
 		damage.text = "Damage: " + d + "%";
 	}
+
+    public void UpdateStationPanelToggle(bool s)
+    {
+        SSIpanel.SetActive(s);
+    }
 }
