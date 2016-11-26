@@ -15,7 +15,6 @@ public class AnimateThrusters : MonoBehaviour {
     public ParticleSystem rThrustLeft; 	// backward thrust
 	public ParticleSystem rThrustRight; 	// backward thrust
 
-
     public ParticleSystem flThrust; // front left thrust
     public ParticleSystem frThrust; // front right thrust
     public ParticleSystem rlThrust;	// rear left thrust
@@ -27,10 +26,8 @@ public class AnimateThrusters : MonoBehaviour {
 	}
 	void Update () 	// Update is called once per frame
     {
-		if (ThrustersEnabled)
-			AnimateThrust ();
-		else
-			InitaliseThrusters ();
+		if (ThrustersEnabled) AnimateThrust ();
+		else InitaliseThrusters ();
 	}
 
     private void InitaliseThrusters()
@@ -51,19 +48,8 @@ public class AnimateThrusters : MonoBehaviour {
 		SetEmission(rlThrust,false);
 		SetEmission(rrThrust,false);
     }
-	private void SetEmission(ParticleSystem p, bool v)
-	{
-		ParticleSystem.EmissionModule temp;
-		temp = p.emission;
-		temp.enabled = v;
-	}
-	public void SetThrusterState(bool v)
-	{
-		ThrustersEnabled = v;
-	}
-    
 	private void AnimateThrust()
-    {
+	{
 		// ----------------- Forward Thrusters -------------------------------
 		bool fThrusters = (controls.zAxis > 0);
 		SetEmission (fThrust1, fThrusters);
@@ -76,26 +62,21 @@ public class AnimateThrusters : MonoBehaviour {
 		SetEmission (rThrustRight, controls.zAxis < 0);
 
 		// ----------------- Left & Right Thrusters -----------------------------------
+        SetEmission(flThrust, (controls.yawAxis > 0 || controls.xAxis > 0));
+        SetEmission(rlThrust, (controls.yawAxis < 0 || controls.xAxis > 0));
+        SetEmission(frThrust, (controls.yawAxis < 0 || controls.xAxis < 0));
+        SetEmission(rrThrust, (controls.yawAxis > 0 || controls.xAxis < 0));
+    }
 
-		if (controls.yawAxis > 0 || controls.xAxis > 0)
-			SetEmission (flThrust, true);
-		else 										
-			SetEmission (flThrust, false);
-
-		if (controls.yawAxis < 0 || controls.xAxis > 0)
-			SetEmission (rlThrust, true);
-		else 
-			SetEmission (rlThrust, false);
-
-		if (controls.yawAxis < 0 || controls.xAxis < 0)
-			SetEmission (frThrust, true);
-		else 
-			SetEmission (frThrust, false);
-
-		if (controls.yawAxis > 0 || controls.xAxis < 0) 	
-			SetEmission (rrThrust, true);
-		else 										
-			SetEmission (rrThrust, false);
+    private void SetEmission(ParticleSystem p, bool v)
+    {
+        ParticleSystem.EmissionModule temp;
+        temp = p.emission;
+        temp.enabled = v;
+    }
+    public void SetThrusterState(bool v)
+    {
+        ThrustersEnabled = v;
     }
 
 }

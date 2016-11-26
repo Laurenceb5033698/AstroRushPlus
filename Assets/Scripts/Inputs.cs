@@ -12,6 +12,8 @@ public class Inputs : MonoBehaviour
 	public bool RLaser;
 
 	public bool targeting;
+
+    public bool reset;
 		
 	// Use this for initialization
 	void Start () 
@@ -20,20 +22,22 @@ public class Inputs : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 		CheckInputs ();
 	}
 
 
 	private void CheckInputs()
 	{
-		yawAxis = Input.GetAxis ("LeftStickX");
+		yawAxis = Input.GetAxis ("RightStickX");
 		zAxis = Input.GetAxis ("LeftStickY");
-		xAxis = Input.GetAxis ("RightStickX");
+		xAxis = Input.GetAxis ("LeftStickX");
 
 		rocket = Input.GetKeyDown (KeyCode.JoystickButton0);
 		targeting = Input.GetMouseButtonDown (0);
 		RLaser = Input.GetKey(KeyCode.JoystickButton4);
 		boost = Input.GetKeyDown (KeyCode.JoystickButton8);
-	}
+        reset = Input.GetKeyDown(KeyCode.JoystickButton7);
+    }
 }

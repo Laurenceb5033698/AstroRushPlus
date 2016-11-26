@@ -8,7 +8,7 @@ public class ShipStats : MonoBehaviour {
 
 	// Thruster Variables -------------------------------------------
 	private const float mainThrust = 200f;
-	private const float rotSpeed = 200f;
+	private const float rotSpeed = 600f;
 	private const float boostSpeed = 280f;
 
 
@@ -16,7 +16,7 @@ public class ShipStats : MonoBehaviour {
 	private int MissileAmount = 20;
 
 	// FUEL
-	private const float fuelUsage = 0.005f; // per second per thruster
+	private const float fuelUsage = 0.05f; // per second per thruster
 	private float fuel = 100f;
 
 	// CARGO
@@ -138,7 +138,7 @@ public class ShipStats : MonoBehaviour {
         {
             if (value > 0)
             {
-                cargo = (cargo + value > 100) ? 100f : cargo + value;
+				cargo = (cargo + value > MaxcargoSpace) ? MaxcargoSpace : cargo + value;
             }
             else if (value < 0)
             {
@@ -154,12 +154,10 @@ public class ShipStats : MonoBehaviour {
             if (value > 0)
             {
                 fuel = (fuel + value > 100.0f) ? 100.0f : fuel + value;
-                Debug.Log("Refueling");
             }
             else if (value < 0)
             {
                 fuel = (fuel + value < 0.0f) ? 0.0f : fuel + value;
-                Debug.Log("Fuel used");
             }
         }
 

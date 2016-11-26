@@ -12,20 +12,26 @@ public class UI : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () {
-	
-	}
+	void Start ()
+    {
+        SSIpanel.SetActive(false);
+    }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
 
-	public void UpdateShipStats(int u, float f, float c, int d)
+	public void UpdateShipStats(int u, float f, string c, int d)
 	{
 		units.text = "Units: " + u;
 		fuel.text = "Fuel: " + f.ToString ("F2") + "%";
-		cargo.text = "Cargo: " + c.ToString ("F2") + "%";
+		cargo.text = "Cargo: " + c;
 		damage.text = "Damage: " + d + "%";
 	}
+
+    public void UpdateStationPanelToggle(bool s)
+    {
+        SSIpanel.SetActive(s);
+    }
 }
