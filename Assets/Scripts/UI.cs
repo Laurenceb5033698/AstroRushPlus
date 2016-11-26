@@ -10,7 +10,6 @@ public class UI : MonoBehaviour {
 	public Text cargo;
 	public Text damage;
 
-
 	// Use this for initialization
 	void Start ()
     {

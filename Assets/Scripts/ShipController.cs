@@ -42,6 +42,28 @@ public class ShipController : MonoBehaviour
             stats.ResetShip ();
 		}
 
+        if (Vector3.Distance(ship.transform.position, station.transform.position) < 20f)
+        {
+            ui.UpdateStationPanelToggle(true);
+
+            if (Input.GetAxis("DPadYAxis") > 0)
+            {
+                BuyButton();
+            }
+            if (Input.GetAxis("DPadYAxis") < 0)
+            {
+                SellButton();
+            }
+            if (Input.GetAxis("DPadXAxis") > 0)
+            {
+                RepairButton();
+            }
+        }
+        else
+        {
+            ui.UpdateStationPanelToggle(false);
+        }
+
         stats.LaserState = controls.RLaser;
 			
 		if (controls.rocket) 
@@ -101,7 +123,7 @@ public class ShipController : MonoBehaviour
 	}
     private void UpdateUI()
     {
-        ui.UpdateStationPanelToggle(Vector3.Distance(ship.transform.position, station.transform.position) < 20f);
+        //ui.UpdateStationPanelToggle(Vector3.Distance(ship.transform.position, station.transform.position) < 20f);
 
         string tempCargo = "" + stats.ShipCargo.ToString("F2") + "/" + stats.GetMaxCargoSpace();
         ui.UpdateShipStats(stats.Units, stats.ShipFuel, tempCargo, stats.ShipDamage);
@@ -136,13 +158,15 @@ public class ShipController : MonoBehaviour
 	}
 	void SellButton()
 	{
+        Debug.Log("sell button is pressed");
         int tempUnits = Convert.ToInt32(stats.ShipCargo * station.GetComponent<StationManager>().GetCargoPrice());
 		stats.Units = tempUnits;
         stats.ShipCargo = -stats.ShipCargo;
 	}
 	void RepairButton()
 	{
-		int tempPrice = station.GetComponent<StationManager> ().GetCargoPrice ();
+        Debug.Log("repair button is pressed");
+        int tempPrice = station.GetComponent<StationManager> ().GetCargoPrice ();
 		int tempCost = stats.ShipDamage * tempPrice;
 
 		if (tempCost <= stats.Units) 
