@@ -16,6 +16,7 @@ public class ShipController : MonoBehaviour
 	public Laser shipLaser;
     public ShipStats stats;
     public UI ui;
+    public Camera cam;
 
     // Mains --------------------------------------------------------------------------------------------------------
     void Start () // Use this for initialization
@@ -107,6 +108,8 @@ public class ShipController : MonoBehaviour
 
         distanceDisplay.text = Vector3.Distance(ship.transform.position, station.transform.position).ToString("F2");
         distanceDisplay.transform.position = new Vector3(pointer.transform.position.x + 1.21f, pointer.transform.position.y + 1.46f, pointer.transform.position.z + 1.79f);
+
+        distanceDisplay.transform.eulerAngles = new Vector3(45f,cam.transform.eulerAngles.y,0f); // make text face camera
     }
     // EVENT HANDLERS-------------------------------------------------------------------------------------
     void OnCollisionEnter(Collision c)
