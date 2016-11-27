@@ -29,12 +29,12 @@ public class SolarPanel : MonoBehaviour
     {
 
         float temp = Mathf.Lerp(minimum, maximum, t);
-        p1.transform.eulerAngles = new Vector3(temp * -90, 0, 0);
-        p2.transform.eulerAngles = new Vector3(temp * 90, 0, 0);
-        p3.transform.eulerAngles = new Vector3(temp * -90, 0, 0);
-        p4.transform.eulerAngles = new Vector3(temp * 90, 0, 0);
-        p5.transform.eulerAngles = new Vector3(temp * -90, 0, 0);
-        p6.transform.eulerAngles = new Vector3(temp * 90, 0, 0);
+        p1.transform.localEulerAngles = new Vector3(temp * -90, 0, 0);
+        p2.transform.localEulerAngles = new Vector3(temp * 180, 0, 0);
+        p3.transform.localEulerAngles = new Vector3(temp * -180, 0, 0);
+        p4.transform.localEulerAngles = new Vector3(temp * 180, 0, 0);
+        p5.transform.localEulerAngles = new Vector3(temp * -180, 0, 0);
+        p6.transform.localEulerAngles = new Vector3(temp * 180, 0, 0);
 
         if (t <= 1f)
         {

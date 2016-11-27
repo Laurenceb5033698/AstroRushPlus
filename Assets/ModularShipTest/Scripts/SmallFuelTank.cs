@@ -5,7 +5,7 @@ public class SmallFuelTank : MonoBehaviour {
 
     public GameObject fuelTank;
     public GameObject Indicator;
-    public Rigidbody rb;
+    //public Rigidbody rb;
 
     public float fuelAmount = 100f; // %
     [Range(0, 300)]
@@ -23,9 +23,26 @@ public class SmallFuelTank : MonoBehaviour {
     {
         float temp = fuel / 300 * 100;
         fuelAmount = temp;
-        rb.mass = 2 / 100 * temp + 1;
+        //rb.mass = 2 / 100 * temp + 1;
 
         Indicator.transform.localScale = new Vector3(1f, 1f, 1f / 100 * fuelAmount);
 
+    }
+
+    public float GetFuelAmount()
+    {
+        return fuel;
+    }
+
+    public void RemoveFuel(float amount)
+    {
+        if (fuel - Mathf.Abs(amount) > 0)
+        {
+            fuel -= Mathf.Abs(amount);
+        }
+        else
+        {
+            fuel = 0f;
+        }
     }
 }
