@@ -10,6 +10,8 @@ public class CameraScript : MonoBehaviour {
     private float currentSpeed = 0f;
     private float targetSpeed = 0f;
     private float acceleration = 1f;
+    public float verticalD = 45f;
+    public float horizontalD = 22.5f;
 
     void Start()
     {
@@ -32,7 +34,7 @@ public class CameraScript : MonoBehaviour {
 
         if (currentSpeed > 0)
         {
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(ship.transform.position.x, 45f, ship.transform.position.z - 22.5f), targetSpeed);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(ship.transform.position.x, verticalD, ship.transform.position.z - horizontalD), targetSpeed);
             //transform.Translate((transform.position - new Vector3(ship.transform.position.x, 0f, ship.transform.position.z - 22.5f)).normalized*currentSpeed); // camera alternative. a bit buggy at the momemet
         }
 

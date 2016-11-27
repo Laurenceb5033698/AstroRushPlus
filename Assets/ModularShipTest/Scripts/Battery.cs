@@ -27,6 +27,11 @@ public class Battery : MonoBehaviour {
         updateBatteryState();
     }
 
+    public float GetChargeAmount()
+    {
+        return charge;
+    }
+
     private void updateBatteryState()
     {
         if (charge > 75)
