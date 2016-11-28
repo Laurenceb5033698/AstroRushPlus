@@ -5,11 +5,9 @@ using System;
 
 public class ShipController : MonoBehaviour 
 {
-    public GameObject pointer;
 	public GameObject ship;  // ship gameobject
     public GameObject station;
     public GameObject mPreF; // missile prefab
-	public TextMesh distanceDisplay;
 	public Inputs controls;
 	public AnimateThrusters thrusters;
 	public Rigidbody rb; 	// ship's rigid body
@@ -18,30 +16,117 @@ public class ShipController : MonoBehaviour
     public UI ui;
     public Camera cam;
 
+    private float rotFix = 0f;
+
     // Mains --------------------------------------------------------------------------------------------------------
     void Start () // Use this for initialization
     {
-
+       
 	}
 	void Update () // Update is called once per frame
     {
+        controls.UpdateInputs();
+        thrusters.UpdateThrusters();
+
 		CheckInputs();
+
         thrusters.SetThrusterState(stats.IsShipWorking());
 		if (stats.IsShipWorking()) MoveShip ();
+
 		UpdateUI ();
 	}
 	
     // FUNCTIONS --------------------------------------------------------------------------------------------------------	
 	private void CheckInputs()
 	{
-		if (controls.reset) 
+		if (controls.reset) ResetShip();
+
+        ToggleStationPanel();
+        stats.LaserState = controls.RLaser;
+			
+		if (controls.rocket) 
 		{
-			rb.velocity = Vector3.zero;
-			rb.angularVelocity = Vector3.zero;
-			ship.transform.position = Vector3.zero;
-            stats.ResetShip ();
+			if (stats.LoadMissile ()) 
+			{
+				SpawnMissile ();
+				//stats.DecreaseMissileAmount (); // do not decrement missiles until we make an option to reload
+			} 
+			else
+            {
+                Debug.Log("Out of Missiles!");
+            }
+		}
+	}
+	private void MoveShip()
+    {
+        CorrectShipTransforms();
+
+        float tempFuelUsed = 0f;
+        float tempFuelUsage = stats.GetFuelUsage();
+
+        if (controls.boost) 
+		{
+			rb.AddForce (ship.transform.right * stats.GetBoostSpeed());
+			tempFuelUsed += tempFuelUsage * 10;
 		}
 
+        rb.AddForce(ship.transform.right * (controls.zAxis * 200f) * Time.deltaTime);
+        tempFuelUsed += Mathf.Abs(controls.zAxis) * tempFuelUsage * Time.deltaTime;
+
+        rb.AddForce(ship.transform.forward * (controls.xAxis * -200f) * Time.deltaTime);
+        tempFuelUsed += Mathf.Abs(controls.xAxis) * tempFuelUsage * Time.deltaTime;
+
+        rb.AddTorque(ship.transform.up * (controls.yawAxis * stats.GetRotSpeed()) * Time.deltaTime);
+        tempFuelUsed += Mathf.Abs(controls.yawAxis) * tempFuelUsage * Time.deltaTime;
+
+        stats.ShipFuel = -tempFuelUsed;
+    }
+    private void CorrectShipTransforms()
+    {
+        // Reset unwanted xyz rotation and velocity --------------------------------------------------------------------------------------------
+        rb.velocity = new Vector3(rb.velocity.x, 0.00f, rb.velocity.z);
+        rb.angularVelocity = new Vector3(0.00f, rb.angularVelocity.y, 0.00f);
+
+        if (rb.velocity.magnitude < 2f && Time.time > rotFix)
+        {
+            rotFix = Time.time + 1f;
+            // THIS CAUSES THE SHIP TO JITTER (<---)
+            ship.transform.position = new Vector3(ship.transform.position.x, 0.00000f, ship.transform.position.z); //   <---------
+            ship.transform.eulerAngles = new Vector3(0f, ship.transform.eulerAngles.y, 0f); // fix the weird rotation applied to x and z axis   // <--------------
+        }
+        //--------------------------------------------------------------------------------------------------------------------------------------
+    }
+    private void ResetShip()
+    {
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        ship.transform.position = Vector3.zero;
+        ship.transform.eulerAngles = Vector3.zero;
+        stats.ResetShip();
+    }
+
+    private void SpawnMissile ()
+	{
+		Vector3 shipPos = ship.transform.position;
+		Vector3 shipDirection = ship.transform.right;
+		Quaternion shipRotation = ship.transform.rotation;
+		Vector3 RocketRot = shipPos + (-shipDirection);
+
+
+		GameObject temp = (GameObject)Instantiate (mPreF,shipPos + (shipDirection * 6f),shipRotation);
+        temp.GetComponent<Rigidbody> ().velocity = rb.velocity * 2f;
+		temp.transform.LookAt(RocketRot);
+		temp.transform.Rotate (-90,0,0);
+	}
+
+
+    private void UpdateUI()
+    {
+        string tempCargo = "" + stats.ShipCargo.ToString("F2") + "/" + stats.GetMaxCargoSpace();
+        ui.UpdateShipStats(stats.Units, stats.ShipFuel, tempCargo, stats.ShipDamage);
+    }
+    private void ToggleStationPanel()
+    {
         if (Vector3.Distance(ship.transform.position, station.transform.position) < 20f)
         {
             ui.UpdateStationPanelToggle(true);
@@ -58,81 +143,19 @@ public class ShipController : MonoBehaviour
             {
                 RepairButton();
             }
+
+            Quaternion temp = Quaternion.LookRotation(-station.transform.forward);
+            ship.transform.rotation = Quaternion.RotateTowards(ship.transform.rotation, temp, 10f * Time.deltaTime);
+            ship.transform.position = Vector3.MoveTowards(ship.transform.position,station.transform.position,0.5f*Time.deltaTime);
+
         }
         else
         {
             ui.UpdateStationPanelToggle(false);
         }
-
-        stats.LaserState = controls.RLaser;
-			
-		if (controls.rocket) 
-		{
-			if (stats.LoadMissile ()) 
-			{
-				SpawnMissile ();
-				stats.DecreaseMissileAmount ();
-			} 
-			else
-            {
-                Debug.Log("Out of Missiles!");
-            }
-		}
-	}
-	private void MoveShip()
-    { 
-        // Reset unwanted xyz rotation and velocity --------------------------------------------------------------------------------------------
-        rb.velocity = new Vector3(rb.velocity.x, 0.00f, rb.velocity.z);
-        rb.angularVelocity = new Vector3(0.00f, rb.angularVelocity.y, 0.00f);
-        ship.transform.position = new Vector3(ship.transform.position.x, 0.00f, ship.transform.position.z);
-        ship.transform.eulerAngles = new Vector3(0f, ship.transform.eulerAngles.y, 0f); // fix the weird rotation applied to x and z axis
-        //--------------------------------------------------------------------------------------------------------------------------------------
-
-        float tempFuelUsed = 0f;
-        float tempFuelUsage = stats.GetFuelUsage();
-
-        if (controls.boost) 
-		{
-			rb.AddForce (ship.transform.right * stats.GetBoostSpeed());
-			tempFuelUsed += tempFuelUsage * 10;
-		}
-
-        rb.AddForce(ship.transform.right * (controls.zAxis * stats.GetMainThrust()) * Time.deltaTime);
-        tempFuelUsed += Mathf.Abs(controls.zAxis) * tempFuelUsage * Time.deltaTime;
-
-        rb.AddForce(ship.transform.forward * (controls.xAxis * -stats.GetMainThrust()) * Time.deltaTime);
-        tempFuelUsed += Mathf.Abs(controls.xAxis) * tempFuelUsage * Time.deltaTime;
-
-        rb.AddTorque(ship.transform.up * (controls.yawAxis * stats.GetRotSpeed()) * Time.deltaTime);
-        tempFuelUsed += Mathf.Abs(controls.yawAxis) * tempFuelUsage * Time.deltaTime;
-
-        stats.ShipFuel = -tempFuelUsed;
-    }	
-	private void SpawnMissile ()
-	{
-		Vector3 shipPos = ship.transform.position;
-		Vector3 shipDirection = ship.transform.right;
-		Quaternion shipRotation = ship.transform.rotation;
-		Vector3 RocketRot = shipPos + (-shipDirection);
-
-
-		GameObject temp = (GameObject)Instantiate (mPreF,shipPos + (shipDirection * 6f),shipRotation);
-        temp.GetComponent<Rigidbody> ().velocity = rb.velocity * 2f;
-		temp.transform.LookAt(RocketRot);
-		temp.transform.Rotate (-90,0,0);
-	}
-    private void UpdateUI()
-    {
-        //ui.UpdateStationPanelToggle(Vector3.Distance(ship.transform.position, station.transform.position) < 20f);
-
-        string tempCargo = "" + stats.ShipCargo.ToString("F2") + "/" + stats.GetMaxCargoSpace();
-        ui.UpdateShipStats(stats.Units, stats.ShipFuel, tempCargo, stats.ShipDamage);
-
-        distanceDisplay.text = Vector3.Distance(ship.transform.position, station.transform.position).ToString("F2");
-        distanceDisplay.transform.position = new Vector3(pointer.transform.position.x + 1.21f, pointer.transform.position.y + 1.46f, pointer.transform.position.z + 1.79f);
-
-        distanceDisplay.transform.eulerAngles = new Vector3(45f,cam.transform.eulerAngles.y,0f); // make text face camera
     }
+    
+    
     // EVENT HANDLERS-------------------------------------------------------------------------------------
     void OnCollisionEnter(Collision c)
 	{

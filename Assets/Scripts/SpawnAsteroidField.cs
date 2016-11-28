@@ -4,8 +4,8 @@ using System.Collections;
 public class SpawnAsteroidField : MonoBehaviour {
 
 	public GameObject[] asteroids = new GameObject[5];
-	public GameObject[] spawnedAsteroids = new GameObject[NoAsteroids];
-	private const int NoAsteroids = 50;
+	private GameObject[] spawnedAsteroids = new GameObject[NoAsteroids];
+	private const int NoAsteroids = 60;
 
 	public GameObject ship;
 	private Vector3 position; // position of ship
@@ -16,9 +16,9 @@ public class SpawnAsteroidField : MonoBehaviour {
 	private float spawnAngle;
 	private float spawnDistance;
 
-	private const float minSpawnDist = 40f;
-	private const float maxSpawnDist = 80f;
-	private const float killZoneDist = 80f;
+	private const float minSpawnDist = 80f;
+	private const float maxSpawnDist = 180f;
+	private const float killZoneDist = 190f;
 
 	// Generate random variables
 	private int id = 0;

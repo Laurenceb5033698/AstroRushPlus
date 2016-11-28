@@ -16,9 +16,12 @@ public class Laser : MonoBehaviour
 	Ray detectObject;
 	bool hit = false;
 
+    public Material activeLaserColor;
+    public Material idleLaserColor;
 
-	// Use this for initialization
-	void Start () 
+
+    // Use this for initialization
+    void Start () 
     {
         laser = transform.gameObject.AddComponent<LineRenderer>();
 		laser.SetWidth(stats.GetLaserWidth(), stats.GetLaserWidth());
@@ -35,22 +38,21 @@ public class Laser : MonoBehaviour
     {
 		laser.SetPosition(0, TGun.transform.position);
 
-		GameObject temp = FindObject ();
+		GameObject target = FindObject ();
         Vector3 tempPos = Vector3.zero;
-        Color tempColor = Color.red;
 
 
 		if (stats.LaserState)
         {
-			if (temp != null && Vector3.Distance (TGun.transform.position, hitInfo.point) < stats.GetLaserRange())
+			if (target != null && Vector3.Distance (TGun.transform.position, hitInfo.point) < stats.GetLaserRange())
             {
 				tempPos = hitInfo.point;
-				tempColor = (temp.name == "Asteroid") ? stats.GetLaserColor(false) : stats.GetLaserColor(true); 
+                laser.GetComponent<Renderer>().material = (target.name == "Asteroid") ? activeLaserColor : idleLaserColor; 
             }
             else
             {
 				tempPos = (TGun.transform.position + -TGun.transform.up * stats.GetLaserRange());
-				tempColor = stats.GetLaserColor(true);
+                laser.GetComponent<Renderer>().material = idleLaserColor;
             }
         }
         else
@@ -59,10 +61,6 @@ public class Laser : MonoBehaviour
         }
         
         laser.SetPosition(1, tempPos);
-        laser.GetComponent<Renderer>().material.color = tempColor;
-        
-        
-
     }
 
 	private GameObject FindObject()

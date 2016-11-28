@@ -5,37 +5,28 @@ public class CameraScript : MonoBehaviour {
 
 
 	public GameObject ship;
-    private float minDistance = 0f;
+    private float minDistance = 35f;
 
-    private float currentSpeed = 0f;
-    private float targetSpeed = 0f;
-    private float acceleration = 1f;
+    private float speed = 0f;
+    public float verticalD = 45f;
+    public float horizontalD = 22.5f;
 
     void Start()
     {
-        minDistance = Vector3.Distance(transform.position, ship.transform.position);
-        currentSpeed = (Vector3.Distance(transform.position, ship.transform.position) - minDistance) * Time.deltaTime;
-        targetSpeed = currentSpeed;
+        minDistance = Vector3.Distance(transform.position, ship.transform.position)-15f;
     }
 
 	void Update ()
     {
+        speed = (Vector3.Distance(transform.position, ship.transform.position) - minDistance) * Time.deltaTime;
 
-        //transform.Translate(new Vector3(ship.transform.position.x, 0f, ship.transform.position.z - 22.5f)*Time.deltaTime);
-        //transform.position = Vector3.MoveTowards(transform.position,new Vector3(ship.transform.position.x,45f,ship.transform.position.z-22.5f),speed);
-
-
-        targetSpeed = (Vector3.Distance(transform.position, ship.transform.position) - minDistance) * Time.deltaTime;
-
-        if (currentSpeed < targetSpeed) currentSpeed += acceleration*Time.deltaTime;
-        else currentSpeed -= acceleration*Time.deltaTime;
-
-        if (currentSpeed > 0)
+        if (speed > 0)
         {
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(ship.transform.position.x, 45f, ship.transform.position.z - 22.5f), targetSpeed);
-            //transform.Translate((transform.position - new Vector3(ship.transform.position.x, 0f, ship.transform.position.z - 22.5f)).normalized*currentSpeed); // camera alternative. a bit buggy at the momemet
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(ship.transform.position.x, verticalD, ship.transform.position.z - horizontalD), speed);
         }
 
-        transform.LookAt(ship.transform.position);
+        Quaternion targetRotation = Quaternion.LookRotation(ship.transform.position - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f * Time.deltaTime);
+        //transform.LookAt(ship.transform.position);
     }
 }
