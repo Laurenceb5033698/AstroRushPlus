@@ -26,9 +26,14 @@ public class AnimateThrusters : MonoBehaviour {
 	}
 	void Update () 	// Update is called once per frame
     {
-		if (ThrustersEnabled) AnimateThrust ();
-		else InitaliseThrusters ();
+
 	}
+
+    public void UpdateThrusters()
+    {
+        if (ThrustersEnabled) AnimateThrust();
+        else InitaliseThrusters();
+    }
 
     private void InitaliseThrusters()
     {
@@ -57,8 +62,11 @@ public class AnimateThrusters : MonoBehaviour {
 		SetEmission (fThrust3, fThrusters);
 		SetEmission (fThrust4, fThrusters);
 
-		// ----------------- Backward Thrusters -------------------------------
-		SetEmission (rThrustLeft, controls.zAxis < 0);
+        fThrust1.startSpeed = Mathf.Abs(controls.zAxis) * 10;
+        fThrust2.startSpeed = Mathf.Abs(controls.zAxis) * 10;
+
+        // ----------------- Backward Thrusters -------------------------------
+        SetEmission (rThrustLeft, controls.zAxis < 0);
 		SetEmission (rThrustRight, controls.zAxis < 0);
 
 		// ----------------- Left & Right Thrusters -----------------------------------

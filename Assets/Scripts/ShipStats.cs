@@ -31,8 +31,6 @@ public class ShipStats : MonoBehaviour {
 	private float laserSpeed = 0.05f;
 	private float laserRange = 50f;
 	private const float laserWidth = 0.2f;
-	private Color activeLaserColor = Color.green;
-	private Color idleLaserColor = Color.red;
 
 	//-----------------------------------------------------------------------------------------
 
@@ -81,20 +79,6 @@ public class ShipStats : MonoBehaviour {
 	{
 		return MaxcargoSpace;
 	}
-
-	public Color GetActiveLaserColor()
-	{
-		return activeLaserColor;
-	}
-	public Color GetIdleLaserColor()
-	{
-		return idleLaserColor;
-	}
-
-    public Color GetLaserColor(bool idle)
-    {
-        return (idle) ? idleLaserColor : activeLaserColor;
-    }
 
 	// SET
 	public void DecreaseMissileAmount() 
@@ -182,6 +166,7 @@ public class ShipStats : MonoBehaviour {
 		fuel = 100;
 		cargo = 0;
 		damage = 0;
+        MissileAmount = 20;
 	}
 
 

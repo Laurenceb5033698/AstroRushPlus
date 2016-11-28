@@ -27,6 +27,11 @@ public class Inputs : MonoBehaviour
 		CheckInputs ();
 	}
 
+    public void UpdateInputs()
+    {
+        CheckInputs();
+    }
+
 
 	private void CheckInputs()
 	{
@@ -34,10 +39,37 @@ public class Inputs : MonoBehaviour
 		zAxis = Input.GetAxis ("LeftStickY");
 		xAxis = Input.GetAxis ("LeftStickX");
 
-		rocket = Input.GetKeyDown (KeyCode.JoystickButton0);
+        CheckKeyboard();
+
+
+        rocket = Input.GetKeyDown (KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.R);
 		targeting = Input.GetMouseButtonDown (0);
-		RLaser = Input.GetKey(KeyCode.JoystickButton4);
-		boost = Input.GetKeyDown (KeyCode.JoystickButton8);
-        reset = Input.GetKeyDown(KeyCode.JoystickButton7);
+        RLaser = Input.GetKey(KeyCode.JoystickButton4) || Input.GetKey(KeyCode.F);
+		boost = Input.GetKeyDown (KeyCode.JoystickButton8) || Input.GetKeyDown(KeyCode.Space);
+        reset = Input.GetKeyDown(KeyCode.JoystickButton7) || Input.GetKeyDown(KeyCode.Y);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("ESC Pressed");
+            Application.Quit();
+        }
+    }
+
+    private void CheckKeyboard()
+    {
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+            zAxis = 1;
+        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            zAxis = -1;
+
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            xAxis = -1;
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            xAxis = 1;
+
+        if (Input.GetKey(KeyCode.Q))
+            yawAxis = -1;
+        else if (Input.GetKey(KeyCode.E))
+            yawAxis = 1;
     }
 }

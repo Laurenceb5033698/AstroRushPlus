@@ -18,6 +18,8 @@ public class ShipController : MonoBehaviour
     public UI ui;
     public Camera cam;
 
+    private float rotFix = 0f;
+
     // Mains --------------------------------------------------------------------------------------------------------
     void Start () // Use this for initialization
     {
@@ -25,9 +27,13 @@ public class ShipController : MonoBehaviour
 	}
 	void Update () // Update is called once per frame
     {
+        controls.UpdateInputs();
+        thrusters.UpdateThrusters();
+
 		CheckInputs();
         thrusters.SetThrusterState(stats.IsShipWorking());
-		if (stats.IsShipWorking()) MoveShip ();
+		if (stats.IsShipWorking())
+            MoveShip ();
 		UpdateUI ();
 	}
 	
@@ -39,6 +45,7 @@ public class ShipController : MonoBehaviour
 			rb.velocity = Vector3.zero;
 			rb.angularVelocity = Vector3.zero;
 			ship.transform.position = Vector3.zero;
+            ship.transform.eulerAngles = Vector3.zero;
             stats.ResetShip ();
 		}
 
@@ -71,7 +78,7 @@ public class ShipController : MonoBehaviour
 			if (stats.LoadMissile ()) 
 			{
 				SpawnMissile ();
-				stats.DecreaseMissileAmount ();
+				//stats.DecreaseMissileAmount (); // do not decrement missiles until we make an option to reload
 			} 
 			else
             {
@@ -84,8 +91,14 @@ public class ShipController : MonoBehaviour
         // Reset unwanted xyz rotation and velocity --------------------------------------------------------------------------------------------
         rb.velocity = new Vector3(rb.velocity.x, 0.00f, rb.velocity.z);
         rb.angularVelocity = new Vector3(0.00f, rb.angularVelocity.y, 0.00f);
-        ship.transform.position = new Vector3(ship.transform.position.x, 0.00f, ship.transform.position.z);
-        ship.transform.eulerAngles = new Vector3(0f, ship.transform.eulerAngles.y, 0f); // fix the weird rotation applied to x and z axis
+
+        if (rb.velocity.magnitude < 2f && Time.time > rotFix)
+        {
+            rotFix = Time.time + 1f;
+            // THIS CAUSES THE SHIP TO JITTER
+            ship.transform.position = new Vector3(ship.transform.position.x, 0.00000f, ship.transform.position.z);
+            ship.transform.eulerAngles = new Vector3(0f, ship.transform.eulerAngles.y, 0f); // fix the weird rotation applied to x and z axis
+        }
         //--------------------------------------------------------------------------------------------------------------------------------------
 
         float tempFuelUsed = 0f;

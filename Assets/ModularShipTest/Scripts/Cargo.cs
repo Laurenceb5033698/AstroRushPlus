@@ -20,7 +20,7 @@ public class Cargo : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        float temp = cargo / 1000 * 100;
+        //float temp = cargo / 1000 * 100;
         //rb.mass = 5 / 100 * temp + 1;
     }
 
