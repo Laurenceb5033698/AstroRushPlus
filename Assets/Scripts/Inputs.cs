@@ -51,7 +51,8 @@ public class Inputs : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("ESC Pressed");
-            Application.Quit();
+            //Application.Quit();
+            Application.LoadLevel(0);
         }
     }
 
