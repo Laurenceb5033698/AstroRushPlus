@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Inputs : MonoBehaviour 
 {
@@ -52,7 +53,8 @@ public class Inputs : MonoBehaviour
         {
             Debug.Log("ESC Pressed");
             //Application.Quit();
-            Application.LoadLevel(0);
+            //Application.LoadLevel(0);
+            SceneManager.LoadScene(0);
         }
     }
 
