@@ -34,6 +34,8 @@ public class ShipController : MonoBehaviour
         thrusters.SetThrusterState(stats.IsShipWorking());
 		if (stats.IsShipWorking())
             MoveShip ();
+
+
 		UpdateUI ();
 	}
 	
@@ -95,9 +97,9 @@ public class ShipController : MonoBehaviour
         if (rb.velocity.magnitude < 2f && Time.time > rotFix)
         {
             rotFix = Time.time + 1f;
-            // THIS CAUSES THE SHIP TO JITTER
-            ship.transform.position = new Vector3(ship.transform.position.x, 0.00000f, ship.transform.position.z);
-            ship.transform.eulerAngles = new Vector3(0f, ship.transform.eulerAngles.y, 0f); // fix the weird rotation applied to x and z axis
+            // THIS CAUSES THE SHIP TO JITTER (<---)
+            ship.transform.position = new Vector3(ship.transform.position.x, 0.00000f, ship.transform.position.z); //   <---------
+            ship.transform.eulerAngles = new Vector3(0f, ship.transform.eulerAngles.y, 0f); // fix the weird rotation applied to x and z axis   // <--------------
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
 
@@ -110,11 +112,9 @@ public class ShipController : MonoBehaviour
 			tempFuelUsed += tempFuelUsage * 10;
 		}
 
-        //rb.AddForce(ship.transform.right * (controls.zAxis * stats.GetMainThrust()) * Time.deltaTime);
         rb.AddForce(ship.transform.right * (controls.zAxis * 200f) * Time.deltaTime);
         tempFuelUsed += Mathf.Abs(controls.zAxis) * tempFuelUsage * Time.deltaTime;
 
-        //rb.AddForce(ship.transform.forward * (controls.xAxis * -stats.GetMainThrust()) * Time.deltaTime);
         rb.AddForce(ship.transform.forward * (controls.xAxis * -200f) * Time.deltaTime);
         tempFuelUsed += Mathf.Abs(controls.xAxis) * tempFuelUsage * Time.deltaTime;
 
