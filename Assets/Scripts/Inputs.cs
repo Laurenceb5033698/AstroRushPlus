@@ -15,18 +15,9 @@ public class Inputs : MonoBehaviour
 	public bool targeting;
 
     public bool reset;
-		
-	// Use this for initialization
-	void Start () 
-	{
-		
-	}
+
+    public UI ui;
 	
-	// Update is called once per frame
-	void Update ()
-    {
-		CheckInputs ();
-	}
 
     public void UpdateInputs()
     {
@@ -48,14 +39,6 @@ public class Inputs : MonoBehaviour
         RLaser = Input.GetKey(KeyCode.JoystickButton4) || Input.GetKey(KeyCode.F);
 		boost = Input.GetKeyDown (KeyCode.JoystickButton8) || Input.GetKeyDown(KeyCode.Space);
         reset = Input.GetKeyDown(KeyCode.JoystickButton7) || Input.GetKeyDown(KeyCode.Y);
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Debug.Log("ESC Pressed");
-            //Application.Quit();
-            //Application.LoadLevel(0);
-            SceneManager.LoadScene(0);
-        }
     }
 
     private void CheckKeyboard()
