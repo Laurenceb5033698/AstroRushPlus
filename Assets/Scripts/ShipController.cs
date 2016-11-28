@@ -21,7 +21,7 @@ public class ShipController : MonoBehaviour
     // Mains --------------------------------------------------------------------------------------------------------
     void Start () // Use this for initialization
     {
-
+       
 	}
 	void Update () // Update is called once per frame
     {
@@ -97,10 +97,12 @@ public class ShipController : MonoBehaviour
 			tempFuelUsed += tempFuelUsage * 10;
 		}
 
-        rb.AddForce(ship.transform.right * (controls.zAxis * stats.GetMainThrust()) * Time.deltaTime);
+        //rb.AddForce(ship.transform.right * (controls.zAxis * stats.GetMainThrust()) * Time.deltaTime);
+        rb.AddForce(ship.transform.right * (controls.zAxis * 200f) * Time.deltaTime);
         tempFuelUsed += Mathf.Abs(controls.zAxis) * tempFuelUsage * Time.deltaTime;
 
-        rb.AddForce(ship.transform.forward * (controls.xAxis * -stats.GetMainThrust()) * Time.deltaTime);
+        //rb.AddForce(ship.transform.forward * (controls.xAxis * -stats.GetMainThrust()) * Time.deltaTime);
+        rb.AddForce(ship.transform.forward * (controls.xAxis * -200f) * Time.deltaTime);
         tempFuelUsed += Mathf.Abs(controls.xAxis) * tempFuelUsage * Time.deltaTime;
 
         rb.AddTorque(ship.transform.up * (controls.yawAxis * stats.GetRotSpeed()) * Time.deltaTime);

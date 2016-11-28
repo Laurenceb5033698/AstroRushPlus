@@ -34,10 +34,18 @@ public class CameraScript : MonoBehaviour {
 
         if (currentSpeed > 0)
         {
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(ship.transform.position.x, verticalD, ship.transform.position.z - horizontalD), targetSpeed);
+            Vector3 target = new Vector3(ship.transform.position.x, verticalD, ship.transform.position.z - horizontalD);
+            float smoothTime = 0.3f;
+            //Vector3 velocity = ship.GetComponent<Rigidbody>().velocity;
+            Vector3 velocity = Vector3.zero;
+            transform.position = Vector3.SmoothDamp(transform.position, target,ref velocity, smoothTime);
+            //transform.position = Vector3.MoveTowards(transform.position, new Vector3(ship.transform.position.x, verticalD, ship.transform.position.z - horizontalD), targetSpeed);
             //transform.Translate((transform.position - new Vector3(ship.transform.position.x, 0f, ship.transform.position.z - 22.5f)).normalized*currentSpeed); // camera alternative. a bit buggy at the momemet
         }
 
-        transform.LookAt(ship.transform.position);
+        Quaternion targetRotation = Quaternion.LookRotation(ship.transform.position - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f * Time.deltaTime);
+
+        //transform.LookAt(ship.transform.position);
     }
 }
