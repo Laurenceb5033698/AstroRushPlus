@@ -21,7 +21,7 @@ public class ShipController : MonoBehaviour
     // Mains --------------------------------------------------------------------------------------------------------
     void Start () // Use this for initialization
     {
-       
+
 	}
 	void Update () // Update is called once per frame
     {
@@ -31,7 +31,10 @@ public class ShipController : MonoBehaviour
 		CheckInputs();
 
         thrusters.SetThrusterState(stats.IsShipWorking());
-		if (stats.IsShipWorking()) MoveShip ();
+        if (stats.IsShipWorking()) 
+        {
+            MoveShip(); 
+        }
 
 		UpdateUI ();
 	}
@@ -70,17 +73,37 @@ public class ShipController : MonoBehaviour
 			tempFuelUsed += tempFuelUsage * 10;
 		}
 
-        rb.AddForce(ship.transform.right * (controls.zAxis * 200f) * Time.deltaTime);
+        // forward and backward
+        rb.AddForce(ship.transform.right * (controls.zAxis * stats.GetMainThrust()) * Time.deltaTime);
         tempFuelUsed += Mathf.Abs(controls.zAxis) * tempFuelUsage * Time.deltaTime;
 
-        rb.AddForce(ship.transform.forward * (controls.xAxis * -200f) * Time.deltaTime);
-        tempFuelUsed += Mathf.Abs(controls.xAxis) * tempFuelUsage * Time.deltaTime;
+        // left and right
+        if (Mathf.Abs(controls.xAxis) > 0.1f)
+        {
+            rb.AddForce(ship.transform.forward * (controls.xAxis * -stats.GetMainThrust()) * Time.deltaTime);
+            tempFuelUsed += Mathf.Abs(controls.xAxis) * tempFuelUsage * Time.deltaTime;
+        }
+        else
+        {
+            dampenSidewaysMotion();
+        }
 
-        rb.AddTorque(ship.transform.up * (controls.yawAxis * stats.GetRotSpeed()) * Time.deltaTime);
+        // rotate
+        rb.AddTorque(Vector3.up * (controls.yawAxis * stats.GetRotSpeed()) * Time.deltaTime);
         tempFuelUsed += Mathf.Abs(controls.yawAxis) * tempFuelUsage * Time.deltaTime;
 
         stats.ShipFuel = -tempFuelUsed;
     }
+    private void dampenSidewaysMotion()
+    {
+        Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
+        Debug.Log(locVel.z);
+
+        locVel.z += -(locVel.z/100*80)*Time.deltaTime;
+        rb.velocity = transform.TransformDirection(locVel);     
+    }
+
+
     private void CorrectShipTransforms()
     {
         // Reset unwanted xyz rotation and velocity --------------------------------------------------------------------------------------------

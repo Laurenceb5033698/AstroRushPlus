@@ -7,8 +7,8 @@ public class ShipStats : MonoBehaviour {
 	private int units = 5000;
 
 	// Thruster Variables -------------------------------------------
-	private const float mainThrust = 200f;
-	private const float rotSpeed = 600f;
+	private const float mainThrust = 400f;
+	private const float rotSpeed = 1500f;
 	private const float boostSpeed = 280f;
 
 

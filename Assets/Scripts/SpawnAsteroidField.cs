@@ -29,7 +29,7 @@ public class SpawnAsteroidField : MonoBehaviour {
 	private Vector3 dir;
 
 	const float sMin = 10f;
-	const float sMax = 20f;
+	const float sMax = 35f;
 	// original scale 0.013f max is 0.03f
 	private Vector3 scale;
 
