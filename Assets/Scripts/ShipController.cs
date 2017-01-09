@@ -15,8 +15,17 @@ public class ShipController : MonoBehaviour
     public ShipStats stats;
     public UI ui;
     public Camera cam;
+    public GameObject boundaryz;
+    public GameObject boundaryx;
+
+
+
+    private const int SBOUND = 600;
+    private const int HBOUND = SBOUND + 40;
+
 
     private float rotFix = 0f;
+    private float BoundaryTimeDot = 0f;
 
     // Mains --------------------------------------------------------------------------------------------------------
     void Start () // Use this for initialization
@@ -25,6 +34,27 @@ public class ShipController : MonoBehaviour
 	}
 	void Update () // Update is called once per frame
     {
+        if (Mathf.Abs(ship.transform.position.x) > SBOUND || Mathf.Abs(ship.transform.position.z) > SBOUND)
+        {
+            ui.BoundaryWarning = true;//enable warning text
+            boundaryx.GetComponent<BoundaryLine>().drawstate = true;
+            boundaryz.GetComponent<BoundaryLine>().drawstate = true;
+
+        }
+        else
+        {
+            ui.BoundaryWarning = false; ;//hide warning text
+            boundaryx.GetComponent<BoundaryLine>().drawstate = false;
+            boundaryz.GetComponent<BoundaryLine>().drawstate = false;
+        }
+        if (Mathf.Abs(ship.transform.position.x) > HBOUND || Mathf.Abs(ship.transform.position.z) > HBOUND)
+        {
+            if (Time.time > BoundaryTimeDot)
+            {
+                BoundaryTimeDot = Time.time + 1f;
+                stats.ShipDamage = 5;//every sec ship takes 5% damage
+            }
+        }
         controls.UpdateInputs();
         thrusters.UpdateThrusters();
 

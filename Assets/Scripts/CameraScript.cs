@@ -24,6 +24,11 @@ public class CameraScript : MonoBehaviour {
         {
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(ship.transform.position.x, verticalD, ship.transform.position.z - horizontalD), speed);
         }
+        //else if (speed < -1)
+        //{
+        //    //transform.position = Vector3.MoveTowards(transform.position, new Vector3(ship.transform.position.x, verticalD, ship.transform.position.z - horizontalD), speed);
+        //    //transform.position = Vector3.SmoothDamp(transform.position, new Vector3(ship.transform.position.x + horizontalD, verticalD, ship.transform.position.z + horizontalD), speed, speed);
+        //}
 
         Quaternion targetRotation = Quaternion.LookRotation(ship.transform.position - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f * Time.deltaTime);
