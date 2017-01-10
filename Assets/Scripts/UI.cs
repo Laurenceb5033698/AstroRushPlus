@@ -73,7 +73,7 @@ public class UI : MonoBehaviour {
         set
         {
             displayBoundary = value;
-            //BoundryPanel.SetActive(displayBoundary);
+            BoundryPanel.SetActive(displayBoundary);
         }
     }
 
