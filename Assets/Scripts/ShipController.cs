@@ -37,15 +37,15 @@ public class ShipController : MonoBehaviour
         if (Mathf.Abs(ship.transform.position.x) > SBOUND || Mathf.Abs(ship.transform.position.z) > SBOUND)
         {
             ui.BoundaryWarning = true;//enable warning text
-            boundaryx.GetComponent<BoundaryLine>().drawstate = true;
-            boundaryz.GetComponent<BoundaryLine>().drawstate = true;
+            //boundaryx.GetComponent<BoundaryLine>().drawstate = true;
+            //boundaryz.GetComponent<BoundaryLine>().drawstate = true;
 
         }
         else
         {
             ui.BoundaryWarning = false; ;//hide warning text
-            boundaryx.GetComponent<BoundaryLine>().drawstate = false;
-            boundaryz.GetComponent<BoundaryLine>().drawstate = false;
+            //boundaryx.GetComponent<BoundaryLine>().drawstate = false;
+            //boundaryz.GetComponent<BoundaryLine>().drawstate = false;
         }
         if (Mathf.Abs(ship.transform.position.x) > HBOUND || Mathf.Abs(ship.transform.position.z) > HBOUND)
         {
@@ -94,13 +94,25 @@ public class ShipController : MonoBehaviour
     {
         CorrectShipTransforms();
 
-        if (controls.boost && stats.GetBoostFuelAmount() > 0.1f)
+       
+
+        if (controls.boost && !stats.bco && stats.GetBoostFuelAmount() > 0.0f)
         {
+            if (stats.GetBoostFuelAmount() < 0.5f)
+            {
+                stats.bco = true;
+            }
+
+            Debug.Log("BOOSTING");
             rb.AddForce(ship.transform.right * stats.GetBoostSpeed() * Time.deltaTime);
             stats.ShipFuel = -20 * Time.deltaTime;
         }
         else
         {
+            if (stats.GetBoostFuelAmount() >= 20f)
+            {
+                stats.bco = false;
+            }
             stats.ShipFuel = 3 * Time.deltaTime;
         }
 
@@ -207,9 +219,9 @@ public class ShipController : MonoBehaviour
     
     // EVENT HANDLERS-------------------------------------------------------------------------------------
     void OnCollisionEnter(Collision c)
-	{
-		stats.ShipDamage = Convert.ToInt32(c.relativeVelocity.magnitude)/2;
-	}
+    {
+        stats.ShipDamage = Convert.ToInt32(c.relativeVelocity.magnitude) / 2;
+    }
 	void BuyButton()
 	{
 
