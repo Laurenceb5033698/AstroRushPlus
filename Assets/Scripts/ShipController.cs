@@ -94,24 +94,23 @@ public class ShipController : MonoBehaviour
     {
         CorrectShipTransforms();
 
-        float tempFuelUsed = 0f;
-        float tempFuelUsage = stats.GetFuelUsage();
-
-        if (controls.boost) 
-		{
-			rb.AddForce (ship.transform.right * stats.GetBoostSpeed());
-			tempFuelUsed += tempFuelUsage * 10;
-		}
+        if (controls.boost && stats.GetBoostFuelAmount() > 0.1f)
+        {
+            rb.AddForce(ship.transform.right * stats.GetBoostSpeed() * Time.deltaTime);
+            stats.ShipFuel = -20 * Time.deltaTime;
+        }
+        else
+        {
+            stats.ShipFuel = 3 * Time.deltaTime;
+        }
 
         // forward and backward
         rb.AddForce(ship.transform.right * (controls.zAxis * stats.GetMainThrust()) * Time.deltaTime);
-        tempFuelUsed += Mathf.Abs(controls.zAxis) * tempFuelUsage * Time.deltaTime;
 
         // left and right
         if (Mathf.Abs(controls.xAxis) > 0.1f)
         {
             rb.AddForce(ship.transform.forward * (controls.xAxis * -stats.GetMainThrust()) * Time.deltaTime);
-            tempFuelUsed += Mathf.Abs(controls.xAxis) * tempFuelUsage * Time.deltaTime;
         }
         else
         {
@@ -120,14 +119,11 @@ public class ShipController : MonoBehaviour
 
         // rotate
         rb.AddTorque(Vector3.up * (controls.yawAxis * stats.GetRotSpeed()) * Time.deltaTime);
-        tempFuelUsed += Mathf.Abs(controls.yawAxis) * tempFuelUsage * Time.deltaTime;
-
-        stats.ShipFuel = -tempFuelUsed;
     }
     private void dampenSidewaysMotion()
     {
         Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
-        Debug.Log(locVel.z);
+        //Debug.Log(locVel.z);
 
         locVel.z += -(locVel.z/100*80)*Time.deltaTime;
         rb.velocity = transform.TransformDirection(locVel);     

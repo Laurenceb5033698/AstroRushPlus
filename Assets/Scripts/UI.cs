@@ -42,7 +42,7 @@ public class UI : MonoBehaviour {
 	public void UpdateShipStats(int u, float f, string c, int d)
 	{
 		units.text = "Units: " + u;
-		fuel.text = "Fuel: " + f.ToString ("F2") + "%";
+		fuel.text = "Fuel: " + f.ToString ("N0");
 		cargo.text = "Cargo: " + c;
 		damage.text = "Damage: " + d + "%";
 	}

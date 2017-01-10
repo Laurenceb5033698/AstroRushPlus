@@ -9,15 +9,14 @@ public class ShipStats : MonoBehaviour {
 	// Thruster Variables -------------------------------------------
 	private const float mainThrust = 400f;
 	private const float rotSpeed = 1500f;
-	private const float boostSpeed = 280f;
+	private const float boostSpeed = 1000f;
 
 
 	// WEAPONS
 	private int MissileAmount = 20;
 
 	// FUEL
-	private const float fuelUsage = 0.05f; // per second per thruster
-	private float fuel = 100f;
+	private float boostFuel = 100f;
 
 	// CARGO
 	private float cargo = 0;
@@ -53,13 +52,9 @@ public class ShipStats : MonoBehaviour {
 		return MissileAmount;
 	}
 
-	public float GetFuelAmount()
+	public float GetBoostFuelAmount()
 	{
-		return fuel;
-	}
-	public float GetFuelUsage()
-	{
-		return fuelUsage;
+		return boostFuel;
 	}
 
 	public float GetBoostSpeed()
@@ -132,16 +127,16 @@ public class ShipStats : MonoBehaviour {
     }
     public float ShipFuel
     {
-        get { return fuel; }
+        get { return boostFuel; }
         set
         {
             if (value > 0)
             {
-                fuel = (fuel + value > 100.0f) ? 100.0f : fuel + value;
+                boostFuel = (boostFuel + value > 100.0f) ? 100.0f : boostFuel + value;
             }
             else if (value < 0)
             {
-                fuel = (fuel + value < 0.0f) ? 0.0f : fuel + value;
+                boostFuel = (boostFuel + value < 0.0f) ? 0.0f : boostFuel + value;
             }
         }
 
@@ -156,14 +151,14 @@ public class ShipStats : MonoBehaviour {
 	}
 	public bool IsShipWorking()
 	{
-		return (fuel > 0 && damage < 100);
+		return (damage < 100);
 	}
 		
 
 	// RESET FUNCTIONS
 	public void ResetShip()
 	{
-		fuel = 100;
+		boostFuel = 100;
 		cargo = 0;
 		damage = 0;
         MissileAmount = 20;

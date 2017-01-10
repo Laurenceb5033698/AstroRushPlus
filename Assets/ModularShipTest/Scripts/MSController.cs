@@ -60,26 +60,16 @@ public class MSController : MonoBehaviour
         ship.transform.eulerAngles = new Vector3(0f, ship.transform.eulerAngles.y, 0f); // fix the weird rotation applied to x and z axis
         //--------------------------------------------------------------------------------------------------------------------------------------
 
-        float tempFuelUsed = 0f;
-        float tempFuelUsage = stats.GetFuelUsage() * 1000;
-
         if (controls.boost)
         {
             rb.AddForce(ship.transform.forward * -stats.GetBoostSpeed());
-            tempFuelUsed += tempFuelUsage * 10;
         }
 
         rb.AddForce(ship.transform.forward * (controls.zAxis * -stats.GetMainThrust()) * Time.deltaTime);
-        tempFuelUsed += Mathf.Abs(controls.zAxis) * tempFuelUsage * Time.deltaTime;
 
         rb.AddForce(ship.transform.right * (controls.xAxis * -stats.GetMainThrust()) * Time.deltaTime);
-        tempFuelUsed += Mathf.Abs(controls.xAxis) * tempFuelUsage * Time.deltaTime;
 
         rb.AddTorque(ship.transform.up * (controls.yawAxis * stats.GetRotSpeed()) * Time.deltaTime);
-        tempFuelUsed += Mathf.Abs(controls.yawAxis) * tempFuelUsage * Time.deltaTime;
-
-        stats.ShipFuel = -tempFuelUsed;
-        RemoveFuel(tempFuelUsed);
     }
 
     private void ToggleSolarPanels()
