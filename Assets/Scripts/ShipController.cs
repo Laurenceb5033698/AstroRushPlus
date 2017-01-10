@@ -37,15 +37,15 @@ public class ShipController : MonoBehaviour
         if (Mathf.Abs(ship.transform.position.x) > SBOUND || Mathf.Abs(ship.transform.position.z) > SBOUND)
         {
             ui.BoundaryWarning = true;//enable warning text
-            //boundaryx.GetComponent<BoundaryLine>().drawstate = true;
-            //boundaryz.GetComponent<BoundaryLine>().drawstate = true;
+            boundaryx.GetComponent<BoundaryLine>().drawstate = true;
+            boundaryz.GetComponent<BoundaryLine>().drawstate = true;
 
         }
         else
         {
             ui.BoundaryWarning = false; ;//hide warning text
-            //boundaryx.GetComponent<BoundaryLine>().drawstate = false;
-            //boundaryz.GetComponent<BoundaryLine>().drawstate = false;
+            boundaryx.GetComponent<BoundaryLine>().drawstate = false;
+            boundaryz.GetComponent<BoundaryLine>().drawstate = false;
         }
         if (Mathf.Abs(ship.transform.position.x) > HBOUND || Mathf.Abs(ship.transform.position.z) > HBOUND)
         {

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SpawnAsteroidField : MonoBehaviour {
 
-	public GameObject[] asteroids = new GameObject[5];
+	public GameObject[] asteroids = new GameObject[8];
 	private GameObject[] spawnedAsteroids = new GameObject[NoAsteroids];
 	private const int NoAsteroids = 60;
 
@@ -28,8 +28,8 @@ public class SpawnAsteroidField : MonoBehaviour {
 	private Vector3 point;
 	private Vector3 dir;
 
-	const float sMin = 10f;
-	const float sMax = 35f;
+	const float sMin = 80f;
+	const float sMax = 100f;
 	// original scale 0.013f max is 0.03f
 	private Vector3 scale;
 
@@ -89,7 +89,7 @@ public class SpawnAsteroidField : MonoBehaviour {
 
 	private void GenerateRandoms()
 	{
-		id = Random.Range(0,4);
+		id = Random.Range(0,8);
 		spawnDistance = Random.Range (minSpawnDist,maxSpawnDist);
 		spawnAngle = Random.Range (0f, 360f);
 		rotSpeed = Random.Range (-0.5f,0.5f);
