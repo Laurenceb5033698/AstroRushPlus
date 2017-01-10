@@ -10,13 +10,15 @@ public class UI : MonoBehaviour {
 	public Text fuel;
 	public Text cargo;
 	public Text damage;
+    public Text BoundaryText;
 
     public GameObject menuPanel;
+    public GameObject BoundryPanel;
     public Text menuPanelT;
 
     private int message = 0;
     private bool displayMenu = false;
-
+    private bool displayBoundary = false;
 
 	// Use this for initialization
 	void Start ()
@@ -24,6 +26,7 @@ public class UI : MonoBehaviour {
         SSIpanel.SetActive(false);
         setMessage(2);
         menu = displayMenu;
+        BoundaryWarning = displayBoundary;
     }
 	
 	// Update is called once per frame
@@ -61,6 +64,18 @@ public class UI : MonoBehaviour {
             menuPanel.SetActive(displayMenu);
         }
     }
+    public bool BoundaryWarning
+    {
+        get
+        {
+            return displayBoundary;
+        }
+        set
+        {
+            displayBoundary = value;
+            BoundryPanel.SetActive(displayBoundary);
+        }
+    }
 
     public void setMessage(int v)
     {
@@ -81,6 +96,11 @@ public class UI : MonoBehaviour {
         SceneManager.LoadScene(0);
     }
 
+    
+    public void HideBoundaryWarning()
+    {
+
+    }
 
 
 }
