@@ -10,6 +10,7 @@ public class ShipStats : MonoBehaviour {
 	private const float mainThrust = 400f;
 	private const float rotSpeed = 1500f;
 	private const float boostSpeed = 1000f;
+    private bool boostMinCutoff = false;
 
 
 	// WEAPONS
@@ -85,6 +86,13 @@ public class ShipStats : MonoBehaviour {
 
 
     // GET & SET
+    public bool bco // boost cut off
+    {
+        get { return boostMinCutoff; }
+        set { boostMinCutoff = value; }
+    }
+
+
     public bool LaserState
     {
         get { return laserIsOn; }
@@ -142,7 +150,10 @@ public class ShipStats : MonoBehaviour {
 
     }
 
-
+    public void addMissile(int amount)
+    {
+        MissileAmount = (MissileAmount + amount > 20) ? 20 : MissileAmount + amount;
+    }
 
 	// Validate
 	public bool LoadMissile() 
