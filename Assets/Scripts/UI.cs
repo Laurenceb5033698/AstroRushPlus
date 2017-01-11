@@ -44,7 +44,7 @@ public class UI : MonoBehaviour {
 		units.text = "Units: " + u;
 		fuel.text = "Fuel: " + f.ToString ("N0");
 		cargo.text = "Cargo: " + c;
-		damage.text = "Damage: " + d.ToString("N0") + "%";
+		damage.text = "Health: " + d.ToString("N0");
 	}
 
     public void UpdateStationPanelToggle(bool s)

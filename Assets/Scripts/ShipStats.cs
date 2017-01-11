@@ -24,7 +24,13 @@ public class ShipStats : MonoBehaviour {
 	private const float MaxcargoSpace = 1000;
 
 	// DAMAGE
-	private float damage = 0;
+    private float health = 100;
+    private const int maxHealth = 100;
+    private float shield = 0f;
+    private const int maxShield = 40;
+
+    private bool currentlyInCombat = false;
+    private float outOfCombatTimer = 0;
 
 	// LASER
 	private bool laserIsOn = false;
@@ -98,19 +104,56 @@ public class ShipStats : MonoBehaviour {
         get { return laserIsOn; }
         set { laserIsOn = value; }
     }
-    public float ShipDamage
+    public void takeDamage(float val)
     {
-        get { return damage; }
-        set 
+        inCombat = true;
+        if (ShipShield > 0) //if we have shields
+            if (shield - val > 0)   //and the damage taken is lower than sheild health
+                ShipShield = -val;   //do damage to shield
+            else
+            {//otherwise split damage between sheild and health
+                ShipHealth = -(shield - val);   //remaining damage is delt to health
+                ShipShield = -shield;        //and shield is set to 0
+            }
+        else
+            ShipHealth = -val;   //shield is at 0, so deal damage directly to health
+    }
+    public float ShipHealth
+    {
+        get { return health; }
+        set
         {
-            if (value > 0.0f)
+            if (ShipShield > 0)
             {
-                damage = (damage + value > 100.0f) ? 100.0f : damage + value;
+                ShipShield = value;
             }
-            else if (value < 0.0f)
+            else
             {
-                damage = (damage + value < 0.0f) ? 0.0f : damage + value;
+                if (value > 0)
+                {
+                    health = (health + value < 0) ? 0 : health + value;
+                }
+                else if (value < 0)
+                {
+                    health = (health + value > maxHealth) ? maxHealth : health + value;
+                }
             }
+        }
+    }
+    public float ShipShield
+    {
+        get { return shield; }
+        set
+        {
+            if (value > 0)
+            {
+                shield = (shield + value > maxShield) ? maxShield : shield + value;
+            }
+            else if (value < 0)
+            {
+                shield = (shield + value < 0) ? 0 : shield + value;
+            }
+            //Debug.Log("shield hp: " + shield);
         }
     }
     public int Units
@@ -154,6 +197,32 @@ public class ShipStats : MonoBehaviour {
     {
         MissileAmount = (MissileAmount + amount > 20) ? 20 : MissileAmount + amount;
     }
+    public bool inCombat
+    {
+        get
+        {
+            if (outOfCombatTimer > 0)
+                outOfCombatTimer -= Time.deltaTime;
+            else
+            {
+                currentlyInCombat = false;
+            }
+            return currentlyInCombat;
+        }
+        set
+        {
+            if (value)
+            {
+                outOfCombatTimer = 8f;
+                currentlyInCombat = true;
+            }
+            else
+            {
+                outOfCombatTimer = 0f;
+                currentlyInCombat = false;
+            }
+        }
+    }
 
 	// Validate
 	public bool LoadMissile() 
@@ -162,7 +231,7 @@ public class ShipStats : MonoBehaviour {
 	}
 	public bool IsShipWorking()
 	{
-		return (damage < 100);
+        return (health > 0);
 	}
 		
 
@@ -171,11 +240,17 @@ public class ShipStats : MonoBehaviour {
 	{
 		boostFuel = 100;
 		cargo = 0;
-		damage = 0;
+        health = maxHealth;
+        shield = maxShield;
         MissileAmount = 20;
+
+        inCombat = false;
 	}
-
-
+    public void regenerateShield()
+    {
+        if ((!inCombat) && (ShipShield < maxShield))
+            ShipShield = 5 * Time.deltaTime;
+    }
 
 
 }

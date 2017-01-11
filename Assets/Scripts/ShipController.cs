@@ -17,10 +17,10 @@ public class ShipController : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private GameObject boundaryz;
     [SerializeField] private GameObject boundaryx;
-
+    [SerializeField] private GameObject shieldSphere = null;
 
     private const int SBOUND = 600;
-    private const int HBOUND = SBOUND + 40;
+    private const int HBOUND = SBOUND + 70;
     private float rotFix = 0f;
 
     // Mains --------------------------------------------------------------------------------------------------------
@@ -32,6 +32,8 @@ public class ShipController : MonoBehaviour
     {
         controls.UpdateInputs();
         thrusters.UpdateThrusters();
+        stats.regenerateShield();
+        ShieldSphereOpacity();
 
         CheckInputs();
 
@@ -54,6 +56,29 @@ public class ShipController : MonoBehaviour
     }
 	
     // FUNCTIONS --------------------------------------------------------------------------------------------------------	
+    public void ShieldSphereOpacity()
+    {
+        if (shieldSphere != null)
+        {
+
+            float newalpha = 0.5f * ((stats.ShipShield / 40));
+
+            Color oldcol = shieldSphere.GetComponent<MeshRenderer>().materials[0].color;
+            oldcol = new Color(oldcol.r, oldcol.g, oldcol.b, newalpha);
+            shieldSphere.GetComponent<MeshRenderer>().materials[0].color = oldcol;
+            Debug.Log("shield amount: " + stats.ShipShield);
+            if ((stats.ShipShield == 0))
+            {
+                shieldSphere.GetComponent<MeshRenderer>().enabled = false;
+            }
+            else
+            {
+                shieldSphere.GetComponent<MeshRenderer>().enabled = true;
+            }
+
+        }
+    }
+
 	private void CheckInputs()
 	{
 		if (controls.reset) ResetShip();
@@ -168,7 +193,7 @@ public class ShipController : MonoBehaviour
     private void UpdateUI()
     {
         string tempCargo = "" + stats.ShipCargo.ToString("F2") + "/" + stats.GetMaxCargoSpace();
-        ui.UpdateShipStats(stats.Units, stats.ShipFuel, tempCargo, stats.ShipDamage);
+        ui.UpdateShipStats(stats.Units, stats.ShipFuel, tempCargo, stats.ShipHealth);
     }
     private void UpdateBoundary()
     {
@@ -187,7 +212,7 @@ public class ShipController : MonoBehaviour
 
         if (Mathf.Abs(ship.transform.position.x) > HBOUND || Mathf.Abs(ship.transform.position.z) > HBOUND)
         {
-            stats.ShipDamage = 2.0f * Time.deltaTime; //every sec ship takes 2% damage
+            stats.takeDamage(2.0f * Time.deltaTime); //every sec ship takes 2% damage
         }
     }
     private void ToggleStationPanel()
@@ -224,7 +249,8 @@ public class ShipController : MonoBehaviour
     // EVENT HANDLERS-------------------------------------------------------------------------------------
     void OnCollisionEnter(Collision c)
     {
-        stats.ShipDamage = c.relativeVelocity.magnitude / 2;
+        stats.takeDamage(c.relativeVelocity.magnitude / 2);
+        ShieldSphereOpacity();
     }
 	void BuyButton()
 	{
@@ -255,16 +281,16 @@ public class ShipController : MonoBehaviour
 	{
         Debug.Log("repair button is pressed");
         int tempPrice = station.GetComponent<StationManager> ().GetCargoPrice ();
-		int tempCost = (int)(stats.ShipDamage * tempPrice);
+		int tempCost = (int)(100 - stats.ShipHealth * tempPrice);
 
 		if (tempCost <= stats.Units) 
 		{
             stats.Units = -tempCost;
-			stats.ShipDamage = -stats.ShipDamage; // set ship damage value to -ship damage value. by doing this the value will be 0
+            stats.ShipHealth = stats.ShipHealth; // set ship damage value to -ship damage value. by doing this the value will be 0
 		} 
 		else 
 		{
-			stats.ShipDamage = (stats.Units / tempPrice);
+            stats.ShipHealth = (stats.Units / tempPrice);
 		}
 	}
 
