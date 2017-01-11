@@ -5,29 +5,22 @@ using System;
 
 public class ShipController : MonoBehaviour 
 {
-	public GameObject ship;  // ship gameobject
-    public GameObject station;
-    public GameObject mPreF; // missile prefab
-	public Inputs controls;
-	public AnimateThrusters thrusters;
-	public Rigidbody rb; 	// ship's rigid body
-	public Laser shipLaser;
-    public ShipStats stats;
-    public UI ui;
-    public Camera cam;
-    public GameObject boundaryz;
-    public GameObject boundaryx;
-
-    [SerializeField]
-    private float rbMag;
-    [SerializeField]
-    private Vector3 rbVel;
+	[SerializeField] private GameObject ship;  // ship gameobject
+    [SerializeField] private GameObject station;
+    [SerializeField] private GameObject mPreF; // missile prefab
+	[SerializeField] private Inputs controls;
+	[SerializeField] private AnimateThrusters thrusters;
+	[SerializeField] private Rigidbody rb; 	// ship's rigid body
+	[SerializeField] private Laser shipLaser;
+    [SerializeField] private ShipStats stats;
+    [SerializeField] private UI ui;
+    [SerializeField] private Camera cam;
+    [SerializeField] private GameObject boundaryz;
+    [SerializeField] private GameObject boundaryx;
 
 
     private const int SBOUND = 600;
     private const int HBOUND = SBOUND + 40;
-
-
     private float rotFix = 0f;
 
     // Mains --------------------------------------------------------------------------------------------------------
@@ -37,13 +30,10 @@ public class ShipController : MonoBehaviour
 	}
 	void Update () // Update is called once per frame
     {
-        rbMag = rb.velocity.magnitude;
-        rbVel = rb.velocity;
-
         controls.UpdateInputs();
         thrusters.UpdateThrusters();
 
-		CheckInputs();
+        CheckInputs();
 
         if (stats.IsShipWorking()) 
         {
@@ -56,6 +46,11 @@ public class ShipController : MonoBehaviour
         UpdateUI ();
         UpdateBoundary();
 
+    }
+
+    void FixedUpdate()
+    {
+        
     }
 	
     // FUNCTIONS --------------------------------------------------------------------------------------------------------	

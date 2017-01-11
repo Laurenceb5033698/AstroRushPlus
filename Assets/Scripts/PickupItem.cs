@@ -4,18 +4,40 @@ using System.Collections;
 public class PickupItem : MonoBehaviour {
 
     [SerializeField] private int type = 0;
+    [SerializeField] private GameObject item;
 
+    private float speed = 1f;
+    private bool directionUp = true;
 
 	// Use this for initialization
 	void Start () 
     {
-        type = Random.Range(1,5);
+        //type = Random.Range(1,5);
 	}
 	
 	// Update is called once per frame
 	void Update () 
     {
-	    
+        item.transform.Rotate(Vector3.forward * 30f * Time.deltaTime);
+
+        if (directionUp)
+        {
+            if (item.transform.position.y < 2f)
+            {
+                item.transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            }
+            else
+                directionUp = false;
+        }
+        else
+        {
+            if (item.transform.position.y >= 0f)
+            {
+                item.transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+            }
+            else
+                directionUp = true;
+        }
 	}
 
     public int getType() 
