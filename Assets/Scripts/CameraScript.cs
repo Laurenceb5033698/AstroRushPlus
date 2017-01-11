@@ -3,35 +3,33 @@ using System.Collections;
 
 public class CameraScript : MonoBehaviour {
 
+    [SerializeField]
+	private GameObject ship;
+    [SerializeField]
+    private float verticalD = 30.0f;
+    [SerializeField]
+    private float horizontalD = 15.0f;
+    [SerializeField]
+    private float minDistance = 35.0f;
+    [SerializeField]
+    private float distance = 0.0f;
 
-	public GameObject ship;
-    private float minDistance = 35f;
-
-    private float speed = 0f;
-    public float verticalD = 45f;
-    public float horizontalD = 22.5f;
+    private Vector3 targetPosition;
 
     void Start()
     {
-        minDistance = Vector3.Distance(transform.position, ship.transform.position)-15f;
+        targetPosition.x = ship.transform.position.x;
+        targetPosition.y = verticalD;
+        targetPosition.z = ship.transform.position.z - horizontalD;
     }
 
 	void Update ()
     {
-        speed = (Vector3.Distance(transform.position, ship.transform.position) - minDistance) * Time.deltaTime;
+        distance = (Vector3.Distance(transform.position, ship.transform.position) - minDistance); // mindistance will make sure that the camera slows down when it is close to the ship
 
-        if (speed > 0)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(ship.transform.position.x, verticalD, ship.transform.position.z - horizontalD), speed);
-        }
-        //else if (speed < -1)
-        //{
-        //    //transform.position = Vector3.MoveTowards(transform.position, new Vector3(ship.transform.position.x, verticalD, ship.transform.position.z - horizontalD), speed);
-        //    //transform.position = Vector3.SmoothDamp(transform.position, new Vector3(ship.transform.position.x + horizontalD, verticalD, ship.transform.position.z + horizontalD), speed, speed);
-        //}
-
-        Quaternion targetRotation = Quaternion.LookRotation(ship.transform.position - transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f * Time.deltaTime);
-        //transform.LookAt(ship.transform.position);
+        targetPosition.x = ship.transform.position.x;
+        targetPosition.z = ship.transform.position.z - horizontalD;
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, distance * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(ship.transform.position - transform.position), 1f * Time.deltaTime);
     }
 }

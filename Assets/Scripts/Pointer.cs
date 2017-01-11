@@ -3,12 +3,11 @@ using System.Collections;
 
 public class Pointer : MonoBehaviour {
 
-    public GameObject pointerM; // model
-    public GameObject from;
-    public GameObject to;
-    public float distance = 8f;
+    [SerializeField] private GameObject pointerM; // model
+    [SerializeField] private GameObject from;
+    [SerializeField] private GameObject to;
 
-
+    private const float distance = 8f;
 
 	// Use this for initialization
 	void Start () {

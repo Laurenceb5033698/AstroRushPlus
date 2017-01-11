@@ -1,24 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AnimateThrusters : MonoBehaviour {
+public class AnimateThrusters : MonoBehaviour
+{
 
 	private bool ThrustersEnabled = true;
-	public Inputs controls;
 
+    [SerializeField]
+	private Inputs controls;
     // particle effect for thrusters
-    public ParticleSystem fThrust1; 	// forward thrust
-	public ParticleSystem fThrust2; 	// forward thrust
-	public ParticleSystem fThrust3; 	// forward thrust
-	public ParticleSystem fThrust4; 	// forward thrust
-
-    public ParticleSystem rThrustLeft; 	// backward thrust
-	public ParticleSystem rThrustRight; 	// backward thrust
-
-    public ParticleSystem flThrust; // front left thrust
-    public ParticleSystem frThrust; // front right thrust
-    public ParticleSystem rlThrust;	// rear left thrust
-    public ParticleSystem rrThrust;	// rear right thrust
+    [SerializeField]
+    private ParticleSystem fThrust1;        // forward thrust
+    [SerializeField]
+    private ParticleSystem fThrust2;        // forward thrust
+    [SerializeField]
+    private ParticleSystem fThrust3;        // forward thrust
+    [SerializeField]
+    private ParticleSystem fThrust4;        // forward thrust
+    [SerializeField]
+    private ParticleSystem rThrustLeft;     // backward thrust
+    [SerializeField]
+    private ParticleSystem rThrustRight;    // backward thrust
+    [SerializeField]
+    private ParticleSystem flThrust;        // front left thrust
+    [SerializeField]
+    private ParticleSystem frThrust;        // front right thrust
+    [SerializeField]
+    private ParticleSystem rlThrust;        // rear left thrust
+    [SerializeField]
+    private ParticleSystem rrThrust;	    // rear right thrust
 
 	void Start () 	// Use this for initialization
     {
@@ -26,7 +36,6 @@ public class AnimateThrusters : MonoBehaviour {
 	}
 	void Update () 	// Update is called once per frame
     {
-
 	}
 
     public void UpdateThrusters()
@@ -56,7 +65,7 @@ public class AnimateThrusters : MonoBehaviour {
 	private void AnimateThrust()
 	{
 		// ----------------- Forward Thrusters -------------------------------
-		bool fThrusters = (controls.zAxis > 0);
+		bool fThrusters = (controls.zAxis > 0 || controls.boost);
 		SetEmission (fThrust1, fThrusters);
 		SetEmission (fThrust2, fThrusters);
 		SetEmission (fThrust3, fThrusters);

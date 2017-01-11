@@ -24,11 +24,11 @@ public class ShipStats : MonoBehaviour {
 	private const float MaxcargoSpace = 1000;
 
 	// DAMAGE
-	private int damage = 0;
+	private float damage = 0;
 
 	// LASER
 	private bool laserIsOn = false;
-	private float laserSpeed = 0.05f;
+	private float laserSpeed = 0.2f;
 	private float laserRange = 50f;
 	private const float laserWidth = 0.2f;
 
@@ -98,18 +98,18 @@ public class ShipStats : MonoBehaviour {
         get { return laserIsOn; }
         set { laserIsOn = value; }
     }
-    public int ShipDamage
+    public float ShipDamage
     {
         get { return damage; }
         set 
         {
-            if (value > 0)
+            if (value > 0.0f)
             {
-                damage = (damage + value > 100) ? 100 : damage + value;
+                damage = (damage + value > 100.0f) ? 100.0f : damage + value;
             }
-            else if (value < 0)
+            else if (value < 0.0f)
             {
-                damage = (damage + value < 0) ? 0 : damage + value;
+                damage = (damage + value < 0.0f) ? 0.0f : damage + value;
             }
         }
     }

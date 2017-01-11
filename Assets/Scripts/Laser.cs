@@ -3,22 +3,19 @@ using System.Collections;
 
 public class Laser : MonoBehaviour 
 {
+    [SerializeField] private ShipStats stats;
+    [SerializeField] private Inputs controls;
 
+    [SerializeField] private GameObject laserGo;
+    [SerializeField] private LineRenderer laser;
+    [SerializeField] private GameObject target = null;
 
-	public ShipStats stats;
-	public Inputs controls;
-
-    public GameObject turret;
-    public GameObject TGun;
-    private LineRenderer laser;
+    [SerializeField] private Material activeLaserColor;
+    [SerializeField] private Material idleLaserColor;
 
 	RaycastHit hitInfo;
 	Ray detectObject;
 	bool hit = false;
-
-    public Material activeLaserColor;
-    public Material idleLaserColor;
-
 
     // Use this for initialization
     void Start () 
@@ -30,73 +27,44 @@ public class Laser : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-		DrawLaser();
-        if (stats.LaserState) MineAsteroid();
-	}
-
-    private void DrawLaser()
-    {
-		laser.SetPosition(0, TGun.transform.position);
-
-		GameObject target = FindObject ();
-        Vector3 tempPos = Vector3.zero;
-
-
-		if (stats.LaserState)
+        if (stats.LaserState) // if the laser is on
         {
-			if (target != null && Vector3.Distance (TGun.transform.position, hitInfo.point) < stats.GetLaserRange())
-            {
-				tempPos = hitInfo.point;
-                laser.GetComponent<Renderer>().material = (target.name == "Asteroid") ? activeLaserColor : idleLaserColor; 
-            }
+            // find target -------------------
+            detectObject = new Ray(laserGo.transform.position, laserGo.transform.right * stats.GetLaserRange());
+            hit = Physics.Raycast(detectObject, out hitInfo);
+
+            if (hit && Vector3.Distance(laserGo.transform.position, hitInfo.point) < stats.GetLaserRange())
+                target = hitInfo.transform.gameObject;
             else
+                target = null;
+            //---------------------------------
+
+            laser.SetPosition(0, laserGo.transform.position);                                                                      // set line start position
+
+            if (target != null)                                                                                                 // if there is something infront
             {
-				tempPos = (TGun.transform.position + -TGun.transform.up * stats.GetLaserRange());
-                laser.GetComponent<Renderer>().material = idleLaserColor;
+                if (Vector3.Distance(laserGo.transform.position, hitInfo.point) < stats.GetLaserRange())                           // and in range
+                {
+                    laser.SetPosition(1, hitInfo.point);                                                                        // set the laser to point to that area
+                    laser.GetComponent<Renderer>().material = (target.name == "Asteroid") ? activeLaserColor : idleLaserColor;  // set the color of the laser
+                }
+                if (target.name == "Asteroid" && stats.ShipCargo < stats.GetMaxCargoSpace())                                    // if the object is an asteroid and there is free cargo space
+                {
+                    target.GetComponent<Asteroid>().MineOre(stats.GetLaserSpeed());                                             // decrease ore in asteroid
+                    stats.ShipCargo = stats.GetLaserSpeed();                                                                    // add ore to cargo space
+                }
             }
+            else                                                                                                                // if there is nothing in front
+            {
+                laser.SetPosition(1, (laserGo.transform.position + laserGo.transform.right * stats.GetLaserRange()));                   // set the laser to max range
+                laser.GetComponent<Renderer>().material = idleLaserColor;                                                       // and change color to idle
+            }
+
         }
-        else
+        else                                                                                                                    // if the laser is off, turn off the line
         {
-			tempPos = TGun.transform.position;
+            laser.SetPosition(0, laserGo.transform.position);
+            laser.SetPosition(1, laserGo.transform.position);
         }
-        
-        laser.SetPosition(1, tempPos);
-    }
-
-	private GameObject FindObject()
-	{
-		detectObject = new Ray(TGun.transform.position, -TGun.transform.up * stats.GetLaserRange());
-		hit = Physics.Raycast(detectObject, out hitInfo);
-
-		if (stats.LaserState) 
-		{
-			if (hit && Vector3.Distance (TGun.transform.position, hitInfo.point) < stats.GetLaserRange()) {
-				return hitInfo.transform.gameObject;
-			}
-		}
-		return null;
 	}
-
-	public void MineAsteroid()
-	{
-		GameObject temp = FindObject ();
-
-
-		if (temp != null) 
-		{
-			if (temp.name == "Asteroid") 
-			{
-				if (temp.GetComponent<Asteroid> ().GetOreAmountLeft () > 0.1f) 
-				{
-					if (stats.ShipCargo < stats.GetMaxCargoSpace()) 
-					{
-						stats.ShipCargo = temp.GetComponent<Asteroid> ().MineOre (stats.GetLaserSpeed());
-					}
-				} 
-				else
-					temp.GetComponent<Asteroid> ().DestroyAsteroid ();
-			}
-		}
-	}
-
 }

@@ -11,14 +11,17 @@ public class BoundaryLine : MonoBehaviour {
 
     private const int SBOUND = 600;
     private const int HBOUND = SBOUND + 40;
-    private Vector3 lineStartPos = new Vector3(0, 40, 0);
-    private Vector3 lineEndPos = new Vector3(0, 40, 0);
+    private Vector3 lineStartPos = new Vector3(0, 500, 0);
+    private Vector3 lineEndPos = new Vector3(0, 500, 0);
 
     // Use this for initialization
     void Start()
     {
         line = transform.gameObject.GetComponent<LineRenderer>();
         line.SetWidth(0.2f, 0.2f);
+
+        line.SetPosition(0, lineStartPos);
+        line.SetPosition(1, lineEndPos);
 
         drawLine = false;
     }

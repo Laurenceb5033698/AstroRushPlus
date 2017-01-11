@@ -5,27 +5,23 @@ using System;
 
 public class ShipController : MonoBehaviour 
 {
-	public GameObject ship;  // ship gameobject
-    public GameObject station;
-    public GameObject mPreF; // missile prefab
-	public Inputs controls;
-	public AnimateThrusters thrusters;
-	public Rigidbody rb; 	// ship's rigid body
-	public Laser shipLaser;
-    public ShipStats stats;
-    public UI ui;
-    public Camera cam;
-    public GameObject boundaryz;
-    public GameObject boundaryx;
-
+	[SerializeField] private GameObject ship;  // ship gameobject
+    [SerializeField] private GameObject station;
+    [SerializeField] private GameObject mPreF; // missile prefab
+	[SerializeField] private Inputs controls;
+	[SerializeField] private AnimateThrusters thrusters;
+	[SerializeField] private Rigidbody rb; 	// ship's rigid body
+	[SerializeField] private Laser shipLaser;
+    [SerializeField] private ShipStats stats;
+    [SerializeField] private UI ui;
+    [SerializeField] private Camera cam;
+    [SerializeField] private GameObject boundaryz;
+    [SerializeField] private GameObject boundaryx;
 
 
     private const int SBOUND = 600;
     private const int HBOUND = SBOUND + 40;
-
-
     private float rotFix = 0f;
-    private float BoundaryTimeDot = 0f;
 
     // Mains --------------------------------------------------------------------------------------------------------
     void Start () // Use this for initialization
@@ -34,40 +30,28 @@ public class ShipController : MonoBehaviour
 	}
 	void Update () // Update is called once per frame
     {
-        if (Mathf.Abs(ship.transform.position.x) > SBOUND || Mathf.Abs(ship.transform.position.z) > SBOUND)
-        {
-            ui.BoundaryWarning = true;//enable warning text
-            //boundaryx.GetComponent<BoundaryLine>().drawstate = true;
-            //boundaryz.GetComponent<BoundaryLine>().drawstate = true;
-
-        }
-        else
-        {
-            ui.BoundaryWarning = false; ;//hide warning text
-            //boundaryx.GetComponent<BoundaryLine>().drawstate = false;
-            //boundaryz.GetComponent<BoundaryLine>().drawstate = false;
-        }
-        if (Mathf.Abs(ship.transform.position.x) > HBOUND || Mathf.Abs(ship.transform.position.z) > HBOUND)
-        {
-            if (Time.time > BoundaryTimeDot)
-            {
-                BoundaryTimeDot = Time.time + 1f;
-                stats.ShipDamage = 5;//every sec ship takes 5% damage
-            }
-        }
         controls.UpdateInputs();
         thrusters.UpdateThrusters();
 
-		CheckInputs();
+        CheckInputs();
 
-        thrusters.SetThrusterState(stats.IsShipWorking());
         if (stats.IsShipWorking()) 
         {
+            thrusters.SetThrusterState(true);
             MoveShip(); 
         }
+        else
+            thrusters.SetThrusterState(false);
 
-		UpdateUI ();
-	}
+        UpdateUI ();
+        UpdateBoundary();
+
+    }
+
+    void FixedUpdate()
+    {
+        
+    }
 	
     // FUNCTIONS --------------------------------------------------------------------------------------------------------	
 	private void CheckInputs()
@@ -82,7 +66,7 @@ public class ShipController : MonoBehaviour
 			if (stats.LoadMissile ()) 
 			{
 				SpawnMissile ();
-				//stats.DecreaseMissileAmount (); // do not decrement missiles until we make an option to reload
+				stats.DecreaseMissileAmount ();
 			} 
 			else
             {
@@ -175,7 +159,7 @@ public class ShipController : MonoBehaviour
 
 
 		GameObject temp = (GameObject)Instantiate (mPreF,shipPos + (shipDirection * 6f),shipRotation);
-        temp.GetComponent<Rigidbody> ().velocity = rb.velocity * 2f;
+        temp.GetComponent<Rigidbody>().AddForce(ship.transform.position + ship.transform.right * (rb.velocity.magnitude * 5f));
 		temp.transform.LookAt(RocketRot);
 		temp.transform.Rotate (-90,0,0);
 	}
@@ -185,6 +169,26 @@ public class ShipController : MonoBehaviour
     {
         string tempCargo = "" + stats.ShipCargo.ToString("F2") + "/" + stats.GetMaxCargoSpace();
         ui.UpdateShipStats(stats.Units, stats.ShipFuel, tempCargo, stats.ShipDamage);
+    }
+    private void UpdateBoundary()
+    {
+        if (Mathf.Abs(ship.transform.position.x) > SBOUND || Mathf.Abs(ship.transform.position.z) > SBOUND)
+        {
+            ui.BoundaryWarning = true;//enable warning text
+            boundaryx.GetComponent<BoundaryLine>().drawstate = true;
+            boundaryz.GetComponent<BoundaryLine>().drawstate = true;
+        }
+        else
+        {
+            ui.BoundaryWarning = false; ;//hide warning text
+            boundaryx.GetComponent<BoundaryLine>().drawstate = false;
+            boundaryz.GetComponent<BoundaryLine>().drawstate = false;
+        }
+
+        if (Mathf.Abs(ship.transform.position.x) > HBOUND || Mathf.Abs(ship.transform.position.z) > HBOUND)
+        {
+            stats.ShipDamage = 2.0f * Time.deltaTime; //every sec ship takes 2% damage
+        }
     }
     private void ToggleStationPanel()
     {
@@ -220,7 +224,7 @@ public class ShipController : MonoBehaviour
     // EVENT HANDLERS-------------------------------------------------------------------------------------
     void OnCollisionEnter(Collision c)
     {
-        stats.ShipDamage = Convert.ToInt32(c.relativeVelocity.magnitude) / 2;
+        stats.ShipDamage = c.relativeVelocity.magnitude / 2;
     }
 	void BuyButton()
 	{
@@ -251,7 +255,7 @@ public class ShipController : MonoBehaviour
 	{
         Debug.Log("repair button is pressed");
         int tempPrice = station.GetComponent<StationManager> ().GetCargoPrice ();
-		int tempCost = stats.ShipDamage * tempPrice;
+		int tempCost = (int)(stats.ShipDamage * tempPrice);
 
 		if (tempCost <= stats.Units) 
 		{
@@ -263,7 +267,5 @@ public class ShipController : MonoBehaviour
 			stats.ShipDamage = (stats.Units / tempPrice);
 		}
 	}
-
-
 
 }

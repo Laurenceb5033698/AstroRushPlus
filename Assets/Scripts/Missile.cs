@@ -3,16 +3,11 @@ using System.Collections;
 
 public class Missile : MonoBehaviour 
 {
-	private const float lifeSpam = 5f;
+	private const float lifeSpam = 2f;
 	private float countDown = lifeSpam;
     private Rigidbody rb;
 
 	public GameObject exp;
-
-    //public Missile(GameObject e)
-    //{
-    //    exp = e;
-    //}
 
 	// Use this for initialization
     void Start () 
@@ -23,8 +18,7 @@ public class Missile : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		rb.AddForce (transform.up * 2.5f);
-
+        rb.AddForce(transform.up * 20f); // accelerate
 
 		countDown -= 1 * Time.deltaTime;
 		if (countDown < 0) 
@@ -44,6 +38,6 @@ public class Missile : MonoBehaviour
 	private void DestroySelf()
 	{
 		Instantiate (exp,transform.position,transform.rotation);
-		Destroy (transform.gameObject);
+        Destroy (transform.gameObject);
 	}
 }

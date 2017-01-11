@@ -5,25 +5,13 @@ public class Asteroid : MonoBehaviour {
 
 	public float ore = 20;
 
-	public float MineOre(float mineSpeed)
+	public void MineOre(float mineSpeed)
 	{
-		float temp = 0;
-		if (ore - mineSpeed >= 0) 
-		{
-			temp = mineSpeed;
-			ore -= mineSpeed;
-		}
-		return temp;
-	}
+		ore -= mineSpeed;
 
-	public float GetOreAmountLeft()
-	{
-		return ore;
+        if (ore < 0.1f)
+        {
+            Destroy(transform.gameObject);
+        }
 	}
-
-	public void DestroyAsteroid()
-	{
-		Destroy (transform.gameObject);
-	}
-
 }
