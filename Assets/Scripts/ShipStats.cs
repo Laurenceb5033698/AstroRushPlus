@@ -9,7 +9,7 @@ public class ShipStats : MonoBehaviour {
 	// Thruster Variables -------------------------------------------
 	private const float mainThrust = 400f;
 	private const float rotSpeed = 1500f;
-	private const float boostSpeed = 1000f;
+	private const float boostSpeed = 1500f;
     private bool boostMinCutoff = false;
 
 

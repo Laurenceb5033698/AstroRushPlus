@@ -37,13 +37,17 @@ public class ShipController : MonoBehaviour
 
         CheckInputs();
 
-        if (stats.IsShipWorking()) 
+        if (stats.IsShipWorking())
         {
             thrusters.SetThrusterState(true);
-            MoveShip(); 
+            MoveShip();
         }
         else
+        { 
             thrusters.SetThrusterState(false);
+            ui.setMessage(0);
+            ui.menu = true;
+        }
 
         UpdateUI ();
         UpdateBoundary();
@@ -112,9 +116,34 @@ public class ShipController : MonoBehaviour
                 stats.bco = true;
             }
 
-            Debug.Log("BOOSTING");
-            rb.AddForce(ship.transform.right * stats.GetBoostSpeed() * Time.deltaTime);
-            stats.ShipFuel = -20 * Time.deltaTime;
+            // up and down
+            if (controls.zAxis > 0.1f)
+            {
+                Debug.Log("BOOSTING UP");
+                rb.AddForce(ship.transform.right * (stats.GetBoostSpeed()) * Time.deltaTime);
+                stats.ShipFuel = -20 * Time.deltaTime;
+            }
+            else if (controls.zAxis < -0.1f)
+            {
+                Debug.Log("BOOSTING DOWN");
+                rb.AddForce(ship.transform.right * (-stats.GetBoostSpeed()) * Time.deltaTime);
+                stats.ShipFuel = -20 * Time.deltaTime;
+            }
+
+
+            // left and right
+            if (controls.xAxis > 0.1f)
+            {
+                Debug.Log("BOOSTING RIGHT");
+                rb.AddForce(ship.transform.forward * (-stats.GetBoostSpeed()) * Time.deltaTime);
+                stats.ShipFuel = -20 * Time.deltaTime;
+            }
+            else if (controls.xAxis < -0.1f)
+            {
+                Debug.Log("BOOSTING LEFT");
+                rb.AddForce(ship.transform.forward * (stats.GetBoostSpeed()) * Time.deltaTime);
+                stats.ShipFuel = -20 * Time.deltaTime;
+            }
         }
         else
         {
@@ -127,18 +156,10 @@ public class ShipController : MonoBehaviour
 
         // forward and backward
         rb.AddForce(ship.transform.right * (controls.zAxis * stats.GetMainThrust()) * Time.deltaTime);
-
         // left and right
-        if (Mathf.Abs(controls.xAxis) > 0.1f)
-        {
-            rb.AddForce(ship.transform.forward * (controls.xAxis * -stats.GetMainThrust()) * Time.deltaTime);
-        }
-        else
-        {
-            dampenSidewaysMotion();
-        }
-
-        // rotate
+        if (Mathf.Abs(controls.xAxis) > 0.1f) rb.AddForce(ship.transform.forward * (controls.xAxis * -stats.GetMainThrust()) * Time.deltaTime);
+        else dampenSidewaysMotion();
+        //rotate
         rb.AddTorque(Vector3.up * (controls.yawAxis * stats.GetRotSpeed()) * Time.deltaTime);
     }
     private void dampenSidewaysMotion()
@@ -212,7 +233,7 @@ public class ShipController : MonoBehaviour
 
         if (Mathf.Abs(ship.transform.position.x) > HBOUND || Mathf.Abs(ship.transform.position.z) > HBOUND)
         {
-            stats.takeDamage(2.0f * Time.deltaTime); //every sec ship takes 2% damage
+            stats.takeDamage(10.0f * Time.deltaTime); //every sec ship takes 5% damage
         }
     }
     private void ToggleStationPanel()

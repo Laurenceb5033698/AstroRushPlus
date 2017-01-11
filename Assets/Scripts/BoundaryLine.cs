@@ -10,7 +10,7 @@ public class BoundaryLine : MonoBehaviour {
     public bool ZORX;
 
     private const int SBOUND = 600;
-    private const int HBOUND = SBOUND + 40;
+    private const int HBOUND = SBOUND + 70;
     private Vector3 lineStartPos = new Vector3(0, 500, 0);
     private Vector3 lineEndPos = new Vector3(0, 500, 0);
 

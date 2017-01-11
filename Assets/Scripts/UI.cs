@@ -16,7 +16,6 @@ public class UI : MonoBehaviour {
     public GameObject BoundryPanel;
     public Text menuPanelT;
 
-    private int message = 0;
     private bool displayMenu = false;
     private bool displayBoundary = false;
 
@@ -79,10 +78,9 @@ public class UI : MonoBehaviour {
 
     public void setMessage(int v)
     {
-        message = v;
-        if (message == 0) menuPanelT.text = "GAME OVER!";
-        else if (message == 1) menuPanelT.text = "LEVEL COMPLETE!";
-        else if (message == 2) menuPanelT.text = "PAUSE GAME";
+        if (v == 0) menuPanelT.text = "GAME OVER!";
+        else if (v == 1) menuPanelT.text = "LEVEL COMPLETE!";
+        else if (v == 2) menuPanelT.text = "PAUSE GAME";
     }
 
 
