@@ -14,4 +14,12 @@ public class Asteroid : MonoBehaviour {
             Destroy(transform.gameObject);
         }
 	}
+
+    void OnCollisionEnter(Collision c)
+    {
+        if (c.relativeVelocity.magnitude > 4f)
+        {
+            Destroy(transform.gameObject);
+        }
+    }
 }

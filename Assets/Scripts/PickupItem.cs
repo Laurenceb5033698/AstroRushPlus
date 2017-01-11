@@ -5,9 +5,12 @@ public class PickupItem : MonoBehaviour {
 
     [SerializeField] private int type = 0;
     [SerializeField] private GameObject item;
+    [SerializeField] private bool stayOnScene = false;
 
     private float speed = 1f;
     private bool directionUp = true;
+
+    
 
 	// Use this for initialization
 	void Start () 
@@ -69,6 +72,7 @@ public class PickupItem : MonoBehaviour {
                 default: Debug.Log("WARNING! Wrong pickup type"); break;
             }
 
+            if (!stayOnScene)
             Destroy(transform.gameObject);
         }
 
