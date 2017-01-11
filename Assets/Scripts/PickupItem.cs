@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PickupItem : MonoBehaviour {
 
-    public int type = 0;
+    [SerializeField] private int type = 0;
 
 
 	// Use this for initialization
@@ -38,8 +38,6 @@ public class PickupItem : MonoBehaviour {
     {
         if (c.transform.gameObject.name == "NewShip")
         {
-            //ShipStats temp = c.gameObject.GetComponent<ShipStats>();
-
             switch (type)
             {
                 case 1: c.transform.gameObject.GetComponentInParent<ShipStats>().ShipFuel = 100f; Debug.Log("Boost Recharged"); break;

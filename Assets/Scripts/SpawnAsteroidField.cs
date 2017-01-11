@@ -3,57 +3,55 @@ using System.Collections;
 
 public class SpawnAsteroidField : MonoBehaviour {
 
-	public GameObject[] asteroids = new GameObject[8];
-	private GameObject[] spawnedAsteroids = new GameObject[NoAsteroids];
-	private const int NoAsteroids = 60;
+    // constants
+    private const float minSpawnDist = 80f;
+    private const float maxSpawnDist = 180f;
+    private const float killZoneDist = 190f;
+    private const float sMin = 80f;
+    private const float sMax = 100f;
+    private const int NoAsteroids = 60;
 
-	public GameObject ship;
+    [SerializeField] private GameObject[] asteroids = new GameObject[8];
+    [SerializeField] private GameObject[] spawnedAsteroids = new GameObject[NoAsteroids];
+    [SerializeField] private GameObject ship;
+    [SerializeField] private GameObject Checker; // prefab
+
+
 	private Vector3 position; // position of ship
-
-	public GameObject Checker; // prefab
 	private GameObject ChGo;
 
-	private float spawnAngle;
-	private float spawnDistance;
 
-	private const float minSpawnDist = 80f;
-	private const float maxSpawnDist = 180f;
-	private const float killZoneDist = 190f;
-
-	// Generate random variables
-	private int id = 0;
-	private float rotSpeed;
+    // Generate random variables
+    private int id = 0;
+    private float spawnAngle;
+    private float spawnDistance;
+    private float rotSpeed;
 	private Vector3 randAstRot;
 	private Vector3 pivot;
 	private Vector3 point;
 	private Vector3 dir;
+    private Vector3 scale;
 
-	const float sMin = 80f;
-	const float sMax = 100f;
-	// original scale 0.013f max is 0.03f
-	private Vector3 scale;
+
 
 	// Use this for initialization
 	void Start () 
 	{
 		position = ship.transform.position;
 		ChGo = (GameObject)Instantiate (Checker,Vector3.zero,Quaternion.identity);
-		Initalise ();
-	}
+        ChGo.name = "Space Checker";
+
+        for (int i = 0; i < NoAsteroids; i++)
+        {
+            spawnedAsteroids[i] = SpawnAsteroid();
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () 
 	{
 		position = ship.transform.position;
 		ResetAsteroid ();
-	}
-
-	private void Initalise()
-	{
-		for (int i = 0; i < NoAsteroids; i++) 
-		{
-			spawnedAsteroids [i] = SpawnAsteroid ();
-		}
 	}
 
 	private void ResetAsteroid()
@@ -66,7 +64,7 @@ public class SpawnAsteroidField : MonoBehaviour {
 			}
 			else if (Vector3.Distance (position, spawnedAsteroids [i].transform.position) >= killZoneDist) 
 			{
-				spawnedAsteroids [i].gameObject.GetComponent<Asteroid> ().DestroyAsteroid ();
+                Destroy(spawnedAsteroids[i].gameObject);
 				spawnedAsteroids [i] = SpawnAsteroid ();
 			}
 		}
@@ -74,7 +72,7 @@ public class SpawnAsteroidField : MonoBehaviour {
 
 	private GameObject SpawnAsteroid()
 	{
-		GetFreePosition (); // get an available space on map
+		GetFreePosition ();                                                                     // get an available space on map
 
 		GameObject temp = (GameObject)Instantiate(asteroids[id], point , Quaternion.identity); 	// create gameobject
 		temp.transform.parent = transform; 														// add gameobject to sceneManager as child
@@ -95,7 +93,6 @@ public class SpawnAsteroidField : MonoBehaviour {
 		rotSpeed = Random.Range (-0.5f,0.5f);
 
 		scale = new Vector3(Random.Range(sMin,sMax)/1000,Random.Range(sMin,sMax)/1000,Random.Range(sMin,sMax)/1000);
-
 		randAstRot = new Vector3 (Random.Range (0f, 360f),Random.Range (0f, 360f),Random.Range (0f, 360f));
 
 		pivot = position;
@@ -107,14 +104,12 @@ public class SpawnAsteroidField : MonoBehaviour {
 
 	private void GetFreePosition()
 	{
-		CheckerScript cs = ChGo.GetComponent<CheckerScript> ();
-
 		do
 		{
-			cs.ResetCollider();
+			ChGo.GetComponent<CheckerScript>().ResetCollider();
 			GenerateRandoms ();
 			ChGo.transform.position = point;
 		}
-		while(cs.GetColliderState());
+		while(ChGo.GetComponent<CheckerScript>().GetColliderState());
 	}
 }

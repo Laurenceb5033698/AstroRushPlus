@@ -39,12 +39,12 @@ public class UI : MonoBehaviour {
         }
     }
 
-	public void UpdateShipStats(int u, float f, string c, int d)
+	public void UpdateShipStats(int u, float f, string c, float d)
 	{
 		units.text = "Units: " + u;
 		fuel.text = "Fuel: " + f.ToString ("N0");
 		cargo.text = "Cargo: " + c;
-		damage.text = "Damage: " + d + "%";
+		damage.text = "Damage: " + d.ToString("N0") + "%";
 	}
 
     public void UpdateStationPanelToggle(bool s)
