@@ -18,6 +18,10 @@ public class ShipController : MonoBehaviour
     public GameObject boundaryz;
     public GameObject boundaryx;
 
+    [SerializeField]
+    private float rbMag;
+    [SerializeField]
+    private Vector3 rbVel;
 
 
     private const int SBOUND = 600;
@@ -33,6 +37,9 @@ public class ShipController : MonoBehaviour
 	}
 	void Update () // Update is called once per frame
     {
+        rbMag = rb.velocity.magnitude;
+        rbVel = rb.velocity;
+
         controls.UpdateInputs();
         thrusters.UpdateThrusters();
 
@@ -157,7 +164,7 @@ public class ShipController : MonoBehaviour
 
 
 		GameObject temp = (GameObject)Instantiate (mPreF,shipPos + (shipDirection * 6f),shipRotation);
-        temp.GetComponent<Rigidbody>().AddRelativeForce(ship.transform.position + ship.transform.right * 20f);
+        temp.GetComponent<Rigidbody>().AddForce(ship.transform.position + ship.transform.right * (rb.velocity.magnitude * 5f));
 		temp.transform.LookAt(RocketRot);
 		temp.transform.Rotate (-90,0,0);
 	}

@@ -77,7 +77,7 @@ public class SpawnAsteroidField : MonoBehaviour {
 		GameObject temp = (GameObject)Instantiate(asteroids[id], point , Quaternion.identity); 	// create gameobject
 		temp.transform.parent = transform; 														// add gameobject to sceneManager as child
 		temp.GetComponent<Rigidbody>().AddTorque (randAstRot * rotSpeed); 						// add random rotation to gameobject
-		temp.GetComponent<Rigidbody>().maxDepenetrationVelocity = 20f;
+		//temp.GetComponent<Rigidbody>().maxDepenetrationVelocity = 20f;
 		temp.transform.localScale = scale; 														// scale gameobject
 		temp.AddComponent<Asteroid> (); 														// add asteroid script to it
 		temp.name = "Asteroid"; 																// rename it to Asteroid
@@ -87,12 +87,12 @@ public class SpawnAsteroidField : MonoBehaviour {
 
 	private void GenerateRandoms()
 	{
-		id = Random.Range(0,8);
+		id = Random.Range(0,7); // max was originally 8 but the big asteroid has spawn issues
 		spawnDistance = Random.Range (minSpawnDist,maxSpawnDist);
 		spawnAngle = Random.Range (0f, 360f);
 		rotSpeed = Random.Range (-0.5f,0.5f);
 
-		scale = new Vector3(Random.Range(sMin,sMax)/1000,Random.Range(sMin,sMax)/1000,Random.Range(sMin,sMax)/1000);
+		scale = new Vector3(Random.Range(sMin,sMax)/1000,Random.Range(sMin,sMax)/1000,Random.Range(sMin,sMax)/1000); // needs rewriting
 		randAstRot = new Vector3 (Random.Range (0f, 360f),Random.Range (0f, 360f),Random.Range (0f, 360f));
 
 		pivot = position;

@@ -18,7 +18,7 @@ public class Missile : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-        rb.AddRelativeForce(transform.forward * 20f); // accelerate
+        rb.AddForce(transform.up * 20f); // accelerate
 
 		countDown -= 1 * Time.deltaTime;
 		if (countDown < 0) 
