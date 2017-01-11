@@ -123,20 +123,13 @@ public class ShipStats : MonoBehaviour {
         get { return health; }
         set
         {
-            if (ShipShield > 0)
+            if (value > 0)
             {
-                ShipShield = value;
+                health = (health + value > maxHealth) ? maxHealth : health + value;
             }
-            else
+            else if (value < 0)
             {
-                if (value > 0)
-                {
-                    health = (health + value < 0) ? 0 : health + value;
-                }
-                else if (value < 0)
-                {
-                    health = (health + value > maxHealth) ? maxHealth : health + value;
-                }
+                health = (health + value < 0) ? 0 : health + value;
             }
         }
     }

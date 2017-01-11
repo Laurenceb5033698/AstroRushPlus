@@ -281,12 +281,12 @@ public class ShipController : MonoBehaviour
 	{
         Debug.Log("repair button is pressed");
         int tempPrice = station.GetComponent<StationManager> ().GetCargoPrice ();
-		int tempCost = (int)(100 - stats.ShipHealth * tempPrice);
+		int tempCost = (int)((100 - stats.ShipHealth) * tempPrice);
 
 		if (tempCost <= stats.Units) 
 		{
             stats.Units = -tempCost;
-            stats.ShipHealth = stats.ShipHealth; // set ship damage value to -ship damage value. by doing this the value will be 0
+            stats.ShipHealth = 100f; // set ship damage value to -ship damage value. by doing this the value will be 0
 		} 
 		else 
 		{

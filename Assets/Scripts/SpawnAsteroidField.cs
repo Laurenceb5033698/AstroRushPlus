@@ -78,7 +78,7 @@ public class SpawnAsteroidField : MonoBehaviour {
 		temp.transform.parent = transform; 														// add gameobject to sceneManager as child
 		temp.GetComponent<Rigidbody>().AddTorque (randAstRot * rotSpeed); 						// add random rotation to gameobject
 		//temp.GetComponent<Rigidbody>().maxDepenetrationVelocity = 20f;
-		temp.transform.localScale = scale; 														// scale gameobject
+		//temp.transform.localScale = scale; 														// scale gameobject
 		temp.AddComponent<Asteroid> (); 														// add asteroid script to it
 		temp.name = "Asteroid"; 																// rename it to Asteroid
 
