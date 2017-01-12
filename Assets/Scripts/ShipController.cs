@@ -70,7 +70,7 @@ public class ShipController : MonoBehaviour
             Color oldcol = shieldSphere.GetComponent<MeshRenderer>().materials[0].color;
             oldcol = new Color(oldcol.r, oldcol.g, oldcol.b, newalpha);
             shieldSphere.GetComponent<MeshRenderer>().materials[0].color = oldcol;
-            Debug.Log("shield amount: " + stats.ShipShield);
+            //Debug.Log("shield amount: " + stats.ShipShield);
             if ((stats.ShipShield == 0))
             {
                 shieldSphere.GetComponent<MeshRenderer>().enabled = false;
