@@ -119,13 +119,13 @@ public class ShipController : MonoBehaviour
             // up and down
             if (controls.zAxis > 0.1f)
             {
-                Debug.Log("BOOSTING UP");
+                //Debug.Log("BOOSTING UP");
                 rb.AddForce(ship.transform.right * (stats.GetBoostSpeed()) * Time.deltaTime);
                 stats.ShipFuel = -20 * Time.deltaTime;
             }
             else if (controls.zAxis < -0.1f)
             {
-                Debug.Log("BOOSTING DOWN");
+                //Debug.Log("BOOSTING DOWN");
                 rb.AddForce(ship.transform.right * (-stats.GetBoostSpeed()) * Time.deltaTime);
                 stats.ShipFuel = -20 * Time.deltaTime;
             }
@@ -134,13 +134,13 @@ public class ShipController : MonoBehaviour
             // left and right
             if (controls.xAxis > 0.1f)
             {
-                Debug.Log("BOOSTING RIGHT");
+                //Debug.Log("BOOSTING RIGHT");
                 rb.AddForce(ship.transform.forward * (-stats.GetBoostSpeed()) * Time.deltaTime);
                 stats.ShipFuel = -20 * Time.deltaTime;
             }
             else if (controls.xAxis < -0.1f)
             {
-                Debug.Log("BOOSTING LEFT");
+                //Debug.Log("BOOSTING LEFT");
                 rb.AddForce(ship.transform.forward * (stats.GetBoostSpeed()) * Time.deltaTime);
                 stats.ShipFuel = -20 * Time.deltaTime;
             }

@@ -11,7 +11,7 @@ public class SpawnAsteroidField : MonoBehaviour {
     private const float sMax = 100f;
     private const int NoAsteroids = 60;
 
-    [Tooltip("Keep off twat!")]
+
     [SerializeField] private GameObject[] asteroids = new GameObject[8];
     [SerializeField] private GameObject[] spawnedAsteroids = new GameObject[NoAsteroids];
     [SerializeField] private GameObject ship;

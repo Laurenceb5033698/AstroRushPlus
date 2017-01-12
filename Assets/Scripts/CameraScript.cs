@@ -6,30 +6,26 @@ public class CameraScript : MonoBehaviour {
     [SerializeField]
 	private GameObject ship;
     [SerializeField]
-    private float verticalD = 30.0f;
-    [SerializeField]
-    private float horizontalD = 15.0f;
-    [SerializeField]
-    private float minDistance = 35.0f;
+    private GameObject refPos;
     [SerializeField]
     private float distance = 0.0f;
 
-    private Vector3 targetPosition;
-
     void Start()
     {
-        targetPosition.x = ship.transform.position.x;
-        targetPosition.y = verticalD;
-        targetPosition.z = ship.transform.position.z - horizontalD;
+        refPos.transform.localPosition = new Vector3(-30f, 50f, 0); // horizontal and vertical offset
     }
 
 	void Update ()
     {
-        distance = (Vector3.Distance(transform.position, ship.transform.position) - minDistance); // mindistance will make sure that the camera slows down when it is close to the ship
+        distance = Vector3.Distance(transform.position, refPos.transform.position);
+        transform.position = Vector3.MoveTowards(transform.position, refPos.transform.position, distance * Time.deltaTime);
+        transform.LookAt(ship.transform.position);
 
-        targetPosition.x = ship.transform.position.x;
-        targetPosition.z = ship.transform.position.z - horizontalD;
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, distance * Time.deltaTime);
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(ship.transform.position - transform.position), 1f * Time.deltaTime);
+        // prevoius camera version - more cinematic
+        //distance = Vector3.Distance(transform.position, ship.transform.position); 
+        //targetPosition.x = ship.transform.position.x;
+        //targetPosition.z = ship.transform.position.z - horizontalD;
+        //transform.position = Vector3.MoveTowards(transform.position, targetPosition, (distance - minDistance) * Time.deltaTime);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(ship.transform.position - transform.position), Time.deltaTime);
     }
 }
