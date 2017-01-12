@@ -34,7 +34,7 @@ public class Inputs : MonoBehaviour
         CheckKeyboard();
 
 
-        rocket = Input.GetKeyDown (KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.R);
+        rocket = Input.GetKeyDown (KeyCode.JoystickButton5) || Input.GetKeyDown(KeyCode.R);
 		targeting = Input.GetMouseButtonDown (0);
         RLaser = Input.GetKey(KeyCode.JoystickButton4) || Input.GetKey(KeyCode.F);
 		boost = Input.GetKey(KeyCode.JoystickButton8) || Input.GetKeyDown(KeyCode.Space);
