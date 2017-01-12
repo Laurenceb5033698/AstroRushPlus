@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour {
 
     public GameObject saturn;
-    public GameObject ship;
     public GameObject station;
 
     private Vector3 shipStartPos;
@@ -18,7 +17,7 @@ public class MainMenu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        shipStartPos = ship.transform.position;
+        shipStartPos = transform.position;
         //shipStartRot = ship.transform.rotation;
 
         timeToChangeDir = Time.time + 3f;
@@ -44,7 +43,7 @@ public class MainMenu : MonoBehaviour {
 
     private void RotateStation()
     {
-        station.transform.RotateAround(saturn.transform.position,saturn.transform.up,-2f * Time.deltaTime);
+        //station.transform.RotateAround(saturn.transform.position,saturn.transform.up,-2f * Time.deltaTime);
         station.transform.localEulerAngles = (new Vector3(station.transform.localEulerAngles.x,station.transform.localEulerAngles.y,station.transform.localEulerAngles.z + 10f * Time.deltaTime));
     }
 
@@ -57,7 +56,7 @@ public class MainMenu : MonoBehaviour {
             targetDir = new Vector3(shipStartPos.x + Random.Range(-temp, temp), shipStartPos.y + Random.Range(-temp, temp), shipStartPos.z + Random.Range(-temp, temp));
         }
 
-        ship.transform.position = Vector3.MoveTowards(ship.transform.position, targetDir, 0.1f * Time.deltaTime);      
+        transform.position = Vector3.MoveTowards(transform.position, targetDir, 0.1f * Time.deltaTime);      
     }
 
     public void StartButton()
