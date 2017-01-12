@@ -4,17 +4,19 @@ using System.Collections;
 public class SpawnAsteroidField : MonoBehaviour {
 
     // constants
-    private const float minSpawnDist = 80f;
-    private const float maxSpawnDist = 180f;
-    private const float killZoneDist = 190f;
+    private const float minSpawnDist = 100f;
+    private const float maxSpawnDist = 250f;
+    private const float killZoneDist = maxSpawnDist + 20f;
     private const float sMin = 80f;
     private const float sMax = 100f;
     private const int NoAsteroids = 60;
 
+    [Tooltip("Keep off twat!")]
     [SerializeField] private GameObject[] asteroids = new GameObject[8];
     [SerializeField] private GameObject[] spawnedAsteroids = new GameObject[NoAsteroids];
     [SerializeField] private GameObject ship;
     [SerializeField] private GameObject Checker; // prefab
+
 
 
 	private Vector3 position; // position of ship
@@ -110,6 +112,6 @@ public class SpawnAsteroidField : MonoBehaviour {
 			GenerateRandoms ();
 			ChGo.transform.position = point;
 		}
-		while(ChGo.GetComponent<CheckerScript>().GetColliderState());
+		while(ChGo.GetComponent<CheckerScript>().GetColliderState() && Vector3.Distance(ChGo.transform.position, Vector3.zero) > 50f);
 	}
 }

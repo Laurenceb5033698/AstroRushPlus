@@ -136,6 +136,8 @@ public class EnemyAI : MonoBehaviour {
 
 
 
+    // ---VVVVVVVVV----- This part is copied from laser class for testing only
+
     [SerializeField]
     private GameObject laserGo;
     [SerializeField]
