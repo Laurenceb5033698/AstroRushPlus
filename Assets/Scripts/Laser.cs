@@ -46,12 +46,26 @@ public class Laser : MonoBehaviour
                 if (Vector3.Distance(laserGo.transform.position, hitInfo.point) < stats.GetLaserRange())                           // and in range
                 {
                     laser.SetPosition(1, hitInfo.point);                                                                        // set the laser to point to that area
-                    laser.GetComponent<Renderer>().material = (target.name == "Asteroid") ? activeLaserColor : idleLaserColor;  // set the color of the laser
                 }
                 if (target.name == "Asteroid" && stats.ShipCargo < stats.GetMaxCargoSpace())                                    // if the object is an asteroid and there is free cargo space
                 {
                     target.GetComponent<Asteroid>().MineOre(stats.GetLaserSpeed());                                             // decrease ore in asteroid
                     stats.ShipCargo = stats.GetLaserSpeed();                                                                    // add ore to cargo space
+                    laser.GetComponent<Renderer>().material = activeLaserColor;
+                }
+                else if (target.name == "Generator")
+                {
+                    target.gameObject.GetComponent<Generator>().TakeDamage(20f * Time.deltaTime);
+                    laser.GetComponent<Renderer>().material = activeLaserColor;
+                }
+                else if (target.name == "GeneratorShield")
+                {
+                    target.gameObject.GetComponentInParent<Generator>().TakeDamage(50f * Time.deltaTime);
+                    laser.GetComponent<Renderer>().material = activeLaserColor;
+                }
+                else
+                {
+                    laser.GetComponent<Renderer>().material = idleLaserColor;
                 }
             }
             else                                                                                                                // if there is nothing in front
