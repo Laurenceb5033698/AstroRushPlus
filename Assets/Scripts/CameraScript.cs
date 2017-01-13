@@ -10,6 +10,8 @@ public class CameraScript : MonoBehaviour {
     [SerializeField]
     private float distance = 0.0f;
 
+    private Vector3 targetPosition;
+
     void Start()
     {
         refPos.transform.localPosition = new Vector3(-30f, 50f, 0); // horizontal and vertical offset
@@ -17,15 +19,16 @@ public class CameraScript : MonoBehaviour {
 
 	void Update ()
     {
-        distance = Vector3.Distance(transform.position, refPos.transform.position);
-        transform.position = Vector3.MoveTowards(transform.position, refPos.transform.position, distance * Time.deltaTime);
-        transform.LookAt(ship.transform.position);
+        //distance = Vector3.Distance(transform.position, refPos.transform.position);
+        //transform.position = Vector3.MoveTowards(transform.position, refPos.transform.position, distance * Time.deltaTime);
+        //transform.LookAt(ship.transform.position);
 
-        // prevoius camera version - more cinematic
-        //distance = Vector3.Distance(transform.position, ship.transform.position); 
-        //targetPosition.x = ship.transform.position.x;
-        //targetPosition.z = ship.transform.position.z - horizontalD;
-        //transform.position = Vector3.MoveTowards(transform.position, targetPosition, (distance - minDistance) * Time.deltaTime);
-        //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(ship.transform.position - transform.position), Time.deltaTime);
+         //prevoius camera version - more cinematic
+        distance = Vector3.Distance(transform.position, ship.transform.position); 
+        targetPosition.x = ship.transform.position.x;
+        targetPosition.y = 50f;
+        targetPosition.z = ship.transform.position.z - 30f;
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, (distance - 30f) * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(ship.transform.position - transform.position), Time.deltaTime);
     }
 }

@@ -69,10 +69,7 @@ public class UI : MonoBehaviour {
                 displayHintIndex++;
             }
         }
-        else
-        {
-            Time.timeScale = 1;
-        }
+        
 
 
         if (Input.GetKeyDown(KeyCode.Escape))
