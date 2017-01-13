@@ -41,7 +41,7 @@ public class UI : MonoBehaviour {
 	public void UpdateShipStats(int u, float f, string c, float d)
 	{
 		units.text = "Units: " + u;
-		fuel.text = "Fuel: " + f.ToString ("N0");
+		fuel.text = "Boost: " + f.ToString ("N0");
 		cargo.text = "Cargo: " + c;
 		damage.text = "Health: " + d.ToString("N0");
 	}
