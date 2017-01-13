@@ -4,6 +4,16 @@ using System.Collections;
 public class Asteroid : MonoBehaviour {
 
 	public float ore = 20;
+    public float hp = 20;
+
+    public void TakeDamage(float amount)
+    {//receives a positive value as damage
+        hp -= amount;
+        if (hp < 0)
+        {
+            Destroy(transform.gameObject);
+        }
+    }
 
 	public void MineOre(float mineSpeed)
 	{

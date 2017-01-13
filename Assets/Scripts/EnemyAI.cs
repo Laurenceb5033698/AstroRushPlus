@@ -345,6 +345,11 @@ public class EnemyAI : MonoBehaviour {
                     laser.SetPosition(1, hitInfo.point);                                                                        // set the laser to point to that area
                     laser.GetComponent<Renderer>().material = (laserTarget == player) ? activeLaserColor : idleLaserColor;  // set the color of the laser
                 }
+                if (laserTarget.GetComponent<ShipController>() != null)
+                    laserTarget.GetComponent<ShipController>().TakeDamage(10f * Time.deltaTime);
+                else if (laserTarget.GetComponent<Asteroid>() != null)
+                    laserTarget.GetComponent<Asteroid>().TakeDamage(10f * Time.deltaTime);
+                
             }
             else                                                                                                                // if there is nothing in front
             {

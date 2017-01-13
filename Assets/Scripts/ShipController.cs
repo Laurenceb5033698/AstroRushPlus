@@ -273,6 +273,12 @@ public class ShipController : MonoBehaviour
         stats.takeDamage(c.relativeVelocity.magnitude / 2);
         ShieldSphereOpacity();
     }
+    public void TakeDamage(float amount)
+    {
+        stats.takeDamage(amount);
+        ShieldSphereOpacity();
+
+    }
 	void BuyButton()
 	{
 
