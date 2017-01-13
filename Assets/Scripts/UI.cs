@@ -5,11 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class UI : MonoBehaviour {
 
-	public GameObject SSIpanel;
-	public Text units;
-	public Text fuel;
-	public Text cargo;
-	public Text damage;
+	public Text boost;
+	public Text health;
     public Text BoundaryText;
 
     public GameObject menuPanel;
@@ -27,7 +24,6 @@ public class UI : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        SSIpanel.SetActive(false);
         setMessage(2);
         menu = displayMenu;
         BoundaryWarning = displayBoundary;
@@ -86,18 +82,11 @@ public class UI : MonoBehaviour {
         }
     }
 
-	public void UpdateShipStats(int u, float f, string c, float d)
+	public void UpdateShipStats(float b, float h)
 	{
-		units.text = "Units: " + u;
-		fuel.text = "Boost: " + f.ToString ("N0");
-		cargo.text = "Cargo: " + c;
-		damage.text = "Health: " + d.ToString("N0");
+		boost.text = "Boost: " + b.ToString ("N0");
+		health.text = "Health: " + h.ToString("N0");
 	}
-
-    public void UpdateStationPanelToggle(bool s)
-    {
-        SSIpanel.SetActive(s);
-    }
 
     public bool menu
     {

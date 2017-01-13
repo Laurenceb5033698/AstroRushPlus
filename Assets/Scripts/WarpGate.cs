@@ -24,7 +24,7 @@ public class WarpGate : MonoBehaviour {
     {
         if (collider.GetComponent<GateCollider>().GetState() && GateIsActive)
         {
-            Debug.Log("WIN");
+            //Debug.Log("WIN");
             ui.setMessage(1);
             ui.menu = true;
         }
@@ -50,7 +50,7 @@ public class GateCollider : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        Debug.Log(col.name + " at the gate");
+        //Debug.Log(col.name + " at the gate");
         if (col.gameObject.name == "NewShip")
         {
             triggerActive = true;

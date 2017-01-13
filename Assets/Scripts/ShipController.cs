@@ -6,7 +6,6 @@ using System;
 public class ShipController : MonoBehaviour 
 {
 	[SerializeField] private GameObject ship;  // ship gameobject
-    [SerializeField] private GameObject station;
     [SerializeField] private GameObject mPreF; // missile prefab
 	[SerializeField] private Inputs controls;
 	[SerializeField] private AnimateThrusters thrusters;
@@ -87,7 +86,6 @@ public class ShipController : MonoBehaviour
 	{
 		if (controls.reset) ResetShip();
 
-        ToggleStationPanel();
         stats.LaserState = controls.RLaser;
 			
 		if (controls.rocket) 
@@ -213,8 +211,7 @@ public class ShipController : MonoBehaviour
 
     private void UpdateUI()
     {
-        string tempCargo = "" + stats.ShipCargo.ToString("F2") + "/" + stats.GetMaxCargoSpace();
-        ui.UpdateShipStats(stats.Units, stats.ShipFuel, tempCargo, stats.ShipHealth);
+        ui.UpdateShipStats(stats.ShipFuel, stats.ShipHealth);
     }
     private void UpdateBoundary()
     {
@@ -236,36 +233,6 @@ public class ShipController : MonoBehaviour
             stats.takeDamage(10.0f * Time.deltaTime); //every sec ship takes 5% damage
         }
     }
-    private void ToggleStationPanel()
-    {
-        if (Vector3.Distance(ship.transform.position, station.transform.position) < 20f)
-        {
-            ui.UpdateStationPanelToggle(true);
-
-            if (Input.GetAxis("DPadYAxis") > 0)
-            {
-                BuyButton();
-            }
-            if (Input.GetAxis("DPadYAxis") < 0)
-            {
-                SellButton();
-            }
-            if (Input.GetAxis("DPadXAxis") > 0)
-            {
-                RepairButton();
-            }
-
-            // auto dock positioning
-            Quaternion temp = Quaternion.LookRotation(-station.transform.forward);
-            ship.transform.rotation = Quaternion.RotateTowards(ship.transform.rotation, temp, 10f * Time.deltaTime);
-            ship.transform.position = Vector3.MoveTowards(ship.transform.position,station.transform.position,0.5f*Time.deltaTime);
-
-        }
-        else
-        {
-            ui.UpdateStationPanelToggle(false);
-        }
-    }
     
     
     // EVENT HANDLERS-------------------------------------------------------------------------------------
@@ -274,46 +241,4 @@ public class ShipController : MonoBehaviour
         stats.takeDamage(c.relativeVelocity.magnitude / 2);
         ShieldSphereOpacity();
     }
-	void BuyButton()
-	{
-
-		Debug.Log ("buy button is pressed");
-		int tempPrice = station.GetComponent<StationManager> ().GetFuelPrice ();
-		int tempCost = Convert.ToInt32 ((100 - stats.ShipFuel) * tempPrice);
-        
-
-		if (tempCost <= stats.Units) 
-		{
-            stats.Units = -tempCost; // in the background (units += -tempcost)
-			stats.ShipFuel = (100 - stats.ShipFuel);
-		} 
-		else 
-		{
-			stats.ShipFuel = (stats.Units/tempPrice);
-		}
-	}
-	void SellButton()
-	{
-        Debug.Log("sell button is pressed");
-        int tempUnits = Convert.ToInt32(stats.ShipCargo * station.GetComponent<StationManager>().GetCargoPrice());
-		stats.Units = tempUnits;
-        stats.ShipCargo = -stats.ShipCargo;
-	}
-	void RepairButton()
-	{
-        Debug.Log("repair button is pressed");
-        int tempPrice = station.GetComponent<StationManager> ().GetCargoPrice ();
-		int tempCost = (int)((100 - stats.ShipHealth) * tempPrice);
-
-		if (tempCost <= stats.Units) 
-		{
-            stats.Units = -tempCost;
-            stats.ShipHealth = 100f; // set ship damage value to -ship damage value. by doing this the value will be 0
-		} 
-		else 
-		{
-            stats.ShipHealth = (stats.Units / tempPrice);
-		}
-	}
-
 }

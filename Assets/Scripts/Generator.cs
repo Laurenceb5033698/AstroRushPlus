@@ -41,7 +41,7 @@ public class Generator : MonoBehaviour {
             health = 0.0f;
         }
 
-        Debug.Log("Shield Health: " + health);
+        //Debug.Log("Shield Health: " + health);
     }
 
     public bool GetShieldStatus()
