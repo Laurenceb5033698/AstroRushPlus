@@ -63,6 +63,11 @@ public class Laser : MonoBehaviour
                     target.gameObject.GetComponentInParent<Generator>().TakeDamage(50f * Time.deltaTime);
                     laser.GetComponent<Renderer>().material = activeLaserColor;
                 }
+                else if (target.gameObject.GetComponentInParent<EnemyAI>() != null)
+                {//then target is an enemy ship
+                    target.gameObject.GetComponentInParent<EnemyAI>().TakeDamage(40f * Time.deltaTime);
+                    laser.GetComponent<Renderer>().material = activeLaserColor;
+                }
                 else
                 {
                     laser.GetComponent<Renderer>().material = idleLaserColor;
