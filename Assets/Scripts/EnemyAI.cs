@@ -10,6 +10,10 @@ public class EnemyAI : MonoBehaviour {
     [SerializeField] private GameObject target;
     [SerializeField] private Vector3 destination;
     [SerializeField] private int state = 0;
+    [SerializeField] private GameObject sceneManager;
+
+
+    private EnemyStats stats;
 
     [SerializeField]
     private GameObject player;
@@ -31,6 +35,7 @@ public class EnemyAI : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        stats = new EnemyStats();
         ship = transform.gameObject;
         rb = ship.gameObject.GetComponent<Rigidbody>();
         destination = ship.transform.position;
@@ -49,18 +54,19 @@ public class EnemyAI : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        pathList.Clear();
-        checkDest();
-        //laserIsOn = (state == 4) ? true : false;
+        //pathList.Clear();
+        //checkDest();
+        laserIsOn = (state == 4) ? true : false;
         //DrawLaser();
         
         //Debug.Log(rayCheck(ship.transform.position, target.transform.position));
-        drawPath();
-        //UpdateState();
+        //drawPath();
+        UpdateState();
     }
 
     private void UpdateState()
     {
+        if(stats.ShipHealth > 0)
         switch (state)
         {
             case 0:
@@ -105,12 +111,33 @@ public class EnemyAI : MonoBehaviour {
                 }; break;
             case 4:
                 {
-                    if (Vector3.Distance(target.transform.position, ship.transform.position) > 50f)
+                    //path to player
+                    //pathList.Clear();
+                    //checkDest();
+                    //if (Vector3.Distance(ship.transform.position, pathList[pathList.Count - 1]) < 1f)
+                    //{//check if we have reached the point
+                    //    pathList.RemoveAt(pathList.Count - 1);//remove from list
+                    //}
+                    //destination = pathList[pathList.Count-1];
+                    //if (Vector3.Distance(target.transform.position, ship.transform.position) > 20f)//move towards attack range
+                    //{
+                    //    GoToDestination();
+                        
+                    //}
+                    //else AttackTarget();
+                    if (Vector3.Distance(target.transform.position, ship.transform.position) > 60f)
                     {
                         target = null;
                         state = 1;
+                        //pathList.Clear();
                     }
+                    //if (Vector3.Distance(target.transform.position, ship.transform.position) > 20f)//move towards attack range
+                    //{
+                    //    GoToDestination();
+                        
+                    //}
                     else AttackTarget();
+
                 }; break;
             case 5:
                 {
@@ -118,9 +145,31 @@ public class EnemyAI : MonoBehaviour {
                     state = 3;
                 }; break;
         }
+        else
+        {//ship has died
+            laserIsOn = false;
+            DrawLaser();
+            //spawn pickup
+            if (Random.Range(0f, 10f) > 3f)
+            {
+                GameObject mpickup = sceneManager.GetComponent<PickupManager>().GetRandomPickup();
+                GameObject temp = (GameObject)Instantiate(mpickup, ship.transform.position, Quaternion.identity); 	// create gameobject
+            }
+            Destroy(transform.gameObject);
+        }
 
     }
 
+    public void TakeDamage(float amount)
+    {
+        stats.ShipHealth = -amount;
+    }
+
+    void OnCollisionEnter(Collision c)
+    {
+        if (c.gameObject.GetComponent<Missile>() == null)
+            TakeDamage(c.relativeVelocity.magnitude / 2);
+    }
     private void FindTarget()
     {
         if (Vector3.Distance(player.transform.position, ship.transform.position) < 50f)
@@ -137,13 +186,21 @@ public class EnemyAI : MonoBehaviour {
     private void GoToDestination()
     {
         ship.transform.position = Vector3.MoveTowards(ship.transform.position,destination, 5f * Time.deltaTime);
-        ship.transform.LookAt(destination);
+        //ship.transform.LookAt(destination);
+        ship.transform.rotation = Quaternion.RotateTowards(ship.transform.rotation, Quaternion.LookRotation(target.transform.position - ship.transform.position), Time.deltaTime * 32f);
     }
 
     private void AttackTarget()
     {
+        if (Vector3.Distance(target.transform.position, ship.transform.position) > 26f)
+        {
+            //ship.transform.position = Vector3.MoveTowards(ship.transform.position, target.transform.position, 5f * Time.deltaTime);
+            if (Quaternion.Dot(ship.transform.rotation,Quaternion.LookRotation(target.transform.position - ship.transform.position))>0.4f)
+                rb.AddForce(ship.transform.forward * 480f * Time.deltaTime);
+            laserIsOn = false;
+        }
+        else laserIsOn = true;
         DrawLaser();
-        //ship.transform.position = Vector3.MoveTowards(ship.transform.position, target.transform.position, 5f * Time.deltaTime);
         //ship.transform.LookAt(target.transform.position);
         ship.transform.rotation = Quaternion.RotateTowards(ship.transform.rotation, Quaternion.LookRotation(target.transform.position - ship.transform.position), Time.deltaTime * 32f);
     }
@@ -151,11 +208,11 @@ public class EnemyAI : MonoBehaviour {
 
     private bool rayCheck(Vector3 startPos, Vector3 destPos)
     {
-        Ray pathObject = new Ray(startPos, startPos + (destPos - startPos));
-        
+        Ray pathObject = new Ray(startPos, startPos + (destPos - startPos));        
         bool hit = Physics.Raycast(pathObject, out pathObjectHitInfo);
+        bool result = ((pathObjectHitInfo.transform.gameObject != target) && (Vector3.Distance(startPos, destPos) > Vector3.Distance(startPos, pathObjectHitInfo.transform.gameObject.transform.position)));
         if (hit)
-            return (!(pathObjectHitInfo.transform.gameObject == target) && (Vector3.Distance(startPos, destPos) > Vector3.Distance(startPos, pathObjectHitInfo.transform.gameObject.transform.position)));
+            return (result);
         else
             return false;
         // || (Vector3.Distance(startPos, destPos) > Vector3.Distance(startPos, pathObjectHitInfo.transform.gameObject.transform.position))
@@ -184,7 +241,7 @@ public class EnemyAI : MonoBehaviour {
 
         //int temp = pathList.FindLast();
         pathList.Add(target.transform.position);
-        //pathList.Reverse();
+        pathList.Reverse();
 
         //add path points to patrolpath in reverse order
         //PatrolPathList.Add(target.transform.position);
@@ -202,7 +259,7 @@ public class EnemyAI : MonoBehaviour {
         //maths to add distance perpendicular to raydirection
         float radius = Vector3.Distance(pathObjectHitInfo.point, pathObjectHitInfo.transform.gameObject.transform.position);
         Vector3 perp = Vector3.Cross((target.transform.position - start), Vector3.up).normalized;
-        return (pathObjectHitInfo.transform.gameObject.transform.position +( perp * radius *2f));
+        return (pathObjectHitInfo.transform.gameObject.transform.position +( perp * radius *2.5f));
         //should return a point that is 15 units 
     }
 
@@ -239,12 +296,11 @@ public class EnemyAI : MonoBehaviour {
             laser.SetVertexCount(pathList.Count +1);
             var points = new Vector3[pathList.Count + 1];
 
-            points[0] = ship.transform.position;
-            points[1] = ship.transform.position;
             for (int i = 0; i < pathList.Count; i++)
             {
-                points[i+1] = pathList[i];
+                points[i] = pathList[i];
             }
+            points[pathList.Count] = ship.transform.position;
 
             laser.SetPositions(points);
     }     
@@ -289,6 +345,11 @@ public class EnemyAI : MonoBehaviour {
                     laser.SetPosition(1, hitInfo.point);                                                                        // set the laser to point to that area
                     laser.GetComponent<Renderer>().material = (laserTarget == player) ? activeLaserColor : idleLaserColor;  // set the color of the laser
                 }
+                if (laserTarget.GetComponent<ShipController>() != null)
+                    laserTarget.GetComponent<ShipController>().TakeDamage(10f * Time.deltaTime);
+                else if (laserTarget.GetComponent<Asteroid>() != null)
+                    laserTarget.GetComponent<Asteroid>().TakeDamage(10f * Time.deltaTime);
+                
             }
             else                                                                                                                // if there is nothing in front
             {
@@ -303,4 +364,29 @@ public class EnemyAI : MonoBehaviour {
             laser.SetPosition(1, laserGo.transform.position);
         }
     }
+}
+
+public class EnemyStats : MonoBehaviour
+{
+    // DAMAGE
+    private float health = 100;
+    private const int maxHealth = 100;
+    
+    public float ShipHealth
+    {
+        get { return health; }
+        set
+        {
+            if (value > 0)
+            {
+                health = (health + value > maxHealth) ? maxHealth : health + value;
+            }
+            else if (value < 0)
+            {
+                health = (health + value < 0) ? 0 : health + value;
+            }
+        }
+    }
+    
+
 }

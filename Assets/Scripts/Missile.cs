@@ -31,7 +31,11 @@ public class Missile : MonoBehaviour
 	{
 		if (collision.gameObject.name == "Asteroid")
         	Destroy(collision.gameObject); // this will destroy the object that the missile collide with
-
+        else if (collision.gameObject.GetComponentInParent<EnemyAI>() != null)
+        {//then target is an enemy ship
+            collision.gameObject.GetComponentInParent<EnemyAI>().TakeDamage(80f );
+            
+        }
 		DestroySelf ();
 	}
 
