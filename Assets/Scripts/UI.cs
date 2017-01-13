@@ -16,8 +16,13 @@ public class UI : MonoBehaviour {
     public GameObject BoundryPanel;
     public Text menuPanelT;
 
+    [SerializeField] private GameObject[] hintPanels = new GameObject[3];
+    private int displayHintIndex = 0;
+
+
     private bool displayMenu = false;
     private bool displayBoundary = false;
+    [SerializeField] private bool displayHints = true;
 
 	// Use this for initialization
 	void Start ()
@@ -31,6 +36,49 @@ public class UI : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        if (displayHints)
+        {
+            //Debug.Log("display hint");
+            if (displayHintIndex < 3)
+            {
+                Time.timeScale = 0;
+
+                //Debug.Log("index is less then length");
+                for (int i = 0; i < 3; i++)
+                {
+                    if (displayHintIndex != i)
+                    {
+                        //Debug.Log("turn panels off");
+                        hintPanels[i].SetActive(false);
+                    }
+                    else
+                    {
+                        //Debug.Log("activate current panel");
+                        hintPanels[displayHintIndex].SetActive(true);
+                    }
+                }
+            }
+            else
+            {
+                //Debug.Log("turn off display");
+                displayHintIndex = 0; // hard reset
+                displayHints = false;
+                hintPanels[2].SetActive(false);
+                Time.timeScale = 1;
+            }
+
+            if (Input.GetKeyDown(KeyCode.JoystickButton0))
+            {
+                //Debug.Log("increment index");
+                displayHintIndex++;
+            }
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("ESC Pressed");

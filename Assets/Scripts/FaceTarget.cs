@@ -16,8 +16,9 @@ public class FaceTarget : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        lookD = Quaternion.LookRotation(target.transform.position);
-        transform.localEulerAngles = new Vector3(0, 0, lookD.z);
+        
+        //lookD = Quaternion.LookRotation(target.transform.position);
+        transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, lookD.z, 1);
 
         
 	}

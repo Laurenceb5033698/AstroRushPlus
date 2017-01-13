@@ -255,6 +255,7 @@ public class ShipController : MonoBehaviour
                 RepairButton();
             }
 
+            // auto dock positioning
             Quaternion temp = Quaternion.LookRotation(-station.transform.forward);
             ship.transform.rotation = Quaternion.RotateTowards(ship.transform.rotation, temp, 10f * Time.deltaTime);
             ship.transform.position = Vector3.MoveTowards(ship.transform.position,station.transform.position,0.5f*Time.deltaTime);
