@@ -5,24 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class UI : MonoBehaviour {
 
-	public GameObject SSIpanel;
-	public Text units;
-	public Text fuel;
-	public Text cargo;
-	public Text damage;
+	public Text boost;
+	public Text health;
     public Text BoundaryText;
 
     public GameObject menuPanel;
     public GameObject BoundryPanel;
     public Text menuPanelT;
 
+    [SerializeField] private GameObject[] hintPanels = new GameObject[3];
+    private int displayHintIndex = 0;
+
+
     private bool displayMenu = false;
     private bool displayBoundary = false;
+    [SerializeField] private bool displayHints = true;
 
 	// Use this for initialization
 	void Start ()
     {
-        SSIpanel.SetActive(false);
         setMessage(2);
         menu = displayMenu;
         BoundaryWarning = displayBoundary;
@@ -31,6 +32,49 @@ public class UI : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        if (displayHints)
+        {
+            //Debug.Log("display hint");
+            if (displayHintIndex < 3)
+            {
+                Time.timeScale = 0;
+
+                //Debug.Log("index is less then length");
+                for (int i = 0; i < 3; i++)
+                {
+                    if (displayHintIndex != i)
+                    {
+                        //Debug.Log("turn panels off");
+                        hintPanels[i].SetActive(false);
+                    }
+                    else
+                    {
+                        //Debug.Log("activate current panel");
+                        hintPanels[displayHintIndex].SetActive(true);
+                    }
+                }
+            }
+            else
+            {
+                //Debug.Log("turn off display");
+                displayHintIndex = 0; // hard reset
+                displayHints = false;
+                hintPanels[2].SetActive(false);
+                Time.timeScale = 1;
+            }
+
+            if (Input.GetKeyDown(KeyCode.JoystickButton0))
+            {
+                //Debug.Log("increment index");
+                displayHintIndex++;
+            }
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("ESC Pressed");
@@ -38,18 +82,11 @@ public class UI : MonoBehaviour {
         }
     }
 
-	public void UpdateShipStats(int u, float f, string c, float d)
+	public void UpdateShipStats(float b, float h)
 	{
-		units.text = "Units: " + u;
-		fuel.text = "Fuel: " + f.ToString ("N0");
-		cargo.text = "Cargo: " + c;
-		damage.text = "Health: " + d.ToString("N0");
+		boost.text = "Boost: " + b.ToString ("N0");
+		health.text = "Health: " + h.ToString("N0");
 	}
-
-    public void UpdateStationPanelToggle(bool s)
-    {
-        SSIpanel.SetActive(s);
-    }
 
     public bool menu
     {

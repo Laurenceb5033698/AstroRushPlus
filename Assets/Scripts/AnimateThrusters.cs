@@ -65,7 +65,7 @@ public class AnimateThrusters : MonoBehaviour
 	private void AnimateThrust()
 	{
 		// ----------------- Forward Thrusters -------------------------------
-		bool fThrusters = (controls.zAxis > 0 || controls.boost);
+		bool fThrusters = (controls.zAxis > 0.1f);
 		SetEmission (fThrust1, fThrusters);
 		SetEmission (fThrust2, fThrusters);
 		SetEmission (fThrust3, fThrusters);
@@ -75,8 +75,8 @@ public class AnimateThrusters : MonoBehaviour
         fThrust2.startSpeed = Mathf.Abs(controls.zAxis) * 10;
 
         // ----------------- Backward Thrusters -------------------------------
-        SetEmission (rThrustLeft, controls.zAxis < 0);
-		SetEmission (rThrustRight, controls.zAxis < 0);
+        SetEmission (rThrustLeft, controls.zAxis < -0.1f);
+		SetEmission (rThrustRight, controls.zAxis < -0.1f);
 
 		// ----------------- Left & Right Thrusters -----------------------------------
         SetEmission(flThrust, (controls.yawAxis > 0 || controls.xAxis > 0));
