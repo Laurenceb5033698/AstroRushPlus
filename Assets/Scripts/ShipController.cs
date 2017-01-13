@@ -34,6 +34,10 @@ public class ShipController : MonoBehaviour
     private const int HBOUND = SBOUND + 70;
     private float rotFix = 0f;
 
+    private bool left = false;
+    private bool right = false;
+    private bool quickstop;
+
     // Mains --------------------------------------------------------------------------------------------------------
     void Start() // Use this for initialization
     {
@@ -165,12 +169,33 @@ public class ShipController : MonoBehaviour
         }
 
         // forward and backward
-        rb.AddForce(ship.transform.right * (controls.zAxis * stats.GetMainThrust()) * Time.deltaTime);
+        //rb.AddForce(ship.transform.right * (controls.zAxis * stats.GetMainThrust()) * Time.deltaTime);
+
         // left and right
-        if (Mathf.Abs(controls.xAxis) > 0.1f) rb.AddForce(ship.transform.forward * (controls.xAxis * -stats.GetMainThrust()) * Time.deltaTime);
-        else dampenSidewaysMotion();
+        if (controls.xAxis > 0.1f)
+        {
+            //rb.AddForce(ship.transform.forward * (Mathf.Abs(controls.xAxis) * -stats.GetMainThrust()) * Time.deltaTime);
+        }
+
+
+        if (controls.xAxis < -0.1f)
+        {
+            //rb.AddForce(ship.transform.forward * (-Mathf.Abs(controls.xAxis) * -stats.GetMainThrust()) * Time.deltaTime);
+        }
+
+
+        Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
+        locVel = new Vector3(controls.zAxis * stats.GetMainThrust(), 0, 0);
+        rb.velocity = transform.TransformDirection(locVel);
+
+        //rb.velocity = new Vector3((controls.xAxis * stats.GetMainThrust()),0,(controls.zAxis * stats.GetMainThrust()));
+
+
+        if (!left && !right) dampenSidewaysMotion();
         //rotate
-        rb.AddTorque(Vector3.up * (controls.yawAxis * stats.GetRotSpeed()) * Time.deltaTime);
+        //rb.AddTorque(Vector3.up * (controls.yawAxis * stats.GetRotSpeed()) * Time.deltaTime);
+
+        rb.angularVelocity = new Vector3(rb.angularVelocity.x, controls.xAxis * stats.GetRotSpeed() * Time.deltaTime, rb.angularVelocity.z);
     }
     private void dampenSidewaysMotion()
     {
