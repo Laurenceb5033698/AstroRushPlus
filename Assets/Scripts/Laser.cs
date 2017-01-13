@@ -5,6 +5,7 @@ public class Laser : MonoBehaviour
 {
     [SerializeField] private ShipStats stats;
     [SerializeField] private Inputs controls;
+   
 
     [SerializeField] private GameObject laserGo;
     [SerializeField] private LineRenderer laser;
@@ -25,7 +26,16 @@ public class Laser : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () 
+    void Update()
+    {
+        // new Vector3(controls.rightY, 0, controls.yawAxis)
+        laser.SetPosition(0, laserGo.transform.position);
+        laser.SetPosition(1, (laserGo.transform.position + transform.TransformDirection(new Vector3(controls.rightY, 0, -controls.yawAxis)) * stats.GetLaserRange()));
+        laser.GetComponent<Renderer>().material = idleLaserColor;  
+    }
+
+
+    private void DrawLaser()
     {
         if (stats.LaserState) // if the laser is on
         {
@@ -38,6 +48,8 @@ public class Laser : MonoBehaviour
             else
                 target = null;
             //---------------------------------
+            
+
 
             laser.SetPosition(0, laserGo.transform.position);                                                                      // set line start position
 
@@ -75,7 +87,12 @@ public class Laser : MonoBehaviour
             }
             else                                                                                                                // if there is nothing in front
             {
-                laser.SetPosition(1, (laserGo.transform.position + laserGo.transform.right * stats.GetLaserRange()));                   // set the laser to max range
+                Vector3 locVel = transform.InverseTransformDirection(new Vector3(controls.rightY, 0, controls.yawAxis));
+                locVel = new Vector3(controls.zAxis * stats.GetMainThrust(), 0, 0);
+
+
+                //laser.SetPosition(1, (laserGo.transform.position + laserGo.transform.right * stats.GetLaserRange()));                   // set the laser to max range
+                laser.SetPosition(1, (laserGo.transform.position + new Vector3(controls.rightY, 0, controls.yawAxis) * stats.GetLaserRange()));
                 laser.GetComponent<Renderer>().material = idleLaserColor;                                                       // and change color to idle
             }
 
@@ -85,5 +102,5 @@ public class Laser : MonoBehaviour
             laser.SetPosition(0, laserGo.transform.position);
             laser.SetPosition(1, laserGo.transform.position);
         }
-	}
+    }
 }

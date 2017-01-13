@@ -7,6 +7,7 @@ public class Inputs : MonoBehaviour
 	public float zAxis;
 	public float xAxis;
 	public float yawAxis;
+    public float rightY;
 
 	public bool boost;
 	public bool rocket;
@@ -28,6 +29,7 @@ public class Inputs : MonoBehaviour
 	private void CheckInputs()
 	{
 		yawAxis = Input.GetAxis ("RightStickX");
+        rightY = Input.GetAxis("RightStickY");
 		zAxis = Input.GetAxis ("LeftStickY");
 		xAxis = Input.GetAxis ("LeftStickX");
 
