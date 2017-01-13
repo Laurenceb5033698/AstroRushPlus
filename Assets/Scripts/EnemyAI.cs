@@ -170,12 +170,15 @@ public class EnemyAI : MonoBehaviour {
             checkPath(ship.transform.position);
             //if one is ok then adds newdest to pathlist
         }
-
+        int failSafe = 10;
+        int counter = 0;
         if(pathList.Count > 0){//if there are any path points in the list
-            while (rayCheck(pathList[pathList.Count - 1], target.transform.position))//for every
+            //while (rayCheck(pathList[pathList.Count - 1], target.transform.position))
+            while (rayCheck(pathList[pathList.Count - 1], target.transform.position) && (counter < failSafe))//for every (shouldnt we check the first path instead of the last one?)
             {
                 checkPath(pathList[pathList.Count - 1]);
                 Debug.Log("inside while");
+                counter++;
             }
         }
 
@@ -214,7 +217,7 @@ public class EnemyAI : MonoBehaviour {
             newDest = generateNewPoint(start);
             checkPathIndex++;
             counter++;
-        } while (rayCheck(start, newDest));
+        } while (rayCheck(start, newDest) && (counter < failSafe)); // ADDED FAILSAFE
         //} while (rayCheck(start, newDest) && (pathObjectHitInfo.distance < Vector3.Distance(start, newDest)));
         //} while (((rayCheck(start, newDest))&&(checkPathIndex<4)) && counter < failSafe);
         //

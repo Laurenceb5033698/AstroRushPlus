@@ -61,6 +61,15 @@ public class UI : MonoBehaviour {
         {
             displayMenu = value;
             menuPanel.SetActive(displayMenu);
+
+            if (displayMenu)
+            {
+                Time.timeScale = 0;
+            }
+            else
+            {
+                Time.timeScale = 1;
+            }
         }
     }
     public bool BoundaryWarning
@@ -80,7 +89,7 @@ public class UI : MonoBehaviour {
     {
         if (v == 0) menuPanelT.text = "GAME OVER!";
         else if (v == 1) menuPanelT.text = "LEVEL COMPLETE!";
-        else if (v == 2) menuPanelT.text = "PAUSE GAME";
+        else if (v == 2) menuPanelT.text = "";
     }
 
 
