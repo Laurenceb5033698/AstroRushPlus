@@ -92,7 +92,7 @@ public class AI : MonoBehaviour {
         //First aims the pirate ship at the destination (within a few degrees of accuracy)
         Vector3 targetDir = Destination - ship.transform.position;
         Vector3 controlDir = targetDir.normalized;//use ControlDir to move the ship towards the destination(instead of controller input)
-        Quaternion mRotation = Quaternion.LookRotation(targetDir);
+        //Quaternion mRotation = Quaternion.LookRotation(targetDir);
 
         //ship.transform.rotation = Quaternion.RotateTowards(ship.transform.rotation, mRotation, Time.deltaTime * 42f);
        

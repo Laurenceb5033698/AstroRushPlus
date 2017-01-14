@@ -32,7 +32,7 @@ public class SpawnAsteroidField : MonoBehaviour {
 	private Vector3 pivot;
 	private Vector3 point;
 	private Vector3 dir;
-    private Vector3 scale;
+    //private Vector3 scale;
 
 
 
@@ -95,7 +95,7 @@ public class SpawnAsteroidField : MonoBehaviour {
 		spawnAngle = Random.Range (0f, 360f);
 		rotSpeed = Random.Range (-0.5f,0.5f);
 
-		scale = new Vector3(Random.Range(sMin,sMax)/1000,Random.Range(sMin,sMax)/1000,Random.Range(sMin,sMax)/1000); // needs rewriting
+		//scale = new Vector3(Random.Range(sMin,sMax)/1000,Random.Range(sMin,sMax)/1000,Random.Range(sMin,sMax)/1000); // needs rewriting
 		randAstRot = new Vector3 (Random.Range (0f, 360f),Random.Range (0f, 360f),Random.Range (0f, 360f));
 
 		pivot = position;

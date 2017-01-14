@@ -35,7 +35,7 @@ public class EnemyAI : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        stats = new EnemyStats();
+        stats = transform.gameObject.AddComponent<EnemyStats>();
         ship = transform.gameObject;
         rb = ship.gameObject.GetComponent<Rigidbody>();
         destination = ship.transform.position;
@@ -92,18 +92,21 @@ public class EnemyAI : MonoBehaviour {
                 }; break;
             case 2:
                 {
-                    if (destination != null)
+                    if (destination == null)
+                    {
+                        state = 0;
+                    }
+                    else
                     {
                         if (Vector3.Distance(ship.transform.position, destination) > 10f) state = 3;
                         else PatrolArea();
                     }
-                    else state = 0;
 
                 }; break;
             case 3:
                 {
-                    if (destination != null) GoToDestination();
-                    else state = 0;
+                    if (destination == null) state = 0; 
+                    else GoToDestination();
 
                     FindTarget();
                     if (target != null)
@@ -153,7 +156,7 @@ public class EnemyAI : MonoBehaviour {
             if (Random.Range(0f, 10f) > 3f)
             {
                 GameObject mpickup = sceneManager.GetComponent<PickupManager>().GetRandomPickup();
-                GameObject temp = (GameObject)Instantiate(mpickup, ship.transform.position, Quaternion.identity); 	// create gameobject
+                Instantiate(mpickup, ship.transform.position, Quaternion.identity); 	// create gameobject
             }
             Destroy(transform.gameObject);
         }
