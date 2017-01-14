@@ -34,51 +34,51 @@ public class UI : MonoBehaviour {
     {
         if (displayHints)
         {
-            //Debug.Log("display hint");
-            if (displayHintIndex < 3)
-            {
-                Time.timeScale = 0;
-
-                //Debug.Log("index is less then length");
-                for (int i = 0; i < 3; i++)
-                {
-                    if (displayHintIndex != i)
-                    {
-                        //Debug.Log("turn panels off");
-                        hintPanels[i].SetActive(false);
-                    }
-                    else
-                    {
-                        //Debug.Log("activate current panel");
-                        hintPanels[displayHintIndex].SetActive(true);
-                    }
-                }
-            }
-            else
-            {
-                //Debug.Log("turn off display");
-                displayHintIndex = 0; // hard reset
-                displayHints = false;
-                hintPanels[2].SetActive(false);
-                Time.timeScale = 1;
-            }
-
-            if (Input.GetKeyDown(KeyCode.JoystickButton0))
-            {
-                //Debug.Log("increment index");
-                displayHintIndex++;
-            }
+            Displayhints();
         }
-        else
-        {
-            Time.timeScale = 1;
-        }
-
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("ESC Pressed");
             menu = !displayMenu;
+        }
+    }
+
+    private void Displayhints()
+    {
+        //Debug.Log("display hint");
+        if (displayHintIndex < 3)
+        {
+            Time.timeScale = 0;
+
+            //Debug.Log("index is less then length");
+            for (int i = 0; i < 3; i++)
+            {
+                if (displayHintIndex != i)
+                {
+                    //Debug.Log("turn panels off");
+                    hintPanels[i].SetActive(false);
+                }
+                else
+                {
+                    //Debug.Log("activate current panel");
+                    hintPanels[displayHintIndex].SetActive(true);
+                }
+            }
+        }
+        else
+        {
+            //Debug.Log("turn off display");
+            displayHintIndex = 0; // hard reset
+            displayHints = false;
+            hintPanels[2].SetActive(false);
+            Time.timeScale = 1;
+        }
+
+        if (Input.GetKeyDown(KeyCode.JoystickButton0))
+        {
+            //Debug.Log("increment index");
+            displayHintIndex++;
         }
     }
 

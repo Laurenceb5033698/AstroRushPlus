@@ -51,7 +51,7 @@ public class GateCollider : MonoBehaviour
     void OnTriggerEnter(Collider col)
     {
         //Debug.Log(col.name + " at the gate");
-        if (col.gameObject.name == "NewShip")
+        if (col.gameObject.tag == "PlayerShip")
         {
             triggerActive = true;
         }

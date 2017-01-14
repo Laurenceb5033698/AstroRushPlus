@@ -1,0 +1,37 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class Shield : MonoBehaviour {
+
+    [SerializeField] private ShipStats stats;
+
+
+	// Use this for initialization
+	void Start () {
+	
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+
+    public void ShieldSphereOpacity()
+    {
+        float newalpha = 0.5f * (stats.ShipShield / 40);
+
+        Color oldcol = transform.GetComponent<MeshRenderer>().materials[0].color;
+        oldcol = new Color(oldcol.r, oldcol.g, oldcol.b, newalpha);
+        transform.GetComponent<MeshRenderer>().materials[0].color = oldcol;
+
+        //Debug.Log("shield amount: " + stats.ShipShield);
+        if (stats.ShipShield < 0.1f)
+        {
+            transform.GetComponent<MeshRenderer>().enabled = false;
+        }
+        else
+        {
+            transform.GetComponent<MeshRenderer>().enabled = true;
+        }
+    }
+}

@@ -61,7 +61,7 @@ public class PickupItem : MonoBehaviour {
 
     void OnTriggerEnter(Collider c)
     {
-        if (c.transform.gameObject.name == "NewShip")
+        if (c.transform.gameObject.tag == "PlayerShip")
         {
             switch (type)
             {

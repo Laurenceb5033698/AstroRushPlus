@@ -83,6 +83,7 @@ public class SpawnAsteroidField : MonoBehaviour {
 		//temp.transform.localScale = scale; 														// scale gameobject
 		temp.AddComponent<Asteroid> (); 														// add asteroid script to it
 		temp.name = "Asteroid"; 																// rename it to Asteroid
+        temp.tag = "Asteroid";
 
 		return temp;
 	}
