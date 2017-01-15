@@ -60,7 +60,7 @@ public class ShipController : MonoBehaviour
     }
     private void MoveShip()
     {
-        CorrectShipTransforms();
+        //CorrectShipTransforms();
 
         float forward = 0.0f;
         //if (controls.zAxis > 0.1f)

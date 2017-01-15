@@ -7,7 +7,6 @@ public class UI : MonoBehaviour {
 
 	public Text boost;
 	public Text health;
-    public Text BoundaryText;
 
     public GameObject menuPanel;
     public GameObject BoundryPanel;
@@ -27,6 +26,7 @@ public class UI : MonoBehaviour {
         setMessage(2);
         menu = displayMenu;
         BoundaryWarning = displayBoundary;
+        Time.timeScale = 1;
     }
 	
 	// Update is called once per frame
@@ -139,12 +139,5 @@ public class UI : MonoBehaviour {
     {
         SceneManager.LoadScene(0);
     }
-
-    
-    public void HideBoundaryWarning()
-    {
-
-    }
-
 
 }
