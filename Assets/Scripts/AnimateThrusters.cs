@@ -65,7 +65,7 @@ public class AnimateThrusters : MonoBehaviour
 	private void AnimateThrust()
 	{
 		// ----------------- Forward Thrusters -------------------------------
-		bool fThrusters = (controls.zAxis > 0.1f);
+        bool fThrusters = (controls.zAxis > 0.1f || controls.xAxis > 0.2f || controls.xAxis < -0.2f);
 		SetEmission (fThrust1, fThrusters);
 		SetEmission (fThrust2, fThrusters);
 		SetEmission (fThrust3, fThrusters);

@@ -55,7 +55,7 @@ public class ShipController : MonoBehaviour
         if (stats.IsShipWorking())
         {
             thrusters.SetThrusterState(true);
-            MoveShip();
+            MoveShip2();
         }
         else
         {
@@ -125,6 +125,7 @@ public class ShipController : MonoBehaviour
 
         if (controls.boost && !stats.bco && stats.GetBoostFuelAmount() > 0.0f)
         {
+            
             if (stats.GetBoostFuelAmount() < 0.5f)
             {
                 stats.bco = true;
@@ -185,7 +186,7 @@ public class ShipController : MonoBehaviour
 
 
         Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
-        locVel = new Vector3(controls.zAxis * stats.GetMainThrust(), 0, 0);
+        locVel = new Vector3(controls.zAxis * stats.GetMainThrust(), 0, -controls.xAxis * stats.GetMainThrust());
         rb.velocity = transform.TransformDirection(locVel);
 
         //rb.velocity = new Vector3((controls.xAxis * stats.GetMainThrust()),0,(controls.zAxis * stats.GetMainThrust()));
@@ -195,7 +196,41 @@ public class ShipController : MonoBehaviour
         //rotate
         //rb.AddTorque(Vector3.up * (controls.yawAxis * stats.GetRotSpeed()) * Time.deltaTime);
 
-        rb.angularVelocity = new Vector3(rb.angularVelocity.x, controls.xAxis * stats.GetRotSpeed() * Time.deltaTime, rb.angularVelocity.z);
+        rb.angularVelocity = new Vector3(rb.angularVelocity.x, controls.yawAxis * stats.GetRotSpeed() * Time.deltaTime, rb.angularVelocity.z);
+    }
+    private void MoveShip2()
+    {
+        CorrectShipTransforms();
+
+
+        Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
+        float temp = Mathf.Sqrt(controls.yawAxis * controls.yawAxis + controls.rightY * controls.rightY);
+        bool rightstick = (temp > 0.7f);
+        if (!(controls.boost && rightstick) && (controls.boost || rightstick))//controls.boost || controls.yawAxis != 0 || controls.rightY != 0)// && !stats.bco && stats.GetBoostFuelAmount() > 0.0f
+        {//hypermove with strafe
+            //if (stats.GetBoostFuelAmount() < 0.5f)
+            //{
+            //    stats.bco = true;
+            //}
+            locVel = new Vector3(controls.zAxis * stats.GetMainThrust(), 0, -controls.xAxis * stats.GetMainThrust());
+            rb.velocity = transform.TransformDirection(locVel);
+            rb.angularVelocity = new Vector3(rb.angularVelocity.x, 0, rb.angularVelocity.z);
+            //stats.ShipFuel = -20 * Time.deltaTime;
+            
+        }
+        else
+        {//normal move with turning
+            
+
+            locVel = new Vector3(controls.zAxis * stats.GetMainThrust(), 0, 0);
+            rb.velocity = transform.TransformDirection(locVel);
+            rb.angularVelocity = new Vector3(rb.angularVelocity.x, controls.xAxis * stats.GetRotSpeed() * Time.deltaTime, rb.angularVelocity.z);
+            //if (stats.GetBoostFuelAmount() >= 20f)
+            //{
+            //    stats.bco = false;
+            //}
+            //stats.ShipFuel = 12 * Time.deltaTime;
+        }
     }
     private void dampenSidewaysMotion()
     {
@@ -238,9 +273,10 @@ public class ShipController : MonoBehaviour
         Quaternion shipRotation = ship.transform.rotation;
         Vector3 RocketRot = shipPos + (-shipDirection);
 
-
+        //Debug.Log(rb.velocity.magnitude);
         GameObject temp = (GameObject)Instantiate(mPreF, shipPos + (shipDirection * 6f), shipRotation);
-        temp.GetComponent<Rigidbody>().AddForce(ship.transform.position + ship.transform.right * (rb.velocity.magnitude * 5f));
+        temp.GetComponent<Rigidbody>().velocity = (ship.transform.right * (rb.velocity.magnitude));
+        temp.GetComponent<Rigidbody>().AddForce(RocketRot.normalized * (rb.velocity.magnitude * 6f));//
         temp.transform.LookAt(RocketRot);
         temp.transform.Rotate(-90, 0, 0);
     }
@@ -275,8 +311,11 @@ public class ShipController : MonoBehaviour
     // EVENT HANDLERS-------------------------------------------------------------------------------------
     void OnCollisionEnter(Collision c)
     {
-        stats.takeDamage(c.relativeVelocity.magnitude / 2);
-        ShieldSphereOpacity();
+        if(c.gameObject.GetComponent<Missile>() == null)
+        {//if we collide with anything but a missile
+            stats.takeDamage(c.relativeVelocity.magnitude / 2);
+            ShieldSphereOpacity();
+        }
     }
 
     public void TakeDamage(float amount)

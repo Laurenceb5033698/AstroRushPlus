@@ -18,7 +18,8 @@ public class Missile : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-        rb.AddForce(transform.up * 20f); // accelerate
+        if(rb.velocity.magnitude < 80f)
+            rb.AddForce(transform.up * 25f); // accelerate
 
 		countDown -= 1 * Time.deltaTime;
 		if (countDown < 0) 
@@ -29,14 +30,17 @@ public class Missile : MonoBehaviour
 
 	void OnCollisionEnter(Collision collision)
 	{
-		if (collision.gameObject.name == "Asteroid")
-        	Destroy(collision.gameObject); // this will destroy the object that the missile collide with
-        else if (collision.gameObject.GetComponentInParent<EnemyAI>() != null)
-        {//then target is an enemy ship
-            collision.gameObject.GetComponentInParent<EnemyAI>().TakeDamage(80f );
-            
+        if (collision.gameObject.GetComponent<ShipController>() == null)
+        {//if I hit anything but the player
+            if (collision.gameObject.name == "Asteroid")
+                Destroy(collision.gameObject); // this will destroy the object that the missile collide with
+            else if (collision.gameObject.GetComponentInParent<EnemyAI>() != null)
+            {//then target is an enemy ship
+                collision.gameObject.GetComponentInParent<EnemyAI>().TakeDamage(80f);
+
+            }
+            DestroySelf();
         }
-		DestroySelf ();
 	}
 
 	private void DestroySelf()

@@ -4,12 +4,12 @@ using System.Collections;
 public class SpawnAsteroidField : MonoBehaviour {
 
     // constants
-    private const float minSpawnDist = 100f;
-    private const float maxSpawnDist = 250f;
+    private const float minSpawnDist = 200f;
+    private const float maxSpawnDist = 280f;
     private const float killZoneDist = maxSpawnDist + 20f;
     private const float sMin = 80f;
     private const float sMax = 100f;
-    private const int NoAsteroids = 60;
+    private const int NoAsteroids = 100;
 
 
     [SerializeField] private GameObject[] asteroids = new GameObject[8];
@@ -78,7 +78,7 @@ public class SpawnAsteroidField : MonoBehaviour {
 
 		GameObject temp = (GameObject)Instantiate(asteroids[id], point , Quaternion.identity); 	// create gameobject
 		temp.transform.parent = transform; 														// add gameobject to sceneManager as child
-		temp.GetComponent<Rigidbody>().AddTorque (randAstRot * rotSpeed); 						// add random rotation to gameobject
+        temp.GetComponent<Rigidbody>().AddTorque(randAstRot * rotSpeed); 						// add random rotation to gameobject
 		//temp.GetComponent<Rigidbody>().maxDepenetrationVelocity = 20f;
 		//temp.transform.localScale = scale; 														// scale gameobject
 		temp.AddComponent<Asteroid> (); 														// add asteroid script to it
@@ -92,7 +92,7 @@ public class SpawnAsteroidField : MonoBehaviour {
 		id = Random.Range(0,7); // max was originally 8 but the big asteroid has spawn issues
 		spawnDistance = Random.Range (minSpawnDist,maxSpawnDist);
 		spawnAngle = Random.Range (0f, 360f);
-		rotSpeed = Random.Range (-0.5f,0.5f);
+		rotSpeed = Random.Range (-2f,2f);
 
 		scale = new Vector3(Random.Range(sMin,sMax)/1000,Random.Range(sMin,sMax)/1000,Random.Range(sMin,sMax)/1000); // needs rewriting
 		randAstRot = new Vector3 (Random.Range (0f, 360f),Random.Range (0f, 360f),Random.Range (0f, 360f));
