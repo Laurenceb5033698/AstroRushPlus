@@ -45,10 +45,11 @@ public class EnemyAI : MonoBehaviour {
         state = 0;
         
         
-
-
         laser = transform.gameObject.GetComponent<LineRenderer>();
         laser.SetWidth(0.2f, 0.2f);
+
+        laser.SetPosition(0, new Vector3(0, 500, 0));
+        laser.SetPosition(1, new Vector3(0, 500, 0));
     }
 	
 	// Update is called once per frame
