@@ -29,7 +29,6 @@ public class EnemyAI : MonoBehaviour {
     private RaycastHit pathObjectHitInfo;
     private Vector3 newDest;
     [SerializeField] private List<Vector3> pathList = new List<Vector3>();
-    //private List<Vector3> PatrolPathList = new List<Vector3>();
     
 
 	// Use this for initialization

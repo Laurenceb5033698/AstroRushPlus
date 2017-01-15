@@ -45,19 +45,13 @@ public class Inputs : MonoBehaviour
 
     private void CheckKeyboard()
     {
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-            zAxis = 1;
-        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-            zAxis = -1;
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) zAxis = 1;
+        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) zAxis = -1;
 
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-            xAxis = -1;
-        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-            xAxis = 1;
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) xAxis = -1;
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) xAxis = 1;
 
-        if (Input.GetKey(KeyCode.Q))
-            yawAxis = -1;
-        else if (Input.GetKey(KeyCode.E))
-            yawAxis = 1;
+        if (Input.GetKey(KeyCode.Q)) yawAxis = -1;
+        else if (Input.GetKey(KeyCode.E)) yawAxis = 1;
     }
 }

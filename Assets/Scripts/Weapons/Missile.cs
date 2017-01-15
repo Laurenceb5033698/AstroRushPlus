@@ -3,8 +3,7 @@ using System.Collections;
 
 public class Missile : MonoBehaviour 
 {
-	private const float lifeSpam = 2f;
-	private float countDown = lifeSpam;
+    private float detonateAt;
     private Rigidbody rb;
 
 	public GameObject exp;
@@ -13,15 +12,14 @@ public class Missile : MonoBehaviour
     void Start () 
 	{
         rb = transform.GetComponent<Rigidbody>();
-	}
+        rb.AddForce(transform.forward * 50f, ForceMode.Impulse);
+        detonateAt = Time.time + 1f;
+    }
 	
 	// Update is called once per frame
 	void Update () 
 	{
-        rb.AddForce(transform.up * 20f); // accelerate
-
-		countDown -= 1 * Time.deltaTime;
-		if (countDown < 0) 
+		if (Time.time > detonateAt) 
 		{
 			DestroySelf ();
 		}
@@ -29,15 +27,10 @@ public class Missile : MonoBehaviour
 
 	void OnCollisionEnter(Collision collision)
 	{
-		if (collision.gameObject.name == "Asteroid")
-        	Destroy(collision.gameObject); // this will destroy the object that the missile collide with
-        else if (collision.gameObject.GetComponentInParent<EnemyAI>() != null)
-        {//then target is an enemy ship
-            collision.gameObject.GetComponentInParent<EnemyAI>().TakeDamage(80f );
-            
-        }
-		DestroySelf ();
-	}
+		if (collision.gameObject.tag == "Asteroid") Destroy(collision.gameObject);
+        else if (collision.gameObject.tag == "EnemyShip") collision.gameObject.GetComponentInParent<EnemyAI>().TakeDamage(80f);        
+        DestroySelf();
+    }
 
 	private void DestroySelf()
 	{
