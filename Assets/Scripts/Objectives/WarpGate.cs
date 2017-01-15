@@ -7,36 +7,37 @@ public class WarpGate : MonoBehaviour {
     [SerializeField] private GameObject Gen2;
     [SerializeField] private ParticleSystem gate;
     [SerializeField] private GameObject collider;
-    [SerializeField] private UI ui;
 
     private bool GateIsActive;
+    private bool shipWentThrough = false;
 
 	// Use this for initialization
 	void Start ()
     {
         GateIsActive = false;
         collider.AddComponent<GateCollider>();
-
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (collider.GetComponent<GateCollider>().GetState() && GateIsActive)
-        {
-            //Debug.Log("WIN");
-            ui.setMessage(1);
-            ui.menu = true;
-        }
-
+        if (collider.GetComponent<GateCollider>().GetState() && GateIsActive) shipWentThrough = true;
+         GateIsActive = !(Gen1.GetComponent<Generator>().GetShieldStatus() || Gen2.GetComponent<Generator>().GetShieldStatus());
+         gate.gameObject.SetActive(GateIsActive);
     }
 
-    void FixedUpdate()
+    public bool GetShipCrossState()
     {
-        GateIsActive = !(Gen1.GetComponent<Generator>().GetShieldStatus() || Gen2.GetComponent<Generator>().GetShieldStatus());
-        gate.gameObject.SetActive(GateIsActive);
+        return shipWentThrough;
+    }
+
+    public bool GetState()
+    {
+        return GateIsActive;
     }
 }
+
+
 
 public class GateCollider : MonoBehaviour
 {

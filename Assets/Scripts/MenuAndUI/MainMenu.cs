@@ -18,6 +18,7 @@ public class MainMenu : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         shipStartPos = transform.position;
+        Time.timeScale = 1;
         //shipStartRot = ship.transform.rotation;
 
         timeToChangeDir = Time.time + 3f;

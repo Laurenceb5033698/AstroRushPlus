@@ -10,7 +10,6 @@ public class ShipController : MonoBehaviour
     [SerializeField] private Inputs controls;
     [SerializeField] private Rigidbody rb; 	// ship's rigid body
     [SerializeField] private ShipStats stats;
-    [SerializeField] private UI ui;
     [SerializeField] private Shield shield;
 
     private float rotFix = 0f;
@@ -31,13 +30,6 @@ public class ShipController : MonoBehaviour
         {
             MoveShip();
         }
-        else
-        {
-            ui.setMessage(0);
-            ui.menu = true;
-        }
-
-        ui.UpdateShipStats(stats.ShipFuel, stats.ShipHealth); // update ui
     }
 
     // FUNCTIONS --------------------------------------------------------------------------------------------------------	

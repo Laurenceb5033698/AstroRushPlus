@@ -8,6 +8,8 @@ public class BoundaryManager : MonoBehaviour {
 
     [SerializeField] private GameObject ship; // player's ship
 
+    private bool state = false;
+
     private const int SBOUND = 600;
     private const int HBOUND = SBOUND + 70;
 
@@ -27,13 +29,15 @@ public class BoundaryManager : MonoBehaviour {
     {
         if (Mathf.Abs(ship.transform.position.x) > SBOUND || Mathf.Abs(ship.transform.position.z) > SBOUND)
         {
-            transform.GetComponent<UI>().BoundaryWarning = true;//enable warning text
+            //transform.GetComponent<UI>().setMessage(5); // show boundary warning
+            state = true;
             boundaryx.GetComponent<BoundaryLine>().drawstate = true;
             boundaryz.GetComponent<BoundaryLine>().drawstate = true;
         }
         else
         {
-            transform.GetComponent<UI>().BoundaryWarning = false; ;//hide warning text
+            //transform.GetComponent<UI>().setMessage(2); // show paused state (default)
+            state = false;
             boundaryx.GetComponent<BoundaryLine>().drawstate = false;
             boundaryz.GetComponent<BoundaryLine>().drawstate = false;
         }
@@ -42,6 +46,11 @@ public class BoundaryManager : MonoBehaviour {
         {
             ship.GetComponent<ShipStats>().takeDamage(10.0f * Time.deltaTime); //every sec ship takes 5% damage
         }
+    }
+
+    public bool GetState()
+    {
+        return state;
     }
 
 }

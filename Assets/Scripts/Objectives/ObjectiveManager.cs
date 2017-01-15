@@ -18,15 +18,26 @@ public class ObjectiveManager : MonoBehaviour {
     private GameObject newTarget;
     private int targetIndex;
 
+    private bool[] objectivesCompleted = new bool[4]; 
+
 	// Use this for initialization
 	void Start () {
 
-        newTarget = transform.gameObject; // scene manager position
-	
+        for (int i = 0; i < objectivesCompleted.Length; i++)
+        {
+            objectivesCompleted[i] = false;
+        }
+        newTarget = transform.gameObject; // scene manager position	
 	}
 	
 	// Update is called once per frame
 	void Update () 
+    {
+        UpdateOnceMessages();
+        UpdateTarget();
+    }
+
+    private void UpdateTarget()
     {
         targetIndex = 0;
 
@@ -48,8 +59,35 @@ public class ObjectiveManager : MonoBehaviour {
 
         pointer.GetComponent<Pointer>().SetNewTarget(newTarget);
         distance.GetComponent<DistanceDisplay>().SetNewTarget(newTarget);
+    }
+
+    private void UpdateOnceMessages()
+    {
+        // toggle messages
+        if (objectivesCompleted[0] == false)
+        {
+            objectivesCompleted[0] = !gen1.GetComponent<Generator>().GetShieldStatus();
+            if (objectivesCompleted[0] == true) transform.GetComponent<UI>().setMessage(3);
+        }
+
+        if (objectivesCompleted[1] == false)
+        {
+            objectivesCompleted[1] = !gen2.GetComponent<Generator>().GetShieldStatus();
+            if (objectivesCompleted[1] == true) transform.GetComponent<UI>().setMessage(3);
+        }
+
+        if (objectivesCompleted[2] == false)
+        {
+            objectivesCompleted[2] = warpGate.GetComponent<WarpGate>().GetState();
+            if (objectivesCompleted[2] == true) transform.GetComponent<UI>().setMessage(4);
+        }
+
+        if (objectivesCompleted[3] == false)
+        {
+            objectivesCompleted[3] = warpGate.GetComponent<WarpGate>().GetShipCrossState();
+            if (objectivesCompleted[3] == true) transform.GetComponent<UI>().setMessage(0);
+        }
 
 
-
-	}
+    }
 }

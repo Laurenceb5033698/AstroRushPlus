@@ -18,7 +18,7 @@ public class Shield : MonoBehaviour {
 
     public void ShieldSphereOpacity()
     {
-        float newalpha = 0.5f * (stats.ShipShield / 40);
+        float newalpha = 0.5f * (stats.ShipShield / 100);
 
         Color oldcol = transform.GetComponent<MeshRenderer>().materials[0].color;
         oldcol = new Color(oldcol.r, oldcol.g, oldcol.b, newalpha);
