@@ -46,12 +46,16 @@ public class ShipController : MonoBehaviour
 
     private void MoveShip()
     {
-        float forward = 0.0f;
-        //if (controls.zAxis > 0.1f)
-            forward = controls.zAxis * stats.GetMainThrust();
+        float boostMultiplier = (controls.boost) ? 2 : 1;
 
-        rb.velocity = transform.TransformDirection(new Vector3(forward, 0, 0));
-        rb.angularVelocity = new Vector3(rb.angularVelocity.x, controls.xAxis * stats.GetRotSpeed() * Time.deltaTime, rb.angularVelocity.z);
+        //rb.velocity = transform.TransformDirection(new Vector3(controls.zAxis * stats.GetMainThrust(), 0, -controls.xAxis * stats.GetMainThrust())) * boostMultiplier;
+        rb.velocity = new Vector3(controls.xAxis * stats.GetMainThrust(), 0, controls.zAxis * stats.GetMainThrust()) * boostMultiplier;
+        rb.angularVelocity = new Vector3(0,0,0);
+
+        if (Mathf.Abs(controls.yawAxis) > 0.1f || Mathf.Abs(controls.rightY) > 0.1f)
+            transform.rotation = Quaternion.RotateTowards(transform.rotation,Quaternion.LookRotation(new Vector3(-controls.rightY, 0, controls.yawAxis)),10);
+        else if (Mathf.Abs(controls.xAxis) > 0.1f || Mathf.Abs(controls.zAxis) > 0.1f)
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(controls.xAxis, 0, controls.zAxis)) * Quaternion.Euler(new Vector3(0,-90,0)), 10);
     }
 
     // EVENT HANDLERS-------------------------------------------------------------------------------------

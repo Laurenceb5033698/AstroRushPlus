@@ -26,7 +26,6 @@ public class ThrusterManager : MonoBehaviour {
     private void UpdateThrusters()
     {
         state = (Mathf.Abs(sm.GetComponent<Inputs>().xAxis) > deadzone || sm.GetComponent<Inputs>().zAxis > deadzone);
-
         if (state)
         {
             thrusters[0].SetState(sm.GetComponent<Inputs>().xAxis < -deadzone); // right

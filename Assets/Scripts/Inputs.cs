@@ -39,7 +39,7 @@ public class Inputs : MonoBehaviour
         rocket = Input.GetKeyDown (KeyCode.JoystickButton5) || Input.GetKeyDown(KeyCode.R);
 		targeting = Input.GetMouseButtonDown (0);
         RLaser = Input.GetKey(KeyCode.JoystickButton4) || Input.GetKey(KeyCode.F);
-		boost = Input.GetKey(KeyCode.JoystickButton8) || Input.GetKey(KeyCode.Space);
+        boost = Input.GetAxis("LeftTrigger") > 0.1f || Input.GetKey(KeyCode.Space);
         reset = Input.GetKeyDown(KeyCode.JoystickButton7) || Input.GetKeyDown(KeyCode.Y);
     }
 
