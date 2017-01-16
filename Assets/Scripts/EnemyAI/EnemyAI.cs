@@ -190,6 +190,7 @@ public class EnemyAI : MonoBehaviour {
     {
         ship.transform.position = Vector3.MoveTowards(ship.transform.position,destination, 5f * Time.deltaTime);
         //ship.transform.LookAt(destination);
+        // NULL REFERENCE ERROR
         ship.transform.rotation = Quaternion.RotateTowards(ship.transform.rotation, Quaternion.LookRotation(target.transform.position - ship.transform.position), Time.deltaTime * 32f);
     }
 
