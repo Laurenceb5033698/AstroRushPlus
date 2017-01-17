@@ -25,14 +25,6 @@ public class Shield : MonoBehaviour {
         oldcol = new Color(oldcol.r, oldcol.g, oldcol.b, newalpha);
         transform.GetComponent<MeshRenderer>().materials[0].color = oldcol;
 
-        //Debug.Log("shield amount: " + stats.ShipShield);
-        if (stats.ShipShield < 0.1f)
-        {
-            transform.GetComponent<MeshRenderer>().enabled = false;
-        }
-        else
-        {
-            transform.GetComponent<MeshRenderer>().enabled = true;
-        }
+        transform.GetComponent<MeshRenderer>().enabled = (stats.ShipShield < 0.1f) ? false : true;
     }
 }
