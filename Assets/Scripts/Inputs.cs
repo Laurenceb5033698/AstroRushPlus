@@ -18,13 +18,12 @@ public class Inputs : MonoBehaviour
     public bool reset;
 
     public UI ui;
-	
 
-    public void UpdateInputs()
+
+    void Update()
     {
         CheckInputs();
     }
-
 
 	private void CheckInputs()
 	{

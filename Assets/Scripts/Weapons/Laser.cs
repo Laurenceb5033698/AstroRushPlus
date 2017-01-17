@@ -3,23 +3,29 @@ using System.Collections;
 
 public class Laser : MonoBehaviour 
 {
-    [SerializeField] private ShipStats stats;
-    [SerializeField] private Inputs controls;
-    [SerializeField] private LineRenderer laser;
-    [SerializeField] private GameObject target = null;
+    private ShipStats stats;
+    private LineRenderer laser;
+    private GameObject target;
 
+    [SerializeField] private Inputs controls;
     [SerializeField] private Material activeLaserColor;
     [SerializeField] private Material idleLaserColor;
 
-	RaycastHit hitInfo;
-	Ray detectObject;
-	bool hit = false;
+	private RaycastHit hitInfo;
+	private Ray detectObject;
+	private bool hit;
 
     private Vector3 targetPos;
 
     // Use this for initialization
     void Start () 
     {
+        stats = transform.gameObject.GetComponentInParent<ShipStats>();
+        laser = transform.gameObject.GetComponent<LineRenderer>();
+
+        target = null;
+        hit = false;
+
 		laser.SetWidth(stats.GetLaserWidth(), stats.GetLaserWidth());
         laser.GetComponent<Renderer>().material = idleLaserColor;
     }

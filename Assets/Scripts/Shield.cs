@@ -3,17 +3,18 @@ using System.Collections;
 
 public class Shield : MonoBehaviour {
 
-    [SerializeField] private ShipStats stats;
-
+    private ShipStats stats;
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start () 
+    {
+	    stats = transform.gameObject.GetComponentInParent<ShipStats>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update () 
+    {
+        ShieldSphereOpacity();
 	}
 
     public void ShieldSphereOpacity()

@@ -30,7 +30,7 @@ public class ShipStats : MonoBehaviour {
 	private const float laserWidth = 0.2f;
     private const float laserDamage = 50f;
 
-    public void UpdateStats()
+    void Update()
     {
         regenerateShield();
     }
