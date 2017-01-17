@@ -5,6 +5,13 @@ using System;
 
 public class ShipController : MonoBehaviour
 {
+
+    public ShipController()
+    {
+
+    }
+
+
     [SerializeField] private GameObject ship;  // ship gameobject
     [SerializeField] private GameObject mPreF; // missile prefab
     [SerializeField] private Inputs controls;
