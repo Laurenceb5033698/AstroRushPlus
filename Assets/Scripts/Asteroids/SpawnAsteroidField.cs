@@ -107,6 +107,7 @@ public class SpawnAsteroidField : MonoBehaviour {
 
 	private void GetFreePosition()
 	{
+        // this could create an infinite loop
 		do
 		{
 			ChGo.GetComponent<CheckerScript>().ResetCollider();

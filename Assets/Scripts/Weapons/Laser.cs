@@ -53,7 +53,7 @@ public class Laser : MonoBehaviour
 
             if (target.tag == "Asteroid")
             {
-                target.GetComponent<Asteroid>().TakeDamage(stats.GetLaserDamage() * Time.deltaTime);
+                target.GetComponent<Health>().TakeDamage(stats.GetLaserDamage() * Time.deltaTime);
                 laser.GetComponent<LineRenderer>().material = activeLaserColor;
             }
             else if (target.tag == "GeneratorShield")
