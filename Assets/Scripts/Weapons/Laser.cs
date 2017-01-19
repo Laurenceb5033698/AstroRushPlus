@@ -63,7 +63,7 @@ public class Laser : MonoBehaviour
             }
             else if (target.tag == "EnemyShip")
             {
-                target.gameObject.GetComponentInParent<EnemyAI>().TakeDamage(stats.GetLaserDamage() * Time.deltaTime);
+                //target.gameObject.GetComponentInParent<EnemyAI>().TakeDamage(stats.GetLaserDamage() * Time.deltaTime);
                 laser.GetComponent<LineRenderer>().material = activeLaserColor;
             }
             else

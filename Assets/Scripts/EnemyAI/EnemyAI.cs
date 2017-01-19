@@ -13,7 +13,7 @@ public class EnemyAI : MonoBehaviour {
     [SerializeField] private GameObject sceneManager;
 
 
-    private EnemyStats stats;
+    [SerializeField] private ShipStats stats;
 
     [SerializeField]
     private GameObject player;
@@ -34,7 +34,7 @@ public class EnemyAI : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        stats = transform.gameObject.AddComponent<EnemyStats>();
+        stats = transform.gameObject.AddComponent<ShipStats>();
         ship = transform.gameObject;
         rb = ship.gameObject.GetComponent<Rigidbody>();
         destination = ship.transform.position;
@@ -66,7 +66,7 @@ public class EnemyAI : MonoBehaviour {
 
     private void UpdateState()
     {
-        if(stats.ShipHealth > 0)
+        if(stats.IsAlive())
         switch (state)
         {
             case 0:
@@ -165,7 +165,7 @@ public class EnemyAI : MonoBehaviour {
 
     public void TakeDamage(float amount)
     {
-        stats.ShipHealth = -amount;
+        stats.TakeDamage(amount);
     }
 
     void OnCollisionEnter(Collision c)
@@ -370,27 +370,4 @@ public class EnemyAI : MonoBehaviour {
     }
 }
 
-public class EnemyStats : MonoBehaviour
-{
-    // DAMAGE
-    private float health = 100;
-    private const int maxHealth = 100;
-    
-    public float ShipHealth
-    {
-        get { return health; }
-        set
-        {
-            if (value > 0)
-            {
-                health = (health + value > maxHealth) ? maxHealth : health + value;
-            }
-            else if (value < 0)
-            {
-                health = (health + value < 0) ? 0 : health + value;
-            }
-        }
-    }
-    
 
-}
