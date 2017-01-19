@@ -15,7 +15,7 @@ public class AsteroidManager : MonoBehaviour
     {
         for (int i = 0; i < NoAsteroids; i++)
         {
-            spawnedAsteroids[i] = SpawnAsteroid(i);
+            spawnedAsteroids[i] = SpawnAsteroid();
         }
 	}
 	
@@ -24,11 +24,12 @@ public class AsteroidManager : MonoBehaviour
     {
         for (int i = 0; i < NoAsteroids; i++)
         {
-            if (Vector3.Distance(ship.transform.position, spawnedAsteroids[i].transform.position) > ResetDist) Reset(i);
+            if (Vector3.Distance(ship.transform.position, spawnedAsteroids[i].transform.position) > ResetDist)
+                spawnedAsteroids[i].GetComponent<Asteroid>().Reset();
         }
 	}
 
-    private GameObject SpawnAsteroid(int id)
+    private GameObject SpawnAsteroid()
     {
         float angle = Mathf.Deg2Rad * Random.Range(0, 360);
         float distance = Random.Range(100, 250);
@@ -36,20 +37,25 @@ public class AsteroidManager : MonoBehaviour
 
         GameObject temp = (GameObject)Instantiate(asteroids[Random.Range(0, 5)], ship.transform.position + dir * distance, Quaternion.identity);
         temp.transform.parent = transform;
-        temp.AddComponent<ID>();
-        temp.AddComponent<Health>();
+        temp.GetComponent<Asteroid>().SetAsteroidManager(gameObject);
 
-        temp.GetComponent<ID>().Initalise(id, transform.gameObject);
-        temp.GetComponent<Health>().SetHealth(100);
+        //temp.AddComponent<ID>();
+        //temp.AddComponent<Health>();
+        //temp.GetComponent<ID>().Initalise(id, transform.gameObject);
+        //temp.GetComponent<Health>().SetHealth(100);
         temp.tag = "Asteroid";
         temp.name = "Asteroid";
 
         return temp;
     }
 
-    public void Reset(int i)
+    public void Reset(GameObject go)
     {
-        Destroy(spawnedAsteroids[i].gameObject);
-        spawnedAsteroids[i] = SpawnAsteroid(i);
+        //use checker here to find suitable location (i.e. not inside another object)
+        float angle = Mathf.Deg2Rad * Random.Range(0, 360);
+        float distance = Random.Range(100, 250);
+        Vector3 dir = new Vector3(Mathf.Cos(angle),0, Mathf.Sin(angle));
+        go.transform.position = ship.transform.position + dir * distance;
+        
     }
 }

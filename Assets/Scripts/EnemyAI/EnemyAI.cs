@@ -352,7 +352,7 @@ public class EnemyAI : MonoBehaviour {
                 if (laserTarget.GetComponent<ShipController>() != null)
                     laserTarget.GetComponent<ShipController>().TakeDamage(10f * Time.deltaTime);
                 else if (laserTarget.GetComponent<Asteroid>() != null)
-                    laserTarget.GetComponent<Health>().TakeDamage(10f * Time.deltaTime);
+                    laserTarget.GetComponent<Asteroid>().TakeDamage(10f * Time.deltaTime);
                 
             }
             else                                                                                                                // if there is nothing in front

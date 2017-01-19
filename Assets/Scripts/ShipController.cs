@@ -37,7 +37,7 @@ public class ShipController : MonoBehaviour
             stats.DecreaseMissileAmount();
         }
 
-        if (stats.IsShipWorking())
+        if (stats.IsAlive())
         {
             MoveShip();
         }
@@ -62,12 +62,12 @@ public class ShipController : MonoBehaviour
     // EVENT HANDLERS-------------------------------------------------------------------------------------
     void OnCollisionEnter(Collision c)
     {
-        stats.takeDamage(c.relativeVelocity.magnitude / 2);
+        TakeDamage(c.relativeVelocity.magnitude / 2);
     }
 
     public void TakeDamage(float amount)
     {
-        stats.takeDamage(amount);
+        stats.TakeDamage(amount);
     }
 
 }

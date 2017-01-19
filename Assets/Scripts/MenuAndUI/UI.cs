@@ -114,7 +114,7 @@ public class UI : MonoBehaviour {
             displayMenu = !displayMenu;
         }
 
-        if (stats.IsShipWorking() == false)
+        if (stats.IsAlive() == false)
         {
             setMessage(1);
         }

@@ -21,7 +21,7 @@ public class ID : MonoBehaviour
     {
         switch(transform.gameObject.tag)
         {
-            case "Asteroid": sm.GetComponent<AsteroidManager>().Reset(id); break;
+            //case "Asteroid": sm.GetComponent<AsteroidManager>().Reset(id); break;
             
         }
     }

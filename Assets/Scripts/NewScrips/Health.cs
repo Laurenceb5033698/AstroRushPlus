@@ -5,13 +5,12 @@ public class Health : MonoBehaviour {
 
     protected float health = 100.0f;
 
+    //void OnCollisionEnter(Collision c)
+    //{
+    //    if (c.relativeVelocity.magnitude > 5f) TakeDamage(c.relativeVelocity.magnitude);
+    //}
 
-    void OnCollisionEnter(Collision c)
-    {
-        if (c.relativeVelocity.magnitude > 5f) TakeDamage(c.relativeVelocity.magnitude);
-    }
-
-    public void TakeDamage(float amount)
+    public virtual void TakeDamage(float amount)
     {
         health -= Mathf.Abs(amount);
 
@@ -19,11 +18,15 @@ public class Health : MonoBehaviour {
         {
             health = 0.0f;    
 
-            switch (transform.gameObject.tag)
-            {
-                case "Asteroid": transform.gameObject.GetComponent<ID>().Reset(); break;
-            }
+            //switch (transform.gameObject.tag)
+            //{
+            //    case "Asteroid": transform.gameObject.GetComponent<ID>().Reset(); break;
+            //}
         }
+    }
+    public bool IsAlive()
+    {
+        return (health > 0);
     }
 
     public float GetHealth()

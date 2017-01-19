@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ShipStats : MonoBehaviour {
+public class ShipStats : Health {
 
 	// Thruster Variables -------------------------------------------
 	private const float mainThrust = 50f;
@@ -17,7 +17,7 @@ public class ShipStats : MonoBehaviour {
 	// Health
     private const int maxHealth = 100;
     private const int maxShield = 100;
-    private float health = maxHealth;
+    //private float health = maxHealth;
     private float shield = maxShield;
 
     private bool currentlyInCombat = false;
@@ -30,6 +30,10 @@ public class ShipStats : MonoBehaviour {
 	private const float laserWidth = 0.2f;
     private const float laserDamage = 50f;
 
+    void Awake()
+    {
+        health = maxHealth;
+    }
     void Update()
     {
         regenerateShield();
@@ -103,14 +107,14 @@ public class ShipStats : MonoBehaviour {
     }
 
     // health
-    public void takeDamage(float val)
+    public override void TakeDamage(float val)
     {
         inCombat = true;
         if (ShipShield > 0) //if we have shields
             if (shield - val > 0)   //and the damage taken is lower than sheild health
                 ShipShield = -val;   //do damage to shield
             else
-            {//otherwise split damage between sheild and health
+            {//otherwise split damage between shield and health
                 ShipHealth = -(shield - val);   //remaining damage is delt to health
                 ShipShield = -shield;        //and shield is set to 0
             }
@@ -192,10 +196,6 @@ public class ShipStats : MonoBehaviour {
             }
         }
     }
-	public bool IsShipWorking()
-	{
-        return (health > 0);
-	}
 
     // other functions
     private void regenerateShield()

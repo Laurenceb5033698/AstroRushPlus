@@ -3,20 +3,18 @@ using System.Collections;
 
 public class Generator : MonoBehaviour {
 
-    private float health;
+    //private float health;
 
 
     [SerializeField] private bool shieldActive;
     [SerializeField] private GameObject shield;
-    
-
-
+    [SerializeField] private ShipStats stats;
 
 
 	// Use this for initialization
 	void Start ()
     {
-        health = 200;
+        //stats = new ShipStats();
         shieldActive = true;
 	}
 	
@@ -33,15 +31,11 @@ public class Generator : MonoBehaviour {
 
     public void TakeDamage(float val)
     {
-        health -= Mathf.Abs(val);
-
-        if (health < -0.1f)
-        {
+        stats.TakeDamage(val);
+        if (!stats.IsAlive())
             shieldActive = false;
-            health = 0.0f;
-        }
 
-        //Debug.Log("Shield Health: " + health);
+        //Debug.Log("Gen Health: " + stats.ShipHealth);
     }
 
     public bool GetShieldStatus()

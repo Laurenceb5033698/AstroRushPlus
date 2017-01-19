@@ -14,7 +14,7 @@ public class CameraScript : MonoBehaviour {
         cameraSpeed = ship.transform.GetComponent<ShipStats>().GetMainThrust() + 100f;
     }
 
-	void Update ()
+	void LateUpdate ()
     {
         transform.position = Vector3.MoveTowards(transform.position, ship.transform.position + offset, cameraSpeed * Time.deltaTime);
         transform.LookAt(ship.transform.position);

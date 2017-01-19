@@ -44,7 +44,7 @@ public class BoundaryManager : MonoBehaviour {
 
         if (Mathf.Abs(ship.transform.position.x) > HBOUND || Mathf.Abs(ship.transform.position.z) > HBOUND)
         {
-            ship.GetComponent<ShipStats>().takeDamage(10.0f * Time.deltaTime); //every sec ship takes 5% damage
+            ship.GetComponent<ShipStats>().TakeDamage(10.0f * Time.deltaTime); //every sec ship takes 5% damage
         }
     }
 
