@@ -60,22 +60,25 @@ public class NewBasicAI : MonoBehaviour {
 	}
     private void move()
     {
-            float angle = Vector3.Angle(destination, ship.transform.right);
-            Vector3 cross = Vector3.Cross(destination, ship.transform.right);
-            if (cross.y < 0) angle = -angle;
-            angle = angle / -180;
-            //Debug.Log(rb.angularVelocity.magnitude);
-            rb.AddTorque(Vector3.up * ((angle) * 250f) * Time.deltaTime);
+        Vector3 targetDir = destination - ship.transform.position;
+        Vector3 controlDir = targetDir.normalized;
 
-            //rb.velocity
-            if (Vector3.Distance(destination, ship.transform.position) <= 30)
-            {
-                rb.AddForce(ship.transform.forward * 3000 * Time.deltaTime, ForceMode.Acceleration);
-            }
-            else
-            {
-                rb.AddForce(ship.transform.forward * 1000 * Time.deltaTime);
-            }
+        float angle = Vector3.Angle(controlDir, gameObject.transform.right);
+        Vector3 cross = Vector3.Cross(controlDir, gameObject.transform.right);
+        if (cross.y < 0) angle = -angle;
+        angle = angle / -180;
+        Debug.Log(rb.angularVelocity.magnitude);//- rb.angularVelocity.magnitude
+        rb.AddTorque(Vector3.up * (((angle) * 250f) ) * Time.deltaTime);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(controlDir), (((angle) * 250f) - rb.angularVelocity.magnitude) * Time.deltaTime);
+        //rb.velocity
+        if (Vector3.Distance(destination, gameObject.transform.position) <= 30)
+        {
+            rb.AddForce(gameObject.transform.right * 3000 * Time.deltaTime, ForceMode.Acceleration);
+        }
+        else
+        {
+            rb.AddForce(gameObject.transform.right * 1000 * Time.deltaTime);
+        }
         
     }
 }
