@@ -5,17 +5,16 @@ public class NewBasicAI : MonoBehaviour {
 
     [SerializeField] private GameObject ship;
     [SerializeField] private Rigidbody rb;
-    //[SerializeField] private GameObject target;
-    [SerializeField] private Vector3 destination;
-    [SerializeField] private int state = 0;
-    [SerializeField] private GameObject sceneManager;
     [SerializeField] private ShipStats stats;
+    [SerializeField] private GameObject sceneManager;
+    [SerializeField] private Weapon gun;
 
+
+    [SerializeField] private Vector3 destination;
     [SerializeField] private GameObject player;
 
+    //visually test path
     private LineRenderer laser;
-    private GameObject laserTarget = null;
-
     [SerializeField] private Material idleLaserColor;
 
 	// Use this for initialization
@@ -25,6 +24,7 @@ public class NewBasicAI : MonoBehaviour {
         stats = gameObject.AddComponent<ShipStats>();
         ship = gameObject;
         rb = ship.gameObject.GetComponent<Rigidbody>();
+        gun = GetComponentInChildren<Weapon>();
 
         laser = gameObject.GetComponent<LineRenderer>();
         laser.SetWidth(0.2f, 0.2f);
@@ -38,7 +38,7 @@ public class NewBasicAI : MonoBehaviour {
 	void Update () {
         laser.SetPosition(0, ship.transform.position);
 
-        if (stats.ShipHealth > 0)
+        if (stats.IsAlive())
         {
             destination = player.transform.position;
             laser.SetPosition(1, destination);
@@ -67,18 +67,30 @@ public class NewBasicAI : MonoBehaviour {
         Vector3 cross = Vector3.Cross(controlDir, gameObject.transform.right);
         if (cross.y < 0) angle = -angle;
         angle = angle / -180;
-        Debug.Log(rb.angularVelocity.magnitude);//- rb.angularVelocity.magnitude
+        //Debug.Log(rb.angularVelocity.magnitude);//- rb.angularVelocity.magnitude
         rb.AddTorque(Vector3.up * (((angle) * 250f) ) * Time.deltaTime);
         //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(controlDir), (((angle) * 250f) - rb.angularVelocity.magnitude) * Time.deltaTime);
         //rb.velocity
         if (Vector3.Distance(destination, gameObject.transform.position) <= 30)
         {
             rb.AddForce(gameObject.transform.right * 3000 * Time.deltaTime, ForceMode.Acceleration);
+            Shoot(controlDir);
         }
         else
         {
             rb.AddForce(gameObject.transform.right * 1000 * Time.deltaTime);
         }
         
+    }
+    private void Shoot(Vector3 aimDir)
+    {
+        if (gun != null)
+            gun.Shoot(aimDir);//fire ze missiles
+        else
+            Debug.Log("No weapon attached.");
+    }
+    public void TakeDamage(float amount)
+    {
+        stats.TakeDamage(amount);
     }
 }

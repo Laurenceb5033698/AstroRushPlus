@@ -18,7 +18,7 @@ public class ShipStats : Health {
     private const int maxHealth = 100;
     private const int maxShield = 100;
     //private float health = maxHealth;
-    private float shield = maxShield;
+    [SerializeField] private float shield = maxShield;
 
     private bool currentlyInCombat = false;
     private float outOfCombatTimer = 0;
