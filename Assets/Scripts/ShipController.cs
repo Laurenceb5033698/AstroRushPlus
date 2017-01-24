@@ -5,260 +5,69 @@ using System;
 
 public class ShipController : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject ship;  // ship gameobject
-    [SerializeField]
-    private GameObject mPreF; // missile prefab
-    [SerializeField]
-    private Inputs controls;
-    [SerializeField]
-    private AnimateThrusters thrusters;
-    [SerializeField]
-    private Rigidbody rb; 	// ship's rigid body
-    [SerializeField]
-    private Laser shipLaser;
-    [SerializeField]
-    private ShipStats stats;
-    [SerializeField]
-    private UI ui;
-    [SerializeField]
-    private Camera cam;
-    [SerializeField]
-    private GameObject boundaryz;
-    [SerializeField]
-    private GameObject boundaryx;
-    [SerializeField]
-    private GameObject shieldSphere = null;
 
-    private const int SBOUND = 600;
-    private const int HBOUND = SBOUND + 70;
-    private float rotFix = 0f;
+    public ShipController()
+    {
+
+    }
+
+
+    [SerializeField] private GameObject ship;  // ship gameobject
+    [SerializeField] private GameObject mPreF; // missile prefab
+    [SerializeField] private Inputs controls;
+    private Rigidbody rb; 	// ship's rigid body
+    private ShipStats stats;
+    private Shield shield;
 
     // Mains --------------------------------------------------------------------------------------------------------
     void Start() // Use this for initialization
     {
-
+        rb = ship.GetComponent<Rigidbody>();
+        stats = ship.GetComponent<ShipStats>();
+        shield = ship.GetComponentInChildren<Shield>();
     }
+
     void Update() // Update is called once per frame
     {
-        controls.UpdateInputs();
-        thrusters.UpdateThrusters();
-        stats.regenerateShield();
-        ShieldSphereOpacity();
+        stats.LaserState = controls.RLaser;
 
-        CheckInputs();
-
-        if (stats.IsShipWorking())
+        if (controls.rocket && stats.LoadMissile())
         {
-            thrusters.SetThrusterState(true);
+            Instantiate(mPreF, ship.transform.position + ship.transform.right * 6f, Quaternion.LookRotation(ship.transform.right, Vector3.up));
+            stats.DecreaseMissileAmount();
+        }
+
+        if (stats.IsAlive())
+        {
             MoveShip();
         }
-        else
-        {
-            thrusters.SetThrusterState(false);
-            ui.setMessage(0);
-            ui.menu = true;
-        }
-
-        UpdateUI();
-        UpdateBoundary();
-
-    }
-
-    void FixedUpdate()
-    {
-
     }
 
     // FUNCTIONS --------------------------------------------------------------------------------------------------------	
-    public void ShieldSphereOpacity()
-    {
-        if (shieldSphere != null)
-        {
 
-            float newalpha = 0.5f * ((stats.ShipShield / 40));
-
-            Color oldcol = shieldSphere.GetComponent<MeshRenderer>().materials[0].color;
-            oldcol = new Color(oldcol.r, oldcol.g, oldcol.b, newalpha);
-            shieldSphere.GetComponent<MeshRenderer>().materials[0].color = oldcol;
-            //Debug.Log("shield amount: " + stats.ShipShield);
-            if ((stats.ShipShield == 0))
-            {
-                shieldSphere.GetComponent<MeshRenderer>().enabled = false;
-            }
-            else
-            {
-                shieldSphere.GetComponent<MeshRenderer>().enabled = true;
-            }
-
-        }
-    }
-
-    private void CheckInputs()
-    {
-        if (controls.reset) ResetShip();
-
-        stats.LaserState = controls.RLaser;
-
-        if (controls.rocket)
-        {
-            if (stats.LoadMissile())
-            {
-                SpawnMissile();
-                stats.DecreaseMissileAmount();
-            }
-            else
-            {
-                Debug.Log("Out of Missiles!");
-            }
-        }
-    }
     private void MoveShip()
     {
-        CorrectShipTransforms();
+        float boostMultiplier = (controls.boost) ? 2 : 1;
 
+        //rb.velocity = transform.TransformDirection(new Vector3(controls.zAxis * stats.GetMainThrust(), 0, -controls.xAxis * stats.GetMainThrust())) * boostMultiplier;
+        rb.velocity = new Vector3(controls.xAxis * stats.GetMainThrust(), 0, controls.zAxis * stats.GetMainThrust()) * boostMultiplier;
+        rb.angularVelocity = new Vector3(0,0,0);
 
-
-        if (controls.boost && !stats.bco && stats.GetBoostFuelAmount() > 0.0f)
-        {
-            if (stats.GetBoostFuelAmount() < 0.5f)
-            {
-                stats.bco = true;
-            }
-
-            // up and down
-            if (controls.zAxis > 0.1f)
-            {
-                //Debug.Log("BOOSTING UP");
-                rb.AddForce(ship.transform.right * (stats.GetBoostSpeed()) * Time.deltaTime);
-                stats.ShipFuel = -20 * Time.deltaTime;
-            }
-            else if (controls.zAxis < -0.1f)
-            {
-                //Debug.Log("BOOSTING DOWN");
-                rb.AddForce(ship.transform.right * (-stats.GetBoostSpeed()) * Time.deltaTime);
-                stats.ShipFuel = -20 * Time.deltaTime;
-            }
-
-
-            // left and right
-            if (controls.xAxis > 0.1f)
-            {
-                //Debug.Log("BOOSTING RIGHT");
-                rb.AddForce(ship.transform.forward * (-stats.GetBoostSpeed()) * Time.deltaTime);
-                stats.ShipFuel = -20 * Time.deltaTime;
-            }
-            else if (controls.xAxis < -0.1f)
-            {
-                //Debug.Log("BOOSTING LEFT");
-                rb.AddForce(ship.transform.forward * (stats.GetBoostSpeed()) * Time.deltaTime);
-                stats.ShipFuel = -20 * Time.deltaTime;
-            }
-        }
-        else
-        {
-            if (stats.GetBoostFuelAmount() >= 20f)
-            {
-                stats.bco = false;
-            }
-            stats.ShipFuel = 3 * Time.deltaTime;
-        }
-
-        // forward and backward
-        rb.AddForce(ship.transform.right * (controls.zAxis * stats.GetMainThrust()) * Time.deltaTime);
-        // left and right
-        if (Mathf.Abs(controls.xAxis) > 0.1f) rb.AddForce(ship.transform.forward * (controls.xAxis * -stats.GetMainThrust()) * Time.deltaTime);
-        else dampenSidewaysMotion();
-        //rotate
-        rb.AddTorque(Vector3.up * (controls.yawAxis * stats.GetRotSpeed()) * Time.deltaTime);
+        if (Mathf.Abs(controls.yawAxis) > 0.1f || Mathf.Abs(controls.rightY) > 0.1f)
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(-controls.rightY, 0, controls.yawAxis)), 10);
+        else if (Mathf.Abs(controls.xAxis) > 0.1f || Mathf.Abs(controls.zAxis) > 0.1f)
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(controls.xAxis, 0, controls.zAxis)) * Quaternion.Euler(new Vector3(0, -90, 0)), 10);
     }
-    private void dampenSidewaysMotion()
-    {
-        Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
-        //Debug.Log(locVel.z);
-
-        locVel.z += -(locVel.z / 100 * 80) * Time.deltaTime;
-        rb.velocity = transform.TransformDirection(locVel);
-    }
-
-
-    private void CorrectShipTransforms()
-    {
-        // Reset unwanted xyz rotation and velocity --------------------------------------------------------------------------------------------
-        rb.velocity = new Vector3(rb.velocity.x, 0.00f, rb.velocity.z);
-        rb.angularVelocity = new Vector3(0.00f, rb.angularVelocity.y, 0.00f);
-
-        if (rb.velocity.magnitude < 2f && Time.time > rotFix)
-        {
-            rotFix = Time.time + 1f;
-            // THIS CAUSES THE SHIP TO JITTER (<---)
-            ship.transform.position = new Vector3(ship.transform.position.x, 0.00000f, ship.transform.position.z); //   <---------
-            ship.transform.eulerAngles = new Vector3(0f, ship.transform.eulerAngles.y, 0f); // fix the weird rotation applied to x and z axis   // <--------------
-        }
-        //--------------------------------------------------------------------------------------------------------------------------------------
-    }
-    private void ResetShip()
-    {
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        ship.transform.position = Vector3.zero;
-        ship.transform.eulerAngles = Vector3.zero;
-        stats.ResetShip();
-    }
-
-    private void SpawnMissile()
-    {
-        Vector3 shipPos = ship.transform.position;
-        Vector3 shipDirection = ship.transform.right;
-        Quaternion shipRotation = ship.transform.rotation;
-        Vector3 RocketRot = shipPos + (-shipDirection);
-
-
-        GameObject temp = (GameObject)Instantiate(mPreF, shipPos + (shipDirection * 6f), shipRotation);
-        temp.GetComponent<Rigidbody>().AddForce(ship.transform.position + ship.transform.right * (rb.velocity.magnitude * 5f));
-        temp.transform.LookAt(RocketRot);
-        temp.transform.Rotate(-90, 0, 0);
-    }
-
-
-    private void UpdateUI()
-    {
-        ui.UpdateShipStats(stats.ShipFuel, stats.ShipHealth);
-    }
-    private void UpdateBoundary()
-    {
-        if (Mathf.Abs(ship.transform.position.x) > SBOUND || Mathf.Abs(ship.transform.position.z) > SBOUND)
-        {
-            ui.BoundaryWarning = true;//enable warning text
-            boundaryx.GetComponent<BoundaryLine>().drawstate = true;
-            boundaryz.GetComponent<BoundaryLine>().drawstate = true;
-        }
-        else
-        {
-            ui.BoundaryWarning = false; ;//hide warning text
-            boundaryx.GetComponent<BoundaryLine>().drawstate = false;
-            boundaryz.GetComponent<BoundaryLine>().drawstate = false;
-        }
-
-        if (Mathf.Abs(ship.transform.position.x) > HBOUND || Mathf.Abs(ship.transform.position.z) > HBOUND)
-        {
-            stats.takeDamage(10.0f * Time.deltaTime); //every sec ship takes 5% damage
-        }
-    }
-
 
     // EVENT HANDLERS-------------------------------------------------------------------------------------
     void OnCollisionEnter(Collision c)
     {
-        stats.takeDamage(c.relativeVelocity.magnitude / 2);
-        ShieldSphereOpacity();
+        TakeDamage(c.relativeVelocity.magnitude / 2);
     }
 
     public void TakeDamage(float amount)
     {
-        stats.takeDamage(amount);
-        ShieldSphereOpacity();
-
+        stats.TakeDamage(amount);
     }
 
 }

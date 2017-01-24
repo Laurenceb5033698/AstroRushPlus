@@ -1,33 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ShipStats : MonoBehaviour {
-
-	// game currency
-	private int units = 5000;
+public class ShipStats : Health {
 
 	// Thruster Variables -------------------------------------------
-	private const float mainThrust = 400f;
-	private const float rotSpeed = 1500f;
+	private const float mainThrust = 50f;
+	private const float rotSpeed = 350f;
 	private const float boostSpeed = 1500f;
     private bool boostMinCutoff = false;
+	private float boostFuel = 100f;
 
 
 	// WEAPONS
 	private int MissileAmount = 20;
 
-	// FUEL
-	private float boostFuel = 100f;
-
-	// CARGO
-	private float cargo = 0;
-	private const float MaxcargoSpace = 1000;
-
-	// DAMAGE
-    private float health = 100;
+	// Health
     private const int maxHealth = 100;
-    private float shield = 0f;
-    private const int maxShield = 40;
+    private const int maxShield = 100;
+    //private float health = maxHealth;
+    private float shield = maxShield;
 
     private bool currentlyInCombat = false;
     private float outOfCombatTimer = 0;
@@ -35,12 +26,23 @@ public class ShipStats : MonoBehaviour {
 	// LASER
 	private bool laserIsOn = false;
 	private float laserSpeed = 0.2f;
-	private float laserRange = 50f;
+	private float laserRange = 30f;
 	private const float laserWidth = 0.2f;
+    private const float laserDamage = 50f;
+
+    void Awake()
+    {
+        health = maxHealth;
+    }
+    void Update()
+    {
+        regenerateShield();
+    }
+
 
 	//-----------------------------------------------------------------------------------------
 
-	// GET
+	// Laser
 	public float GetLaserSpeed() 
 	{ 
 		return laserSpeed; 
@@ -53,17 +55,21 @@ public class ShipStats : MonoBehaviour {
 	{ 
 		return laserWidth; 
 	}
+    public float GetLaserDamage()
+    {
+        return laserDamage;
+    }
+    public bool LaserState
+    {
+        get { return laserIsOn; }
+        set { laserIsOn = value; }
+    }
 
-	public int GetNoMissiles() 
-	{ 
-		return MissileAmount;
-	}
-
-	public float GetBoostFuelAmount()
+    // Speeds
+    public float GetBoostFuelAmount()
 	{
 		return boostFuel;
 	}
-
 	public float GetBoostSpeed()
 	{
 		return boostSpeed;
@@ -76,42 +82,39 @@ public class ShipStats : MonoBehaviour {
 	{
 		return rotSpeed;
 	}
-
-	public float GetMaxCargoSpace()
-	{
-		return MaxcargoSpace;
-	}
-
-	// SET
-	public void DecreaseMissileAmount() 
-	{ 
-		MissileAmount -= 1; 
-	}
-
-
-
-
-    // GET & SET
     public bool bco // boost cut off
     {
         get { return boostMinCutoff; }
         set { boostMinCutoff = value; }
     }
 
-
-    public bool LaserState
+    // Missile
+    public void DecreaseMissileAmount() 
+	{ 
+		MissileAmount -= 1; 
+	}
+    public int GetNoMissiles()
     {
-        get { return laserIsOn; }
-        set { laserIsOn = value; }
+        return MissileAmount;
     }
-    public void takeDamage(float val)
+    public void addMissile(int amount)
+    {
+        MissileAmount = (MissileAmount + amount > 20) ? 20 : MissileAmount + amount;
+    }
+    public bool LoadMissile()
+    {
+        return (MissileAmount > 0) ? true : false;
+    }
+
+    // health
+    public override void TakeDamage(float val)
     {
         inCombat = true;
         if (ShipShield > 0) //if we have shields
             if (shield - val > 0)   //and the damage taken is lower than sheild health
                 ShipShield = -val;   //do damage to shield
             else
-            {//otherwise split damage between sheild and health
+            {//otherwise split damage between shield and health
                 ShipHealth = -(shield - val);   //remaining damage is delt to health
                 ShipShield = -shield;        //and shield is set to 0
             }
@@ -149,26 +152,6 @@ public class ShipStats : MonoBehaviour {
             //Debug.Log("shield hp: " + shield);
         }
     }
-    public int Units
-    {
-        get { return units; }
-        set { units += value; }
-    }
-    public float ShipCargo
-    {
-        get { return cargo; }
-        set 
-        {
-            if (value > 0)
-            {
-				cargo = (cargo + value > MaxcargoSpace) ? MaxcargoSpace : cargo + value;
-            }
-            else if (value < 0)
-            {
-                cargo = (cargo + value < 0) ? 0f : cargo + value;
-            }
-        }
-    }
     public float ShipFuel
     {
         get { return boostFuel; }
@@ -186,10 +169,7 @@ public class ShipStats : MonoBehaviour {
 
     }
 
-    public void addMissile(int amount)
-    {
-        MissileAmount = (MissileAmount + amount > 20) ? 20 : MissileAmount + amount;
-    }
+    // validate
     public bool inCombat
     {
         get
@@ -217,33 +197,10 @@ public class ShipStats : MonoBehaviour {
         }
     }
 
-	// Validate
-	public bool LoadMissile() 
-	{ 
-		return (MissileAmount > 0) ? true : false; 
-	}
-	public bool IsShipWorking()
-	{
-        return (health > 0);
-	}
-		
-
-	// RESET FUNCTIONS
-	public void ResetShip()
-	{
-		boostFuel = 100;
-		cargo = 0;
-        health = maxHealth;
-        shield = maxShield;
-        MissileAmount = 20;
-
-        inCombat = false;
-	}
-    public void regenerateShield()
+    // other functions
+    private void regenerateShield()
     {
         if ((!inCombat) && (ShipShield < maxShield))
             ShipShield = 5 * Time.deltaTime;
     }
-
-
 }
