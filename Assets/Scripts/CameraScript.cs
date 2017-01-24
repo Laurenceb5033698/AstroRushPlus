@@ -5,18 +5,30 @@ public class CameraScript : MonoBehaviour {
 
     [SerializeField]
 	private GameObject ship;
+    [SerializeField]
+    private GameObject refPos;
+    [SerializeField]
+    private float distance = 0.0f;
 
-    private Vector3 offset = new Vector3(0f,50f,-50f);
-    private float cameraSpeed;
+    private Vector3 targetPosition;
 
     void Start()
     {
-        cameraSpeed = ship.transform.GetComponent<ShipStats>().GetMainThrust() + 100f;
+        refPos.transform.localPosition = new Vector3(-30f, 50f, 0); // horizontal and vertical offset
     }
 
-	void LateUpdate ()
+	void Update ()
     {
-        transform.position = Vector3.MoveTowards(transform.position, ship.transform.position + offset, cameraSpeed * Time.deltaTime);
-        transform.LookAt(ship.transform.position);
+        //distance = Vector3.Distance(transform.position, refPos.transform.position);
+        //transform.position = Vector3.MoveTowards(transform.position, refPos.transform.position, distance * Time.deltaTime);
+        //transform.LookAt(ship.transform.position);
+
+         //prevoius camera version - more cinematic
+        distance = Vector3.Distance(transform.position, ship.transform.position); 
+        targetPosition.x = ship.transform.position.x;
+        targetPosition.y = 50f;
+        targetPosition.z = ship.transform.position.z - 30f;
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, (distance - 30f) * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(ship.transform.position - transform.position), Time.deltaTime);
     }
 }
