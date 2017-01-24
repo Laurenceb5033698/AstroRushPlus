@@ -34,7 +34,7 @@ public class EnemyAI : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        stats = transform.gameObject.AddComponent<ShipStats>();
+        stats = transform.gameObject.GetComponent<ShipStats>();
         ship = transform.gameObject;
         rb = ship.gameObject.GetComponent<Rigidbody>();
         destination = ship.transform.position;

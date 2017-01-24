@@ -21,7 +21,7 @@ public class NewBasicAI : MonoBehaviour {
 	void Start () {
 
 
-        stats = gameObject.AddComponent<ShipStats>();
+        stats = gameObject.GetComponent<ShipStats>();
         ship = gameObject;
         rb = ship.gameObject.GetComponent<Rigidbody>();
         gun = GetComponentInChildren<Weapon>();
@@ -63,8 +63,8 @@ public class NewBasicAI : MonoBehaviour {
         Vector3 targetDir = destination - ship.transform.position;
         Vector3 controlDir = targetDir.normalized;
 
-        float angle = Vector3.Angle(controlDir, gameObject.transform.right);
-        Vector3 cross = Vector3.Cross(controlDir, gameObject.transform.right);
+        float angle = Vector3.Angle(controlDir, gameObject.transform.forward);
+        Vector3 cross = Vector3.Cross(controlDir, gameObject.transform.forward);
         if (cross.y < 0) angle = -angle;
         angle = angle / -180;
         //Debug.Log(rb.angularVelocity.magnitude);//- rb.angularVelocity.magnitude
@@ -73,12 +73,12 @@ public class NewBasicAI : MonoBehaviour {
         //rb.velocity
         if (Vector3.Distance(destination, gameObject.transform.position) <= 30)
         {
-            rb.AddForce(gameObject.transform.right * 3000 * Time.deltaTime, ForceMode.Acceleration);
+            rb.AddForce(gameObject.transform.forward * 3000 * Time.deltaTime, ForceMode.Acceleration);
             Shoot(controlDir);
         }
         else
         {
-            rb.AddForce(gameObject.transform.right * 1000 * Time.deltaTime);
+            rb.AddForce(gameObject.transform.forward * 1000 * Time.deltaTime);
         }
         
     }
