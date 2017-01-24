@@ -19,10 +19,10 @@ public class ID : MonoBehaviour
 
     public void Reset()
     {
-        switch(transform.gameObject.tag)
-        {
-            //case "Asteroid": sm.GetComponent<AsteroidManager>().Reset(id); break;
+        //switch(transform.gameObject.tag)
+        //{
+        //    //case "Asteroid": sm.GetComponent<AsteroidManager>().Reset(id); break;
             
-        }
+        //}
     }
 }

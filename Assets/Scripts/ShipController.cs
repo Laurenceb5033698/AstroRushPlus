@@ -15,6 +15,9 @@ public class ShipController : MonoBehaviour
     [SerializeField] private GameObject ship;  // ship gameobject
     [SerializeField] private GameObject mPreF; // missile prefab
     [SerializeField] private Inputs controls;
+    [SerializeField] private GameObject turret; // missile prefab
+
+    [SerializeField] private Weapon gun;
     private Rigidbody rb; 	// ship's rigid body
     private ShipStats stats;
     private Shield shield;
@@ -25,6 +28,8 @@ public class ShipController : MonoBehaviour
         rb = ship.GetComponent<Rigidbody>();
         stats = ship.GetComponent<ShipStats>();
         shield = ship.GetComponentInChildren<Shield>();
+        gun = turret.GetComponent<Weapon>();
+        //gun.SetShipObject(ship);
     }
 
     void Update() // Update is called once per frame
@@ -36,7 +41,10 @@ public class ShipController : MonoBehaviour
             Instantiate(mPreF, ship.transform.position + ship.transform.right * 6f, Quaternion.LookRotation(ship.transform.right, Vector3.up));
             stats.DecreaseMissileAmount();
         }
-
+        if (Mathf.Abs(controls.yawAxis) > 0.1f || Mathf.Abs(controls.rightY) > 0.1f)//shooting
+        {
+            gun.Shoot(new Vector3(controls.yawAxis, 0, controls.rightY).normalized);
+        }
         if (stats.IsAlive())
         {
             MoveShip();

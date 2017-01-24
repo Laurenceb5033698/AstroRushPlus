@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Health : MonoBehaviour {
 
-    protected float health = 100.0f;
+    [SerializeField] protected float health = 100.0f;
 
     //void OnCollisionEnter(Collision c)
     //{
