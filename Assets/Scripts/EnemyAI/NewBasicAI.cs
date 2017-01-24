@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class NewBasicAI : MonoBehaviour {
-
+    
     [SerializeField] private GameObject ship;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private ShipStats stats;

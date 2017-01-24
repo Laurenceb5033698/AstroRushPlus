@@ -23,13 +23,17 @@ public class BoundaryLine : MonoBehaviour {
         line.SetPosition(0, lineStartPos);
         line.SetPosition(1, lineEndPos);
 
+        //line.transform.gameObject.SetActive(false);
+
         drawLine = false;
     }
    
     void Update() // Update is called once per frame
     {
+        //line.transform.gameObject.SetActive(drawLine);
+
         if (drawLine) //draws a line on the z border
-        { 
+        {
             if (ZORX) drawboundaryZ();
             else drawboundaryX();
         }

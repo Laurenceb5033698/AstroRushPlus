@@ -7,6 +7,7 @@ public class BasicAI : MonoBehaviour {
     private GameObject sm;
     private Rigidbody rb;
     private int id;
+    private int type;
 
     private float speed;
 
@@ -27,16 +28,22 @@ public class BasicAI : MonoBehaviour {
         rb.AddForce((player.transform.position - transform.position) * speed, ForceMode.Force);
     }
 
-    public void Initalise(GameObject go, GameObject s, int i)
+    public void Initalise(GameObject go, GameObject s, int i, int t)
     {
         player = go;
         sm = s;
         id = i;
+        type = t;
+    }
+
+    public int GetId()
+    {
+        return id;
     }
 
     void OnCollisionEnter(Collision c)
     {
-        sm.GetComponent<EnemyManager>().RemoveShip(id);
+        sm.GetComponent<EnemyManager>().RemoveShip(id, type);
         DestroySelf();
     }
 
