@@ -39,8 +39,8 @@ public class Laser : MonoBehaviour
 
     private void DrawLaser()
     {
-        //targetPos = transform.position + transform.TransformDirection(new Vector3(controls.rightY, controls.yawAxis, 0)) * stats.GetLaserRange();
-        targetPos = transform.position + transform.right * stats.GetLaserRange();
+        targetPos = transform.position + transform.TransformDirection(new Vector3(controls.rightY, controls.yawAxis, 0)) * stats.GetLaserRange();
+        //targetPos = transform.position + transform.right * stats.GetLaserRange();
         laser.SetPosition(0, transform.position);
 
         detectObject = new Ray(transform.position, (targetPos - transform.position).normalized * stats.GetLaserRange());
