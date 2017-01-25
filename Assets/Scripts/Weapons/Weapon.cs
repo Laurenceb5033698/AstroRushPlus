@@ -9,6 +9,9 @@ public class Weapon : MonoBehaviour{
     [SerializeField] private float shootSpeed;//fiddle with this one
     private float reload = 0;//used temp
 
+    [SerializeField] private float bulletDamage = 5f;
+    [SerializeField] private float bulletSpeed = 20f;
+
 	// Use this for initialization
 	void Start () {
         //ship = GetComponentInParent<GameObject>();
@@ -37,9 +40,9 @@ public class Weapon : MonoBehaviour{
          give each projectile speed and damage?
          */
 
-		GameObject mBullet = Instantiate(bullet, ship.transform.position + aimDir * 6f, Quaternion.LookRotation(aimDir, Vector3.up)) as GameObject;
-        
-        mBullet.GetComponent<Projectile>().SetOwnerTag(ship.tag);
+		GameObject mBullet = (GameObject)Instantiate(bullet, ship.transform.position + aimDir * 6f, Quaternion.LookRotation(aimDir, Vector3.up));
+
+        mBullet.GetComponent<Projectile>().SetupValues(bulletDamage, bulletSpeed, ship.tag);
         //set bullet damage and speed
 
     }
