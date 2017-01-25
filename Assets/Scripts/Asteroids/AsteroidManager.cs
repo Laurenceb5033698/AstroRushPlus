@@ -6,13 +6,15 @@ public class AsteroidManager : MonoBehaviour
     private float ResetDist = 270;
     private const int NoAsteroids = 60;
 
-    [SerializeField] private GameObject ship;
+    private GameObject ship;
     [SerializeField] private GameObject[] asteroids = new GameObject[5]; // asteroid prefab
     [SerializeField] private GameObject[] spawnedAsteroids = new GameObject[NoAsteroids];
 
     // Use this for initialization
     void Start ()
     {
+        ship = GetComponent<GameManager>().GetShipRef(); // assighn player ship reference to local pointer
+
         for (int i = 0; i < NoAsteroids; i++)
         {
             spawnedAsteroids[i] = SpawnAsteroid();

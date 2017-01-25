@@ -4,27 +4,21 @@ using System.Collections;
 public class Shield : MonoBehaviour {
 
     private ShipStats stats;
+    private MeshRenderer mr;
+    private float shield;
 
 	// Use this for initialization
 	void Start () 
     {
 	    stats = transform.gameObject.GetComponentInParent<ShipStats>();
+        mr = GetComponent<MeshRenderer>();
 	}
 	
 	// Update is called once per frame
 	void Update () 
     {
-        ShieldSphereOpacity();
-	}
-
-    public void ShieldSphereOpacity()
-    {
-        float newalpha = 0.5f * (stats.ShipShield / 100);
-
-        Color oldcol = transform.GetComponent<MeshRenderer>().materials[0].color;
-        oldcol = new Color(oldcol.r, oldcol.g, oldcol.b, newalpha);
-        transform.GetComponent<MeshRenderer>().materials[0].color = oldcol;
-
-        transform.GetComponent<MeshRenderer>().enabled = (stats.ShipShield < 0.1f) ? false : true;
+        shield = stats.ShipShield;
+        mr.materials[0].color = new Color(mr.materials[0].color.r, mr.materials[0].color.g, mr.materials[0].color.b, 0.5f * (shield / 100));
+        mr.enabled = (shield < 0.1f) ? false : true;
     }
 }

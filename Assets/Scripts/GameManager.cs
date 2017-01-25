@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour {
 	void Awake () 
     {
         spawnPlayer();
-        //Time.timeScale = 1;
+        Time.timeScale = 1;
 	}
     
     void Start()
@@ -34,33 +35,36 @@ public class GameManager : MonoBehaviour {
 	void Update () 
     {
         UpdateUI();
-        //Time.timeScale = (ui.GetMenuState()) ? 0 : 1;
+        Time.timeScale = (ui.GetMenuState() || ui.GetHintsState()) ? 0 : 1;
     }
 
     private void UpdateUI()
     {
-        if (Input.GetKeyDown(KeyCode.JoystickButton0)) ui.IncrementDHIndex();
-        //if (Input.GetKeyDown(KeyCode.Escape)) ui.ToggleEscState();
+        ShipStats s = playerShip.GetComponent<ShipStats>();
+        ui.UpdateGameStats(currentScore, em.GetTotalShipLeft(), wm.GetWave());
 
-        ui.updateGameStats(currentScore, em.GetTotalShipLeft(), wm.GetWave());
-        
-        if (playerShip != null)
-        {
-            ShipStats s = playerShip.GetComponent<ShipStats>();
-            ui.UpdateShipStats(s.GetBoostFuelAmount(), s.ShipShield, s.ShipHealth, 100);
-        }
+        if (Input.GetKeyDown(KeyCode.JoystickButton0)) ui.IncrementDHIndex();
+        if (Input.GetKeyDown(KeyCode.Escape)) ui.ToggleEscState();
+        if (s.IsAlive()) ui.UpdateShipStats(s.GetBoostFuelAmount(), s.ShipShield, s.ShipHealth, 100, s.GetNoMissiles());
+        else ui.SetGameOverState(true);
     }
 
     private void spawnPlayer()
     {
         playerShip = (GameObject)Instantiate(playerShipPref,Vector3.zero, Quaternion.identity);
     }
-
     public GameObject GetShipRef()
     {
         return playerShip;
     }
-
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
 
 
 }

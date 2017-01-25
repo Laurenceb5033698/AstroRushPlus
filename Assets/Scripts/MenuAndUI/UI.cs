@@ -1,68 +1,54 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class UI : MonoBehaviour {
 
-    [SerializeField] private ShipStats stats;
     [SerializeField] private Text missileCounter;
 
-    private bool displayMenu = false;
-    public GameObject menuPanel;
+    private bool displayMenu;                       // toggle to display menu
+    [SerializeField] private GameObject menuPanel;  // menu object
 
-    [SerializeField] private Text[] gameStats = new Text[3]; // score, enemy left, wave counter
-    [SerializeField] private Text[] statsText = new Text[4]; // boost, shield, health, laser
-    [SerializeField] private GameObject[] statBars = new GameObject[4]; // boost, shield, health, laser
+    [SerializeField] private Text[] gameStats = new Text[3];                // score, enemy left, wave counter
+    [SerializeField] private Text[] statsText = new Text[4];                // boost, shield, health, laser      // FOR DEBUGING ONLY
+    [SerializeField] private GameObject[] statBars = new GameObject[4];     // boost, shield, health, laser
 
-    private int displayHintIndex = 0;
-    [SerializeField] private bool displayHints = true;
+    private bool displayHints;          // toggle hint object
+    private int displayHintIndex;       // index of showing a specific hint object
     [SerializeField] private GameObject[] hintPanels = new GameObject[3]; // controls, tips, objective
 
-    private bool displayPopUpMessages = false;
-    [SerializeField] private int messageIndex = 2;
+    private float popUpMTimer;          // time limit to display a specific pop up
+    private bool displayPopUpMessages;  // toggle pop up display on and off
+    private int messageIndex;           // index of showing a specific pop up
     [SerializeField] private GameObject[] popUpMessages = new GameObject[6]; // win, gameOver, Paused, generatorActivated, WarpGateActivated, BoundaryWarning
-    private float popUpMTimer;
-    private bool displayBoundary = false;
-    private bool escButtonPressed = false;
+
+    private bool displayBoundary;       // display boundary toggle
+    private bool escButtonPressed;      // esc button toggle
+    private bool gameOver;
 
 	void Start () // Use this for initialization
     {
+        messageIndex = 2;
         displayHintIndex = 0;
+        escButtonPressed = false;
+        displayBoundary = false;
+        displayMenu = false;
         displayPopUpMessages = false;
-        Time.timeScale = 1;
+        gameOver = false;
+        displayHints = false;
         popUpMTimer = Time.time;
+
+        if (displayHints) UpdateHintsPanel();
     }		
 	void Update () // Update is called once per frame
     {
-        if (displayHints) Displayhints();
         UpdateMenu();
-    }
-
-    private void Displayhints()
-    {
-        if (displayHintIndex < 3)
-        {
-            Time.timeScale = 0;
-
-            for (int i = 0; i < 3; i++)
-            {
-                if (displayHintIndex != i) hintPanels[i].SetActive(false);
-                else hintPanels[displayHintIndex].SetActive(true);
-            }
-        }
-        else
-        {
-            displayHintIndex = 0; // hard reset
-            displayHints = false;
-            hintPanels[hintPanels.Length-1].SetActive(false); // turn of last panel
-            Time.timeScale = 1;
-        }
     }
 
     public void IncrementDHIndex()
     {
         displayHintIndex++;
+        UpdateHintsPanel();
     }
     public void ToggleEscState()
     {
@@ -76,11 +62,20 @@ public class UI : MonoBehaviour {
     {
         return displayHints;
     }
+    public void SetGameOverState(bool g)
+    {
+        gameOver = g;
+    }
 
-
-	public void UpdateShipStats(float b, float s, float h, float l)
+    public void UpdateGameStats(int score, int NoEnemy, int Wave)
+    {
+        gameStats[0].text = "Score: 	 " + score;//.ToString("D6");
+        gameStats[1].text = "Enemy: " + NoEnemy;//.ToString("D3");
+        gameStats[2].text = "Wave:   " + Wave;//.ToString("D2");
+    }
+	public void UpdateShipStats(float b, float s, float h, float l, int m)
 	{
-        missileCounter.text = "X " + stats.GetNoMissiles();
+        missileCounter.text = "X " + m;
 
 		statsText[0].text = "Boost: " + b.ToString ("N0");
         statsText[1].text = "Shield: " + s.ToString("N0");
@@ -120,20 +115,21 @@ public class UI : MonoBehaviour {
         if (displayBoundary != transform.GetComponent<BoundaryManager>().GetState())
         {
             displayBoundary = transform.GetComponent<BoundaryManager>().GetState();
-            if (displayBoundary == false) setMessage(2);
-            else setMessage(5);
+            if (displayBoundary == false) SetMessage(2);
+            else SetMessage(5);
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && (messageIndex != 0 || messageIndex != 1))
+        if (escButtonPressed && (messageIndex != 0 || messageIndex != 1))
         {
+            escButtonPressed = false; // only have escButtonPressed true till a single frame
             Debug.Log("ESC Pressed");
-            setMessage(2);
+            SetMessage(2);
             displayMenu = !displayMenu;
         }
 
-        if (stats.IsAlive() == false)
+        if (gameOver == true)
         {
-            setMessage(1);
+            SetMessage(1);
         }
 
         // PROCESS LOGIC
@@ -158,7 +154,7 @@ public class UI : MonoBehaviour {
                     else
                     {
                         displayPopUpMessages = false;
-                        setMessage(2);
+                        SetMessage(2);
                     }
                 } break;
 
@@ -170,27 +166,24 @@ public class UI : MonoBehaviour {
         
         // DRAW PANELS
         popUpMessages[messageIndex].SetActive(displayPopUpMessages);
-        
-        if (displayMenu)
+        menuPanel.SetActive(displayMenu);
+    }
+    private void UpdateHintsPanel() // toggeled in IncrementDHIndex()
+    {
+        if (displayHintIndex < hintPanels.Length)
         {
-            menuPanel.SetActive(true);
-            Time.timeScale = 0;
+            for (int i = 0; i < 3; i++)
+                hintPanels[i].SetActive(displayHintIndex == i);
         }
         else
         {
-            menuPanel.SetActive(false);
-            Time.timeScale = 1;
+            displayHintIndex = 0; // hard reset
+            displayHints = false;
+            hintPanels[hintPanels.Length-1].SetActive(false); // turn of last panel
         }
     }
 
-    public void updateGameStats(int score, int NoEnemy, int Wave)
-    {
-        gameStats[0].text = "Score: 	 " + score;//.ToString("D6");
-        gameStats[1].text = "Enemy: " + NoEnemy;//.ToString("D3");
-        gameStats[2].text = "Wave:   " + Wave;//.ToString("D2");
-    }
-
-    public void setMessage(int v)
+    public void SetMessage(int v)
     {
         messageIndex = v;
         
@@ -211,14 +204,13 @@ public class UI : MonoBehaviour {
         } 
     }
 
-
     public void ResetButton()
     {
-        SceneManager.LoadScene(1);
+        GetComponent<GameManager>().RestartGame();
     }
     public void MainMenuButton()
     {
-        SceneManager.LoadScene(0);
+        GetComponent<GameManager>().LoadMainMenu();
     }
 
 }

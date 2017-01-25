@@ -19,7 +19,7 @@ public class EnemyManager : MonoBehaviour {
 
     [SerializeField] GameObject[] prefRef = new GameObject[shipPreftypes]; // prefab list
     [SerializeField] private ShipT[] shipOrder = new ShipT[shipPreftypes];
-    [SerializeField] private GameObject player;
+    private GameObject player;
 
 
     //------------------------------------------------------------------------
@@ -28,15 +28,12 @@ public class EnemyManager : MonoBehaviour {
     private bool waveComplete = false;
     private const int shipLimitOnScreen = 20;
 
-
-	// Use this for initialization
-	void Start ()
+	void Start () // Use this for initialization
     {
+        player = GetComponent<GameManager>().GetShipRef();
         Initalise();
-	}
-	
-	// Update is called once per frame
-	void Update () 
+	}	
+	void Update () // Update is called once per frame
     {
 
 	}
@@ -51,29 +48,10 @@ public class EnemyManager : MonoBehaviour {
         temp.shipP = new List<GameObject>();
         shipOrder[i] = temp;
     }
-
-
-    private void SpawnShip(int type)
-    {
-        float angle = Mathf.Deg2Rad * Random.Range(0, 360);
-        float distance = Random.Range(100, 250);
-        Vector3 dir = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle));
-
-        GameObject temp = (GameObject)Instantiate(prefRef[type], player.transform.position + dir * distance, Quaternion.identity);
-        temp.transform.position = player.transform.position + dir * distance;
-        temp.GetComponent<BasicAI>().Initalise(player, transform.gameObject, globalID, type);
-
-        shipOrder[type].shipP.Add(temp);
-        shipOrder[type].spawnCounter++;
-        globalID++;
-
-        Debug.Log("ship spawned");
-    }
-
     private void Initalise()
     {
-        CreateOrder(0,10);
-        CreateOrder(1,30);
+        CreateOrder(0,5);
+        CreateOrder(1,5);
 
         waveLimit = 0;
 
@@ -91,6 +69,25 @@ public class EnemyManager : MonoBehaviour {
         }
 
     }
+    private void SpawnShip(int type)
+    {
+        float angle = Mathf.Deg2Rad * Random.Range(0, 360);
+        float distance = Random.Range(150, 350); // spawn distance relative to the player
+        Vector3 dir = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle));
+
+        GameObject temp = (GameObject)Instantiate(prefRef[type], player.transform.position + dir * distance, Quaternion.identity);
+        temp.transform.position = player.transform.position + dir * distance;
+        temp.GetComponent<NewBasicAI>().Initalise(player, transform.gameObject, globalID, type);
+
+        shipOrder[type].shipP.Add(temp);
+        shipOrder[type].spawnCounter++;
+        globalID++;
+
+        Debug.Log("ship spawned");
+    }
+
+
+
 
     private void DestroyAllShip()
     {
@@ -160,12 +157,11 @@ public class EnemyManager : MonoBehaviour {
 
     public int GetTotalShipLeft()
     {
-        int temp = 0;
+        int sum = 0;
         for (int i = 0; i < shipPreftypes; i++)
         {
-            temp += shipOrder[i].shipToSpawn - shipOrder[i].deadCounter;
+            sum += shipOrder[i].shipToSpawn - shipOrder[i].deadCounter;
         }
-
-        return temp;
+        return sum;
     }
 }

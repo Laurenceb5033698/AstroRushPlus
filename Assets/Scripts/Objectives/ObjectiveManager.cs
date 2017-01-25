@@ -67,25 +67,25 @@ public class ObjectiveManager : MonoBehaviour {
         if (objectivesCompleted[0] == false)
         {
             objectivesCompleted[0] = !gen1.GetComponent<Generator>().GetShieldStatus();
-            if (objectivesCompleted[0] == true) transform.GetComponent<UI>().setMessage(3);
+            if (objectivesCompleted[0] == true) transform.GetComponent<UI>().SetMessage(3);
         }
 
         if (objectivesCompleted[1] == false)
         {
             objectivesCompleted[1] = !gen2.GetComponent<Generator>().GetShieldStatus();
-            if (objectivesCompleted[1] == true) transform.GetComponent<UI>().setMessage(3);
+            if (objectivesCompleted[1] == true) transform.GetComponent<UI>().SetMessage(3);
         }
 
         if (objectivesCompleted[2] == false)
         {
             objectivesCompleted[2] = warpGate.GetComponent<WarpGate>().GetState();
-            if (objectivesCompleted[2] == true) transform.GetComponent<UI>().setMessage(4);
+            if (objectivesCompleted[2] == true) transform.GetComponent<UI>().SetMessage(4);
         }
 
         if (objectivesCompleted[3] == false)
         {
             objectivesCompleted[3] = warpGate.GetComponent<WarpGate>().GetShipCrossState();
-            if (objectivesCompleted[3] == true) transform.GetComponent<UI>().setMessage(0);
+            if (objectivesCompleted[3] == true) transform.GetComponent<UI>().SetMessage(0);
         }
 
 

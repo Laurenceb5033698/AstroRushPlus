@@ -2,13 +2,17 @@
 using System.Collections;
 
 public class NewBasicAI : MonoBehaviour {
-    
+
+    private int id;
+    private int type;
+    private GameObject sm;
+
     //Customise AI range behaviours
     [SerializeField] private float boostRange = 30f;
     [SerializeField] private float engageRange = 50f;
 
 
-    [SerializeField] private GameObject ship;
+    [SerializeField] private GameObject ship; // enemy ship object
     [SerializeField] private Rigidbody rb;
     [SerializeField] private ShipStats stats;
     [SerializeField] private GameObject sceneManager;
@@ -16,7 +20,7 @@ public class NewBasicAI : MonoBehaviour {
 
 
     [SerializeField] private Vector3 destination;
-    [SerializeField] private GameObject player;
+    private GameObject player;
 
     //visually test path
     //private LineRenderer laser;
@@ -60,7 +64,7 @@ public class NewBasicAI : MonoBehaviour {
             }
             //laser.SetPosition(1, ship.transform.position);
 
-            Destroy(transform.gameObject);
+            DestroySelf();
         }
 	}
     private void move()
@@ -104,5 +108,35 @@ public class NewBasicAI : MonoBehaviour {
     public void TakeDamage(float amount)
     {
         stats.TakeDamage(amount);
+    }
+
+
+
+    // enemy spawner related functions
+    void OnCollisionEnter(Collision c)
+    {
+        stats.TakeDamage(10 * Time.deltaTime);
+
+        if (!stats.IsAlive())
+        {
+            DestroySelf();
+        }
+    }
+    private void DestroySelf()
+    {
+        Debug.Log("ship destroyed");
+        sm.GetComponent<EnemyManager>().RemoveShip(id, type);
+        Destroy(transform.gameObject);
+    }
+    public void Initalise(GameObject go, GameObject s, int i, int t)
+    {
+        player = go;
+        sm = s;
+        id = i;
+        type = t;
+    }
+    public int GetId()
+    {
+        return id;
     }
 }

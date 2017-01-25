@@ -6,7 +6,7 @@ public class BoundaryManager : MonoBehaviour {
     [SerializeField] private GameObject boundaryz;
     [SerializeField] private GameObject boundaryx;
 
-    [SerializeField] private GameObject ship; // player's ship
+    private GameObject ship; // player's ship
 
     private bool state = false;
 
@@ -14,8 +14,9 @@ public class BoundaryManager : MonoBehaviour {
     private const int HBOUND = SBOUND + 70;
 
     // Use this for initialization
-    void Start () {
-	
+    void Start ()
+    {
+        ship = GetComponent<GameManager>().GetShipRef();
 	}
 	
 	// Update is called once per frame
