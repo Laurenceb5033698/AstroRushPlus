@@ -17,8 +17,6 @@ public class Inputs : MonoBehaviour
 
     public bool reset;
 
-    public UI ui;
-
 
     void Update()
     {

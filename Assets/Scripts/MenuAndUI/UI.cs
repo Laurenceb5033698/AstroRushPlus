@@ -6,12 +6,12 @@ using UnityEngine.SceneManagement;
 public class UI : MonoBehaviour {
 
     [SerializeField] private ShipStats stats;
-
     [SerializeField] private Text missileCounter;
 
     private bool displayMenu = false;
     public GameObject menuPanel;
 
+    [SerializeField] private Text[] gameStats = new Text[3]; // score, enemy left, wave counter
     [SerializeField] private Text[] statsText = new Text[4]; // boost, shield, health, laser
     [SerializeField] private GameObject[] statBars = new GameObject[4]; // boost, shield, health, laser
 
@@ -24,6 +24,7 @@ public class UI : MonoBehaviour {
     [SerializeField] private GameObject[] popUpMessages = new GameObject[6]; // win, gameOver, Paused, generatorActivated, WarpGateActivated, BoundaryWarning
     private float popUpMTimer;
     private bool displayBoundary = false;
+    private bool escButtonPressed = false;
 
 	void Start () // Use this for initialization
     {
@@ -35,7 +36,6 @@ public class UI : MonoBehaviour {
 	void Update () // Update is called once per frame
     {
         if (displayHints) Displayhints();
-        UpdateShipStats(stats.ShipFuel, stats.ShipShield, stats.ShipHealth, 100.0f);
         UpdateMenu();
     }
 
@@ -58,9 +58,26 @@ public class UI : MonoBehaviour {
             hintPanels[hintPanels.Length-1].SetActive(false); // turn of last panel
             Time.timeScale = 1;
         }
-
-        if (Input.GetKeyDown(KeyCode.JoystickButton0)) displayHintIndex++;
     }
+
+    public void IncrementDHIndex()
+    {
+        displayHintIndex++;
+    }
+    public void ToggleEscState()
+    {
+        escButtonPressed = !escButtonPressed;
+    }
+    public bool GetMenuState()
+    {
+        return displayMenu;
+    }
+    public bool GetHintsState()
+    {
+        return displayHints;
+    }
+
+
 	public void UpdateShipStats(float b, float s, float h, float l)
 	{
         missileCounter.text = "X " + stats.GetNoMissiles();
@@ -153,6 +170,7 @@ public class UI : MonoBehaviour {
         
         // DRAW PANELS
         popUpMessages[messageIndex].SetActive(displayPopUpMessages);
+        
         if (displayMenu)
         {
             menuPanel.SetActive(true);
@@ -163,6 +181,13 @@ public class UI : MonoBehaviour {
             menuPanel.SetActive(false);
             Time.timeScale = 1;
         }
+    }
+
+    public void updateGameStats(int score, int NoEnemy, int Wave)
+    {
+        gameStats[0].text = "Score: 	 " + score;//.ToString("D6");
+        gameStats[1].text = "Enemy: " + NoEnemy;//.ToString("D3");
+        gameStats[2].text = "Wave:   " + Wave;//.ToString("D2");
     }
 
     public void setMessage(int v)

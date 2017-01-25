@@ -157,4 +157,15 @@ public class EnemyManager : MonoBehaviour {
         }
 
     }
+
+    public int GetTotalShipLeft()
+    {
+        int temp = 0;
+        for (int i = 0; i < shipPreftypes; i++)
+        {
+            temp += shipOrder[i].shipToSpawn - shipOrder[i].deadCounter;
+        }
+
+        return temp;
+    }
 }

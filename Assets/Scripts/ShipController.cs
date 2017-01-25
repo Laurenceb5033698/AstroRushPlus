@@ -5,19 +5,12 @@ using System;
 
 public class ShipController : MonoBehaviour
 {
-
-    public ShipController()
-    {
-
-    }
-
-
-    [SerializeField] private GameObject ship;  // ship gameobject
+    private GameObject ship;  // ship gameobject
+    private Inputs controls;
     [SerializeField] private GameObject mPreF; // missile prefab
-    [SerializeField] private Inputs controls;
     [SerializeField] private GameObject turret; // missile prefab
-
     [SerializeField] private Weapon gun;
+
     private Rigidbody rb; 	// ship's rigid body
     private ShipStats stats;
     private Shield shield;
@@ -25,11 +18,12 @@ public class ShipController : MonoBehaviour
     // Mains --------------------------------------------------------------------------------------------------------
     void Start() // Use this for initialization
     {
+        ship = transform.gameObject;
+        controls = ship.GetComponent<Inputs>();
         rb = ship.GetComponent<Rigidbody>();
         stats = ship.GetComponent<ShipStats>();
         shield = ship.GetComponentInChildren<Shield>();
         gun = turret.GetComponent<Weapon>();
-        //gun.SetShipObject(ship);
     }
 
     void Update() // Update is called once per frame
@@ -77,5 +71,4 @@ public class ShipController : MonoBehaviour
     {
         stats.TakeDamage(amount);
     }
-
 }
