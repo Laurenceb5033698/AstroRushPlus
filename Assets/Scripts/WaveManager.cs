@@ -3,7 +3,7 @@ using System.Collections;
 
 public class WaveManager : MonoBehaviour {
 
-
+    private int wave = 0;
 
 
 	// Use this for initialization
@@ -15,4 +15,9 @@ public class WaveManager : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public int GetWave()
+    {
+        return wave;    
+    }
 }

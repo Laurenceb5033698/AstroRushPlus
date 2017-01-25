@@ -3,20 +3,35 @@ using System.Collections;
 
 public class CameraScript : MonoBehaviour {
 
-    [SerializeField]
-	private GameObject ship;
-
+	private GameObject target;
     private Vector3 offset = new Vector3(0,50,-50);
     private float cameraSpeed;
 
     void Start()
     {
-        cameraSpeed = ship.transform.GetComponent<ShipStats>().GetMainThrust() + 100f;
+
     }
 
 	void Update ()
     {
-        transform.position = Vector3.MoveTowards(transform.position, ship.transform.position + offset, cameraSpeed * Time.deltaTime);
-        transform.LookAt(ship.transform.position);
+        if (target != null)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position + offset, cameraSpeed * Time.deltaTime);
+            transform.LookAt(target.transform.position);
+        }
+    }
+
+    public void SetTarget(GameObject ps)
+    {
+        if (ps.GetComponent<ShipStats>() != null)
+        {
+            target = ps;
+            cameraSpeed = ps.GetComponent<ShipStats>().GetMainThrust() + 100;
+        }
+        else
+        {
+            target = null;
+            cameraSpeed = 0;
+        }
     }
 }
