@@ -7,7 +7,7 @@ public class Laser : MonoBehaviour
     private LineRenderer laser;
     private GameObject target;
 
-    [SerializeField] private Inputs controls;
+    private Inputs controls;
     [SerializeField] private Material activeLaserColor;
     [SerializeField] private Material idleLaserColor;
 
@@ -20,8 +20,9 @@ public class Laser : MonoBehaviour
     // Use this for initialization
     void Start () 
     {
-        stats = transform.gameObject.GetComponentInParent<ShipStats>();
-        laser = transform.gameObject.GetComponent<LineRenderer>();
+        stats = GetComponentInParent<ShipStats>();
+        laser = GetComponent<LineRenderer>();
+        controls = GetComponentInParent<Inputs>();
 
         target = null;
         hit = false;
@@ -39,7 +40,9 @@ public class Laser : MonoBehaviour
 
     private void DrawLaser()
     {
-        targetPos = transform.position + transform.TransformDirection(new Vector3(controls.rightY, controls.yawAxis, 0)) * stats.GetLaserRange();
+        //new Vector3(controls.yawAxis, 0, controls.rightY).normalized;
+        targetPos = transform.parent.position + new Vector3(controls.yawAxis, 0, controls.rightY).normalized * stats.GetLaserRange();
+        //targetPos = transform.position + transform.TransformDirection(new Vector3(controls.rightY, controls.yawAxis, 0).normalized) * stats.GetLaserRange();
         //targetPos = transform.position + transform.right * stats.GetLaserRange();
         laser.SetPosition(0, transform.position);
 
@@ -51,17 +54,18 @@ public class Laser : MonoBehaviour
             target = hitInfo.transform.gameObject;
             laser.SetPosition(1, hitInfo.point);
 
-            if (target.tag == "Asteroid")
-            {
-                target.GetComponent<Asteroid>().TakeDamage(stats.GetLaserDamage() * Time.deltaTime);
-                laser.GetComponent<LineRenderer>().material = activeLaserColor;
-            }
-            else if (target.tag == "GeneratorShield")
-            {
-                target.gameObject.GetComponentInParent<Generator>().TakeDamage(stats.GetLaserDamage() * Time.deltaTime);
-                laser.GetComponent<LineRenderer>().material = activeLaserColor;
-            }
-            else if (target.tag == "EnemyShip")
+            //if (target.tag == "Asteroid")
+            //{
+            //    target.GetComponent<Asteroid>().TakeDamage(stats.GetLaserDamage() * Time.deltaTime);
+            //    laser.GetComponent<LineRenderer>().material = activeLaserColor;
+            //}
+            //else if (target.tag == "GeneratorShield")
+            //{
+            //    target.gameObject.GetComponentInParent<Generator>().TakeDamage(stats.GetLaserDamage() * Time.deltaTime);
+            //    laser.GetComponent<LineRenderer>().material = activeLaserColor;
+            //}
+            //else 
+            if (target.tag == "EnemyShip")
             {
                 //target.gameObject.GetComponentInParent<EnemyAI>().TakeDamage(stats.GetLaserDamage() * Time.deltaTime);
                 laser.GetComponent<LineRenderer>().material = activeLaserColor;

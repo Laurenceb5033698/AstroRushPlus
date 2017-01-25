@@ -29,7 +29,7 @@ public class ShipStats : Health {
 	// LASER
 	private bool laserIsOn = false;
 	private float laserSpeed = 0.2f;
-	private float laserRange = 30f;
+	private float laserRange = 60f;
 	private const float laserWidth = 0.2f;
     private const float laserDamage = 50f;
 

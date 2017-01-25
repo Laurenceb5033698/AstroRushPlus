@@ -517,8 +517,6 @@ MonoBehaviour:
   - {fileID: 114000012517309712}
   - {fileID: 114000010571153314}
   - {fileID: 114000012025705906}
-  sm: {fileID: 0}
-  rb: {fileID: 54000013030616238}
 --- !u!114 &114000011485329516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -547,7 +545,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013680230038}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a50473684ee8864ea567b010db44773, type: 3}
   m_Name: 
@@ -636,7 +634,7 @@ LineRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013680230038}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1

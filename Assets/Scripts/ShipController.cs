@@ -26,18 +26,22 @@ public class ShipController : MonoBehaviour
         gun = turret.GetComponent<Weapon>();
     }
 
+    private Vector3 dir;
     void Update() // Update is called once per frame
     {
         stats.LaserState = controls.RLaser;
 
-        if (controls.rocket && stats.LoadMissile())
-        {
-            Instantiate(mPreF, ship.transform.position + ship.transform.right * 6f, Quaternion.LookRotation(ship.transform.right, Vector3.up));
-            stats.DecreaseMissileAmount();
-        }
+
         if (Mathf.Abs(controls.yawAxis) > 0.1f || Mathf.Abs(controls.rightY) > 0.1f)//shooting
         {
-            gun.Shoot(new Vector3(controls.yawAxis, 0, controls.rightY).normalized);
+            dir = new Vector3(controls.yawAxis, 0, controls.rightY).normalized;
+            if (controls.shoot) gun.Shoot(dir);
+
+            if (controls.rocket && stats.LoadMissile())
+            {
+                Instantiate(mPreF, ship.transform.position + dir * 6f, Quaternion.LookRotation(dir, Vector3.up));
+                stats.DecreaseMissileAmount();
+            }
         }
         if (stats.IsAlive())
         {
