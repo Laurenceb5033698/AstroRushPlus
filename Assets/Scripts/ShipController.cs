@@ -55,10 +55,10 @@ public class ShipController : MonoBehaviour
 
     private void MoveShip()
     {
-        float boostMultiplier = (controls.boost) ? 2 : 1;
+        float currentSpeed = (controls.boost) ? stats.GetBoostSpeed() : stats.GetMainThrust();//use speeds from shipStats. Change in prefab
 
         //rb.velocity = transform.TransformDirection(new Vector3(controls.zAxis * stats.GetMainThrust(), 0, -controls.xAxis * stats.GetMainThrust())) * boostMultiplier;
-        rb.velocity = new Vector3(controls.xAxis * stats.GetMainThrust(), 0, controls.zAxis * stats.GetMainThrust()) * boostMultiplier;
+        rb.velocity = new Vector3(controls.xAxis * currentSpeed, 0, controls.zAxis * currentSpeed);
         rb.angularVelocity = new Vector3(0,0,0);
 
         //if (Mathf.Abs(controls.yawAxis) > 0.1f || Mathf.Abs(controls.rightY) > 0.1f)

@@ -3,10 +3,18 @@ using System.Collections;
 
 public class ShipStats : Health {
 
+	// Health
+    //private float health = maxHealth;
+    private float shield;
+    //Default values for new functional ships. Alter stats in prefabs
+    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private int maxShield = 100;
+
 	// Thruster Variables -------------------------------------------
-	private const float mainThrust = 50f;
-	private const float rotSpeed = 350f;
-	private const float boostSpeed = 1500f;
+    //Default values for new functional ships. Alter stats in prefabs
+    [SerializeField] private float mainThrust = 50f;
+    [SerializeField] private float boostSpeed = 100f;
+    [SerializeField] private float rotSpeed = 350f;
     private bool boostMinCutoff = false;
 	private float boostFuel = 100f;
 
@@ -14,11 +22,6 @@ public class ShipStats : Health {
 	// WEAPONS
 	private int MissileAmount = 20;
 
-	// Health
-    [SerializeField] private float shield = maxShield;
-    [SerializeField] private const int maxHealth = 100;
-    [SerializeField] private const int maxShield = 100;
-    //private float health = maxHealth;
 
     private bool currentlyInCombat = false;
     private float outOfCombatTimer = 0;
@@ -33,6 +36,7 @@ public class ShipStats : Health {
     void Awake()
     {
         health = maxHealth;
+        shield = maxShield;
     }
     void Update()
     {

@@ -13,12 +13,14 @@ public class Projectile : MonoBehaviour {
 	void Start () {
         //damage = 10f;
         //speed = 10f;
-	    //test collision
+	    //test self collision
         ///ownertag = "PlayerShip";
 	}
-    public void SetOwnerTag(string str)
+    public void SetupValues(float dmg, float spd,string str)
     {
         ownertag = str;
+        damage = dmg;
+        speed = spd;
     }
     void OnTriggerEnter(Collider other)
     {//deal damage to target
@@ -26,29 +28,18 @@ public class Projectile : MonoBehaviour {
 
         if ((other != null) && (other.gameObject.tag != ownertag))
         {//successful collision that wasnt with shooter
-            //Debug.Log("" + other.gameObject.tag);
+            //Debug.Log("other Entity: " + other.gameObject.tag);
             switch (other.gameObject.tag)
             {
                 case "PlayerShip":
                     other.gameObject.GetComponentInParent<ShipController>().TakeDamage(damage);
                     break;
                 case "EnemyShip":
-                    if (other.gameObject.GetComponentInParent<NewBasicAI>() != null)
-                        other.gameObject.GetComponentInParent<NewBasicAI>().TakeDamage(damage);
-                    else
-                        other.gameObject.GetComponentInParent<EnemyAI>().TakeDamage(damage);
+                    other.gameObject.GetComponentInParent<NewBasicAI>().TakeDamage(damage);
                     break;
                 case "Asteroid":
                     other.gameObject.GetComponent<Asteroid>().TakeDamage(damage);
                     break;
-                case "Generator":
-                    other.gameObject.GetComponent<Generator>().TakeDamage(damage);
-                    break;
-                case "GeneratorShield":
-                    Debug.Log("Generator hit: " + other.gameObject.name);
-                    other.gameObject.GetComponentInParent<Generator>().TakeDamage(damage);
-                    break;
-
                 default:
                     Debug.Log("Unknown entity. " + other.gameObject.tag);
 
