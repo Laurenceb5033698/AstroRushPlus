@@ -27,7 +27,8 @@ public class Laser : MonoBehaviour
         target = null;
         hit = false;
 
-		laser.SetWidth(stats.GetLaserWidth(), stats.GetLaserWidth());
+        laser.startWidth = stats.GetLaserWidth();
+        laser.endWidth = stats.GetLaserWidth();
         laser.GetComponent<Renderer>().material = idleLaserColor;
     }
 	
@@ -41,7 +42,7 @@ public class Laser : MonoBehaviour
     private void DrawLaser()
     {
         //new Vector3(controls.yawAxis, 0, controls.rightY).normalized;
-        targetPos = transform.parent.position + new Vector3(controls.yawAxis, 0, controls.rightY).normalized * stats.GetLaserRange();
+        targetPos = transform.parent.position + new Vector3(controls.RightStick.x, 0, controls.RightStick.y).normalized * stats.GetLaserRange();
         //targetPos = transform.position + transform.TransformDirection(new Vector3(controls.rightY, controls.yawAxis, 0).normalized) * stats.GetLaserRange();
         //targetPos = transform.position + transform.right * stats.GetLaserRange();
         laser.SetPosition(0, transform.position);

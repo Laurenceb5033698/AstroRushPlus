@@ -5,9 +5,6 @@ using System.Collections.Generic;
 
 public class EnemyManager : MonoBehaviour {
 
-    private int globalID = 0;
-    private const int shipPreftypes = 2;
-
     private struct ShipT
     {
         public int typeID;             // type of ship
@@ -17,62 +14,102 @@ public class EnemyManager : MonoBehaviour {
         public List<GameObject> shipP; // list of all ships on scene
     }
 
+    private const int shipPreftypes = 2;
     [SerializeField] GameObject[] prefRef = new GameObject[shipPreftypes]; // prefab list
-    [SerializeField] private ShipT[] shipOrder = new ShipT[shipPreftypes];
+    private ShipT[] shipOrder = new ShipT[shipPreftypes];
     private GameObject player;
 
+    private int globalID = 0;
+    private const float spawnDelay = 2;
+    private float spawnTimer = 0.0f;
+    private List<int> toSpawn = new List<int>(); // spawnShips() - create a list of ship type IDs to spawn from
 
     //------------------------------------------------------------------------
 
-    private int waveLimit = 100;
-    private bool waveComplete = false;
-    private const int shipLimitOnScreen = 20;
+    private int SpawnLimit;
+    private bool SpawnComplete = false;
+    private const int shipLimitOnScreen = 10;
 
-	void Start () // Use this for initialization
+    private bool spawnerActive = false;
+
+    void Start() // Use this for initialization
     {
         player = GetComponent<GameManager>().GetShipRef();
-        Initalise();
-	}	
-	void Update () // Update is called once per frame
+    }
+    void Update() // Update is called once per frame
     {
+        if (spawnerActive) RunUpdates();
+    }
 
-	}
+    private void RunUpdates()
+    {
+        if (GetTotalShipLeft() == 0) // buggy  somewhy it spawn an extra 1-2 ships
+        {
+            SpawnComplete = true;
+            spawnerActive = false;
+            //DestroyAllShip();
+            Debug.Log("Wave Complete!");
+        }
+        else
+        {
+            SpawnShips();
+        }
+    }
 
     public void CreateOrder(int i, int sts)
     {
-        ShipT temp;
-        temp.typeID = i;
-        temp.shipToSpawn = sts;
-        temp.spawnCounter = 0;
-        temp.deadCounter = 0;
-        temp.shipP = new List<GameObject>();
-        shipOrder[i] = temp;
+        if (i <= shipPreftypes && i >= 0)
+        {
+            ShipT temp;
+            temp.typeID = i;
+            temp.shipToSpawn = sts;
+            temp.spawnCounter = 0;
+            temp.deadCounter = 0;
+            temp.shipP = new List<GameObject>();
+            shipOrder[i] = temp;
+
+            SpawnLimit = 0;
+            for (int j = 0; j < shipPreftypes; j++) SpawnLimit += shipOrder[j].shipToSpawn;
+        }
+        else
+        {
+            Debug.Log("Out of Range order!");
+        }
     }
-    private void Initalise()
+
+    private void SpawnShips()
     {
-        CreateOrder(0,5);
-        CreateOrder(1,5);
-
-        waveLimit = 0;
-
-        for (int i = 0; i < shipPreftypes; i++)
+        if (Time.time > spawnTimer) // if current time is more than delay
         {
-            waveLimit += shipOrder[i].shipToSpawn;
-        }
+            spawnTimer = Time.time + spawnDelay; // update new time
 
-        for (int i = 0; i < shipPreftypes; i++)
-        {
-            for (int j = 0; j < shipOrder[i].shipToSpawn; j++)
+            if (GetTotalShipsOnScene() < shipLimitOnScreen)
             {
-                SpawnShip(i);
-            }
-        }
+                toSpawn.Clear();
 
+                for (int i = 0; i < shipPreftypes; i++) // find ship types to spawn
+                {
+                    if (shipOrder[i].shipToSpawn > shipOrder[i].spawnCounter)
+                        toSpawn.Add(i);
+                }
+                if (toSpawn.Count >= 2) // if there is more than one types to spawn, pick a random one
+                {
+                    SpawnShip(Random.Range(0, toSpawn.Count));
+                }
+                else if (toSpawn.Count > 0) // if there is only one type, spawn that
+                {
+                    SpawnShip(toSpawn[0]);
+                }
+            }
+            else
+                Debug.Log("too much ship on scene to spawn a new");
+
+        }
     }
     private void SpawnShip(int type)
     {
         float angle = Mathf.Deg2Rad * Random.Range(0, 360);
-        float distance = Random.Range(150, 350); // spawn distance relative to the player
+        float distance = Random.Range(100, 250); // spawn distance relative to the player
         Vector3 dir = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle));
 
         GameObject temp = (GameObject)Instantiate(prefRef[type], player.transform.position + dir * distance, Quaternion.identity);
@@ -86,9 +123,22 @@ public class EnemyManager : MonoBehaviour {
         Debug.Log("ship spawned");
     }
 
+    public void RemoveShip(int id, int type)
+    {
+        shipOrder[type].deadCounter++;
 
-
-
+        int counter = 0;
+        bool found = false;
+        do
+        {
+            if (shipOrder[type].shipP[counter].GetComponent<NewBasicAI>().GetId() == id)
+            {
+                shipOrder[type].shipP.RemoveAt(counter);
+                found = true;
+            }
+            counter++;
+        } while (found == false && counter < shipOrder[type].shipP.Count);
+    }
     private void DestroyAllShip()
     {
         for (int i = 0; i < shipPreftypes; i++)
@@ -105,56 +155,27 @@ public class EnemyManager : MonoBehaviour {
 
     public void Reset()
     {
-        waveLimit = 0;
-        DestroyAllShip();
-        waveComplete = false;
-        Initalise();
+        SpawnLimit = 0;
+        SpawnComplete = false;
+    }
+    public void SetActive(bool state)
+    {
+        spawnerActive = state;
     }
 
-    public bool GetWaveState()
+    public bool GetSpawnState()
     {
-        return waveComplete;
+        return SpawnComplete;
     }
-
-    public void RemoveShip(int id, int type)
+    private int GetTotalShipsKilled()
     {
-        shipOrder[type].deadCounter++;
-
-        int totalKilled = 0;
-
+        int sum = 0;
         for (int i = 0; i < shipPreftypes; i++)
         {
-            totalKilled += shipOrder[type].deadCounter;
+            sum += shipOrder[i].deadCounter;
         }
-
-
-        int counter = 0;
-        bool found = false;
-        do
-        {
-            if (shipOrder[type].shipP[counter].GetComponent<BasicAI>().GetId() == id)
-            {
-                shipOrder[type].shipP.RemoveAt(counter);
-                found = true;
-            }
-            counter++;
-        } while (found == false && counter < shipOrder[type].shipP.Count);
-
-
-
-        if (shipOrder[type].spawnCounter < shipOrder[type].shipToSpawn)
-        {
-            SpawnShip(type);
-        }
-        else if (totalKilled >= waveLimit - 2) // buggy  somewhy it spawn an extra 1-2 ships
-        {
-            waveComplete = true;
-            DestroyAllShip();
-            Debug.Log("Wave Complete!");
-        }
-
+        return sum;
     }
-
     public int GetTotalShipLeft()
     {
         int sum = 0;
@@ -163,5 +184,15 @@ public class EnemyManager : MonoBehaviour {
             sum += shipOrder[i].shipToSpawn - shipOrder[i].deadCounter;
         }
         return sum;
+    }
+    private int GetTotalShipsOnScene()
+    {
+        int sum = 0;
+        for (int i = 0; i < shipPreftypes; i++)
+        {
+            sum += shipOrder[i].spawnCounter - shipOrder[i].deadCounter;
+        }
+        return sum;
+
     }
 }

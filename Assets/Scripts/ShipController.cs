@@ -13,7 +13,7 @@ public class ShipController : MonoBehaviour
 
     private Rigidbody rb; 	// ship's rigid body
     private ShipStats stats;
-    private Shield shield;
+    //private Shield shield;
 
     // Mains --------------------------------------------------------------------------------------------------------
     void Start() // Use this for initialization
@@ -22,7 +22,7 @@ public class ShipController : MonoBehaviour
         controls = ship.GetComponent<Inputs>();
         rb = ship.GetComponent<Rigidbody>();
         stats = ship.GetComponent<ShipStats>();
-        shield = ship.GetComponentInChildren<Shield>();
+        //shield = ship.GetComponentInChildren<Shield>();
         gun = turret.GetComponent<Weapon>();
     }
 
@@ -32,9 +32,9 @@ public class ShipController : MonoBehaviour
         stats.LaserState = controls.RLaser;
 
 
-        if (Mathf.Abs(controls.yawAxis) > 0.1f || Mathf.Abs(controls.rightY) > 0.1f)//shooting
+        if (Mathf.Abs(controls.RightStick.x) > 0.1f || Mathf.Abs(controls.RightStick.y) > 0.1f)//shooting
         {
-            dir = new Vector3(controls.yawAxis, 0, controls.rightY).normalized;
+            dir = new Vector3(controls.RightStick.x, 0, controls.RightStick.y).normalized;
             if (controls.shoot) gun.Shoot(dir);
 
             if (controls.rocket && stats.LoadMissile())
@@ -56,13 +56,13 @@ public class ShipController : MonoBehaviour
         float currentSpeed = (controls.boost) ? stats.GetBoostSpeed() : stats.GetMainThrust();//use speeds from shipStats. Change in prefab
 
         //rb.velocity = transform.TransformDirection(new Vector3(controls.zAxis * stats.GetMainThrust(), 0, -controls.xAxis * stats.GetMainThrust())) * boostMultiplier;
-        rb.velocity = new Vector3(controls.xAxis * currentSpeed, 0, controls.zAxis * currentSpeed);
+        rb.velocity = new Vector3(controls.LeftStick.x * currentSpeed, 0, controls.LeftStick.y * currentSpeed);
         rb.angularVelocity = new Vector3(0,0,0);
 
         //if (Mathf.Abs(controls.yawAxis) > 0.1f || Mathf.Abs(controls.rightY) > 0.1f)
             //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(-controls.rightY, 0, controls.yawAxis)), 10);
-        if (Mathf.Abs(controls.xAxis) > 0.1f || Mathf.Abs(controls.zAxis) > 0.1f)
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(controls.xAxis, 0, controls.zAxis)) * Quaternion.Euler(new Vector3(0, -90, 0)), 10);
+        if (Mathf.Abs(controls.LeftStick.x) > 0.1f || Mathf.Abs(controls.LeftStick.y) > 0.1f)
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(controls.LeftStick.x, 0, controls.LeftStick.y)) * Quaternion.Euler(new Vector3(0, -90, 0)), 10);
     }
 
     // EVENT HANDLERS-------------------------------------------------------------------------------------

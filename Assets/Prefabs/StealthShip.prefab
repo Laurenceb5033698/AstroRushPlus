@@ -279,9 +279,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHealth: 100
-  maxShield: 100
+  maxShield: 0
   mainThrust: 50
-  boostSpeed: 1500
+  boostSpeed: 200
   rotSpeed: 350
 --- !u!114 &114000012755614326
 MonoBehaviour:
@@ -302,4 +302,3 @@ MonoBehaviour:
   sceneManager: {fileID: 0}
   gun: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
-  player: {fileID: 0}

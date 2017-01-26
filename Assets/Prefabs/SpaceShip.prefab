@@ -550,7 +550,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a50473684ee8864ea567b010db44773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controls: {fileID: 0}
   activeLaserColor: {fileID: 2100000, guid: 00aac628b58b64e4d9db535820adbaf5, type: 2}
   idleLaserColor: {fileID: 2100000, guid: 89341ddb285dfec499df8c94e2c5beaf, type: 2}
 --- !u!114 &114000012486418262
@@ -606,8 +605,8 @@ MonoBehaviour:
   bullet: {fileID: 1000013062658966, guid: c3d5d7f01c6d52e4e986ec997101897b, type: 2}
   ship: {fileID: 1000012298449032}
   shootSpeed: 0.15
-  bulletDamage: 5
-  bulletSpeed: 20
+  bulletDamage: 20
+  bulletSpeed: 100
 --- !u!114 &114924718116808240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -626,6 +625,7 @@ MonoBehaviour:
   boost: 0
   rocket: 0
   RLaser: 0
+  shoot: 0
   targeting: 0
   reset: 0
 --- !u!120 &120000013293099910

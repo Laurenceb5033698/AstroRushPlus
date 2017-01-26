@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour {
 
     private GameObject playerShip;
     private int currentScore = 0;
-    private int highestScore = 0;
+    //private int highestScore = 0;
 
     [SerializeField] private GameObject playerShipPref;
     [SerializeField] private CameraScript cam;
@@ -47,6 +47,11 @@ public class GameManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Escape)) ui.ToggleEscState();
         if (s.IsAlive()) ui.UpdateShipStats(s.GetBoostFuelAmount(), s.ShipShield, s.ShipHealth, 100, s.GetNoMissiles());
         else ui.SetGameOverState(true);
+    }
+
+    public void AddScore(int s)
+    {
+        currentScore += s;
     }
 
     private void spawnPlayer()

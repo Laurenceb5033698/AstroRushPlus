@@ -25,14 +25,14 @@ public class ThrusterManager : MonoBehaviour {
 
     private void UpdateThrusters()
     {
-        state = (Mathf.Abs(controls.xAxis) > deadzone || controls.zAxis > deadzone);
+        state = (Mathf.Abs(controls.LeftStick.x) > deadzone || controls.LeftStick.y > deadzone);
         if (state)
         {
-            thrusters[0].SetState(controls.xAxis < -deadzone); // right
-            thrusters[1].SetState(controls.xAxis > deadzone);  // left
+            thrusters[0].SetState(controls.LeftStick.x < -deadzone); // right
+            thrusters[1].SetState(controls.LeftStick.x > deadzone);  // left
 
-            thrusters[2].SetState(controls.zAxis > deadzone); // rear
-            thrusters[3].SetState(controls.zAxis > deadzone); // rear
+            thrusters[2].SetState(controls.LeftStick.y > deadzone); // rear
+            thrusters[3].SetState(controls.LeftStick.y > deadzone); // rear
         }
         else
         {

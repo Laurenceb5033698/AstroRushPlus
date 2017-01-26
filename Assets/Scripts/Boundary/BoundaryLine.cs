@@ -18,7 +18,8 @@ public class BoundaryLine : MonoBehaviour {
     void Start()
     {
         line = transform.gameObject.GetComponent<LineRenderer>();
-        line.SetWidth(0.2f, 0.2f);
+        line.startWidth = 0.2f;
+        line.endWidth = 0.2f;
 
         line.SetPosition(0, lineStartPos);
         line.SetPosition(1, lineEndPos);

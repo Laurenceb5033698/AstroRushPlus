@@ -4,10 +4,8 @@ using System.Collections;
 
 public class Inputs : MonoBehaviour 
 {
-	public float zAxis;
-	public float xAxis;
-	public float yawAxis;
-    public float rightY;
+    public Vector2 LeftStick;
+    public Vector2 RightStick;
 
 	public bool boost;
 	public bool rocket;
@@ -26,10 +24,10 @@ public class Inputs : MonoBehaviour
 
 	private void CheckInputs()
 	{
-		yawAxis = Input.GetAxis ("RightStickX");
-        rightY = Input.GetAxis("RightStickY");
-		zAxis = Input.GetAxis ("LeftStickY");
-		xAxis = Input.GetAxis ("LeftStickX");
+        LeftStick.x = Input.GetAxis("LeftStickX");
+        LeftStick.y = Input.GetAxis("LeftStickY");
+        RightStick.x = Input.GetAxis("RightStickX");
+        RightStick.y = Input.GetAxis("RightStickY");
 
         CheckKeyboard();
 
@@ -44,13 +42,13 @@ public class Inputs : MonoBehaviour
 
     private void CheckKeyboard()
     {
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) zAxis = 1;
-        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) zAxis = -1;
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) LeftStick.y = 1;
+        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) LeftStick.y = -1;
 
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) xAxis = -1;
-        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) xAxis = 1;
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) LeftStick.x = -1;
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) LeftStick.x = 1;
 
-        if (Input.GetKey(KeyCode.Q)) yawAxis = -1;
-        else if (Input.GetKey(KeyCode.E)) yawAxis = 1;
+        if (Input.GetKey(KeyCode.Q)) RightStick.x = -1;
+        else if (Input.GetKey(KeyCode.E)) RightStick.x = 1;
     }
 }
