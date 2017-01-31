@@ -33,20 +33,31 @@ public class Projectile : MonoBehaviour {
             {
                 case "PlayerShip":
                     other.gameObject.GetComponentInParent<ShipController>().TakeDamage(damage);
+                    applyImpulse(other.GetComponentInParent<Rigidbody>());
                     break;
                 case "EnemyShip":
                     other.gameObject.GetComponentInParent<NewBasicAI>().TakeDamage(damage);
+                    applyImpulse(other.GetComponentInParent<Rigidbody>());
                     break;
                 case "Asteroid":
                     other.gameObject.GetComponent<Asteroid>().TakeDamage(damage);
+                    applyImpulse(other.GetComponent<Rigidbody>());
                     break;
                 default:
                     Debug.Log("Unknown entity. " + other.gameObject.tag);
 
                     break;
             }
+            
+            
             DestroySelf();
         }
+    }
+
+    void applyImpulse(Rigidbody body)
+    {
+        //Vector3 direction = transform.position - body.transform.position;
+        body.AddForce(transform.forward * ((damage/2)+(speed/(2+body.mass))), ForceMode.Impulse);
     }
     
 	// Update is called once per frame

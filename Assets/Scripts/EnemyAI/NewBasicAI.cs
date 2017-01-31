@@ -58,10 +58,10 @@ public class NewBasicAI : MonoBehaviour {
         if (Vector3.Cross(controlDir, gameObject.transform.forward).y < 0) angle = -angle;
         angle = angle / -180;
 
-        rb.AddTorque(Vector3.up * (((angle) * 250f) ) * Time.deltaTime);
+        rb.AddTorque(Vector3.up * (((angle) * stats.GetRotSpeed()) ) * Time.deltaTime);
         rb.AddForce(gameObject.transform.forward * currentSpeed * 20 * Time.deltaTime, ForceMode.Acceleration);
 
-        if (dist <= 50) Shoot(controlDir);       
+        if (dist <= 50) Shoot(controlDir);
     }
     private void Shoot(Vector3 aimDir)
     {
