@@ -194,7 +194,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014282705904}
   serializedVersion: 2
-  m_Mass: 1.5
+  m_Mass: 8
   m_Drag: 1
   m_AngularDrag: 0.5
   m_UseGravity: 0
@@ -282,7 +282,7 @@ MonoBehaviour:
   maxShield: 0
   mainThrust: 50
   boostSpeed: 200
-  rotSpeed: 350
+  rotSpeed: 700
 --- !u!114 &114000012755614326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -295,10 +295,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boostRange: 30
-  engageRange: 50
   ship: {fileID: 0}
   rb: {fileID: 0}
   stats: {fileID: 0}
-  sceneManager: {fileID: 0}
   gun: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}

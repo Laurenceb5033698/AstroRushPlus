@@ -454,7 +454,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012573139472}
   serializedVersion: 2
-  m_Mass: 2
+  m_Mass: 10
   m_Drag: 0.1
   m_AngularDrag: 0.5
   m_UseGravity: 0
@@ -618,10 +618,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0388b1baa9bcf84580f9c8e749de999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zAxis: 0
-  xAxis: 0
-  yawAxis: 0
-  rightY: 0
+  LeftStick: {x: 0, y: 0}
+  RightStick: {x: 0, y: 0}
   boost: 0
   rocket: 0
   RLaser: 0
@@ -676,13 +674,13 @@ LineRenderer:
         tangentMode: 0
       - serializedVersion: 2
         time: 1
-        value: 1
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_RotationOrder: 0
     colorGradient:
       key0:
         serializedVersion: 2
