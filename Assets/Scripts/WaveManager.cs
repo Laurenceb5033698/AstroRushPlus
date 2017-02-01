@@ -5,10 +5,15 @@ public class WaveManager : MonoBehaviour {
 
     private int wave = 0;
     private EnemyManager em;
+    private const int noShipTypes = 2;
+    private int[] spawnShips = new int[noShipTypes];
+    [SerializeField] private int spawnIncAmount = 10;
 
 	void Start ()	// Use this for initialization
     {
         em = GetComponent<EnemyManager>();
+        spawnShips[0] = 0;
+        spawnShips[1] = 0;
         UpdateWave();
     }
 	
@@ -24,28 +29,14 @@ public class WaveManager : MonoBehaviour {
     {
         em.Reset();
         em.SetActive(false);
-        wave++;
 
-        switch (wave)
+        wave++;
+        for (int i = 0; i < noShipTypes; i++)
         {
-            case 1: {
-                    em.CreateOrder(0, 2);
-                    em.CreateOrder(1, 2);
-                } break;
-            case 2:
-                {
-                    em.CreateOrder(0, 5);
-                    em.CreateOrder(1, 5);
-                }
-                break;
-            case 3:
-                {
-                    em.CreateOrder(0, 10);
-                    em.CreateOrder(1, 10);
-                }
-                break;
-            default: Debug.Log("Wave out of bound!"); wave--; break;
+            spawnShips[i] += spawnIncAmount;
+            em.CreateOrder(i, spawnShips[i]);
         }
+
         em.SetActive(true);
     }
 

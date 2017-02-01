@@ -7,8 +7,10 @@ public class AsteroidManager : MonoBehaviour
     private const int NoAsteroids = 60;
 
     private GameObject ship;
+    [SerializeField] private GameObject[] chunks = new GameObject[2];
     [SerializeField] private GameObject[] asteroids = new GameObject[5]; // asteroid prefab
     [SerializeField] private GameObject[] spawnedAsteroids = new GameObject[NoAsteroids];
+    [SerializeField] private GameObject[] groups = new GameObject[2]; // game objects to store the spawned objects like folders
 
     // Use this for initialization
     void Start ()
@@ -38,7 +40,8 @@ public class AsteroidManager : MonoBehaviour
         Vector3 dir = new Vector3(Mathf.Cos(angle),0, Mathf.Sin(angle));
 
         GameObject temp = (GameObject)Instantiate(asteroids[Random.Range(0, 5)], ship.transform.position + dir * distance, Quaternion.identity);
-        temp.transform.parent = transform;
+        //temp.transform.parent = transform;
+        temp.transform.parent = groups[0].transform;
         temp.GetComponent<Asteroid>().SetAsteroidManager(gameObject);
 
         //temp.AddComponent<ID>();
@@ -53,11 +56,25 @@ public class AsteroidManager : MonoBehaviour
 
     public void Reset(GameObject go)
     {
+        SpawnChunks(go.transform.position);
+
         //use checker here to find suitable location (i.e. not inside another object)
         float angle = Mathf.Deg2Rad * Random.Range(0, 360);
         float distance = Random.Range(100, 250);
         Vector3 dir = new Vector3(Mathf.Cos(angle),0, Mathf.Sin(angle));
         go.transform.position = ship.transform.position + dir * distance;
         
+    }
+
+    private void SpawnChunks(Vector3 pos)
+    {
+        int shards = Random.Range(3,10);
+
+        for (int i = 0; i < shards; i++)
+        {
+            GameObject temp = (GameObject)Instantiate(chunks[Random.Range(0, 2)], pos, Quaternion.identity);
+            //temp.transform.parent = transform;
+            temp.transform.parent = groups[1].transform;
+        }
     }
 }

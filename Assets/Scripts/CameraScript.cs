@@ -4,7 +4,7 @@ using System.Collections;
 public class CameraScript : MonoBehaviour {
 
 	private GameObject target;
-    private Vector3 offset = new Vector3(0,50,-50);
+    private Vector3 offset = new Vector3(0,70,-40);
     private float cameraSpeed;
 
     void Start()
