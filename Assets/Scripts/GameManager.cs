@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour {
     {
         UpdateUI();
         Time.timeScale = (ui.GetMenuState() || ui.GetHintsState()) ? 0 : 1;
+        if (playerShip.GetComponent<Inputs>().reset)
+            RestartGame();
     }
 
     private void UpdateUI()
@@ -65,6 +67,7 @@ public class GameManager : MonoBehaviour {
     public void RestartGame()
     {
         SceneManager.LoadScene(1);
+        
     }
     public void LoadMainMenu()
     {

@@ -15,12 +15,13 @@ public class EnemyManager : MonoBehaviour {
     }
 
     private const int shipPreftypes = 2;
-    [SerializeField] GameObject[] prefRef = new GameObject[shipPreftypes]; // prefab list
+    [SerializeField] private GameObject[] prefRef = new GameObject[shipPreftypes]; // prefab list
+    [SerializeField] private GameObject group;
     private ShipT[] shipOrder = new ShipT[shipPreftypes];
     private GameObject player;
 
     private int globalID = 0;
-    private const float spawnDelay = 2;
+    private const float spawnDelay = 0.5f;
     private float spawnTimer = 0.0f;
     private List<int> toSpawn = new List<int>(); // spawnShips() - create a list of ship type IDs to spawn from
 
@@ -119,6 +120,8 @@ public class EnemyManager : MonoBehaviour {
         shipOrder[type].shipP.Add(temp);
         shipOrder[type].spawnCounter++;
         globalID++;
+
+        temp.transform.parent = group.transform; // put ship in group game object
 
         Debug.Log("ship spawned");
     }
