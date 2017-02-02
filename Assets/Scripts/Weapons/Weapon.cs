@@ -12,10 +12,13 @@ public class Weapon : MonoBehaviour{
     [SerializeField] private float bulletDamage = 5f;
     [SerializeField] private float bulletSpeed = 20f;
 
-	
-	void Start () // Use this for initialization
+
+    private AudioSource shootSound;
+
+    void Start () // Use this for initialization
     {
-	}
+        shootSound = GetComponent<AudioSource>();
+    }
 	void Update () // Update is called once per frame
     {
 	}
@@ -35,9 +38,14 @@ public class Weapon : MonoBehaviour{
         {
             reload = Time.time + shootSpeed;
             spawnProjectile(direction);
+
+            shootSound.Play();
         }
-         
-         
+
+        
+        //shootSound.Play(44100);
+
+
     }
 
 }

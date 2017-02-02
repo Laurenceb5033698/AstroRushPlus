@@ -11,6 +11,7 @@ public class ShipController : MonoBehaviour
     [SerializeField] private GameObject turret; // missile prefab
     [SerializeField] private Weapon gun;
 
+
     private Rigidbody rb; 	// ship's rigid body
     private ShipStats stats;
     //private Shield shield;

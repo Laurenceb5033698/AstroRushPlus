@@ -10,16 +10,19 @@ public class GameManager : MonoBehaviour {
     //private int highestScore = 0;
 
     [SerializeField] private GameObject playerShipPref;
+    [SerializeField] private GameObject pointerPref;
     [SerializeField] private CameraScript cam;
     private UI ui;
     private EnemyManager em;
     private WaveManager wm;
+    private GameObject pointer;
     
 
 	// Use this for initialization
 	void Awake () 
     {
         spawnPlayer();
+        spawnPointer();
         Time.timeScale = 1;
 	}
     
@@ -34,6 +37,8 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
+        pointer.GetComponent<Pointer>().SetNewTarget(em.getClosestShipPos(playerShip.transform.position)); // set pointer dir
+
         UpdateUI();
         Time.timeScale = (ui.GetMenuState() || ui.GetHintsState()) ? 0 : 1;
         if (playerShip.GetComponent<Inputs>().reset)
@@ -59,6 +64,11 @@ public class GameManager : MonoBehaviour {
     private void spawnPlayer()
     {
         playerShip = (GameObject)Instantiate(playerShipPref,Vector3.zero, Quaternion.identity);
+    }
+    private void spawnPointer()
+    {
+        pointer = (GameObject)Instantiate(pointerPref, Vector3.zero, Quaternion.identity);
+        pointer.GetComponent<Pointer>().SetFollowTarget(playerShip);
     }
     public GameObject GetShipRef()
     {

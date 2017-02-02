@@ -6,6 +6,8 @@ public class PickupItem : MonoBehaviour {
     [SerializeField] private int type = 0;
     [SerializeField] private GameObject item;
     [SerializeField] private bool stayOnScene = false;
+    [SerializeField]
+    private PickupManager pm;
 
     private float speed = 1f;
     private bool directionUp = true;
@@ -15,7 +17,6 @@ public class PickupItem : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
     {
-        //type = Random.Range(1,5);
 	}
 	
 	// Update is called once per frame
@@ -59,6 +60,11 @@ public class PickupItem : MonoBehaviour {
         }
     }
 
+    public void Init(GameObject sm)
+    {
+        pm = sm.GetComponent<PickupManager>();
+    }
+
     void OnTriggerEnter(Collider c)
     {
         if (c.transform.gameObject.tag == "PlayerShip")
@@ -72,6 +78,8 @@ public class PickupItem : MonoBehaviour {
                 default: Debug.Log("WARNING! Wrong pickup type"); break;
             }
 
+            pm.playPickupSound();
+            
             if (!stayOnScene)
             Destroy(transform.gameObject);
         }

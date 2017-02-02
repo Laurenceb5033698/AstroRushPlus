@@ -42,7 +42,8 @@ public class NewBasicAI : MonoBehaviour {
             if (Random.Range(0f, 10f) > 3f)
             {
                 GameObject mpickup = sm.GetComponent<PickupManager>().GetRandomPickup();
-                Instantiate(mpickup, ship.transform.position, Quaternion.identity); 	// create gameobject
+                GameObject temp = (GameObject)Instantiate(mpickup, ship.transform.position, Quaternion.identity); 	// create gameobject
+                temp.GetComponent<PickupItem>().Init(sm);
             }
             DestroySelf();
         }
