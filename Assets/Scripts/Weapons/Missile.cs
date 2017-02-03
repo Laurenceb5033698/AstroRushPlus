@@ -27,10 +27,13 @@ public class Missile : MonoBehaviour
 
 	void OnCollisionEnter(Collision collision)
 	{
-        if (collision.gameObject.tag == "Asteroid") collision.gameObject.GetComponentInParent<Asteroid>().TakeDamage(80f);
-        else if (collision.gameObject.tag == "EnemyShip") collision.gameObject.GetComponentInParent<NewBasicAI>().TakeDamage(80f);
-        else if (collision.gameObject.tag == "GeneratorShield") collision.gameObject.GetComponentInParent<Generator>().TakeDamage(50f); 
-        DestroySelf();
+        if (collision.gameObject.GetComponent<Projectile>() == null)
+        {
+            if (collision.gameObject.tag == "Asteroid") collision.gameObject.GetComponentInParent<Asteroid>().TakeDamage(80f);
+            else if (collision.gameObject.tag == "EnemyShip") collision.gameObject.GetComponentInParent<NewBasicAI>().TakeDamage(80f);
+            else if (collision.gameObject.tag == "GeneratorShield") collision.gameObject.GetComponentInParent<Generator>().TakeDamage(50f);
+            DestroySelf();
+        }
     }
 
 	private void DestroySelf()

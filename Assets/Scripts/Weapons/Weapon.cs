@@ -15,9 +15,11 @@ public class Weapon : MonoBehaviour{
 
     [SerializeField] private float bulletDamage = 5f;
     [SerializeField] private float bulletSpeed = 20f;
+    [SerializeField] private float spread = 2;
 
-	
-	void Start () // Use this for initialization
+
+
+    void Start () // Use this for initialization
     {
 	}
 	void Update () // Update is called once per frame
@@ -39,14 +41,17 @@ public class Weapon : MonoBehaviour{
                 break;
             case WeaponFlavour.Tri:
                 //three instances
+                Vector3 spreadera = (aimDir * 6f) + (Vector3.Cross(aimDir, Vector3.up) * spread);//spread is an arbitrary value which increases the angle of spread
+                Vector3 spreaderb = (aimDir * 6f) - (Vector3.Cross(aimDir, Vector3.up) * spread);//spread is an arbitrary value which increases the angle of spread
+
+                mBullet = (GameObject)Instantiate(bullet, ship.transform.position + spreadera, Quaternion.LookRotation(spreadera.normalized, Vector3.up));
+                mBullet.GetComponent<Projectile>().SetupValues(bulletDamage, bulletSpeed, ship.tag);
+
                 mBullet = (GameObject)Instantiate(bullet, ship.transform.position + aimDir * 6f, Quaternion.LookRotation(aimDir, Vector3.up));
                 mBullet.GetComponent<Projectile>().SetupValues(bulletDamage, bulletSpeed, ship.tag);
 
-                //mBullet = (GameObject)Instantiate(bullet, ship.transform.position + aimDir * 6f, Quaternion.LookRotation(aimDir, Vector3.up));
-                //mBullet.GetComponent<Projectile>().SetupValues(bulletDamage, bulletSpeed, ship.tag);
-
-                //mBullet = (GameObject)Instantiate(bullet, ship.transform.position + aimDir * 6f, Quaternion.LookRotation(aimDir, Vector3.up));
-                //mBullet.GetComponent<Projectile>().SetupValues(bulletDamage, bulletSpeed, ship.tag);
+                mBullet = (GameObject)Instantiate(bullet, ship.transform.position + spreaderb, Quaternion.LookRotation(spreaderb.normalized, Vector3.up));
+                mBullet.GetComponent<Projectile>().SetupValues(bulletDamage, bulletSpeed, ship.tag);
                 break;
             default://pew
                 mBullet = (GameObject)Instantiate(bullet, ship.transform.position + aimDir * 6f, Quaternion.LookRotation(aimDir, Vector3.up));
