@@ -57,7 +57,7 @@ public class ObjectiveManager : MonoBehaviour {
             case 3: newTarget = warpGate; break;
         }
 
-        pointer.GetComponent<Pointer>().SetNewTarget(newTarget);
+        //pointer.GetComponent<Pointer>().SetNewTarget(newTarget);
         distance.GetComponent<DistanceDisplay>().SetNewTarget(newTarget);
     }
 

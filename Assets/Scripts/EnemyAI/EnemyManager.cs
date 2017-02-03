@@ -198,4 +198,20 @@ public class EnemyManager : MonoBehaviour {
         return sum;
 
     }
+
+    public Vector3 getClosestShipPos(Vector3 from)
+    {
+        Vector3 pos = Vector3.zero;
+
+        for (int i = 0; i < shipPreftypes; i++)
+        {
+            for (int j = 0; j < shipOrder[i].shipP.Count; j++)
+            {
+                if (Vector3.Distance(from, shipOrder[i].shipP[j].transform.position) < Vector3.Distance(pos, shipOrder[i].shipP[j].transform.position))
+                    pos = shipOrder[i].shipP[j].transform.position;
+            }
+        }
+
+        return pos;
+    }
 }

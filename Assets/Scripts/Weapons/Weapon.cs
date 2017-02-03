@@ -18,10 +18,12 @@ public class Weapon : MonoBehaviour{
     [SerializeField] private float spread = 2;
 
 
+    private AudioSource shootSound;
 
     void Start () // Use this for initialization
     {
-	}
+        shootSound = GetComponent<AudioSource>();
+    }
 	void Update () // Update is called once per frame
     {
 	}
@@ -66,9 +68,14 @@ public class Weapon : MonoBehaviour{
         {
             reload = Time.time + shootSpeed;
             spawnProjectile(direction);
+
+            shootSound.Play();
         }
-         
-         
+
+        
+        //shootSound.Play(44100);
+
+
     }
 
 }
