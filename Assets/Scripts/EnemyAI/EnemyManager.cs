@@ -29,7 +29,7 @@ public class EnemyManager : MonoBehaviour {
 
     private int SpawnLimit;
     private bool SpawnComplete = false;
-    private const int shipLimitOnScreen = 10;
+    private const int shipLimitOnScreen = 40;
 
     private bool spawnerActive = false;
 
