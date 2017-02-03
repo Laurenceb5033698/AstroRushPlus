@@ -17,6 +17,8 @@ public class BoundaryManager : MonoBehaviour {
     void Start ()
     {
         ship = GetComponent<GameManager>().GetShipRef();
+        boundaryx.GetComponent<BoundaryLine>().setShipRef(ship);
+        boundaryz.GetComponent<BoundaryLine>().setShipRef(ship);
 	}
 	
 	// Update is called once per frame

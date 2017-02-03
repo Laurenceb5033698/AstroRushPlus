@@ -80,5 +80,10 @@ public class BoundaryLine : MonoBehaviour {
         set { drawLine = value; }
     }
 
+    public void setShipRef(GameObject go)
+    {
+        ship = go;
+    }
+
 
 }
