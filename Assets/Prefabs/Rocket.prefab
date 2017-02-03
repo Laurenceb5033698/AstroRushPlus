@@ -135,7 +135,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011011204806}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.574363, y: 0.60392094, z: 2.4341667}
@@ -151,6 +151,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eed0ce47a1c8da45a29843e9f5c8393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
+  lifetime: 5
+  ownertag: 
+  speed: 0
   exp: {fileID: 1000012913820410, guid: c6c8651041f3bdf49a5edf18c28b6522, type: 2}
 --- !u!198 &198000011767601864
 ParticleSystem:

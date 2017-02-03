@@ -3,7 +3,10 @@ using System.Collections;
 
 public class Weapon : MonoBehaviour{
 
-    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject bullet1;
+    [SerializeField] private GameObject bullet2;
+
+
     [SerializeField] private GameObject ship;
     //private Inputs controls = null;
     [SerializeField] private float shootSpeed;//fiddle with this one
@@ -24,6 +27,21 @@ public class Weapon : MonoBehaviour{
     {
         shootSound = GetComponent<AudioSource>();
     }
+
+    public void changeType(string weap)
+    {
+        switch (weap)
+        {
+            case "tri":
+                WeaponType = WeaponFlavour.Tri;
+                break;
+            case "pew":
+            default:
+                WeaponType = WeaponFlavour.Pew;
+                break;
+        }
+    }
+
 	void Update () // Update is called once per frame
     {
 	}
@@ -37,26 +55,23 @@ public class Weapon : MonoBehaviour{
         GameObject mBullet;
         switch (WeaponType)
         {
-            case WeaponFlavour.Pew:
-                mBullet = (GameObject)Instantiate(bullet, ship.transform.position + aimDir * 6f, Quaternion.LookRotation(aimDir, Vector3.up));
-                mBullet.GetComponent<Projectile>().SetupValues(bulletDamage, bulletSpeed, ship.tag);
-                break;
             case WeaponFlavour.Tri:
                 //three instances
                 Vector3 spreadera = (aimDir * 6f) + (Vector3.Cross(aimDir, Vector3.up) * spread);//spread is an arbitrary value which increases the angle of spread
                 Vector3 spreaderb = (aimDir * 6f) - (Vector3.Cross(aimDir, Vector3.up) * spread);//spread is an arbitrary value which increases the angle of spread
 
-                mBullet = (GameObject)Instantiate(bullet, ship.transform.position + spreadera, Quaternion.LookRotation(spreadera.normalized, Vector3.up));
+                mBullet = (GameObject)Instantiate(bullet2, ship.transform.position + spreadera, Quaternion.LookRotation(spreadera.normalized, Vector3.up));
                 mBullet.GetComponent<Projectile>().SetupValues(bulletDamage, bulletSpeed, ship.tag);
 
-                mBullet = (GameObject)Instantiate(bullet, ship.transform.position + aimDir * 6f, Quaternion.LookRotation(aimDir, Vector3.up));
+                mBullet = (GameObject)Instantiate(bullet2, ship.transform.position + aimDir * 6f, Quaternion.LookRotation(aimDir, Vector3.up));
                 mBullet.GetComponent<Projectile>().SetupValues(bulletDamage, bulletSpeed, ship.tag);
 
-                mBullet = (GameObject)Instantiate(bullet, ship.transform.position + spreaderb, Quaternion.LookRotation(spreaderb.normalized, Vector3.up));
+                mBullet = (GameObject)Instantiate(bullet2, ship.transform.position + spreaderb, Quaternion.LookRotation(spreaderb.normalized, Vector3.up));
                 mBullet.GetComponent<Projectile>().SetupValues(bulletDamage, bulletSpeed, ship.tag);
                 break;
+            case WeaponFlavour.Pew:
             default://pew
-                mBullet = (GameObject)Instantiate(bullet, ship.transform.position + aimDir * 6f, Quaternion.LookRotation(aimDir, Vector3.up));
+                mBullet = (GameObject)Instantiate(bullet1, ship.transform.position + aimDir * 6f, Quaternion.LookRotation(aimDir, Vector3.up));
                 mBullet.GetComponent<Projectile>().SetupValues(bulletDamage, bulletSpeed, ship.tag);
                 break;
 

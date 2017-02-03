@@ -742,11 +742,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecdcd02f87281da418d4b56eb19e6abe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1000013062658966, guid: c3d5d7f01c6d52e4e986ec997101897b, type: 2}
+  bullet1: {fileID: 1000013062658966, guid: c3d5d7f01c6d52e4e986ec997101897b, type: 2}
+  bullet2: {fileID: 1679187275398958, guid: 66c1eae05b20cbf408ff1ace9bd36066, type: 2}
   ship: {fileID: 1000012298449032}
   shootSpeed: 0.1
+  WeaponType: 0
   bulletDamage: 15
   bulletSpeed: 100
+  spread: 2
 --- !u!114 &114924718116808240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -762,6 +765,7 @@ MonoBehaviour:
   RightStick: {x: 0, y: 0}
   boost: 0
   rocket: 0
+  trishot: 0
   RLaser: 0
   shoot: 0
   targeting: 0

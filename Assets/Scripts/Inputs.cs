@@ -9,6 +9,8 @@ public class Inputs : MonoBehaviour
 
 	public bool boost;
 	public bool rocket;
+    public bool trishot;
+
 	public bool RLaser;
 
     public bool shoot;
@@ -31,10 +33,10 @@ public class Inputs : MonoBehaviour
 
         CheckKeyboard();
 
-
+        trishot = Input.GetKey(KeyCode.JoystickButton4);
         rocket = Input.GetKeyDown (KeyCode.JoystickButton5) || Input.GetKeyDown(KeyCode.R);
 		targeting = Input.GetMouseButtonDown (0);
-        RLaser = Input.GetKey(KeyCode.JoystickButton4) || Input.GetKey(KeyCode.F);
+        //RLaser = Input.GetKey(KeyCode.JoystickButton4) || Input.GetKey(KeyCode.F);
         boost = Input.GetAxis("LeftTrigger") > 0.1f || Input.GetKey(KeyCode.LeftShift);
         shoot = Input.GetAxis("RightTrigger") > 0.1f || Input.GetKey(KeyCode.Space);
         reset = Input.GetKeyDown(KeyCode.JoystickButton7) || Input.GetKeyDown(KeyCode.Y);
