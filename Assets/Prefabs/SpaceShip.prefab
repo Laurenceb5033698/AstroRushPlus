@@ -513,7 +513,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012573139472}
   serializedVersion: 2
-  m_Mass: 2
+  m_Mass: 10
   m_Drag: 0.1
   m_AngularDrag: 0.5
   m_UseGravity: 0
@@ -814,13 +814,13 @@ LineRenderer:
         tangentMode: 0
       - serializedVersion: 2
         time: 1
-        value: 1
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_RotationOrder: 0
     colorGradient:
       key0:
         serializedVersion: 2
