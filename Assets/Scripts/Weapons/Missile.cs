@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Missile : MonoBehaviour 
+public class Missile : Projectile 
 {
-    private float detonateAt;
+    //private float detonateAt;
     private Rigidbody rb;
 
 	public GameObject exp;
@@ -13,30 +13,34 @@ public class Missile : MonoBehaviour
 	{
         rb = transform.GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * 50f, ForceMode.Impulse);
-        detonateAt = Time.time + 1f;
+        lifetime = Time.time + 1f;
     }
 	
 	// Update is called once per frame
-	void Update () 
+	protected override void Update () 
 	{
-		if (Time.time > detonateAt) 
+		if (Time.time > lifetime) 
 		{
 			DestroySelf ();
 		}
 	}
-
-	void OnCollisionEnter(Collision collision)
-	{
+    void OnTriggerEnter(Collider collision)
+    {
         if (collision.gameObject.GetComponent<Projectile>() == null)
         {
-            if (collision.gameObject.tag == "Asteroid") collision.gameObject.GetComponentInParent<Asteroid>().TakeDamage(80f);
-            else if (collision.gameObject.tag == "EnemyShip") collision.gameObject.GetComponentInParent<NewBasicAI>().TakeDamage(80f);
-            else if (collision.gameObject.tag == "GeneratorShield") collision.gameObject.GetComponentInParent<Generator>().TakeDamage(50f);
+            if (collision.gameObject.tag == "Asteroid") collision.gameObject.GetComponentInParent<Asteroid>().TakeDamage(damage);
+            else if (collision.gameObject.tag == "EnemyShip") collision.gameObject.GetComponentInParent<NewBasicAI>().TakeDamage(damage);
+            else if (collision.gameObject.tag == "GeneratorShield") collision.gameObject.GetComponentInParent<Generator>().TakeDamage(damage/1.5f);
             DestroySelf();
         }
     }
 
-	private void DestroySelf()
+    void OnCollisionEnter(Collision collision)
+	{
+        
+    }
+
+	protected override void DestroySelf()
 	{
 		Instantiate (exp,transform.position,transform.rotation);
         Destroy (transform.gameObject);

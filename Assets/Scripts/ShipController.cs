@@ -40,7 +40,7 @@ public class ShipController : MonoBehaviour
 
             if (controls.rocket && stats.LoadMissile())
             {
-                Instantiate(mPreF, ship.transform.position + dir * 6f, Quaternion.LookRotation(dir, Vector3.up));
+                Instantiate(mPreF, ship.transform.position + dir * 8f, Quaternion.LookRotation(dir, Vector3.up));
                 stats.DecreaseMissileAmount();
             }
             

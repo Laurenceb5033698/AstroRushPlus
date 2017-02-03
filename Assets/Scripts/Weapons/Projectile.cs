@@ -3,10 +3,10 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 
-    [SerializeField] private float damage;
-    [SerializeField] private float lifetime = 5f;//lifetime in seconds
-    [SerializeField] public string ownertag; //(eg player)
-    [SerializeField] private float speed;//forward speed
+    [SerializeField] protected float damage;
+    [SerializeField] protected float lifetime = 5f;//lifetime in seconds
+    [SerializeField] protected string ownertag; //(eg player)
+    [SerializeField] protected float speed;//forward speed
 
 
 	// Use this for initialization
@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour {
     {//deal damage to target
         //Debug.Log("Entity hit: " + other.gameObject.name);
 
-        if ((other != null) && (other.gameObject.tag != ownertag))
+        if ((other != null) && (other.gameObject.tag != ownertag) && (other.gameObject.GetComponent<Projectile>() == null))
         {//successful collision that wasnt with shooter
             //Debug.Log("other Entity: " + other.gameObject.tag);
             switch (other.gameObject.tag)
@@ -59,16 +59,16 @@ public class Projectile : MonoBehaviour {
         //Vector3 direction = transform.position - body.transform.position;
         body.AddForce(transform.forward * ((damage/2)+(speed/(2+body.mass))), ForceMode.Impulse);
     }
-    
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    protected virtual void Update () {
         transform.position += transform.forward * speed * Time.deltaTime;
         lifetime -= Time.deltaTime;
         if (lifetime < 0)
             DestroySelf();
 	}
 
-    private void DestroySelf()
+    protected virtual void DestroySelf()
     {// perhaps spawn a particle? like missile does
         Destroy(transform.gameObject);
     }
