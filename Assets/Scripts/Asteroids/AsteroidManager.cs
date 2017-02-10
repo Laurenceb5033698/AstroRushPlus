@@ -44,7 +44,7 @@ public class AsteroidManager : MonoBehaviour
     private void SpawnBackgroundAsteroids(int amount) {
         for (int i = 0; i < amount; i++)
         {
-            Vector3 randomPos = new Vector3(Random.Range(-1500, 1500), Random.Range(-1000, -200), Random.Range(-1500, 1500));
+            Vector3 randomPos = new Vector3(Random.Range(-1500, 1500), Random.Range(-1000, -500), Random.Range(-1500, 1500));
             GameObject temp =  (GameObject)Instantiate(backgroundAsteroidPrefs[Random.Range(0, 5)], randomPos, Quaternion.identity);
             temp.transform.parent = groups[2].transform;
             backgroundAsteroids.Add(temp);
