@@ -79,6 +79,8 @@ public class NewBasicAI : MonoBehaviour {
     // enemy spawner related functions
     void OnCollisionEnter(Collision c)
     {
+        if (!c.gameObject.GetComponent<Projectile>())
+            rb.AddForce((ship.transform.position - c.gameObject.transform.position) *18, ForceMode.Impulse);
         stats.TakeDamage(10 * Time.deltaTime);
     }
     private void DestroySelf()
