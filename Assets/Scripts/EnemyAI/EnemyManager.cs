@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class EnemyManager : MonoBehaviour {
 
+    [SerializeField]
     private struct ShipT
     {
         public int typeID;             // type of ship
@@ -18,6 +19,7 @@ public class EnemyManager : MonoBehaviour {
     [SerializeField] private GameObject[] prefRef = new GameObject[shipPreftypes]; // prefab list
     [SerializeField] private GameObject group;
     private ShipT[] shipOrder = new ShipT[shipPreftypes];
+    [SerializeField] private int numberOfShipOrders = 0;
     private GameObject player;
 
     private int globalID = 0;
@@ -29,7 +31,8 @@ public class EnemyManager : MonoBehaviour {
 
     private int SpawnLimit;
     private bool SpawnComplete = false;
-    private const int shipLimitOnScreen = 40;
+    private const int shipLimitOnScreen = 20;
+    private const float ResetDistance = 250;
 
     private bool spawnerActive = false;
 
@@ -39,7 +42,11 @@ public class EnemyManager : MonoBehaviour {
     }
     void Update() // Update is called once per frame
     {
-        if (spawnerActive) RunUpdates();
+        if (spawnerActive) 
+        { 
+            RunUpdates();
+            RepositionShips();
+        }
     }
 
     private void RunUpdates()
@@ -107,14 +114,21 @@ public class EnemyManager : MonoBehaviour {
 
         }
     }
-    private void SpawnShip(int type)
-    {
+
+
+    private Vector3 GetRandomPosition() {
         float angle = Mathf.Deg2Rad * Random.Range(0, 360);
-        float distance = Random.Range(100, 250); // spawn distance relative to the player
+        float distance = Random.Range(100, 200); // spawn distance relative to the player
         Vector3 dir = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle));
 
-        GameObject temp = (GameObject)Instantiate(prefRef[type], player.transform.position + dir * distance, Quaternion.identity);
-        temp.transform.position = player.transform.position + dir * distance;
+        return player.transform.position + dir * distance;
+    }
+
+
+    private void SpawnShip(int type)
+    {
+        GameObject temp = (GameObject)Instantiate(prefRef[type], GetRandomPosition(), Quaternion.identity);
+        //temp.transform.position = player.transform.position + dir * distance;
         temp.GetComponent<NewBasicAI>().Initalise(player, transform.gameObject, globalID, type);
 
         shipOrder[type].shipP.Add(temp);
@@ -123,7 +137,7 @@ public class EnemyManager : MonoBehaviour {
 
         temp.transform.parent = group.transform; // put ship in group game object
 
-        Debug.Log("ship spawned");
+        //Debug.Log("ship spawned");
     }
 
     public void RemoveShip(int id, int type)
@@ -199,18 +213,58 @@ public class EnemyManager : MonoBehaviour {
 
     }
 
-    public Vector3 getClosestShipPos(Vector3 from)
-    {
-        Vector3 pos = Vector3.zero;
+
+    private void RepositionShips(){
+
+        float tempDistance = 0;
+        
 
         for (int i = 0; i < shipPreftypes; i++)
         {
             for (int j = 0; j < shipOrder[i].shipP.Count; j++)
             {
-                if (Vector3.Distance(from, shipOrder[i].shipP[j].transform.position) < Vector3.Distance(pos, shipOrder[i].shipP[j].transform.position))
-                    pos = shipOrder[i].shipP[j].transform.position;
+                if (shipOrder[i].shipP[j] != null)
+                {
+                    tempDistance = Vector3.Distance(player.transform.position, shipOrder[i].shipP[j].transform.position);
+                    if (tempDistance > ResetDistance)
+                    {
+                        Vector3 newPos = GetRandomPosition();
+                        Debug.Log("Enemy repositioned from: " + shipOrder[i].shipP[j].transform.position + " To: " + newPos);
+                        shipOrder[i].shipP[j].transform.position = newPos;
+                        
+                    }
+                }
             }
         }
+
+    }
+
+    public Vector3 getClosestShipPos(Vector3 from)
+    {
+        Vector3 pos = Vector3.zero;
+        float bestDistance = 100000.0f;
+        float tempDistance;
+
+        for (int i = 0; i < shipPreftypes; i++)
+        {
+            for (int j = 0; j < shipOrder[i].shipP.Count; j++)
+            {
+                if (shipOrder[i].shipP[j] != null)
+                {
+                    tempDistance = Vector3.Distance(from, shipOrder[i].shipP[j].transform.position);
+                    if (tempDistance < bestDistance)
+                    { 
+                        pos = shipOrder[i].shipP[j].transform.position;
+                        bestDistance = tempDistance;
+                    }
+                }
+                else{
+                    Debug.Log("ship not found");
+                }
+            }
+        }
+
+        if (pos == Vector3.zero) pos = from;
 
         return pos;
     }

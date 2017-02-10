@@ -12,6 +12,7 @@ public class Thruster : MonoBehaviour {
 	void Start ()
     {
         ps = transform.GetComponent<ParticleSystem>();
+        SetState(false);
         
     }
 	
