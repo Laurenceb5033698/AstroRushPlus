@@ -12,7 +12,7 @@ public class CameraScript : MonoBehaviour {
 
     void Start()
     {
-        offsetDistance = Vector3.Distance(target.transform.position + offset, target.transform.position);
+       
     }
 
 	void Update ()
@@ -29,9 +29,11 @@ public class CameraScript : MonoBehaviour {
 
     public void SetTarget(GameObject ps)
     {
+         
         if (ps.GetComponent<ShipStats>() != null)
         {
             target = ps;
+            offsetDistance = Vector3.Distance(target.transform.position + offset, target.transform.position);
             //cameraSpeed = ps.GetComponent<ShipStats>().GetMainThrust() + 100;
         }
         else
