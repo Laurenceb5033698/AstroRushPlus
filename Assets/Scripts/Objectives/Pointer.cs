@@ -17,10 +17,16 @@ public class Pointer : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (to == null)
-            to = transform.gameObject.transform.position;
+        if (to != null)
+        {
+            UpdatePointer();
+        }
+        else {
+            to = transform.position;
+        }
+        
 
-        UpdatePointer();
+
     }
 
     private void UpdatePointer()

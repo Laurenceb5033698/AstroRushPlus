@@ -6,6 +6,9 @@ public class ShipStats : Health {
 	// Health
     //private float health = maxHealth;
     private float shield;
+    public bool GodMode = false;
+
+
     //Default values for new functional ships. Alter stats in prefabs
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private int maxShield = 100;
@@ -113,17 +116,20 @@ public class ShipStats : Health {
     // health
     public override void TakeDamage(float val)
     {
-        inCombat = true;
-        if (ShipShield > 0) //if we have shields
-            if (shield - val > 0)   //and the damage taken is lower than sheild health
-                ShipShield = -val;   //do damage to shield
+        if (!GodMode)
+        {
+            inCombat = true;
+            if (ShipShield > 0) //if we have shields
+                if (shield - val > 0)   //and the damage taken is lower than sheild health
+                    ShipShield = -val;   //do damage to shield
+                else
+                {//otherwise split damage between shield and health
+                    ShipHealth = -(shield - val);   //remaining damage is delt to health
+                    ShipShield = -shield;        //and shield is set to 0
+                }
             else
-            {//otherwise split damage between shield and health
-                ShipHealth = -(shield - val);   //remaining damage is delt to health
-                ShipShield = -shield;        //and shield is set to 0
-            }
-        else
-            ShipHealth = -val;   //shield is at 0, so deal damage directly to health
+                ShipHealth = -val;   //shield is at 0, so deal damage directly to health
+        }
     }
     public float ShipHealth
     {

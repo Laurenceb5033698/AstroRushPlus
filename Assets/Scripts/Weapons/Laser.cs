@@ -20,22 +20,23 @@ public class Laser : MonoBehaviour
     // Use this for initialization
     void Start () 
     {
-        stats = GetComponentInParent<ShipStats>();
+        //stats = GetComponentInParent<ShipStats>();
         laser = GetComponent<LineRenderer>();
-        controls = GetComponentInParent<Inputs>();
+        //controls = GetComponentInParent<Inputs>();
 
         target = null;
         hit = false;
 
-        laser.startWidth = stats.GetLaserWidth();
-        laser.endWidth = stats.GetLaserWidth();
-        laser.GetComponent<Renderer>().material = idleLaserColor;
+        //laser.startWidth = 0.2f;
+        //laser.endWidth = 0.2f;
+        //laser.GetComponent<Renderer>().material = idleLaserColor;
     }
 	
 	// Update is called once per frame
     void Update()
     {
-        DrawLaser();
+        //DrawLaser();
+
     }
 
 

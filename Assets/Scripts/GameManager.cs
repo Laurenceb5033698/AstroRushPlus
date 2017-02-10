@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour {
     private EnemyManager em;
     private WaveManager wm;
     private GameObject pointer;
+
+    private LineRenderer laser;
     
 
 	// Use this for initialization
@@ -28,16 +30,26 @@ public class GameManager : MonoBehaviour {
     
     void Start()
     {
+        laser = GetComponent<LineRenderer>();
+        laser.startWidth = 0.2f;
+        laser.endWidth = 0.2f;
+
         ui = GetComponent<UI>();
         em = GetComponent<EnemyManager>();
         wm = GetComponent<WaveManager>();
         cam.SetTarget(playerShip); // give the player ship reference to the camera
     }
-	
+
+
 	// Update is called once per frame
 	void Update () 
     {
-        pointer.GetComponent<Pointer>().SetNewTarget(em.getClosestShipPos(playerShip.transform.position)); // set pointer dir
+        Vector3 ClosestEnemy = em.getClosestShipPos(playerShip.transform.position);
+        pointer.GetComponent<Pointer>().SetNewTarget(ClosestEnemy); // set pointer dir
+
+        laser.SetPosition(0, playerShip.transform.position);
+        laser.SetPosition(1, ClosestEnemy);
+
 
         UpdateUI();
         Time.timeScale = (ui.GetMenuState() || ui.GetHintsState()) ? 0 : 1;
