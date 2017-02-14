@@ -78,8 +78,6 @@ public class AsteroidManager : MonoBehaviour
 
     public void Reset(GameObject go)
     {
-        SpawnChunks(go.transform.position);
-
         //use checker here to find suitable location (i.e. not inside another object)
         float angle = Mathf.Deg2Rad * Random.Range(0, 360);
         float distance = Random.Range(100, 250);
@@ -88,7 +86,7 @@ public class AsteroidManager : MonoBehaviour
         
     }
 
-    private void SpawnChunks(Vector3 pos)
+    public void SpawnChunks(Vector3 pos)
     {
         int shards = Random.Range(3,10);
 

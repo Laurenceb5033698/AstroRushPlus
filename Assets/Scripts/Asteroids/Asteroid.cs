@@ -10,7 +10,7 @@ public class Asteroid : MonoBehaviour
 
     void OnEnable()
     {
-        hp.SetHealth(100);
+        hp.SetHealth(300);
     }
 
     void Awake()
@@ -38,6 +38,8 @@ public class Asteroid : MonoBehaviour
         if (!hp.IsAlive())
         {   //asteroid dies
             //spawn debris and particles
+            am.GetComponent<AsteroidManager>().SpawnChunks(transform.position);
+
             gameObject.SetActive(false);
             Reset();
         }

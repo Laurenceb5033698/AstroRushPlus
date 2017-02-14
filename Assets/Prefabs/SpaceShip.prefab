@@ -704,10 +704,8 @@ MonoBehaviour:
   health: 100
   GodMode: 0
   maxHealth: 100
-  maxShield: 0
-  mainThrust: 50
-  boostSpeed: 100
-  rotSpeed: 350
+  maxShield: 100
+  maxMissiles: 20
 --- !u!114 &114000012517309712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -765,6 +763,7 @@ MonoBehaviour:
   boost: 0
   rocket: 0
   trishot: 0
+  shield: 0
   RLaser: 0
   shoot: 0
   targeting: 0
