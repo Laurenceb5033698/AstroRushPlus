@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class AsteroidManager : MonoBehaviour
 {
@@ -9,13 +10,18 @@ public class AsteroidManager : MonoBehaviour
     private GameObject ship;
     [SerializeField] private GameObject[] chunks = new GameObject[2];
     [SerializeField] private GameObject[] asteroids = new GameObject[5]; // asteroid prefab
+
+    [SerializeField] private GameObject[] backgroundAsteroidPrefs = new GameObject[5];
+    [SerializeField] private List<GameObject> backgroundAsteroids = new List<GameObject>();
+
     [SerializeField] private GameObject[] spawnedAsteroids = new GameObject[NoAsteroids];
-    [SerializeField] private GameObject[] groups = new GameObject[2]; // game objects to store the spawned objects like folders
+    [SerializeField] private GameObject[] groups = new GameObject[3]; // game objects to store the spawned objects like folders
 
     // Use this for initialization
     void Start ()
     {
         ship = GetComponent<GameManager>().GetShipRef(); // assighn player ship reference to local pointer
+        SpawnBackgroundAsteroids(100);
 
         for (int i = 0; i < NoAsteroids; i++)
         {
@@ -33,13 +39,29 @@ public class AsteroidManager : MonoBehaviour
         }
 	}
 
-    private GameObject SpawnAsteroid()
-    {
+
+
+    private void SpawnBackgroundAsteroids(int amount) {
+        for (int i = 0; i < amount; i++)
+        {
+            Vector3 randomPos = new Vector3(Random.Range(-1500, 1500), Random.Range(-1000, -500), Random.Range(-1500, 1500));
+            GameObject temp =  (GameObject)Instantiate(backgroundAsteroidPrefs[Random.Range(0, 5)], randomPos, Quaternion.identity);
+            temp.transform.parent = groups[2].transform;
+            backgroundAsteroids.Add(temp);
+        }
+    }
+
+    private Vector3 GetRandomPos() {
         float angle = Mathf.Deg2Rad * Random.Range(0, 360);
         float distance = Random.Range(100, 250);
-        Vector3 dir = new Vector3(Mathf.Cos(angle),0, Mathf.Sin(angle));
+        Vector3 dir = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle));
 
-        GameObject temp = (GameObject)Instantiate(asteroids[Random.Range(0, 5)], ship.transform.position + dir * distance, Quaternion.identity);
+        return ship.transform.position + dir * distance;
+    }
+
+    private GameObject SpawnAsteroid()
+    {
+        GameObject temp = (GameObject)Instantiate(asteroids[Random.Range(0, 5)], GetRandomPos(), Quaternion.identity);
         //temp.transform.parent = transform;
         temp.transform.parent = groups[0].transform;
         temp.GetComponent<Asteroid>().SetAsteroidManager(gameObject);
@@ -56,8 +78,6 @@ public class AsteroidManager : MonoBehaviour
 
     public void Reset(GameObject go)
     {
-        SpawnChunks(go.transform.position);
-
         //use checker here to find suitable location (i.e. not inside another object)
         float angle = Mathf.Deg2Rad * Random.Range(0, 360);
         float distance = Random.Range(100, 250);
@@ -66,7 +86,7 @@ public class AsteroidManager : MonoBehaviour
         
     }
 
-    private void SpawnChunks(Vector3 pos)
+    public void SpawnChunks(Vector3 pos)
     {
         int shards = Random.Range(3,10);
 

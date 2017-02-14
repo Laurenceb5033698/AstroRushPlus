@@ -32,18 +32,32 @@ public class ShipController : MonoBehaviour
     {
         stats.LaserState = controls.RLaser;
 
+        if (controls.shield)
+        {
+            stats.ActivateShieldPU();
+        }
 
         if (Mathf.Abs(controls.RightStick.x) > 0.1f || Mathf.Abs(controls.RightStick.y) > 0.1f)//shooting
         {
             dir = new Vector3(controls.RightStick.x, 0, controls.RightStick.y).normalized;
             //if (controls.shoot) gun.Shoot(dir);
-            gun.Shoot(dir);
-
+            
             if (controls.rocket && stats.LoadMissile())
             {
                 Instantiate(mPreF, ship.transform.position + dir * 8f, Quaternion.LookRotation(dir, Vector3.up));
                 stats.DecreaseMissileAmount();
             }
+
+           if(controls.trishot){
+            gun.changeType("tri");
+            }
+            else
+            {
+                gun.changeType("pew");
+            }
+            
+            gun.Shoot(dir);
+            
             
         }
         if (stats.IsAlive())
