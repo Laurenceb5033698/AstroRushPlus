@@ -228,10 +228,7 @@ public class EnemyManager : MonoBehaviour {
                     tempDistance = Vector3.Distance(player.transform.position, shipOrder[i].shipP[j].transform.position);
                     if (tempDistance > ResetDistance)
                     {
-                        Vector3 newPos = GetRandomPosition();
-                        Debug.Log("Enemy repositioned from: " + shipOrder[i].shipP[j].transform.position + " To: " + newPos);
-                        shipOrder[i].shipP[j].transform.position = newPos;
-                        
+                        shipOrder[i].shipP[j].transform.position = GetRandomPosition();          
                     }
                 }
             }
