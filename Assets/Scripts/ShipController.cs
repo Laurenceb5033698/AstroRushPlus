@@ -32,6 +32,10 @@ public class ShipController : MonoBehaviour
     {
         stats.LaserState = controls.RLaser;
 
+        if (controls.shield)
+        {
+            stats.ActivateShieldPU();
+        }
 
         if (Mathf.Abs(controls.RightStick.x) > 0.1f || Mathf.Abs(controls.RightStick.y) > 0.1f)//shooting
         {

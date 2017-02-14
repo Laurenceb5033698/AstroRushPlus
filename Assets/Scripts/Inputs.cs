@@ -4,19 +4,20 @@ using System.Collections;
 
 public class Inputs : MonoBehaviour 
 {
-    public Vector2 LeftStick;
-    public Vector2 RightStick;
+    // http://wiki.unity3d.com/index.php?title=Xbox360Controller
 
-	public bool boost;
-	public bool rocket;
-    public bool trishot;
 
-	public bool RLaser;
+	public Vector2 LeftStick = new Vector2(0,0);
+	public Vector2 RightStick = new Vector2(0,0);
 
-    public bool shoot;
-	public bool targeting;
-
-    public bool reset;
+	public bool boost = false;
+	public bool rocket = false;
+	public bool trishot = false;
+	public bool shield = false;
+	public bool RLaser = false;
+	public bool shoot = false;
+	public bool targeting = false;
+	public bool reset = false;
 
 
     void Update()
@@ -35,6 +36,7 @@ public class Inputs : MonoBehaviour
 
         trishot = Input.GetKey(KeyCode.JoystickButton4);
         rocket = Input.GetKeyDown (KeyCode.JoystickButton5) || Input.GetKeyDown(KeyCode.R);
+        shield = Input.GetKeyDown(KeyCode.JoystickButton2);
 		targeting = Input.GetMouseButtonDown (0);
         //RLaser = Input.GetKey(KeyCode.JoystickButton4) || Input.GetKey(KeyCode.F);
         boost = Input.GetAxis("LeftTrigger") > 0.1f || Input.GetKey(KeyCode.LeftShift);
@@ -51,6 +53,6 @@ public class Inputs : MonoBehaviour
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) LeftStick.x = 1;
 
         if (Input.GetKey(KeyCode.Q)) RightStick.x = -1;
-        else if (Input.GetKey(KeyCode.E)) RightStick.x = 1;
+        else if (Input.GetKey(KeyCode.E)) RightStick.x = 1;      
     }
 }
