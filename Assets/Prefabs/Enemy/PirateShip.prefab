@@ -343,11 +343,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  GodMode: 0
   maxHealth: 100
   maxShield: 100
-  mainThrust: 50
-  boostSpeed: 250
-  rotSpeed: 900
+  maxMissiles: 20
 --- !u!114 &114000013595442542
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -364,7 +363,7 @@ MonoBehaviour:
   ship: {fileID: 1000012975942040}
   shootSpeed: 0.5
   WeaponType: 0
-  bulletDamage: 30
+  bulletDamage: 20
   bulletSpeed: 25
   spread: 2
 --- !u!114 &114000014187363702
