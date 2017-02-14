@@ -19,7 +19,7 @@ public class Inputs : MonoBehaviour
 	public bool targeting = false;
 	public bool reset = false;
 
-
+    
     void Update()
     {
         CheckInputs();
@@ -37,11 +37,11 @@ public class Inputs : MonoBehaviour
         trishot = Input.GetKey(KeyCode.JoystickButton4);
         rocket = Input.GetKeyDown (KeyCode.JoystickButton5) || Input.GetKeyDown(KeyCode.R);
         shield = Input.GetKeyDown(KeyCode.JoystickButton2);
-		targeting = Input.GetMouseButtonDown (0);
+		//targeting = Input.GetMouseButtonDown (0);
         //RLaser = Input.GetKey(KeyCode.JoystickButton4) || Input.GetKey(KeyCode.F);
         boost = Input.GetAxis("LeftTrigger") > 0.1f || Input.GetKey(KeyCode.LeftShift);
         shoot = Input.GetAxis("RightTrigger") > 0.1f || Input.GetKey(KeyCode.Space);
-        reset = Input.GetKeyDown(KeyCode.JoystickButton7) || Input.GetKeyDown(KeyCode.Y);
+        reset = Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Y);
     }
 
     private void CheckKeyboard()

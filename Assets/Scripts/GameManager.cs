@@ -53,8 +53,18 @@ public class GameManager : MonoBehaviour {
 
         UpdateUI();
         Time.timeScale = (ui.GetMenuState() || ui.GetHintsState()) ? 0 : 1;
-        if (playerShip.GetComponent<Inputs>().reset)
-            RestartGame();
+
+        if (ui.GetComponent<UI>().GetMenuState() == true)
+        {
+            if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Y)) RestartGame(); // if A controller button or Y keyboard button
+            else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) ui.ToggleEscState(); // B controller button or Escape button
+            else if (Input.GetKeyDown(KeyCode.JoystickButton3)) LoadMainMenu();
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7)) // esape button or Start controller button
+        {
+            ui.ToggleEscState();
+        }
+    
     }
 
     private void UpdateUI()
@@ -62,8 +72,7 @@ public class GameManager : MonoBehaviour {
         ShipStats s = playerShip.GetComponent<ShipStats>();
         ui.UpdateGameStats(currentScore, em.GetTotalShipLeft(), wm.GetWave());
 
-        if (Input.GetKeyDown(KeyCode.JoystickButton0)) ui.IncrementDHIndex();
-        if (Input.GetKeyDown(KeyCode.Escape)) ui.ToggleEscState();
+        if (Input.GetKeyDown(KeyCode.JoystickButton6)) ui.IncrementDHIndex();
         if (s.IsAlive()) ui.UpdateShipStats(s.GetBoostFuelAmount(), s.ShipShield, s.ShipHealth, 100, s.GetNoMissiles());
         else ui.SetGameOverState(true);
     }

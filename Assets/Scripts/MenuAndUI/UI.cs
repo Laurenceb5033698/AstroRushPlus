@@ -122,7 +122,7 @@ public class UI : MonoBehaviour {
         if (escButtonPressed && (messageIndex != 0 || messageIndex != 1))
         {
             escButtonPressed = false; // only have escButtonPressed true till a single frame
-            Debug.Log("ESC Pressed");
+            //Debug.Log("ESC Pressed");
             SetMessage(2);
             displayMenu = !displayMenu;
         }
@@ -191,7 +191,7 @@ public class UI : MonoBehaviour {
         if (messageIndex > 5)
         {
             messageIndex = 2;
-            Debug.Log("out of index message");
+            //Debug.Log("out of index message");
         }
         else
         {
