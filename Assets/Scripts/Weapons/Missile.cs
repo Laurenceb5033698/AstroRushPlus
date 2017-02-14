@@ -7,13 +7,16 @@ public class Missile : Projectile
     private Rigidbody rb;
 
 	public GameObject exp;
+    private GameObject target;
+    private Vector3 direction;
 
 	// Use this for initialization
     void Start () 
 	{
         rb = transform.GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * 50f, ForceMode.Impulse);
-        lifetime = Time.time + 1f;
+        lifetime = Time.time + 5f;
+        target = findTarget();
     }
 	
 	// Update is called once per frame
@@ -23,6 +26,24 @@ public class Missile : Projectile
 		{
 			DestroySelf ();
 		}
+        if (target)
+        {
+            direction = (target.transform.position - transform.position).normalized;
+
+            rb.AddForce(direction * 3000 * Time.deltaTime, ForceMode.Force);
+            if (Vector3.Dot(transform.forward, direction) < 0.2f)
+                rb.AddForce(direction * 100 * Time.deltaTime, ForceMode.VelocityChange);
+            if (rb.velocity.magnitude > 100)
+                rb.velocity = rb.velocity.normalized * 100;
+
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.FromToRotation(Vector3.forward, direction), 300 * Time.deltaTime);
+
+        }
+        else
+        {
+            rb.AddForce(transform.forward * 3000 * Time.deltaTime, ForceMode.Force);
+        }
+
 	}
     void OnTriggerEnter(Collider collision)
     {
@@ -39,6 +60,18 @@ public class Missile : Projectile
 	{
         
     }
+    private GameObject findTarget() //Looks for certain objects nearby 
+     { 
+         Collider[] targetColliders = Physics.OverlapSphere(transform.position, 90f); 
+         foreach (Collider col in targetColliders) 
+         { 
+             //Debug.Log(col.gameObject.name); 
+             if (col.gameObject.GetComponentInParent<NewBasicAI>() != null) 
+                 return col.gameObject; 
+         } 
+         return null; 
+     } 
+
 
 	protected override void DestroySelf()
 	{
