@@ -15,7 +15,7 @@ public class EnemyManager : MonoBehaviour {
         public List<GameObject> shipP; // list of all ships on scene
     }
 
-    private const int shipPreftypes = 2;
+    private const int shipPreftypes = 3;
     [SerializeField] private GameObject[] prefRef = new GameObject[shipPreftypes]; // prefab list
     [SerializeField] private GameObject group;
     private ShipT[] shipOrder = new ShipT[shipPreftypes];
@@ -109,8 +109,7 @@ public class EnemyManager : MonoBehaviour {
                     SpawnShip(toSpawn[0]);
                 }
             }
-            else
-                Debug.Log("too much ship on scene to spawn a new");
+            
 
         }
     }

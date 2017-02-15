@@ -5,7 +5,7 @@ public class ShipStats : Health {
 
 	// Health
     //private float health = maxHealth;
-    private float shield = 0;
+    private float shield;
     public bool GodMode = false;
 
 
@@ -45,7 +45,7 @@ public class ShipStats : Health {
     void Awake()
     {
         health = maxHealth;
-        //shield = maxShield;
+        shield = maxShield;
     }
     void Update()
     {

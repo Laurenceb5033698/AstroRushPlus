@@ -7,10 +7,11 @@ public class Projectile : MonoBehaviour {
     [SerializeField] protected float lifetime = 5f;//lifetime in seconds
     [SerializeField] protected string ownertag; //(eg player)
     [SerializeField] protected float speed;//forward speed
+    [SerializeField] protected GameObject psImpactPrefab;//particleSystem prefab
 
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         //damage = 10f;
         //speed = 10f;
 	    //test self collision
@@ -70,6 +71,7 @@ public class Projectile : MonoBehaviour {
 
     protected virtual void DestroySelf()
     {// perhaps spawn a particle? like missile does
+        Instantiate(psImpactPrefab, transform.position, transform.rotation);
         Destroy(transform.gameObject);
     }
 }

@@ -5,8 +5,7 @@ public class Missile : Projectile
 {
     //private float detonateAt;
     private Rigidbody rb;
-
-	public GameObject exp;
+    
     private GameObject target;
     private Vector3 direction;
 
@@ -47,7 +46,7 @@ public class Missile : Projectile
 	}
     void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.GetComponent<Projectile>() == null)
+        if ((collision.gameObject.GetComponent<Projectile>() == null) &&(collision.gameObject.GetComponent<PickupItem>() == null))
         {
             if (collision.gameObject.tag == "Asteroid") collision.gameObject.GetComponentInParent<Asteroid>().TakeDamage(damage);
             else if (collision.gameObject.tag == "EnemyShip") collision.gameObject.GetComponentInParent<NewBasicAI>().TakeDamage(damage);
@@ -75,7 +74,7 @@ public class Missile : Projectile
 
 	protected override void DestroySelf()
 	{
-		Instantiate (exp,transform.position,transform.rotation);
+		Instantiate (psImpactPrefab, transform.position,transform.rotation);
         Destroy (transform.gameObject);
 	}
 }

@@ -85,7 +85,7 @@ public class NewBasicAI : MonoBehaviour {
     }
     private void DestroySelf()
     {
-        Debug.Log("ship destroyed");
+        //Debug.Log("ship destroyed");
         sm.GetComponent<GameManager>().AddScore(scoreValue);
         sm.GetComponent<EnemyManager>().RemoveShip(id, type);
         Destroy(transform.gameObject);

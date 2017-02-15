@@ -5,7 +5,7 @@ public class WaveManager : MonoBehaviour {
 
     private int wave = 0;
     private EnemyManager em;
-    private const int noShipTypes = 2;
+    private const int noShipTypes = 3;
     private int[] spawnShips = new int[noShipTypes];
     [SerializeField] private int spawnIncAmount = 10;
 
