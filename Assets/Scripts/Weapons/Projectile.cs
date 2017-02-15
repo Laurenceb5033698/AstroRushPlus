@@ -55,7 +55,7 @@ public class Projectile : MonoBehaviour {
         }
     }
 
-    void applyImpulse(Rigidbody body)
+    protected void applyImpulse(Rigidbody body)
     {
         //Vector3 direction = transform.position - body.transform.position;
         body.AddForce(transform.forward * ((damage/2)+(speed/(2+body.mass))), ForceMode.Impulse);

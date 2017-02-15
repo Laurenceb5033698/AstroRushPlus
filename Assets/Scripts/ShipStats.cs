@@ -16,9 +16,9 @@ public class ShipStats : Health {
 
 	// Thruster Variables -------------------------------------------
     //Default values for new functional ships. Alter stats in prefabs
-    [SerializeField] private const float mainThrust = 50f;
-    [SerializeField] private const float boostSpeed = 100f;
-    [SerializeField] private const float rotSpeed = 350f;
+    [SerializeField] private float mainThrust = 50f;
+    [SerializeField] private float boostSpeed = 100f;
+    [SerializeField] private float rotSpeed = 350f;
    
 	private bool boostMinCutoff = false;
 	private float boostFuel = 100f;
@@ -30,14 +30,6 @@ public class ShipStats : Health {
 
     private bool currentlyInCombat = false;
     private float outOfCombatTimer = 0;
-
-	// LASER
-	private bool laserIsOn = false;
-	private float laserSpeed = 0.2f;
-	private float laserRange = 60f;
-	private const float laserWidth = 0.2f;
-    private const float laserDamage = 50f;
-
 
 
 	private bool shieldPowerUp = false;
@@ -54,30 +46,6 @@ public class ShipStats : Health {
 
 
 	//-----------------------------------------------------------------------------------------
-
-	// Laser
-	public float GetLaserSpeed() 
-	{ 
-		return laserSpeed; 
-	}
-	public float GetLaserRange() 
-	{ 
-		return laserRange; 
-	}
-	public float GetLaserWidth() 
-	{ 
-		return laserWidth; 
-	}
-    public float GetLaserDamage()
-    {
-        return laserDamage;
-    }
-    public bool LaserState
-    {
-        get { return laserIsOn; }
-        set { laserIsOn = value; }
-    }
-
     // Speeds
     public float GetBoostFuelAmount()
 	{

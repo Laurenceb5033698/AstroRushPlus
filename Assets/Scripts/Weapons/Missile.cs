@@ -9,7 +9,7 @@ public class Missile : Projectile
     private GameObject target;
     private Vector3 direction;
 
-	// Use this for initialization
+    // Use this for initialization
     void Start () 
 	{
         rb = transform.GetComponent<Rigidbody>();
@@ -48,9 +48,17 @@ public class Missile : Projectile
     {
         if ((collision.gameObject.GetComponent<Projectile>() == null) &&(collision.gameObject.GetComponent<PickupItem>() == null))
         {
-            if (collision.gameObject.tag == "Asteroid") collision.gameObject.GetComponentInParent<Asteroid>().TakeDamage(damage);
-            else if (collision.gameObject.tag == "EnemyShip") collision.gameObject.GetComponentInParent<NewBasicAI>().TakeDamage(damage);
-            else if (collision.gameObject.tag == "GeneratorShield") collision.gameObject.GetComponentInParent<Generator>().TakeDamage(damage/1.5f);
+            if (collision.gameObject.tag == "Asteroid") {
+                collision.gameObject.GetComponent<Asteroid>().TakeDamage(damage);
+                applyImpulse(collision.GetComponent<Rigidbody>());
+            }
+            else if (collision.gameObject.tag == "EnemyShip") {
+                collision.gameObject.GetComponentInParent<NewBasicAI>().TakeDamage(damage);
+                applyImpulse(collision.GetComponentInParent<Rigidbody>());
+            }
+            else if (collision.gameObject.tag == "GeneratorShield") 
+                collision.gameObject.GetComponentInParent<Generator>().TakeDamage(damage / 1.5f);
+            
             DestroySelf();
         }
     }
@@ -60,21 +68,32 @@ public class Missile : Projectile
         
     }
     private GameObject findTarget() //Looks for certain objects nearby 
-     { 
-         Collider[] targetColliders = Physics.OverlapSphere(transform.position, 90f); 
-         foreach (Collider col in targetColliders) 
-         { 
-             //Debug.Log(col.gameObject.name); 
-             if (col.gameObject.GetComponentInParent<NewBasicAI>() != null) 
-                 return col.gameObject; 
-         } 
-         return null; 
+     {
+        GameObject bestTarget = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        Collider[] targetColliders = Physics.OverlapSphere(transform.position, 90f); 
+        foreach (Collider col in targetColliders) 
+        {
+            //Debug.Log(col.gameObject.name); 
+            if (col.gameObject.GetComponentInParent<NewBasicAI>() != null)
+            {
+                Vector3 directionToTarget = col.gameObject.transform.position - transform.position;
+                float dSqrToTarget = directionToTarget.sqrMagnitude;
+                if (dSqrToTarget < closestDistanceSqr)
+                {
+                    closestDistanceSqr = dSqrToTarget;
+                    bestTarget = col.gameObject;
+                }
+            }
+        }
+        return bestTarget;
      } 
 
 
 	protected override void DestroySelf()
 	{
-		Instantiate (psImpactPrefab, transform.position,transform.rotation);
+        
+        Instantiate (psImpactPrefab, transform.position,transform.rotation);
         Destroy (transform.gameObject);
 	}
 }

@@ -30,7 +30,6 @@ public class ShipController : MonoBehaviour
     private Vector3 dir;
     void Update() // Update is called once per frame
     {
-        stats.LaserState = controls.RLaser;
 
         if (controls.shield)
         {
@@ -85,7 +84,7 @@ public class ShipController : MonoBehaviour
     // EVENT HANDLERS-------------------------------------------------------------------------------------
     void OnCollisionEnter(Collision c)
     {
-        TakeDamage(c.relativeVelocity.magnitude / 2);
+        TakeDamage(c.relativeVelocity.magnitude / 4);
     }
 
     public void TakeDamage(float amount)

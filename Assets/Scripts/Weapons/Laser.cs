@@ -43,12 +43,12 @@ public class Laser : MonoBehaviour
     private void DrawLaser()
     {
         //new Vector3(controls.yawAxis, 0, controls.rightY).normalized;
-        targetPos = transform.parent.position + new Vector3(controls.RightStick.x, 0, controls.RightStick.y).normalized * stats.GetLaserRange();
+        targetPos = transform.parent.position + new Vector3(controls.RightStick.x, 0, controls.RightStick.y).normalized * 50;
         //targetPos = transform.position + transform.TransformDirection(new Vector3(controls.rightY, controls.yawAxis, 0).normalized) * stats.GetLaserRange();
         //targetPos = transform.position + transform.right * stats.GetLaserRange();
         laser.SetPosition(0, transform.position);
 
-        detectObject = new Ray(transform.position, (targetPos - transform.position).normalized * stats.GetLaserRange());
+        detectObject = new Ray(transform.position, (targetPos - transform.position).normalized * 50);
         hit = Physics.Raycast(detectObject, out hitInfo);
 
         if (hit && Vector3.Distance(transform.position, hitInfo.point) < Vector3.Distance(transform.position, targetPos) && hitInfo.transform.gameObject.tag != "PlayerShip")
