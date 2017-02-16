@@ -22,6 +22,8 @@ public class NewBasicAI : MonoBehaviour {
     [SerializeField] private Vector3 destination;
     private GameObject player;
 
+    private bool spawnedPickup = false;
+
 	// Use this for initialization
 	void Start () {
         stats = gameObject.GetComponent<ShipStats>();
@@ -39,11 +41,12 @@ public class NewBasicAI : MonoBehaviour {
         }
         else
         {
-            if (Random.Range(0f, 10f) > 3f)
+            if (!spawnedPickup && Random.Range(0f, 10f) > 3f)
             {
                 GameObject mpickup = sm.GetComponent<PickupManager>().GetRandomPickup();
                 GameObject temp = (GameObject)Instantiate(mpickup, ship.transform.position, Quaternion.identity); 	// create gameobject
                 temp.GetComponent<PickupItem>().Init(sm);
+                spawnedPickup = true;
             }
             DestroySelf();
         }
