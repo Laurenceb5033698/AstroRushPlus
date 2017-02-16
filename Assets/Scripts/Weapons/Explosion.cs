@@ -3,13 +3,13 @@ using System.Collections;
 
 public class Explosion : MonoBehaviour {
 
-	private const float lifeSpam = 0.5f;
-	private float countDown = lifeSpam;
+	private float lifeSpam = 0.5f;
 	private float progress = 0f;
 
 	// Use this for initialization
 	void Start () 
 	{
+        lifeSpam = Time.time + 0.5f;
 		//transform.gameObject.GetComponent<ParticleSystem> ().enableEmission = true;
         ParticleSystem.EmissionModule temp = transform.gameObject.GetComponent<ParticleSystem>().emission;
         temp.enabled = true;
@@ -22,8 +22,8 @@ public class Explosion : MonoBehaviour {
 		progress += 1f * Time.deltaTime;
 		transform.gameObject.GetComponent<ParticleSystem> ().Simulate (progress);
 
-		countDown -= 1 * Time.deltaTime;
-		if (countDown < 0)
+		
+		if (lifeSpam < Time.time)
 		{
 			Destroy (transform.gameObject);
 		}

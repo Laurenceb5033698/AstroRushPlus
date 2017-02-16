@@ -263,7 +263,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1800241870786566}
   serializedVersion: 2
-  m_Mass: 10
+  m_Mass: 8
   m_Drag: 1
   m_AngularDrag: 0.5
   m_UseGravity: 0
@@ -431,7 +431,10 @@ MonoBehaviour:
   GodMode: 0
   maxHealth: 100
   maxShield: 20
-  maxMissiles: 20
+  maxMissiles: 0
+  mainThrust: 60
+  boostSpeed: 100
+  rotSpeed: 450
 --- !u!114 &114460934698635270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -465,6 +468,6 @@ MonoBehaviour:
   ship: {fileID: 1800241870786566}
   shootSpeed: 0.7
   WeaponType: 1
-  bulletDamage: 5
+  bulletDamage: 10
   bulletSpeed: 40
   spread: 3

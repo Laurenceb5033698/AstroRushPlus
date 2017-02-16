@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4000011690473970}
   - component: {fileID: 33000011689327194}
   - component: {fileID: 23000010258518988}
+  - component: {fileID: 65302079709157920}
   m_Layer: 0
   m_Name: BGRock5
   m_TagString: Untagged
@@ -35,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014284708416}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -100.09988, y: 1087.5544, z: -876.12634}
+  m_LocalPosition: {x: -315.4, y: 0, z: 373.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -79,3 +80,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014284708416}
   m_Mesh: {fileID: 4300000, guid: 894f1f78089aff641ac05492a07a90a3, type: 3}
+--- !u!65 &65302079709157920
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014284708416}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 58.983635, y: 45.586243, z: 64.67218}
+  m_Center: {x: -3.9358826, y: 1.5098495, z: 3.3762512}
