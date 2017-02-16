@@ -227,7 +227,8 @@ public class EnemyManager : MonoBehaviour {
                     tempDistance = Vector3.Distance(player.transform.position, shipOrder[i].shipP[j].transform.position);
                     if (tempDistance > ResetDistance)
                     {
-                        shipOrder[i].shipP[j].transform.position = GetRandomPosition();          
+                        shipOrder[i].shipP[j].transform.position = GetRandomPosition();
+                        shipOrder[i].shipP[j].GetComponent<Rigidbody>().velocity *= 0;
                     }
                 }
             }
