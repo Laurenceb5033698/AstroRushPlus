@@ -8,7 +8,7 @@ public class UI : MonoBehaviour {
 
     private bool displayMenu;                       // toggle to display menu
     [SerializeField] private GameObject menuPanel;  // menu object
-    
+    [SerializeField] private GameObject continueButton;
 
     [SerializeField] private Text[] gameStats = new Text[3];                // score, enemy left, wave counter
     [SerializeField] private GameObject[] HUDs = new GameObject[3];
@@ -19,10 +19,9 @@ public class UI : MonoBehaviour {
     private int displayHintIndex;       // index of showing a specific hint object
     [SerializeField] private GameObject[] hintPanels = new GameObject[4]; // controls, tips, objective
 
-    private float popUpMTimer;          // time limit to display a specific pop up
     private bool displayPopUpMessages;  // toggle pop up display on and off
     private int messageIndex;           // index of showing a specific pop up
-    [SerializeField] private GameObject[] popUpMessages = new GameObject[6]; // win, gameOver, Paused, generatorActivated, WarpGateActivated, BoundaryWarning
+    [SerializeField] private GameObject[] popUpMessages = new GameObject[3]; // gameOver, Paused, BoundaryWarning
 
     private bool displayBoundary;       // display boundary toggle
     private bool escButtonPressed;      // esc button toggle
@@ -35,17 +34,17 @@ public class UI : MonoBehaviour {
 
 	void Start () // Use this for initialization
     {
-        messageIndex = 2;
+        messageIndex = 1;
         displayHintIndex = 0;
         escButtonPressed = false;
         displayBoundary = false;
         displayMenu = false;
         displayPopUpMessages = false;
         gameOver = false;
-        displayHints = true;
-        popUpMTimer = Time.time;
+        displayHints = false;
 
-        if (displayHints) { 
+        if (displayHints)
+        { 
             UpdateHintsPanel();
             
             for (int i = 0; i < HUDs.Length; i++)
@@ -61,12 +60,19 @@ public class UI : MonoBehaviour {
 
     public void IncrementDHIndex()
     {
-        displayHintIndex++;
-        UpdateHintsPanel();
+        if (!GetMenuState())
+        {
+            displayHintIndex++;
+            displayHints = true;
+            UpdateHintsPanel();
+        }
     }
     public void ToggleEscState()
     {
-        escButtonPressed = !escButtonPressed;
+        if (!GetHintsState())
+        {
+            escButtonPressed = !escButtonPressed;
+        }
     }
     public bool GetMenuState()
     {
@@ -133,72 +139,40 @@ public class UI : MonoBehaviour {
     }
     private void UpdateMenu()
     {
-        // KEEP THE UPDATE ORDER!!!
-        // 1: boundary message
-        // 2: Escape button
-        // 3: ship health
-        // 4: switch
-        // 5: display panels
-
-        // SET LOGIC
-
-        // update local state flag
-        if (displayBoundary != transform.GetComponent<BoundaryManager>().GetState())
-        {
-            displayBoundary = transform.GetComponent<BoundaryManager>().GetState();
-            if (displayBoundary == false) SetMessage(2);
-            else SetMessage(5);
-        }
-
-        if (escButtonPressed && (messageIndex != 0 || messageIndex != 1))
-        {
-            escButtonPressed = false; // only have escButtonPressed true till a single frame
-            //Debug.Log("ESC Pressed");
-            SetMessage(2);
-            displayMenu = !displayMenu;
-        }
-
-        if (gameOver == true)
+        if (!gameOver)
         {
             SetMessage(1);
-        }
 
-        // PROCESS LOGIC
-        switch (messageIndex)
+            if (transform.GetComponent<BoundaryManager>().GetState())
+            {
+                SetMessage(2);
+                displayPopUpMessages = true;
+            }
+            if (escButtonPressed)
+            {
+                escButtonPressed = false;
+                SetMessage(1);
+                displayMenu = !displayMenu;
+            }
+        }
+        else
         {
-            case 0:
-            case 1: {
-                    displayMenu = true;  // force menu to be on
-                    displayPopUpMessages = true;
-                } break;
-
-            case 2: {
-                    displayPopUpMessages = displayMenu;         
-                } break;
-
-            case 3:
-            case 4: {
-                    if (Time.time < popUpMTimer)
-                    {
-                        displayPopUpMessages = true;
-                    }
-                    else
-                    {
-                        displayPopUpMessages = false;
-                        SetMessage(2);
-                    }
-                } break;
-
-            case 5: {
-                    displayPopUpMessages = true;
-                } break;
-
+            SetMessage(0);
+            continueButton.SetActive(false);
+            displayMenu = true;
+            displayPopUpMessages = true;
         }
-        
-        // DRAW PANELS
-        popUpMessages[messageIndex].SetActive(displayPopUpMessages);
+        if (messageIndex == 1) displayPopUpMessages = displayMenu;
+
+
+        for (int i = 0; i < popUpMessages.Length; i++)
+        {
+            if (i == messageIndex) popUpMessages[i].SetActive(displayPopUpMessages);
+            else popUpMessages[i].SetActive(false);
+        }
 
         menuPanel.SetActive(displayMenu);
+
         for (int i = 0; i < HUDs.Length; i++)
         {
             HUDs[i].SetActive(!displayMenu);
@@ -219,25 +193,12 @@ public class UI : MonoBehaviour {
         }
     }
 
-    public void SetMessage(int v)
+    private void SetMessage(int v)
     {
-        messageIndex = v;
-        
-
-        if (messageIndex > 5)
+        if (messageIndex < 3)
         {
-            messageIndex = 2;
-            //Debug.Log("out of index message");
+            messageIndex = v;
         }
-        else
-        {
-            popUpMTimer = Time.time + 2f;
-        }
-
-        for (int i = 0; i < popUpMessages.Length; i++)
-        {
-            popUpMessages[i].SetActive(false);
-        } 
     }
 
     public void ResetButton()

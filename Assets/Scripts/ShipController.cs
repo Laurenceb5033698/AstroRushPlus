@@ -76,31 +76,19 @@ public class ShipController : MonoBehaviour
     {
         float currentSpeed = 0.0f;
 
-        if (controls.boost && !stats.bco)
+        if (controls.boost && stats.ShipFuel > 0.1f)
         {
-            if (stats.ShipFuel < 0.2f)
-            {
-                stats.bco = true;
-            }
             currentSpeed = stats.GetBoostSpeed();
             stats.ShipFuel = -25 * Time.deltaTime;
         }
         else
         {
-            if (stats.ShipFuel > 20f)
-            {
-                stats.bco = false;
-            }
             currentSpeed = stats.GetMainThrust();
         }
 
-
-        //rb.velocity = transform.TransformDirection(new Vector3(controls.zAxis * stats.GetMainThrust(), 0, -controls.xAxis * stats.GetMainThrust())) * boostMultiplier;
         rb.velocity = new Vector3(controls.LeftStick.x * currentSpeed, 0, controls.LeftStick.y * currentSpeed);
         rb.angularVelocity = new Vector3(0,0,0);
 
-        //if (Mathf.Abs(controls.yawAxis) > 0.1f || Mathf.Abs(controls.rightY) > 0.1f)
-            //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(-controls.rightY, 0, controls.yawAxis)), 10);
         if (Mathf.Abs(controls.LeftStick.x) > 0.1f || Mathf.Abs(controls.LeftStick.y) > 0.1f)
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(controls.LeftStick.x, 0, controls.LeftStick.y)) * Quaternion.Euler(new Vector3(0, -90, 0)), 10);
     }

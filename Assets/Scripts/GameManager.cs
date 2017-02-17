@@ -23,8 +23,9 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Awake () 
     {
-        spawnPlayer();
-        spawnPointer();
+        playerShip = (GameObject)Instantiate(playerShipPref, Vector3.zero, Quaternion.identity);
+        pointer = (GameObject)Instantiate(pointerPref, Vector3.zero, Quaternion.identity);
+        pointer.GetComponent<Pointer>().SetFollowTarget(playerShip);
         Time.timeScale = 1;
 	}
     
@@ -45,20 +46,28 @@ public class GameManager : MonoBehaviour {
 	void Update () 
     {
         Vector3 ClosestEnemy = em.getClosestShipPos(playerShip.transform.position);
-        pointer.GetComponent<Pointer>().SetNewTarget(ClosestEnemy); // set pointer dir
+        pointer.GetComponent<Pointer>().SetNewTarget(ClosestEnemy);
 
         laser.SetPosition(0, playerShip.transform.position);
         laser.SetPosition(1, ClosestEnemy);
 
 
-        UpdateUI();
+        ShipStats s = playerShip.GetComponent<ShipStats>();
+        ui.UpdateGameStats(currentScore, em.GetTotalShipLeft(), wm.GetWave());
+        ui.UpdateShipStats(s.GetBoostFuelAmount(), s.GetShieldPUState(), s.ShipHealth, s.GetNoMissiles(), playerShip.GetComponent<ShipController>().GetWeaponType());
+        if (!s.IsAlive()) ui.SetGameOverState(true);
+
         Time.timeScale = (ui.GetMenuState() || ui.GetHintsState()) ? 0 : 1;
 
-        if (ui.GetComponent<UI>().GetMenuState() == true)
+        if (ui.GetMenuState())
         {
             if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Y)) RestartGame(); // if A controller button or Y keyboard button
             else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) ui.ToggleEscState(); // B controller button or Escape button
             else if (Input.GetKeyDown(KeyCode.JoystickButton3)) LoadMainMenu();
+        }
+        else if (ui.GetHintsState() && Input.GetKeyDown(KeyCode.JoystickButton0))
+        {
+            ui.IncrementDHIndex();
         }
         else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7)) // esape button or Start controller button
         {
@@ -67,29 +76,9 @@ public class GameManager : MonoBehaviour {
     
     }
 
-    private void UpdateUI()
-    {
-        ShipStats s = playerShip.GetComponent<ShipStats>();
-        ui.UpdateGameStats(currentScore, em.GetTotalShipLeft(), wm.GetWave());
-
-        if (Input.GetKeyDown(KeyCode.JoystickButton6)) ui.IncrementDHIndex();
-        if (s.IsAlive()) ui.UpdateShipStats(s.GetBoostFuelAmount(), s.GetShieldPUState(), s.ShipHealth, s.GetNoMissiles(), playerShip.GetComponent<ShipController>().GetWeaponType());
-        else ui.SetGameOverState(true);
-    }
-
     public void AddScore(int s)
     {
         currentScore += s;
-    }
-
-    private void spawnPlayer()
-    {
-        playerShip = (GameObject)Instantiate(playerShipPref,Vector3.zero, Quaternion.identity);
-    }
-    private void spawnPointer()
-    {
-        pointer = (GameObject)Instantiate(pointerPref, Vector3.zero, Quaternion.identity);
-        pointer.GetComponent<Pointer>().SetFollowTarget(playerShip);
     }
     public GameObject GetShipRef()
     {
@@ -97,8 +86,7 @@ public class GameManager : MonoBehaviour {
     }
     public void RestartGame()
     {
-        SceneManager.LoadScene(1);
-        
+        SceneManager.LoadScene(1);     
     }
     public void LoadMainMenu()
     {
