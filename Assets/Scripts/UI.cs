@@ -112,7 +112,7 @@ public class UI : MonoBehaviour {
             default: Debug.Log("You f*cked up the index of the weapon type!"); break;
         }
 
-        if (health < 20)
+        if (health < 50)
         {
             if (helthFlashingTimer < Time.time)
             {

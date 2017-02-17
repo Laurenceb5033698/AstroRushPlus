@@ -30,7 +30,7 @@ public class PickupItem : MonoBehaviour {
         }
 
 
-        item.transform.Rotate(Vector3.forward * 30f * Time.deltaTime);
+        item.transform.Rotate(transform.forward * 30f * Time.deltaTime);
 
         if (directionUp)
         {

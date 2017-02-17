@@ -151,7 +151,7 @@ public class EnemyManager : MonoBehaviour {
         {
             if (shipOrder[type].shipP[counter].GetComponent<NewBasicAI>().GetId() == id)
             {
-                if (Random.Range(0,10) < 8)
+                if (Random.Range(0,10) < 3)
                     SpawnDropShip(shipOrder[type].shipP[counter].transform.position);
 
                 shipOrder[type].shipP.RemoveAt(counter);
