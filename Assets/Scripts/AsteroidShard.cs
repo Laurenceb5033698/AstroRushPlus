@@ -6,7 +6,7 @@ public class AsteroidShard : MonoBehaviour {
 
     private float timeOfDestruction;
     private Rigidbody rb;
-    private const float maxSpeed = 20;
+    private const float maxSpeed = 10;
 
     void Start ()     // Use this for initialization
     {
