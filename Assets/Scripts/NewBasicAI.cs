@@ -29,7 +29,9 @@ public class NewBasicAI : MonoBehaviour {
         stats = gameObject.GetComponent<ShipStats>();
         ship = gameObject;
         rb = ship.gameObject.GetComponent<Rigidbody>();
+
         gun = GetComponentInChildren<Weapon>();
+        if (gun == null) Debug.Log("No weapon attached.");
 	}
 	
 	// Update is called once per frame
@@ -65,19 +67,13 @@ public class NewBasicAI : MonoBehaviour {
         rb.AddTorque(Vector3.up * (((angle) * stats.GetRotSpeed()) ) * Time.deltaTime);
         rb.AddForce(gameObject.transform.forward * currentSpeed * 20 * Time.deltaTime, ForceMode.Acceleration);
 
-        if (dist <= 50) Shoot(controlDir);
+        if (dist <= 50 && gun != null) gun.Shoot(controlDir);
     }
-    private void Shoot(Vector3 aimDir)
-    {
-        if (gun != null) gun.Shoot(aimDir);//fire ze missiles
-        else Debug.Log("No weapon attached.");
-    }
+
     public void TakeDamage(float amount)
     {
         stats.TakeDamage(amount);
     }
-
-
 
     // enemy spawner related functions
     void OnCollisionEnter(Collision c)
@@ -90,7 +86,8 @@ public class NewBasicAI : MonoBehaviour {
     {
         //Debug.Log("ship destroyed");
         sm.GetComponent<GameManager>().AddScore(scoreValue);
-        sm.GetComponent<EnemyManager>().RemoveShip(id, type);
+        if (type != 3)
+            sm.GetComponent<EnemyManager>().RemoveShip(id, type);
         Destroy(transform.gameObject);
     }
     public void Initalise(GameObject go, GameObject s, int i, int t)

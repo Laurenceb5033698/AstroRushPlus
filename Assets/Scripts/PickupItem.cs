@@ -11,17 +11,25 @@ public class PickupItem : MonoBehaviour {
 
     private float speed = 1f;
     private bool directionUp = true;
+    private float KillTimer;
 
     
 
 	// Use this for initialization
 	void Start () 
     {
+        KillTimer = Time.time + 15;
 	}
 	
 	// Update is called once per frame
 	void Update () 
     {
+        if (KillTimer < Time.time)
+        {
+            Destroy(transform.gameObject);
+        }
+
+
         item.transform.Rotate(Vector3.forward * 30f * Time.deltaTime);
 
         if (directionUp)

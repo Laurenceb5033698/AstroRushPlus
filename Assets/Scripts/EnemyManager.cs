@@ -16,6 +16,7 @@ public class EnemyManager : MonoBehaviour {
     }
 
     private const int shipPreftypes = 3;
+    [SerializeField] private GameObject dropShipPref;
     [SerializeField] private GameObject[] prefRef = new GameObject[shipPreftypes]; // prefab list
     [SerializeField] private GameObject group;
     private ShipT[] shipOrder = new ShipT[shipPreftypes];
@@ -141,6 +142,7 @@ public class EnemyManager : MonoBehaviour {
 
     public void RemoveShip(int id, int type)
     {
+        
         shipOrder[type].deadCounter++;
 
         int counter = 0;
@@ -149,8 +151,12 @@ public class EnemyManager : MonoBehaviour {
         {
             if (shipOrder[type].shipP[counter].GetComponent<NewBasicAI>().GetId() == id)
             {
+                if (Random.Range(0,10) < 8)
+                    SpawnDropShip(shipOrder[type].shipP[counter].transform.position);
+
                 shipOrder[type].shipP.RemoveAt(counter);
                 found = true;
+
             }
             counter++;
         } while (found == false && counter < shipOrder[type].shipP.Count);
@@ -167,6 +173,14 @@ public class EnemyManager : MonoBehaviour {
             }
             shipOrder[i].shipP.Clear();
         }     
+    }
+
+    private void SpawnDropShip(Vector3 pos)
+    {
+        GameObject temp = (GameObject)Instantiate(dropShipPref, pos, Quaternion.identity);
+        temp.GetComponent<NewBasicAI>().Initalise(player, transform.gameObject, globalID, 3);
+        temp.transform.parent = group.transform; // put ship in group game object
+        globalID++;
     }
 
     public void Reset()

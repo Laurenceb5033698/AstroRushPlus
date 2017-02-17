@@ -8,14 +8,16 @@ public class UI : MonoBehaviour {
 
     private bool displayMenu;                       // toggle to display menu
     [SerializeField] private GameObject menuPanel;  // menu object
+    
 
     [SerializeField] private Text[] gameStats = new Text[3];                // score, enemy left, wave counter
+    [SerializeField] private GameObject[] HUDs = new GameObject[3];
     [SerializeField] private GameObject[] statBars = new GameObject[2];     // helth, boost
     [SerializeField] private GameObject[] indicators = new GameObject[5];   // shield on, shield off, single, tri, missile
 
     private bool displayHints;          // toggle hint object
     private int displayHintIndex;       // index of showing a specific hint object
-    [SerializeField] private GameObject[] hintPanels = new GameObject[3]; // controls, tips, objective
+    [SerializeField] private GameObject[] hintPanels = new GameObject[4]; // controls, tips, objective
 
     private float popUpMTimer;          // time limit to display a specific pop up
     private bool displayPopUpMessages;  // toggle pop up display on and off
@@ -26,6 +28,11 @@ public class UI : MonoBehaviour {
     private bool escButtonPressed;      // esc button toggle
     private bool gameOver;
 
+    private float helthFlashingTimer = 0;
+    private bool hpActive = true;
+    [SerializeField] private GameObject healthIndicator;
+
+
 	void Start () // Use this for initialization
     {
         messageIndex = 2;
@@ -35,10 +42,17 @@ public class UI : MonoBehaviour {
         displayMenu = false;
         displayPopUpMessages = false;
         gameOver = false;
-        displayHints = false;
+        displayHints = true;
         popUpMTimer = Time.time;
 
-        if (displayHints) UpdateHintsPanel();
+        if (displayHints) { 
+            UpdateHintsPanel();
+            
+            for (int i = 0; i < HUDs.Length; i++)
+            {
+                HUDs[i].SetActive(!displayHints);
+            }
+        }
     }		
 	void Update () // Update is called once per frame
     {
@@ -69,17 +83,17 @@ public class UI : MonoBehaviour {
 
     public void UpdateGameStats(int score, int NoEnemy, int Wave)
     {
-        gameStats[0].text = "Score: 	 " + score;//.ToString("D6");
-        gameStats[1].text = "Enemy: " + NoEnemy;//.ToString("D3");
-        gameStats[2].text = "Wave:   " + Wave;//.ToString("D2");
+        gameStats[0].text = score.ToString();
+        gameStats[1].text = NoEnemy.ToString();
+        gameStats[2].text = Wave.ToString();
     }
-	public void UpdateShipStats(float boost, bool shield, float helth, int missile, int wType)
+    public void UpdateShipStats(float boost, bool shield, float health, int missile, int wType)
 	{
         missileCounter.text = "X " + missile;
 
         Vector3 temp;
         temp = statBars[0].transform.localScale;
-        temp.x = (2.5f / 100) * helth;
+        temp.x = (2.5f / 100) * health;
         statBars[0].transform.localScale = temp;
 
         temp = statBars[1].transform.localScale;
@@ -97,6 +111,23 @@ public class UI : MonoBehaviour {
             case 2: indicators[2].SetActive(false); indicators[3].SetActive(false); indicators[4].SetActive(true); break;
             default: Debug.Log("You f*cked up the index of the weapon type!"); break;
         }
+
+        if (health < 20)
+        {
+            if (helthFlashingTimer < Time.time)
+            {
+                hpActive = !hpActive;
+                healthIndicator.SetActive(hpActive);
+                helthFlashingTimer = Time.time + 0.2f;
+                
+            }
+        }
+        else
+        {
+            hpActive = true;
+            healthIndicator.SetActive(hpActive);
+        }
+
 
 
     }
@@ -166,13 +197,18 @@ public class UI : MonoBehaviour {
         
         // DRAW PANELS
         popUpMessages[messageIndex].SetActive(displayPopUpMessages);
+
         menuPanel.SetActive(displayMenu);
+        for (int i = 0; i < HUDs.Length; i++)
+        {
+            HUDs[i].SetActive(!displayMenu);
+        }
     }
     private void UpdateHintsPanel() // toggeled in IncrementDHIndex()
     {
         if (displayHintIndex < hintPanels.Length)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < hintPanels.Length; i++)
                 hintPanels[i].SetActive(displayHintIndex == i);
         }
         else
