@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour {
         ui.UpdateGameStats(currentScore, em.GetTotalShipLeft(), wm.GetWave());
 
         if (Input.GetKeyDown(KeyCode.JoystickButton6)) ui.IncrementDHIndex();
-        if (s.IsAlive()) ui.UpdateShipStats(s.GetBoostFuelAmount(), s.ShipShield, s.ShipHealth, 100, s.GetNoMissiles());
+        if (s.IsAlive()) ui.UpdateShipStats(s.GetBoostFuelAmount(), s.GetShieldPUState(), s.ShipHealth, s.GetNoMissiles(), playerShip.GetComponent<ShipController>().GetWeaponType());
         else ui.SetGameOverState(true);
     }
 

@@ -10,7 +10,7 @@ public class ShipController : MonoBehaviour
     [SerializeField] private GameObject mPreF; // missile prefab
     [SerializeField] private GameObject turret; // missile prefab
     [SerializeField] private Weapon gun;
-
+    private int weaponType = 0;
 
     private Rigidbody rb; 	// ship's rigid body
     private ShipStats stats;
@@ -39,26 +39,31 @@ public class ShipController : MonoBehaviour
         if (Mathf.Abs(controls.RightStick.x) > 0.1f || Mathf.Abs(controls.RightStick.y) > 0.1f)//shooting
         {
             dir = new Vector3(controls.RightStick.x, 0, controls.RightStick.y).normalized;
-            //if (controls.shoot) gun.Shoot(dir);
-            
+
             if (controls.rocket && stats.LoadMissile())
             {
+                weaponType = 2;
                 Instantiate(mPreF, ship.transform.position + dir * 8f, Quaternion.LookRotation(dir, Vector3.up));
                 stats.DecreaseMissileAmount();
             }
-
-           if(controls.trishot){
-            gun.changeType("tri");
+            if (controls.trishot)
+            {
+                weaponType = 1;
+                gun.changeType("tri");
+                gun.Shoot(dir);
             }
             else
             {
+                weaponType = 0;
                 gun.changeType("pew");
+                gun.Shoot(dir);
             }
-            
-            gun.Shoot(dir);
-            
-            
         }
+        else
+        {
+            weaponType = 0;
+        }
+
         if (stats.IsAlive())
         {
             MoveShip();
@@ -69,7 +74,26 @@ public class ShipController : MonoBehaviour
 
     private void MoveShip()
     {
-        float currentSpeed = (controls.boost) ? stats.GetBoostSpeed() : stats.GetMainThrust();//use speeds from shipStats. Change in prefab
+        float currentSpeed = 0.0f;
+
+        if (controls.boost && !stats.bco)
+        {
+            if (stats.ShipFuel < 0.2f)
+            {
+                stats.bco = true;
+            }
+            currentSpeed = stats.GetBoostSpeed();
+            stats.ShipFuel = -25 * Time.deltaTime;
+        }
+        else
+        {
+            if (stats.ShipFuel > 20f)
+            {
+                stats.bco = false;
+            }
+            currentSpeed = stats.GetMainThrust();
+        }
+
 
         //rb.velocity = transform.TransformDirection(new Vector3(controls.zAxis * stats.GetMainThrust(), 0, -controls.xAxis * stats.GetMainThrust())) * boostMultiplier;
         rb.velocity = new Vector3(controls.LeftStick.x * currentSpeed, 0, controls.LeftStick.y * currentSpeed);
@@ -90,5 +114,9 @@ public class ShipController : MonoBehaviour
     public void TakeDamage(float amount)
     {
         stats.TakeDamage(amount);
+    }
+    public int GetWeaponType()
+    {
+        return weaponType;
     }
 }

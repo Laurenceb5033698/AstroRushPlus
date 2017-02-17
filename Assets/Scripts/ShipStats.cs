@@ -202,6 +202,10 @@ public class ShipStats : Health {
 	{
 		shieldPowerUp = true;
 	}
+    public bool GetShieldPUState()
+    {
+        return shieldPowerUp;
+    }
 	public void SetFuel()
 	{
 		ShipFuel = 100f;
