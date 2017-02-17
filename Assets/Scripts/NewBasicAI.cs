@@ -17,6 +17,7 @@ public class NewBasicAI : MonoBehaviour {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private ShipStats stats;
     [SerializeField] private Weapon gun;
+    [SerializeField] private GameObject psDestructPrefab;
 
 
     [SerializeField] private Vector3 destination;
@@ -50,6 +51,7 @@ public class NewBasicAI : MonoBehaviour {
                 temp.GetComponent<PickupItem>().Init(sm);
                 spawnedPickup = true;
             }
+            Instantiate(psDestructPrefab, transform.position, transform.rotation);
             DestroySelf();
         }
 	}

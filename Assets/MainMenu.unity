@@ -100,7 +100,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 41178432}
-  - component: {fileID: 41178426}
   m_Layer: 8
   m_Name: SpaceShip
   m_TagString: Untagged
@@ -108,19 +107,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &41178426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 41178425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec75066126579d343a6217cc8114a746, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  planet: {fileID: 0}
-  station: {fileID: 601226434}
 --- !u!4 &41178432
 Transform:
   m_ObjectHideFlags: 0
@@ -3447,7 +3433,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 41178426}
+      - m_Target: {fileID: 0}
         m_MethodName: StartButton
         m_Mode: 1
         m_Arguments:
@@ -7313,7 +7299,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 41178426}
+      - m_Target: {fileID: 0}
         m_MethodName: QuitButton
         m_Mode: 1
         m_Arguments:

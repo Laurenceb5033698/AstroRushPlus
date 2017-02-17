@@ -6,7 +6,7 @@ public class Asteroid : MonoBehaviour
 {
     private GameObject am; // asteroid manager
     private Health hp;
-
+    [SerializeField] private GameObject psDestructPrefab;
 
     void OnEnable()
     {
@@ -47,6 +47,7 @@ public class Asteroid : MonoBehaviour
 
     public void Reset()
     {   //tell asteroidManager that i wish to be reset
+        Instantiate(psDestructPrefab, transform.position, transform.rotation);
         am.GetComponent<AsteroidManager>().Reset(gameObject);
         gameObject.SetActive(true);
     }

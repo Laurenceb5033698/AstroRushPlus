@@ -29,19 +29,21 @@ public class MainMenu : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        RotateSaturn();
-        MoveShip();
-        RotateStation();
+        
 
 
         if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return)) StartButton(); // if A controller button or Enter keyboard button
         else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) QuitButton(); // B controller button or Escape button
 
+        RotateSaturn();
+        MoveShip();
+        RotateStation();
 
     }
 
     private void RotateSaturn()
     {
+        //Debug.Log(planet.gameObject.name);
         planet.transform.Rotate(Vector3.up * -1*Time.deltaTime);
     }
 
