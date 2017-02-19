@@ -9,7 +9,9 @@ public class WaveManager : MonoBehaviour {
     private int[] spawnShips = new int[noShipTypes];
     [SerializeField] private int spawnIncAmount = 10;
 
-	void Start ()	// Use this for initialization
+    [SerializeField] private AudioSource nextWaveSound;
+
+    void Start ()	// Use this for initialization
     {
         em = GetComponent<EnemyManager>();
         spawnShips[0] = 0;
@@ -21,6 +23,7 @@ public class WaveManager : MonoBehaviour {
     {
         if (em.GetSpawnState())
         {
+            playNextWaveSound();
             UpdateWave();
         }
 	}
@@ -43,5 +46,10 @@ public class WaveManager : MonoBehaviour {
     public int GetWave()
     {
         return wave;    
+    }
+
+    private void playNextWaveSound()
+    {
+        nextWaveSound.Play();
     }
 }

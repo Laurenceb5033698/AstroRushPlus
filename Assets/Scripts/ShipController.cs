@@ -75,22 +75,22 @@ public class ShipController : MonoBehaviour
     private void MoveShip()
     {
         float currentSpeed = 0.0f;
+        currentSpeed = stats.GetMainThrust();
 
-        if (controls.boost && stats.ShipFuel > 0.1f)
+
+        if (Mathf.Abs(controls.LeftStick.x) > 0.1f || Mathf.Abs(controls.LeftStick.y) > 0.1f)
         {
-            currentSpeed = stats.GetBoostSpeed();
-            stats.ShipFuel = -25 * Time.deltaTime;
-        }
-        else
-        {
-            currentSpeed = stats.GetMainThrust();
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(controls.LeftStick.x, 0, controls.LeftStick.y)) * Quaternion.Euler(new Vector3(0, -90, 0)), 10);
+
+            if (controls.boost && stats.ShipFuel > 0.1f)
+            {
+                currentSpeed = stats.GetBoostSpeed();
+                stats.ShipFuel = -25 * Time.deltaTime;
+            }
         }
 
         rb.velocity = new Vector3(controls.LeftStick.x * currentSpeed, 0, controls.LeftStick.y * currentSpeed);
-        rb.angularVelocity = new Vector3(0,0,0);
-
-        if (Mathf.Abs(controls.LeftStick.x) > 0.1f || Mathf.Abs(controls.LeftStick.y) > 0.1f)
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(controls.LeftStick.x, 0, controls.LeftStick.y)) * Quaternion.Euler(new Vector3(0, -90, 0)), 10);
+        rb.angularVelocity = new Vector3(0, 0, 0);
     }
 
     // EVENT HANDLERS-------------------------------------------------------------------------------------

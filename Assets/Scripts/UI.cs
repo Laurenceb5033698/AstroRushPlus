@@ -30,6 +30,7 @@ public class UI : MonoBehaviour {
     private float helthFlashingTimer = 0;
     private bool hpActive = true;
     [SerializeField] private GameObject healthIndicator;
+    [SerializeField] private GameObject healthVignettePanel;
 
 
 	void Start () // Use this for initialization
@@ -120,6 +121,10 @@ public class UI : MonoBehaviour {
 
         if (health < 50)
         {
+            healthVignettePanel.SetActive(true);
+            healthVignettePanel.GetComponent<Image>().color = new Color(255, 0, 0, 0.3f - (health/50)*0.3f);
+
+
             if (helthFlashingTimer < Time.time)
             {
                 hpActive = !hpActive;
@@ -130,9 +135,11 @@ public class UI : MonoBehaviour {
         }
         else
         {
+            healthVignettePanel.SetActive(false);
             hpActive = true;
             healthIndicator.SetActive(hpActive);
         }
+        
 
 
 

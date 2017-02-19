@@ -18,11 +18,15 @@ public class GameManager : MonoBehaviour {
     private GameObject pointer;
 
     private LineRenderer laser;
+    [SerializeField] private AudioSource music;
+
     
 
 	// Use this for initialization
 	void Awake () 
     {
+        music.volume = 0.2f * PlayerPrefs.GetFloat("musicVolume");
+
         playerShip = (GameObject)Instantiate(playerShipPref, Vector3.zero, Quaternion.identity);
         pointer = (GameObject)Instantiate(pointerPref, Vector3.zero, Quaternion.identity);
         pointer.GetComponent<Pointer>().SetFollowTarget(playerShip);
@@ -62,7 +66,7 @@ public class GameManager : MonoBehaviour {
         if (ui.GetMenuState())
         {
             if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Y)) RestartGame(); // if A controller button or Y keyboard button
-            else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) ui.ToggleEscState(); // B controller button or Escape button
+            else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) ToggleUIState(); // B controller button or Escape button
             else if (Input.GetKeyDown(KeyCode.JoystickButton3)) LoadMainMenu();
         }
         else if (ui.GetHintsState() && Input.GetKeyDown(KeyCode.JoystickButton0))
@@ -84,6 +88,12 @@ public class GameManager : MonoBehaviour {
     {
         return playerShip;
     }
+
+    public void ToggleUIState()
+    {
+        ui.ToggleEscState();
+    }
+
     public void RestartGame()
     {
         SceneManager.LoadScene(1);     
