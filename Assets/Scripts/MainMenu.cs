@@ -18,6 +18,7 @@ public class MainMenu : MonoBehaviour {
     private Vector3 shipMovePos = new Vector3(-28,-15,-30);
     private Vector3 shipMoveBackPos = new Vector3(53,17,35);
     [SerializeField] private Slider volumeSlider;
+    [SerializeField] private Toggle fullScreenToggleGO;
 
     // ship
     [SerializeField] private GameObject ship;
@@ -38,6 +39,9 @@ public class MainMenu : MonoBehaviour {
             volumeSlider.value = 1;
             PlayerPrefs.SetFloat("musicVolume", volumeSlider.value);
         }
+
+        Screen.fullScreen = true;
+        fullScreenToggleGO.isOn = true;
 
 
         optionsPanel.SetActive(false);
