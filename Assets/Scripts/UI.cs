@@ -161,6 +161,13 @@ public class UI : MonoBehaviour {
                 SetMessage(1);
                 displayMenu = !displayMenu;
             }
+
+            for (int i = 0; i < HUDs.Length; i++)
+            {
+                HUDs[i].SetActive(!displayMenu);
+            }
+
+
         }
         else
         {
@@ -168,22 +175,24 @@ public class UI : MonoBehaviour {
             continueButton.SetActive(false);
             displayMenu = true;
             displayPopUpMessages = true;
+
+            HUDs[0].SetActive(true);
+            for (int i = 1; i < HUDs.Length; i++)
+            {
+                HUDs[i].SetActive(!displayMenu);
+            }
+
         }
         if (messageIndex == 1) displayPopUpMessages = displayMenu;
-
 
         for (int i = 0; i < popUpMessages.Length; i++)
         {
             if (i == messageIndex) popUpMessages[i].SetActive(displayPopUpMessages);
             else popUpMessages[i].SetActive(false);
         }
-
         menuPanel.SetActive(displayMenu);
 
-        for (int i = 0; i < HUDs.Length; i++)
-        {
-            HUDs[i].SetActive(!displayMenu);
-        }
+
     }
     private void UpdateHintsPanel() // toggeled in IncrementDHIndex()
     {
