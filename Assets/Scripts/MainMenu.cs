@@ -40,6 +40,9 @@ public class MainMenu : MonoBehaviour {
             PlayerPrefs.SetFloat("musicVolume", volumeSlider.value);
         }
 
+        PlayerPrefs.SetInt("showHints", 1);
+        PlayerPrefs.Save();
+
         Screen.fullScreen = true;
         fullScreenToggleGO.isOn = true;
 

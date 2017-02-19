@@ -42,21 +42,25 @@ public class UI : MonoBehaviour {
         displayMenu = false;
         displayPopUpMessages = false;
         gameOver = false;
-        displayHints = false;
+
+        displayHints = (PlayerPrefs.GetInt("showHints") == 1);
 
         if (displayHints)
         { 
             UpdateHintsPanel();
+            menuPanel.SetActive(false);
             
             for (int i = 0; i < HUDs.Length; i++)
             {
                 HUDs[i].SetActive(!displayHints);
             }
+            
         }
     }		
 	void Update () // Update is called once per frame
     {
-        UpdateMenu();
+        if (!displayHints)
+            UpdateMenu();
     }
 
     public void IncrementDHIndex()
@@ -166,8 +170,6 @@ public class UI : MonoBehaviour {
             {
                 HUDs[i].SetActive(!displayMenu);
             }
-
-
         }
         else
         {
@@ -203,6 +205,8 @@ public class UI : MonoBehaviour {
         }
         else
         {
+            PlayerPrefs.SetInt("showHints", 0);
+            PlayerPrefs.Save();
             displayHintIndex = 0; // hard reset
             displayHints = false;
             hintPanels[hintPanels.Length-1].SetActive(false); // turn of last panel
