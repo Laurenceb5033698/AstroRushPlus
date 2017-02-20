@@ -2,15 +2,27 @@
 using System.Collections;
 using UnityEngine.UI;
 using System;
+using XInputDotNetPure; // for controller rumble
 
 public class ShipController : MonoBehaviour
 {
+    bool playerIndexSet = false;
+    PlayerIndex playerIndex;
+    GamePadState state;
+    GamePadState prevState;
+
+        // Detect if a button was pressed this frame
+        //if (prevState.Buttons.A == ButtonState.Released && state.Buttons.A == ButtonState.Pressed)
+
+
     private GameObject ship;  // ship gameobject
     private Inputs controls;
     [SerializeField] private GameObject mPreF; // missile prefab
     [SerializeField] private GameObject turret; // missile prefab
     [SerializeField] private Weapon gun;
     private int weaponType = 0;
+    private bool aiming = false;
+    private float rumbleTimer = 0;
 
     private Rigidbody rb; 	// ship's rigid body
     private ShipStats stats;
@@ -19,6 +31,8 @@ public class ShipController : MonoBehaviour
     // Mains --------------------------------------------------------------------------------------------------------
     void Start() // Use this for initialization
     {
+
+
         ship = transform.gameObject;
         controls = ship.GetComponent<Inputs>();
         rb = ship.GetComponent<Rigidbody>();
@@ -27,50 +41,78 @@ public class ShipController : MonoBehaviour
         gun = turret.GetComponent<Weapon>();
     }
 
-    private Vector3 dir;
     void Update() // Update is called once per frame
     {
+        UpdateController();
 
-        if (controls.shield)
+        if (controls.shield) stats.ActivateShieldPU();
+
+        aiming = (Mathf.Abs(controls.RightStick.x) > 0.1f || Mathf.Abs(controls.RightStick.y) > 0.1f);
+
+        if (aiming) UpdateWeapons(new Vector3(controls.RightStick.x, 0, controls.RightStick.y).normalized);
+        else weaponType = 0;
+
+        if (stats.IsAlive()) MoveShip();
+        else
         {
-            stats.ActivateShieldPU();
+            rumbleTimer = 0;
+            GamePad.SetVibration(playerIndex, 0, 0);
+        }
+    }
+
+    void FixedUpdate()
+    {
+        //GamePad.SetVibration(playerIndex, state.Triggers.Left, state.Triggers.Right);
+        if (rumbleTimer > Time.time)
+            GamePad.SetVibration(playerIndex, 1, 1);
+        else
+            GamePad.SetVibration(playerIndex, 0, 0);
+    }
+
+
+    // FUNCTIONS --------------------------------------------------------------------------------------------------------	
+    private void UpdateController()
+    {
+        if (!playerIndexSet || !prevState.IsConnected)
+        {
+            for (int i = 0; i < 4; ++i)
+            {
+                PlayerIndex testPlayerIndex = (PlayerIndex)i;
+                GamePadState testState = GamePad.GetState(testPlayerIndex);
+                if (testState.IsConnected)
+                {
+                    Debug.Log(string.Format("GamePad found {0}", testPlayerIndex));
+                    playerIndex = testPlayerIndex;
+                    playerIndexSet = true;
+                }
+            }
         }
 
-        if (Mathf.Abs(controls.RightStick.x) > 0.1f || Mathf.Abs(controls.RightStick.y) > 0.1f)//shooting
+        prevState = state;
+        state = GamePad.GetState(playerIndex);
+    }
+    private void UpdateWeapons(Vector3 direction)
+    {
+        if (controls.rocket && stats.LoadMissile())
         {
-            dir = new Vector3(controls.RightStick.x, 0, controls.RightStick.y).normalized;
+            weaponType = 2;
+            Instantiate(mPreF, ship.transform.position + direction * 8f, Quaternion.LookRotation(direction, Vector3.up));
+            stats.DecreaseMissileAmount();
+        }
 
-            if (controls.rocket && stats.LoadMissile())
-            {
-                weaponType = 2;
-                Instantiate(mPreF, ship.transform.position + dir * 8f, Quaternion.LookRotation(dir, Vector3.up));
-                stats.DecreaseMissileAmount();
-            }
-            if (controls.trishot)
-            {
-                weaponType = 1;
-                gun.changeType("tri");
-                gun.Shoot(dir);
-            }
-            else
-            {
-                weaponType = 0;
-                gun.changeType("pew");
-                gun.Shoot(dir);
-            }
+        if (controls.trishot)
+        {
+            weaponType = 1;
+            gun.changeType("tri");
         }
         else
         {
             weaponType = 0;
+            gun.changeType("pew");
         }
 
-        if (stats.IsAlive())
-        {
-            MoveShip();
-        }
+        gun.Shoot(direction);
     }
-
-    // FUNCTIONS --------------------------------------------------------------------------------------------------------	
 
     private void MoveShip()
     {
@@ -97,14 +139,24 @@ public class ShipController : MonoBehaviour
     void OnCollisionEnter(Collision c)
     {
         TakeDamage(c.relativeVelocity.magnitude / 4);
+        if (c.gameObject.tag == "EnemyShip")
+        {
+            c.gameObject.GetComponent<NewBasicAI>().TakeDamage(50);
+        }
     }
 
     public void TakeDamage(float amount)
     {
         stats.TakeDamage(amount);
+        rumbleTimer = Time.time + 0.3f;
     }
     public int GetWeaponType()
     {
         return weaponType;
+    }
+
+    void OnApplicationQuit()
+    {
+        GamePad.SetVibration(playerIndex, 0, 0);
     }
 }
