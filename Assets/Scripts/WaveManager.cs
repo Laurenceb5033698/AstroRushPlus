@@ -1,21 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 public class WaveManager : MonoBehaviour {
 
+    List<int> spawnShips = new List<int>();
     private int wave = 0;
-    private EnemyManager em;
-    private const int noShipTypes = 3;
-    private int[] spawnShips = new int[noShipTypes];
-    [SerializeField] private int spawnIncAmount = 10;
+    private int noShipTypes;
+    private int spawnIncAmount = 2;
 
+    private EnemyManager em;
     [SerializeField] private AudioSource nextWaveSound;
 
     void Start ()	// Use this for initialization
     {
         em = GetComponent<EnemyManager>();
-        spawnShips[0] = 0;
-        spawnShips[1] = 0;
+        noShipTypes = em.GetNoShipTypes();
+        for (int i = 0; i < noShipTypes; i++) { spawnShips.Add(0); }
         UpdateWave();
     }
 	

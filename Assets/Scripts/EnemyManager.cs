@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 public class EnemyManager : MonoBehaviour {
 
-    [SerializeField]
     private struct ShipT
     {
         public int typeID;             // type of ship
@@ -16,32 +15,32 @@ public class EnemyManager : MonoBehaviour {
     }
 
     private const int shipPreftypes = 3;
+    private const float spawnDelay = 0.5f;
+    private const int shipLimitOnScreen = 20;
+    private const float ResetDistance = 250;
+
+
     [SerializeField] private GameObject dropShipPref;
     [SerializeField] private GameObject[] prefRef = new GameObject[shipPreftypes]; // prefab list
     [SerializeField] private GameObject group;
+
     private ShipT[] shipOrder = new ShipT[shipPreftypes];
-    [SerializeField] private int numberOfShipOrders = 0;
     private GameObject player;
 
+    private int SpawnLimit;
     private int globalID = 0;
-    private const float spawnDelay = 0.5f;
     private float spawnTimer = 0.0f;
+    private bool SpawnComplete = false;
+    private bool spawnerActive = false;
     private List<int> toSpawn = new List<int>(); // spawnShips() - create a list of ship type IDs to spawn from
 
     //------------------------------------------------------------------------
 
-    private int SpawnLimit;
-    private bool SpawnComplete = false;
-    private const int shipLimitOnScreen = 20;
-    private const float ResetDistance = 250;
-
-    private bool spawnerActive = false;
-
-    void Start() // Use this for initialization
+    void Start()    // Use this for initialization
     {
         player = GetComponent<GameManager>().GetShipRef();
     }
-    void Update() // Update is called once per frame
+    void Update()   // Update is called once per frame
     {
         if (spawnerActive) 
         { 
@@ -50,13 +49,19 @@ public class EnemyManager : MonoBehaviour {
         }
     }
 
+    //------------------------------------------------------------------------
+
+    private Vector3 GetRandomPosition()
+    {
+        float angle = Mathf.Deg2Rad * Random.Range(0, 360);
+        return player.transform.position + new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * Random.Range(100, 200);     // player position + direction * distance
+    }
     private void RunUpdates()
     {
-        if (GetTotalShipLeft() == 0) // buggy  somewhy it spawn an extra 1-2 ships
+        if (GetTotalShipLeft() == 0)
         {
             SpawnComplete = true;
             spawnerActive = false;
-            //DestroyAllShip();
             Debug.Log("Wave Complete!");
         }
         else
@@ -64,28 +69,6 @@ public class EnemyManager : MonoBehaviour {
             SpawnShips();
         }
     }
-
-    public void CreateOrder(int i, int sts)
-    {
-        if (i <= shipPreftypes && i >= 0)
-        {
-            ShipT temp;
-            temp.typeID = i;
-            temp.shipToSpawn = sts;
-            temp.spawnCounter = 0;
-            temp.deadCounter = 0;
-            temp.shipP = new List<GameObject>();
-            shipOrder[i] = temp;
-
-            SpawnLimit = 0;
-            for (int j = 0; j < shipPreftypes; j++) SpawnLimit += shipOrder[j].shipToSpawn;
-        }
-        else
-        {
-            Debug.Log("Out of Range order!");
-        }
-    }
-
     private void SpawnShips()
     {
         if (Time.time > spawnTimer) // if current time is more than delay
@@ -114,21 +97,9 @@ public class EnemyManager : MonoBehaviour {
 
         }
     }
-
-
-    private Vector3 GetRandomPosition() {
-        float angle = Mathf.Deg2Rad * Random.Range(0, 360);
-        float distance = Random.Range(100, 200); // spawn distance relative to the player
-        Vector3 dir = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle));
-
-        return player.transform.position + dir * distance;
-    }
-
-
     private void SpawnShip(int type)
     {
         GameObject temp = (GameObject)Instantiate(prefRef[type], GetRandomPosition(), Quaternion.identity);
-        //temp.transform.position = player.transform.position + dir * distance;
         temp.GetComponent<NewBasicAI>().Initalise(player, transform.gameObject, globalID, type);
 
         shipOrder[type].shipP.Add(temp);
@@ -136,30 +107,13 @@ public class EnemyManager : MonoBehaviour {
         globalID++;
 
         temp.transform.parent = group.transform; // put ship in group game object
-
-        //Debug.Log("ship spawned");
     }
-
-    public void RemoveShip(int id, int type)
+    private void SpawnDropShip(Vector3 pos)
     {
-        
-        shipOrder[type].deadCounter++;
-
-        int counter = 0;
-        bool found = false;
-        do
-        {
-            if (shipOrder[type].shipP[counter].GetComponent<NewBasicAI>().GetId() == id)
-            {
-                if (Random.Range(0,10) < 3)
-                    SpawnDropShip(shipOrder[type].shipP[counter].transform.position);
-
-                shipOrder[type].shipP.RemoveAt(counter);
-                found = true;
-
-            }
-            counter++;
-        } while (found == false && counter < shipOrder[type].shipP.Count);
+        GameObject temp = (GameObject)Instantiate(dropShipPref, pos, Quaternion.identity);
+        temp.GetComponent<NewBasicAI>().Initalise(player, transform.gameObject, globalID, 3);
+        temp.transform.parent = group.transform; // put ship in group game object
+        globalID++;
     }
     private void DestroyAllShip()
     {
@@ -174,28 +128,22 @@ public class EnemyManager : MonoBehaviour {
             shipOrder[i].shipP.Clear();
         }     
     }
-
-    private void SpawnDropShip(Vector3 pos)
+    private void RepositionShips()
     {
-        GameObject temp = (GameObject)Instantiate(dropShipPref, pos, Quaternion.identity);
-        temp.GetComponent<NewBasicAI>().Initalise(player, transform.gameObject, globalID, 3);
-        temp.transform.parent = group.transform; // put ship in group game object
-        globalID++;
-    }
-
-    public void Reset()
-    {
-        SpawnLimit = 0;
-        SpawnComplete = false;
-    }
-    public void SetActive(bool state)
-    {
-        spawnerActive = state;
-    }
-
-    public bool GetSpawnState()
-    {
-        return SpawnComplete;
+        for (int i = 0; i < shipPreftypes; i++)
+            for (int j = 0; j < shipOrder[i].shipP.Count; j++)
+                if (shipOrder[i].shipP[j] != null)
+                {
+                    if (Vector3.Distance(player.transform.position, shipOrder[i].shipP[j].transform.position) > ResetDistance)
+                    {
+                        shipOrder[i].shipP[j].transform.position = GetRandomPosition();
+                        shipOrder[i].shipP[j].GetComponent<Rigidbody>().velocity *= 0;
+                    }
+                }
+                else
+                {
+                    Debug.Log("found null ship object in enemy manager");
+                }
     }
     private int GetTotalShipsKilled()
     {
@@ -203,15 +151,6 @@ public class EnemyManager : MonoBehaviour {
         for (int i = 0; i < shipPreftypes; i++)
         {
             sum += shipOrder[i].deadCounter;
-        }
-        return sum;
-    }
-    public int GetTotalShipLeft()
-    {
-        int sum = 0;
-        for (int i = 0; i < shipPreftypes; i++)
-        {
-            sum += shipOrder[i].shipToSpawn - shipOrder[i].deadCounter;
         }
         return sum;
     }
@@ -223,33 +162,73 @@ public class EnemyManager : MonoBehaviour {
             sum += shipOrder[i].spawnCounter - shipOrder[i].deadCounter;
         }
         return sum;
-
     }
 
+    //------------------------------------------------------------------------
 
-    private void RepositionShips(){
+    public void CreateOrder(int i, int sts)
+    {
+        if (i <= shipPreftypes && i >= 0)
+        {
+            ShipT temp;
+            temp.typeID = i;
+            temp.shipToSpawn = sts;
+            temp.spawnCounter = 0;
+            temp.deadCounter = 0;
+            temp.shipP = new List<GameObject>();
+            shipOrder[i] = temp;
 
-        float tempDistance = 0;
-        
+            SpawnLimit = 0;
+            for (int j = 0; j < shipPreftypes; j++) SpawnLimit += shipOrder[j].shipToSpawn;
+        }
+        else
+        {
+            Debug.Log("Out of Range order!");
+        }
+    }
+    public void RemoveShip(int id, int type)
+    {    
+        shipOrder[type].deadCounter++;
 
+        int counter = 0;
+        bool found = false;
+        do
+        {
+            if (shipOrder[type].shipP[counter].GetComponent<NewBasicAI>().GetId() == id)
+            {
+                if (Random.Range(0,10) < 3) SpawnDropShip(shipOrder[type].shipP[counter].transform.position);
+                shipOrder[type].shipP.RemoveAt(counter);
+                found = true;
+            }
+            counter++;
+        } while (!found && counter < shipOrder[type].shipP.Count);
+    }
+    public void Reset()
+    {
+        SpawnLimit = 0;
+        SpawnComplete = false;
+    }
+    public void SetActive(bool state)
+    {
+        spawnerActive = state;
+    }
+    public bool GetSpawnState()
+    {
+        return SpawnComplete;
+    }
+    public int GetTotalShipLeft()
+    {
+        int sum = 0;
         for (int i = 0; i < shipPreftypes; i++)
         {
-            for (int j = 0; j < shipOrder[i].shipP.Count; j++)
-            {
-                if (shipOrder[i].shipP[j] != null)
-                {
-                    tempDistance = Vector3.Distance(player.transform.position, shipOrder[i].shipP[j].transform.position);
-                    if (tempDistance > ResetDistance)
-                    {
-                        shipOrder[i].shipP[j].transform.position = GetRandomPosition();
-                        shipOrder[i].shipP[j].GetComponent<Rigidbody>().velocity *= 0;
-                    }
-                }
-            }
+            sum += shipOrder[i].shipToSpawn - shipOrder[i].deadCounter;
         }
-
+        return sum;
     }
-
+    public int GetNoShipTypes()
+    {
+        return shipPreftypes;
+    }
     public Vector3 getClosestShipPos(Vector3 from)
     {
         Vector3 pos = Vector3.zero;

@@ -10,9 +10,6 @@ public class NewBasicAI : MonoBehaviour {
 
     //Customise AI range behaviours
     [SerializeField] private float boostRange = 30f;
-    //[SerializeField] private float engageRange = 50f;
-
-
     [SerializeField] private GameObject ship; // enemy ship object
     [SerializeField] private Rigidbody rb;
     [SerializeField] private ShipStats stats;
@@ -44,13 +41,7 @@ public class NewBasicAI : MonoBehaviour {
         }
         else
         {
-            if (!spawnedPickup && Random.Range(0f, 10f) > 3f)
-            {
-                GameObject mpickup = sm.GetComponent<PickupManager>().GetRandomPickup();
-                GameObject temp = (GameObject)Instantiate(mpickup, ship.transform.position, Quaternion.identity); 	// create gameobject
-                temp.GetComponent<PickupItem>().Init(sm);
-                spawnedPickup = true;
-            }
+            if (!spawnedPickup) spawnedPickup = sm.GetComponent<PickupManager>().SpawnPickup(transform.position);
             Instantiate(psDestructPrefab, transform.position, transform.rotation);
             DestroySelf();
         }
@@ -80,16 +71,13 @@ public class NewBasicAI : MonoBehaviour {
     // enemy spawner related functions
     void OnCollisionEnter(Collision c)
     {
-        if (!c.gameObject.GetComponent<Projectile>())
-            rb.AddForce((ship.transform.position - c.gameObject.transform.position) * 18, ForceMode.Impulse);
+        if (!c.gameObject.GetComponent<Projectile>()) rb.AddForce((ship.transform.position - c.gameObject.transform.position) * 18, ForceMode.Impulse);
         stats.TakeDamage(10 * Time.deltaTime);
     }
     private void DestroySelf()
     {
-        //Debug.Log("ship destroyed");
         sm.GetComponent<GameManager>().AddScore(scoreValue);
-        if (type != 3)
-            sm.GetComponent<EnemyManager>().RemoveShip(id, type);
+        if (type != 3) sm.GetComponent<EnemyManager>().RemoveShip(id, type);
         Destroy(transform.gameObject);
     }
     public void Initalise(GameObject go, GameObject s, int i, int t)

@@ -18,21 +18,19 @@ public class PickupManager : MonoBehaviour {
 
     }
 
-    public GameObject GetRandomPickup()
-    {
-        int randomN = Random.Range(0,100);
-        int ID = -1;
-
-        if (randomN >= 0 && randomN <= 30) ID = 0;
-        if (randomN > 30 && randomN <= 50) ID = 1;
-        if (randomN > 50 && randomN <= 85) ID = 2;
-        if (randomN > 85 && randomN <= 100) ID = 3;
-
-        return list[ID];
-
-    }
     public void playPickupSound()
     {
         pickupSound.Play();
+    }
+
+    public bool SpawnPickup(Vector3 pos) // return successful spawn
+    {
+        if (Random.Range(0, 10) > 3)
+        {
+            GameObject temp = (GameObject)Instantiate(list[Random.Range(0, list.Length)], pos, Quaternion.identity);   // create gameobject
+            temp.GetComponent<PickupItem>().Init(transform.gameObject);
+            return true;
+        }
+        return false;
     }
 }
