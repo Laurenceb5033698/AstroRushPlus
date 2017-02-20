@@ -133,7 +133,6 @@ public class ShipStats : Health {
             {
                 shield = (shield + value < 0) ? 0 : shield + value;
             }
-            //Debug.Log("shield hp: " + shield);
         }
     }
     public float ShipFuel
@@ -200,7 +199,8 @@ public class ShipStats : Health {
 	}
 	public void SetShieldPU()
 	{
-		shieldPowerUp = true;
+        ActivateShieldPU(); // if have one already, use it before getting the next one
+        shieldPowerUp = true;
 	}
     public bool GetShieldPUState()
     {

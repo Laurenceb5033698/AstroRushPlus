@@ -44,6 +44,9 @@ public class Projectile : MonoBehaviour {
                     other.gameObject.GetComponent<Asteroid>().TakeDamage(damage);
                     applyImpulse(other.GetComponent<Rigidbody>());
                     break;
+                case "shard":
+                    Destroy(other.transform.gameObject);
+                    break;
                 default:
                     Debug.Log("Unknown entity. " + other.gameObject.tag);
 

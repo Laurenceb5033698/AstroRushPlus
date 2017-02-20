@@ -92,5 +92,10 @@ public class Weapon : MonoBehaviour{
 
 
     }
+    public int GetWeaponMode()
+    {
+        if (WeaponType == WeaponFlavour.Pew) return 0;
+        else return 1;
+    }
 
 }
