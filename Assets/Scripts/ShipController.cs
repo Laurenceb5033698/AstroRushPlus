@@ -41,15 +41,11 @@ public class ShipController : MonoBehaviour
 
     void Update() // Update is called once per frame
     {
-        // Detect if a button was pressed this frame
-        //if (prevState.Buttons.A == ButtonState.Released && state.Buttons.A == ButtonState.Pressed)
-        //{ }
-
         UpdateController();
 
         aiming = (Mathf.Abs(controls.RightStick.x) > 0.1f || Mathf.Abs(controls.RightStick.y) > 0.1f);
 
-        if (Input.GetKeyDown(KeyCode.JoystickButton4)) // left bumper
+        if (Input.GetKeyDown(KeyCode.JoystickButton4) || Input.GetMouseButtonDown(1)) // left bumper
         {
             if (gun.GetWeaponMode() == 0)
             {
@@ -71,9 +67,26 @@ public class ShipController : MonoBehaviour
             direction = new Vector3(controls.RightStick.x, 0, controls.RightStick.y).normalized;
             gun.Shoot(direction);
         }
+        else if (Input.GetMouseButton(0))
+        {
+            Plane playerPlane = new Plane(Vector3.up, transform.position);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            float hitdist = 0.0f;
+            if (playerPlane.Raycast(ray, out hitdist))
+            {
+                Vector3 targetPoint = ray.GetPoint(hitdist);
+                direction = (targetPoint - transform.position).normalized;
+
+
+                gun.Shoot(direction);
+                Debug.Log(direction);
+            }
+
+
+        }
         else direction = transform.right;
 
-        if (Input.GetKeyDown(KeyCode.JoystickButton5) && stats.LoadMissile()) // right bumper
+        if ((Input.GetKeyDown(KeyCode.JoystickButton5) || Input.GetKeyDown(KeyCode.Space)) && stats.LoadMissile()) // right bumper
         {
             //weaponType = 2;
             Instantiate(mPreF, ship.transform.position + direction * 8f, Quaternion.LookRotation(direction, Vector3.up));
@@ -92,8 +105,8 @@ public class ShipController : MonoBehaviour
 
         if (rumbleTimer > Time.time)
             GamePad.SetVibration(playerIndex, 1, 1);
-        else if (aiming)
-            GamePad.SetVibration(playerIndex, 0.2f, 0.2f);
+        //else if (aiming)
+            //GamePad.SetVibration(playerIndex, 0.2f, 0.2f);
         else
             GamePad.SetVibration(playerIndex, 0, 0);
     }
@@ -130,7 +143,7 @@ public class ShipController : MonoBehaviour
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(controls.LeftStick.x, 0, controls.LeftStick.y)) * Quaternion.Euler(new Vector3(0, -90, 0)), 10);
 
-            if ((Input.GetAxis("LeftTrigger") > 0.1f) && stats.ShipFuel > 0.1f)
+            if ((Input.GetAxis("LeftTrigger") > 0.1f || Input.GetKey(KeyCode.LeftShift)) && stats.ShipFuel > 0.1f)
             {
                 currentSpeed = stats.GetBoostSpeed();
                 stats.ShipFuel = -25 * Time.deltaTime;

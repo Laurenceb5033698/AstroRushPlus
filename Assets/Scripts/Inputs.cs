@@ -34,13 +34,7 @@ public class Inputs : MonoBehaviour
 
         CheckKeyboard();
 
-        trishot = Input.GetKey(KeyCode.JoystickButton4);
-        rocket = Input.GetKeyDown (KeyCode.JoystickButton5) || Input.GetKeyDown(KeyCode.R);
-        shield = Input.GetKeyDown(KeyCode.JoystickButton2);
-		//targeting = Input.GetMouseButtonDown (0);
-        //RLaser = Input.GetKey(KeyCode.JoystickButton4) || Input.GetKey(KeyCode.F);
         boost = Input.GetAxis("LeftTrigger") > 0.1f || Input.GetKey(KeyCode.LeftShift);
-        //shoot = Input.GetAxis("RightTrigger") > 0.1f || Input.GetKey(KeyCode.Space);
         reset = Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Y);
     }
 
@@ -50,9 +44,6 @@ public class Inputs : MonoBehaviour
         else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) LeftStick.y = -1;
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) LeftStick.x = -1;
-        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) LeftStick.x = 1;
-
-        if (Input.GetKey(KeyCode.Q)) RightStick.x = -1;
-        else if (Input.GetKey(KeyCode.E)) RightStick.x = 1;      
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) LeftStick.x = 1;   
     }
 }
