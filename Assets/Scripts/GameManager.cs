@@ -20,10 +20,8 @@ public class GameManager : MonoBehaviour {
     private LineRenderer laser;
     [SerializeField] private AudioSource music;
 
-    
-
-	// Use this for initialization
-	void Awake () 
+    // Use this for initialization
+    void Awake () 
     {
         music.volume = 0.2f * PlayerPrefs.GetFloat("musicVolume");
 
@@ -69,7 +67,7 @@ public class GameManager : MonoBehaviour {
             else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) ToggleUIState(); // B controller button or Escape button
             else if (Input.GetKeyDown(KeyCode.JoystickButton3)) LoadMainMenu();
         }
-        else if (ui.GetHintsState() && (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space)))
+        else if (ui.GetHintsState() && (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return)))
         {
             ui.IncrementDHIndex();
         }
