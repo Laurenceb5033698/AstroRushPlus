@@ -91,9 +91,7 @@ public class ShipController : MonoBehaviour
         //GamePad.SetVibration(playerIndex, state.Triggers.Left, state.Triggers.Right);
 
         if (rumbleTimer > Time.time)
-            GamePad.SetVibration(playerIndex, 1, 1);
-        else if (aiming)
-            GamePad.SetVibration(playerIndex, 0.2f, 0.2f);
+            GamePad.SetVibration(playerIndex, 0.5f, 0.5f);
         else
             GamePad.SetVibration(playerIndex, 0, 0);
     }
