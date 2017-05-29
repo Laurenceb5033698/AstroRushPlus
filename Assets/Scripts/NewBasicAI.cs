@@ -13,7 +13,7 @@ public class NewBasicAI : MonoBehaviour {
     [SerializeField] private GameObject ship; // enemy ship object
     [SerializeField] private Rigidbody rb;
     [SerializeField] private ShipStats stats;
-    [SerializeField] private Weapon gun;
+    [SerializeField] private Arsenal arsenal;
     [SerializeField] private GameObject psDestructPrefab;
 
 
@@ -28,8 +28,10 @@ public class NewBasicAI : MonoBehaviour {
         ship = gameObject;
         rb = ship.gameObject.GetComponent<Rigidbody>();
 
-        gun = GetComponentInChildren<Weapon>();
-        if (gun == null) Debug.Log("No weapon attached.");
+        arsenal = GetComponentInChildren<Arsenal>();
+        if (arsenal == null) Debug.Log("No weapon attached.");
+        else
+            arsenal.SetShipObject(ship);
 	}
 	
 	// Update is called once per frame
@@ -60,7 +62,7 @@ public class NewBasicAI : MonoBehaviour {
         rb.AddTorque(Vector3.up * (((angle) * stats.GetRotSpeed()) ) * Time.deltaTime);
         rb.AddForce(gameObject.transform.forward * currentSpeed * 20 * Time.deltaTime, ForceMode.Acceleration);
 
-        if (dist <= 50 && gun != null) gun.Shoot(controlDir);
+        if (dist <= 50 && arsenal != null) arsenal.FireWeapon(controlDir);
     }
 
     public void TakeDamage(float amount)

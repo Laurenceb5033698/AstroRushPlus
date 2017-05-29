@@ -17,7 +17,7 @@ public class ShipController : MonoBehaviour
     private Inputs controls;
     [SerializeField] private GameObject mPreF; // missile prefab
     [SerializeField] private GameObject turret; // missile prefab
-    [SerializeField] private Weapon gun;
+    [SerializeField] private Arsenal arsenal;
     private int weaponType = 0;
     private bool aiming = false;
     private float rumbleTimer = 0;
@@ -36,7 +36,8 @@ public class ShipController : MonoBehaviour
         rb = ship.GetComponent<Rigidbody>();
         stats = ship.GetComponent<ShipStats>();
         //shield = ship.GetComponentInChildren<Shield>();
-        gun = turret.GetComponent<Weapon>();
+        arsenal = ship.GetComponentInChildren<Arsenal>();
+        arsenal.SetShipObject(ship);
     }
 
     void Update() // Update is called once per frame
@@ -47,16 +48,17 @@ public class ShipController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.JoystickButton4) || Input.GetMouseButtonDown(1)) // left bumper
         {
-            if (gun.GetWeaponMode() == 0)
-            {
-                weaponType = 1;
-                gun.changeType("tri");
-            }
-            else
-            {
-                weaponType = 0;
-                gun.changeType("pew");
-            }
+            arsenal.ChangeGun(1);
+            //if (gun.GetWeaponMode() == 0)
+            //{
+            //    weaponType = 1;
+            //    gun.changeType("tri");
+            //}
+            //else
+            //{
+            //    weaponType = 0;
+            //    gun.changeType("pew");
+            //}
         }
 
 
@@ -65,7 +67,7 @@ public class ShipController : MonoBehaviour
         if (aiming)
         {
             direction = new Vector3(controls.RightStick.x, 0, controls.RightStick.y).normalized;
-            gun.Shoot(direction);
+            arsenal.FireWeapon(direction);
         }
         else if (Input.GetMouseButton(0))
         {
@@ -78,8 +80,8 @@ public class ShipController : MonoBehaviour
                 direction = (targetPoint - transform.position).normalized;
 
 
-                gun.Shoot(direction);
-                Debug.Log(direction);
+                arsenal.FireWeapon(direction);
+                //Debug.Log(direction);
             }
 
 

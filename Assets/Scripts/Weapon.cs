@@ -1,101 +1,56 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Weapon : MonoBehaviour{
-
-    [SerializeField] private GameObject bullet1;
-    [SerializeField] private GameObject bullet2;
-
-
-    [SerializeField] private GameObject ship;
-    //private Inputs controls = null;
-    [SerializeField] private float shootSpeed;//fiddle with this one
-
-    enum WeaponFlavour { Pew, Tri };
-
-    [SerializeField] private WeaponFlavour WeaponType = WeaponFlavour.Pew;
-    private float reload = 0;
-
-    [SerializeField] private float bulletDamage = 5f;
-    [SerializeField] private float bulletSpeed = 20f;
-    [SerializeField] private float spread = 2;
+abstract public class Weapon : MonoBehaviour{
+    /*         !!! ABSTRACT CLASS !!!
+     *  Don't actually attach this to anything!
+     */
+    [SerializeField] protected GameObject bullet1;//bullet prefab
+    [SerializeField] protected GameObject TurretPref;//bullet prefab
 
 
-    private AudioSource shootSound;
+    [SerializeField] protected GameObject ship; //refernece to ship
+    protected GameObject turret = null;
+    [SerializeField] protected float shootSpeed;//fiddle with this one
+    
+    protected float reload = 0;
 
-    void Start () // Use this for initialization
+    [SerializeField] protected float bulletDamage = 5f;
+    [SerializeField] protected float bulletSpeed = 20f;
+    [SerializeField] protected AudioSource shootSound;
+
+    virtual public void Start () // Use this for initialization
     {
         shootSound = GetComponent<AudioSource>();
     }
 
-    public void changeType(string weap)
+    private void OnEnable()
     {
-        switch (weap)
+        if(TurretPref != null)
         {
-            case "tri":
-                WeaponType = WeaponFlavour.Tri;
-                break;
-            case "pew":
-            default:
-                WeaponType = WeaponFlavour.Pew;
-                break;
+            turret = Instantiate<GameObject>(TurretPref, new Vector3(0.589f, 0.651f, 0)+ship.transform.position, new Quaternion(), ship.transform);
         }
     }
 
-	void Update () // Update is called once per frame
+    private void OnDisable()
     {
-	}
+        if (turret)
+        {
+            Destroy(turret);
+            turret = null;
+        }
+    }
+
+    void Update () // Update is called once per frame
+    {	}
 
     public void SetShipObject(GameObject obj)
     {
         ship = obj;
+        reload = 0;
     }
-    private void spawnProjectile(Vector3 aimDir)
-    {//spawn pattern for weapon type
-        GameObject mBullet;
-        switch (WeaponType)
-        {
-            case WeaponFlavour.Tri:
-                //three instances
-                Vector3 spreadera = (aimDir * 6f) + (Vector3.Cross(aimDir, Vector3.up) * spread);//spread is an arbitrary value which increases the angle of spread
-                Vector3 spreaderb = (aimDir * 6f) - (Vector3.Cross(aimDir, Vector3.up) * spread);//spread is an arbitrary value which increases the angle of spread
+    abstract public void spawnProjectile(Vector3 aimDir);
 
-                mBullet = (GameObject)Instantiate(bullet2, ship.transform.position + spreadera, Quaternion.LookRotation(spreadera.normalized, Vector3.up));
-                mBullet.GetComponent<Projectile>().SetupValues(bulletDamage/2, bulletSpeed, ship.tag);
-
-                mBullet = (GameObject)Instantiate(bullet2, ship.transform.position + aimDir * 6f, Quaternion.LookRotation(aimDir, Vector3.up));
-                mBullet.GetComponent<Projectile>().SetupValues(bulletDamage/2, bulletSpeed, ship.tag);
-
-                mBullet = (GameObject)Instantiate(bullet2, ship.transform.position + spreaderb, Quaternion.LookRotation(spreaderb.normalized, Vector3.up));
-                mBullet.GetComponent<Projectile>().SetupValues(bulletDamage/2, bulletSpeed, ship.tag);
-                break;
-            case WeaponFlavour.Pew:
-            default://pew
-                mBullet = (GameObject)Instantiate(bullet1, ship.transform.position + aimDir * 6f, Quaternion.LookRotation(aimDir, Vector3.up));
-                mBullet.GetComponent<Projectile>().SetupValues(bulletDamage, bulletSpeed, ship.tag);
-                break;
-
-        }
-    }
-    public void Shoot(Vector3 direction)
-    {
-        if(Time.time > reload)
-        {
-            reload = Time.time + shootSpeed;
-            spawnProjectile(direction);
-
-            shootSound.Play();
-        }
-
-        
-        //shootSound.Play(44100);
-
-
-    }
-    public int GetWeaponMode()
-    {
-        if (WeaponType == WeaponFlavour.Pew) return 0;
-        else return 1;
-    }
+    abstract public void Shoot(Vector3 direction);
 
 }
