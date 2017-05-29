@@ -22,6 +22,10 @@ public class Pointer : MonoBehaviour {
 
     private void UpdatePointer()
     {
+        float scale = Mathf.Abs(Mathf.Sin(Time.time * 2) * 1) + 1; // keep it positive(sin(time * speed) * size) + minsize
+        pointerM.transform.localScale = new Vector3(scale, scale, 1);
+
+
         Vector3 posA = from.transform.position;
         Vector3 posB = to;
 
