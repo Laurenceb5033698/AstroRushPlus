@@ -8,17 +8,18 @@ public class Weapon_Trishot : Weapon
     override public void spawnProjectile(Vector3 aimDir)
     {//spawn pattern for weapon type
         GameObject mBullet;
-        Vector3 spreadera = (aimDir * 6f) + (Vector3.Cross(aimDir, Vector3.up) * spread);//spread is an arbitrary value which increases the angle of spread
-        Vector3 spreaderb = (aimDir * 6f) - (Vector3.Cross(aimDir, Vector3.up) * spread);//spread is an arbitrary value which increases the angle of spread
+        Vector3 adjust = (Vector3.Cross(aimDir, Vector3.up) * spread);
+        Vector3 spreadera = (aimDir * 6f) + adjust;//spread is an arbitrary value which increases the angle of spread
+        Vector3 spreaderb = (aimDir * 6f) - adjust;//spread is an arbitrary value which increases the angle of spread
 
         mBullet = (GameObject)Instantiate(bullet1, ship.transform.position + spreadera, Quaternion.LookRotation(spreadera.normalized, Vector3.up));
-        mBullet.GetComponent<Projectile>().SetupValues(bulletDamage / 2, bulletSpeed, ship.tag);
+        mBullet.GetComponent<Projectile>().SetupValues(bulletDamage , bulletSpeed, ship.tag);
 
         mBullet = (GameObject)Instantiate(bullet1, ship.transform.position + aimDir * 6f, Quaternion.LookRotation(aimDir, Vector3.up));
-        mBullet.GetComponent<Projectile>().SetupValues(bulletDamage / 2, bulletSpeed, ship.tag);
+        mBullet.GetComponent<Projectile>().SetupValues(bulletDamage , bulletSpeed, ship.tag);
 
         mBullet = (GameObject)Instantiate(bullet1, ship.transform.position + spreaderb, Quaternion.LookRotation(spreaderb.normalized, Vector3.up));
-        mBullet.GetComponent<Projectile>().SetupValues(bulletDamage / 2, bulletSpeed, ship.tag);
+        mBullet.GetComponent<Projectile>().SetupValues(bulletDamage , bulletSpeed, ship.tag);
 
     }
 

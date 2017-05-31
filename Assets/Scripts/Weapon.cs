@@ -28,7 +28,13 @@ abstract public class Weapon : MonoBehaviour{
     {
         if(TurretPref != null)
         {
-            turret = Instantiate<GameObject>(TurretPref, new Vector3(0.589f, 0.651f, 0)+ship.transform.position, new Quaternion(), ship.transform);
+            float yrot = (Vector3.Angle(Vector3.right, ship.transform.right));
+            //Debug.Log("Turret angle: " + yrot);
+            if (Vector3.Cross(ship.transform.right, Vector3.right).y < 0) yrot = -yrot;
+            
+            yrot = yrot * Mathf.PI / 180;
+            Vector3 loca = ship.transform.position + new Vector3(0.589f * Mathf.Cos(yrot), 0.651f, 0.589f * Mathf.Sin(yrot));
+            turret = Instantiate<GameObject>(TurretPref, loca, Quaternion.LookRotation(Vector3.up, -ship.transform.right), ship.transform);//
         }
     }
 
