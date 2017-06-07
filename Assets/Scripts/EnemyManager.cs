@@ -14,7 +14,7 @@ public class EnemyManager : MonoBehaviour {
         public List<GameObject> shipP; // list of all ships on scene
     }
 
-    private const int shipPreftypes = 3;
+    private const int shipPreftypes = 4;
     private const float spawnDelay = 0.5f;
     private const int shipLimitOnScreen = 20;
     private const float ResetDistance = 250;
@@ -38,6 +38,8 @@ public class EnemyManager : MonoBehaviour {
 
     void Start()    // Use this for initialization
     {
+    }
+    void OnEnable(){
         player = GetComponent<GameManager>().GetShipRef();
     }
     void Update()   // Update is called once per frame
@@ -111,7 +113,7 @@ public class EnemyManager : MonoBehaviour {
     private void SpawnDropShip(Vector3 pos)
     {
         GameObject temp = (GameObject)Instantiate(dropShipPref, pos, Quaternion.identity);
-        temp.GetComponent<NewBasicAI>().Initalise(player, transform.gameObject, globalID, 3);
+        temp.GetComponent<NewBasicAI>().Initalise(player, transform.gameObject, globalID, -1);
         temp.transform.parent = group.transform; // put ship in group game object
         globalID++;
     }

@@ -16,9 +16,9 @@ public class ShipController : MonoBehaviour
     private GameObject ship;  // ship gameobject
     private Inputs controls;
     [SerializeField] private GameObject mPreF; // missile prefab
-    [SerializeField] private GameObject turret; // missile prefab
     [SerializeField] private Arsenal arsenal;
-    private int weaponType = 0;
+    private int weaponType =0;
+    private bool usedEquipment = false;
     private bool aiming = false;
     private float rumbleTimer = 0;
 
@@ -60,6 +60,10 @@ public class ShipController : MonoBehaviour
             //    gun.changeType("pew");
             //}
         }
+        if (Input.GetKeyDown(KeyCode.JoystickButton5))
+        {
+            arsenal.ChangeGun(-1);
+        }
 
 
         Vector3 direction = Vector3.zero;
@@ -88,12 +92,14 @@ public class ShipController : MonoBehaviour
         }
         else direction = transform.right;
 
-        if ((Input.GetKeyDown(KeyCode.JoystickButton5) || Input.GetKeyDown(KeyCode.Space)) && stats.LoadMissile()) // right bumper
+        if (!usedEquipment && (Input.GetAxis("RightTrigger") > 0.1f || Input.GetKeyDown(KeyCode.Space)) && stats.LoadMissile()) // right bumper
         {
-            //weaponType = 2;
+            usedEquipment = true;
             Instantiate(mPreF, ship.transform.position + direction * 8f, Quaternion.LookRotation(direction, Vector3.up));
             stats.DecreaseMissileAmount();
         }
+        if (Input.GetAxis("RightTrigger") < 0.1f)
+            usedEquipment = false;
 
         if (stats.IsAlive()) MoveShip();
         else { rumbleTimer = 0; GamePad.SetVibration(playerIndex, 0, 0); }

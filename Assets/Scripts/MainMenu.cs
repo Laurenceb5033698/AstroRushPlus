@@ -11,14 +11,12 @@ public class MainMenu : MonoBehaviour {
 
 
     // option menu
-    [SerializeField] private GameObject optionsPanel;
-    private bool optionPanelActive = false;
+    private bool mOptionPanelActive = false;
     private bool shipMoved = false;
     private bool MoveShipBack = false;
     private Vector3 shipMovePos = new Vector3(-28,-15,-30);
     private Vector3 shipMoveBackPos = new Vector3(53,17,35);
-    [SerializeField] private Slider volumeSlider;
-    [SerializeField] private Toggle fullScreenToggleGO;
+    //[SerializeField] private Toggle fullScreenToggleGO;
 
     // ship
     [SerializeField] private GameObject ship;
@@ -29,25 +27,19 @@ public class MainMenu : MonoBehaviour {
 
     void Awake()
     {
+
         if (PlayerPrefs.HasKey("musicVolume"))
-        {
-            volumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
             music.volume = PlayerPrefs.GetFloat("musicVolume");
-        }
         else
-        {
-            volumeSlider.value = 1;
-            PlayerPrefs.SetFloat("musicVolume", volumeSlider.value);
-        }
+            PlayerPrefs.SetFloat("musicVolume", 1);
 
         PlayerPrefs.SetInt("showHints", 1);
         PlayerPrefs.Save();
 
         Screen.fullScreen = true;
-        fullScreenToggleGO.isOn = true;
+        //fullScreenToggleGO.isOn = true;
 
-
-        optionsPanel.SetActive(false);
+        
     }
 
 	// Use this for initialization
@@ -59,15 +51,22 @@ public class MainMenu : MonoBehaviour {
         float temp = 3f;
         targetDir = new Vector3(shipStartPos.x + Random.Range(-temp, temp), shipStartPos.y + Random.Range(-temp, temp), shipStartPos.z + Random.Range(-temp, temp));
     }
-	
-	// Update is called once per frame
-	void Update ()
+    private void OnEnable(){
+        UIManager.Options += UI_OnOptionsCall;//subscribe to options toggle event
+        UIManager.MusicvolumeChanged += UI_OnVolumeChanged;
+    }
+    private void OnDisable(){
+        UIManager.Options -= UI_OnOptionsCall;//unsubscribe
+        UIManager.MusicvolumeChanged -= UI_OnVolumeChanged;
+    }
+    // Update is called once per frame
+    void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return)) StartButton(); // if A controller button or Enter keyboard button
-        else if (Input.GetKeyDown(KeyCode.JoystickButton3)) OptionsButton();
-        else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) QuitButton(); // B controller button or Escape button
+        if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return)) UIManager.StartGamePressed(); // if A controller button or Enter keyboard button
+        else if (Input.GetKeyDown(KeyCode.JoystickButton3)) UIManager.PressedOptionsButton();
+        else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) UIManager.MenuQuitPressed(); // B controller button or Escape button
 
-        if (!optionPanelActive)
+        if (!mOptionPanelActive)
         {
             if (Vector3.Distance(ship.transform.position, shipStartPos) > 5)
             {
@@ -121,40 +120,29 @@ public class MainMenu : MonoBehaviour {
         ship.transform.position = Vector3.MoveTowards(ship.transform.position, targetDir, 0.1f * Time.deltaTime);      
     }
 
-    public void StartButton()
-    {
-        SceneManager.LoadScene(1);
-    }
 
-    public void QuitButton()
+    //this is called by an event on button press
+    public void UI_OnOptionsCall(bool optionPanelActive)
     {
-        Application.Quit();
-    }
-
-    public void OptionsButton()
-    {
-        if (!shipMoved && optionPanelActive)
+        mOptionPanelActive = optionPanelActive;
+        if (!shipMoved && !optionPanelActive)
         {
             ship.transform.position = shipMoveBackPos;
             shipMoved = true;
             MoveShipBack = true;
         }
 
-        optionPanelActive = !optionPanelActive;
-        optionsPanel.SetActive(optionPanelActive);
+        
     }
 
-
-
-
-    public void fullScreenToggle()
+    public void UI_OnVolumeChanged(bool temp)
     {
-        Screen.fullScreen = !Screen.fullScreen;
-    }
-    public void musicVolumeOnValueChanged()
-    {
-        PlayerPrefs.SetFloat("musicVolume", volumeSlider.value);
         music.volume = PlayerPrefs.GetFloat("musicVolume");
-        PlayerPrefs.Save();
+
     }
+
+
+
+
+    
 }

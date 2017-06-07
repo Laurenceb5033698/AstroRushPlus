@@ -32,7 +32,7 @@ public class UI : MonoBehaviour {
     [SerializeField] private GameObject healthIndicator;
     [SerializeField] private GameObject healthVignette;
 
-
+    private GameManager gm = null;
 	void Start () // Use this for initialization
     {
         messageIndex = 1;
@@ -56,13 +56,24 @@ public class UI : MonoBehaviour {
             }
             
         }
-    }		
+    }
+    private void OnEnable()
+    {
+        SceneLoader.Loaded += AttachGameManager;
+    }
+    private void OnDisable()
+    {
+        SceneLoader.Loaded -= AttachGameManager;
+    }
 	void Update () // Update is called once per frame
     {
         if (!displayHints)
             UpdateMenu();
     }
-
+    public void AttachGameManager()
+    {
+        gm = GameManager.instance;
+    }
     public void IncrementDHIndex()
     {
         if (!GetMenuState())
@@ -158,7 +169,7 @@ public class UI : MonoBehaviour {
         {
             SetMessage(1);
 
-            if (transform.GetComponent<BoundaryManager>().GetState())
+            if (gm.GetComponent<BoundaryManager>().GetState())
             {
                 SetMessage(2);
                 displayPopUpMessages = true;

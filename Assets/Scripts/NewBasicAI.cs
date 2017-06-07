@@ -79,7 +79,7 @@ public class NewBasicAI : MonoBehaviour {
     private void DestroySelf()
     {
         sm.GetComponent<GameManager>().AddScore(scoreValue);
-        if (type != 3) sm.GetComponent<EnemyManager>().RemoveShip(id, type);
+        if (type != -1) sm.GetComponent<EnemyManager>().RemoveShip(id, type);
         Destroy(transform.gameObject);
     }
     public void Initalise(GameObject go, GameObject s, int i, int t)

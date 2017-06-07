@@ -12,38 +12,60 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private GameObject playerShipPref;
     [SerializeField] private GameObject pointerPref;
     [SerializeField] private CameraScript cam;
-    private UI ui;
+    private UI ui=null;
     private EnemyManager em;
     private WaveManager wm;
+    private AsteroidManager asm;
+    private BoundaryManager bdrym;
     private GameObject pointer;
 
     private LineRenderer laser;
     [SerializeField] private AudioSource music;
 
+    public static GameManager instance = null;
     // Use this for initialization
     void Awake () 
     {
+        if (instance == null)
+            instance = this;
+        else if (instance != this)
+            Destroy(this);
+
         music.volume = 0.2f * PlayerPrefs.GetFloat("musicVolume");
 
-        playerShip = (GameObject)Instantiate(playerShipPref, Vector3.zero, Quaternion.identity);
-        pointer = (GameObject)Instantiate(pointerPref, Vector3.zero, Quaternion.identity);
-        pointer.GetComponent<Pointer>().SetFollowTarget(playerShip);
+        //scene needs to have finished loading before we instantiate anything
+        SceneLoader.Loaded += SL_OnLoadingComplete;
+        ui = UIManager.GetGameUiObject();
+        
         Time.timeScale = 1;
 	}
     
     void Start()
     {
+
         laser = GetComponent<LineRenderer>();
         laser.startWidth = 0.2f;
         laser.endWidth = 0.2f;
 
-        ui = GetComponent<UI>();
+        
         em = GetComponent<EnemyManager>();
         wm = GetComponent<WaveManager>();
-        cam.SetTarget(playerShip); // give the player ship reference to the camera
+        asm = GetComponent<AsteroidManager>();
+        bdrym = GetComponent<BoundaryManager>();
     }
-
-
+    private void SL_OnLoadingComplete()
+    {//ensures instances are created in the right scene
+        playerShip = (GameObject)Instantiate(playerShipPref, Vector3.zero, Quaternion.identity);
+        pointer = (GameObject)Instantiate(pointerPref, Vector3.zero, Quaternion.identity);
+        pointer.GetComponent<Pointer>().SetFollowTarget(playerShip);
+        cam.SetTarget(playerShip); // give the player ship reference to the camera
+        em.enabled = true;
+        asm.enabled = true;
+        bdrym.enabled = true;
+    }
+    void OnDestroy(){//clean event
+        SceneLoader.Loaded -= SL_OnLoadingComplete;
+    }
 	// Update is called once per frame
 	void Update () 
     {
@@ -94,11 +116,11 @@ public class GameManager : MonoBehaviour {
 
     public void RestartGame()
     {
-        SceneManager.LoadScene(1);     
+        SceneLoader.LoadTitleScene();    
     }
     public void LoadMainMenu()
     {
-        SceneManager.LoadScene(0);
+        SceneLoader.LoadTitleScene();
     }
 
 

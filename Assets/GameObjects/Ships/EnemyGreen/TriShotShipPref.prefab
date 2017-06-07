@@ -38,10 +38,25 @@ GameObject:
   m_Component:
   - component: {fileID: 4360625313802482}
   - component: {fileID: 114789164020977658}
-  - component: {fileID: 114970226187864236}
-  - component: {fileID: 82380456956465724}
   m_Layer: 0
   m_Name: WeaponArsenal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1402751397162762
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4565674127192972}
+  - component: {fileID: 114359402731664376}
+  - component: {fileID: 82775082927659634}
+  m_Layer: 0
+  m_Name: Weapon1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,11 +99,25 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1295144804945226}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.58099985, z: -2.091999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4565674127192972}
+  m_Father: {fileID: 4716877375534890}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!4 &4565674127192972
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1402751397162762}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4716877375534890}
+  m_Father: {fileID: 4360625313802482}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4716877375534890
@@ -98,7 +127,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1800241870786566}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.88836, y: 7.974312, z: 165.9338}
+  m_LocalPosition: {x: 22.527996, y: 2.5074558, z: 44.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4360625313802482}
@@ -173,12 +202,12 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 25e8ff52495a4b94ab788b183b56f6fa, type: 3}
---- !u!82 &82380456956465724
+--- !u!82 &82775082927659634
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1295144804945226}
+  m_GameObject: {fileID: 1402751397162762}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -272,6 +301,24 @@ MonoBehaviour:
   mainThrust: 60
   boostSpeed: 100
   rotSpeed: 450
+--- !u!114 &114359402731664376
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1402751397162762}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3db7e97dce29e04e97a69e52bdf2703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet1: {fileID: 1679187275398958, guid: 66c1eae05b20cbf408ff1ace9bd36066, type: 2}
+  TurretPref: {fileID: 1891799757114346, guid: 0c53142284899734497b7be9f2084dee, type: 2}
+  ship: {fileID: 0}
+  shootSpeed: 0.7
+  bulletDamage: 10
+  bulletSpeed: 40
+  shootSound: {fileID: 0}
 --- !u!114 &114460934698635270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -307,21 +354,3 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
---- !u!114 &114970226187864236
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1295144804945226}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3db7e97dce29e04e97a69e52bdf2703, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet1: {fileID: 1679187275398958, guid: 66c1eae05b20cbf408ff1ace9bd36066, type: 2}
-  TurretPref: {fileID: 1891799757114346, guid: 0c53142284899734497b7be9f2084dee, type: 2}
-  ship: {fileID: 0}
-  shootSpeed: 0.7
-  bulletDamage: 10
-  bulletSpeed: 40
-  shootSound: {fileID: 0}

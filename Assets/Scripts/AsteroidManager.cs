@@ -20,7 +20,6 @@ public class AsteroidManager : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        ship = GetComponent<GameManager>().GetShipRef(); // assighn player ship reference to local pointer
         SpawnBackgroundAsteroids(100);
 
         for (int i = 0; i < NoAsteroids; i++)
@@ -28,6 +27,10 @@ public class AsteroidManager : MonoBehaviour
             spawnedAsteroids[i] = SpawnAsteroid();
         }
 	}
+    void OnEnable()
+    {
+        ship = GetComponent<GameManager>().GetShipRef(); // assighn player ship reference to local pointer
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate ()

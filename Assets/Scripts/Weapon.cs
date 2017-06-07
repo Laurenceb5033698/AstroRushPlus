@@ -10,7 +10,7 @@ abstract public class Weapon : MonoBehaviour{
 
 
     [SerializeField] protected GameObject ship; //refernece to ship
-    protected GameObject turret = null;
+    //protected GameObject turret = null;
     [SerializeField] protected float shootSpeed;//fiddle with this one
     
     protected float reload = 0;
@@ -28,23 +28,14 @@ abstract public class Weapon : MonoBehaviour{
     {
         if(TurretPref != null)
         {
-            float yrot = (Vector3.Angle(Vector3.right, ship.transform.right));
-            //Debug.Log("Turret angle: " + yrot);
-            if (Vector3.Cross(ship.transform.right, Vector3.right).y < 0) yrot = -yrot;
-            
-            yrot = yrot * Mathf.PI / 180;
-            Vector3 loca = ship.transform.position + new Vector3(0.589f * Mathf.Cos(yrot), 0.651f, 0.589f * Mathf.Sin(yrot));
-            turret = Instantiate<GameObject>(TurretPref, loca, Quaternion.LookRotation(Vector3.up, -ship.transform.right), ship.transform);//
+            GetComponentInParent<Arsenal>().SwapTurret(TurretPref);
+
         }
     }
 
     private void OnDisable()
     {
-        if (turret)
-        {
-            Destroy(turret);
-            turret = null;
-        }
+        
     }
 
     void Update () // Update is called once per frame

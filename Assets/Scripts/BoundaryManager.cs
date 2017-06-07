@@ -16,10 +16,14 @@ public class BoundaryManager : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        
+	}
+    void OnEnable()
+    {
         ship = GetComponent<GameManager>().GetShipRef();
         boundaryx.GetComponent<BoundaryLine>().setShipRef(ship);
         boundaryz.GetComponent<BoundaryLine>().setShipRef(ship);
-	}
+    }
 	
 	// Update is called once per frame
 	void Update ()

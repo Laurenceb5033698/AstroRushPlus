@@ -17,16 +17,18 @@ class Arsenal : MonoBehaviour
 
     private int NoWeapons = 3;
     [SerializeField] private List<Weapon> Weapons;//weapon prefabs
+    private GameObject turret = null;
     private Weapon Gun = null;
     private int currentGun = 0;
 
     private void Start()
     {
-        GetComponents<Weapon>(Weapons);
+        GetComponentsInChildren<Weapon>(Weapons);
         NoWeapons = Weapons.Count;
         foreach (Weapon item in Weapons)
         {
             item.SetShipObject(ship);
+            //Debug.Log(item.gameObject.name);
         }
         Gun = Weapons[currentGun];
         Gun.enabled = true;
@@ -59,6 +61,18 @@ class Arsenal : MonoBehaviour
     public void FireWeapon(Vector3 Aimdir)
     {
         if (Gun)
+        //{
             Gun.Shoot(Aimdir);
+        //    Quaternion temp = new Quaternion();
+        //    temp.SetLookRotation(Aimdir, transform.up);
+        //    turret.transform.rotation = temp;
+        //}
+    }
+    public void SwapTurret(GameObject prefab)
+    {
+        if (turret)
+            Destroy(turret);
+        
+        turret = Instantiate<GameObject>(prefab, transform.position, transform.rotation, ship.transform);
     }
 }
