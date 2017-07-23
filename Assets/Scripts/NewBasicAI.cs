@@ -23,7 +23,7 @@ public class NewBasicAI : MonoBehaviour {
     private bool spawnedPickup = false;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         stats = gameObject.GetComponent<ShipStats>();
         ship = gameObject;
         rb = ship.gameObject.GetComponent<Rigidbody>();

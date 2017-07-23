@@ -238,11 +238,11 @@ public class UI : MonoBehaviour {
 
     public void ResetButton()
     {
-        GetComponent<GameManager>().RestartGame();
+        //GetComponent<GameManager>().RestartGame();
     }
     public void MainMenuButton()
     {
-        GetComponent<GameManager>().LoadMainMenu();
+        //GetComponent<GameManager>().LoadMainMenu();
     }
 
 }

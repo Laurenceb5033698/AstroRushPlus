@@ -6,8 +6,13 @@ public class Explosion : MonoBehaviour {
 	private float lifeSpam = 0.5f;
 	private float progress = 0f;
 
-	// Use this for initialization
-	void Start () 
+    private void Awake()
+    {
+        if (GetComponent<AudioSource>())
+            GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("gameVolume");
+    }
+    // Use this for initialization
+    void Start () 
 	{
         lifeSpam = Time.time + 0.5f;
 		//transform.gameObject.GetComponent<ParticleSystem> ().enableEmission = true;

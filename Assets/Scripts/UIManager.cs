@@ -8,19 +8,25 @@ public class UIManager : MonoBehaviour
     public delegate void UIEvent(bool active);
     public static event UIEvent Options;
     public static event UIEvent MusicvolumeChanged;
+    public static event UIEvent GamevolumeChanged;
+    public delegate void ScreenEvent(ScreenElement screen);
+    public static event ScreenEvent ScreenChanged;
+
 
 
     //public static event GameEvent OnExitGame;
 
-    public enum Screens { TitleMenu, GameScreen, PauseScreen, NumScreens }
+    public enum Screens { TitleMenu, LoadingScreen, GameScreen, PauseScreen, NumScreens }
 
-    private Canvas[] mScreens;
+    private ScreenElement[] mScreens;
     private Screens mCurrentScreen;
 
     //optionspanel
     [SerializeField] private GameObject optionsPanel;
     private bool optionPanelActive =false;
-    [SerializeField] private Slider volumeSlider;
+    [SerializeField] private Slider MusicvolumeSlider;
+    [SerializeField] private Slider GamevolumeSlider;
+
 
 
     public static UIManager instance = null;
@@ -34,16 +40,26 @@ public class UIManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
+        SceneLoader.Loaded += LoadingComplete;
+
         if (PlayerPrefs.HasKey("musicVolume"))
-            volumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
+            MusicvolumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
         else{
-            volumeSlider.value = 1;
-            PlayerPrefs.SetFloat("musicVolume", volumeSlider.value);
+            MusicvolumeSlider.value = 1;
+            PlayerPrefs.SetFloat("musicVolume", MusicvolumeSlider.value);
         }
+        if (PlayerPrefs.HasKey("gameVolume"))
+            GamevolumeSlider.value = PlayerPrefs.GetFloat("gameVolume");
+        else
+        {
+            GamevolumeSlider.value = 0.5f;
+            PlayerPrefs.SetFloat("gameVolume", GamevolumeSlider.value);
+        }
+        PlayerPrefs.Save();
 
         //find canvas' in children and assign to apropriate slots
-        mScreens = new Canvas[(int)Screens.NumScreens];
-        Canvas[] screens = GetComponentsInChildren<Canvas>();
+        mScreens = new ScreenElement[(int)Screens.NumScreens];
+        ScreenElement[] screens = GetComponentsInChildren<ScreenElement>();
         for (int count = 0; count < screens.Length; ++count)
         {
             for (int slot = 0; slot < mScreens.Length; ++slot)
@@ -58,37 +74,89 @@ public class UIManager : MonoBehaviour
 
         for (int screen = 1; screen < mScreens.Length; ++screen)
         {
+            //mScreens[screen].SetActive(false);
             mScreens[screen].enabled = false;
         }
         optionsPanel.SetActive(false);
 
         mCurrentScreen = Screens.TitleMenu;
     }
-    public static UI GetGameUiObject()
+
+    public void LoadingComplete()
     {
-        UI ui = null;
-        ui = UIManager.instance.GetComponentInChildren<UI>();
+        mScreens[(int)Screens.LoadingScreen].enabled = false;
+        mScreens[(int)mCurrentScreen].enabled = true;
+    }
+
+    public static ScreenElement GetGameUiObject()
+    {
+        ScreenElement ui = null;
+        ui = UIManager.instance.GetCurrentElement();
         return ui;
+    }
+    public ScreenElement GetCurrentElement()
+    {
+        return mScreens[(int)mCurrentScreen];
+    }
+    private void SceneTransitionTo(Screens screen)
+    {//ONLY used when loading new scenes
+        
+        mScreens[(int)mCurrentScreen].enabled = false;
+        mScreens[(int)Screens.LoadingScreen].enabled = true;
+        mCurrentScreen = screen;
+    }
+    private void TransitionTo(Screens screen)
+    {//used when a UI screen is swapped in-scene
+        mScreens[(int)mCurrentScreen].enabled = false;
+        mScreens[(int)screen].enabled = true;
+        mCurrentScreen = screen;
     }
     public void StartGame()
     {
         SceneLoader.LoadLevel(0);
-        TransitionTo(Screens.GameScreen);
+        SceneTransitionTo(Screens.GameScreen);
     }
 
     public void EndLevel()
     {
         SceneLoader.LoadTitleScene();
 
-        TransitionTo(Screens.TitleMenu);
+        SceneTransitionTo(Screens.TitleMenu);
+        OnScreenChanged(Screens.GameScreen);//resets gamemanager reference
+
+    }
+    public void RestartLevel()
+    {
+        SceneLoader.RestartCurrentLevel();
+        TransitionTo(Screens.GameScreen);
+        OnScreenChanged();
     }
 
-    private void TransitionTo(Screens screen)
+
+    //returns currently active screen
+    private void OnScreenChanged(Screens targetScreen = Screens.NumScreens)
     {
-        mScreens[(int)mCurrentScreen].enabled = false;
-        mScreens[(int)screen].enabled = true;
-        mCurrentScreen = screen;
+        if (ScreenChanged != null)
+        {
+            if (targetScreen != Screens.NumScreens)
+                ScreenChanged(mScreens[(int)targetScreen]);
+            else
+                ScreenChanged(mScreens[(int)mCurrentScreen]);
+        }
     }
+    public void Pause(bool isPlayerDead)
+    {
+        TransitionTo(Screens.PauseScreen);
+        ((UI_Pause)mScreens[(int)mCurrentScreen]).setMessage(isPlayerDead);
+        OnScreenChanged();
+    }
+    public void Resume()
+    {
+        TransitionTo(Screens.GameScreen);
+        OnScreenChanged();
+
+    }
+
     public void MenuQuit()
     {
         Application.Quit();
@@ -122,9 +190,16 @@ public class UIManager : MonoBehaviour
     //Event - volume changed
     public void musicVolumeOnValueChanged()
     {
-        PlayerPrefs.SetFloat("musicVolume", volumeSlider.value);
+        PlayerPrefs.SetFloat("musicVolume", MusicvolumeSlider.value);
         if (MusicvolumeChanged != null)
             MusicvolumeChanged(true);
+        PlayerPrefs.Save();
+    }
+    public void gameVolumeOnValueChanged()
+    {
+        PlayerPrefs.SetFloat("gameVolume", GamevolumeSlider.value);
+        if (GamevolumeChanged != null)
+            GamevolumeChanged(true);
         PlayerPrefs.Save();
     }
 }

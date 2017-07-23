@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private GameObject playerShipPref;
     [SerializeField] private GameObject pointerPref;
     [SerializeField] private CameraScript cam;
-    private UI ui=null;
+    private ScreenElement ui=null;
     private EnemyManager em;
     private WaveManager wm;
     private AsteroidManager asm;
@@ -32,10 +32,13 @@ public class GameManager : MonoBehaviour {
             Destroy(this);
 
         music.volume = 0.2f * PlayerPrefs.GetFloat("musicVolume");
+        AudioListener.volume = PlayerPrefs.GetFloat("gameVolume");
 
         //scene needs to have finished loading before we instantiate anything
         SceneLoader.Loaded += SL_OnLoadingComplete;
+        UIManager.ScreenChanged += ScreenChanged;
         ui = UIManager.GetGameUiObject();
+        ((UI_Game)ui).AttachGameManager();
         
         Time.timeScale = 1;
 	}
@@ -46,25 +49,29 @@ public class GameManager : MonoBehaviour {
         laser = GetComponent<LineRenderer>();
         laser.startWidth = 0.2f;
         laser.endWidth = 0.2f;
-
-        
-        em = GetComponent<EnemyManager>();
-        wm = GetComponent<WaveManager>();
-        asm = GetComponent<AsteroidManager>();
-        bdrym = GetComponent<BoundaryManager>();
-    }
-    private void SL_OnLoadingComplete()
-    {//ensures instances are created in the right scene
         playerShip = (GameObject)Instantiate(playerShipPref, Vector3.zero, Quaternion.identity);
         pointer = (GameObject)Instantiate(pointerPref, Vector3.zero, Quaternion.identity);
         pointer.GetComponent<Pointer>().SetFollowTarget(playerShip);
         cam.SetTarget(playerShip); // give the player ship reference to the camera
+        
+
+        em = GetComponent<EnemyManager>();
+        wm = GetComponent<WaveManager>();
+        asm = GetComponent<AsteroidManager>();
+        bdrym = GetComponent<BoundaryManager>();
         em.enabled = true;
         asm.enabled = true;
         bdrym.enabled = true;
     }
-    void OnDestroy(){//clean event
+    private void SL_OnLoadingComplete()
+    {//ensures instances are created in the right scene
+        this.enabled = true;
+    }
+    void OnDestroy(){//clean events
         SceneLoader.Loaded -= SL_OnLoadingComplete;
+        UIManager.ScreenChanged -= ScreenChanged;
+
+        ((UI_Game)ui).RemoveGameManager();
     }
 	// Update is called once per frame
 	void Update () 
@@ -74,30 +81,70 @@ public class GameManager : MonoBehaviour {
 
         laser.SetPosition(0, playerShip.transform.position);
         laser.SetPosition(1, ClosestEnemy);
-
-
+        
         ShipStats s = playerShip.GetComponent<ShipStats>();
-        ui.UpdateGameStats(currentScore, em.GetTotalShipLeft(), wm.GetWave());
-        ui.UpdateShipStats(s.GetBoostFuelAmount(), s.GetShieldPUState(), s.ShipHealth, s.GetNoMissiles(), playerShip.GetComponent<ShipController>().GetWeaponType());
-        if (!s.IsAlive()) ui.SetGameOverState(true);
+        switch (ui.name)
+        {
+            case "GameScreen":
+                //GameScreen ui controls/ updates
+                Time.timeScale = 1;
+                //UI_Game mUIg = ((UI_Game)ui);
+                ((UI_Game)ui).UpdateGameStats(currentScore, em.GetTotalShipLeft(), wm.GetWave());
+                ((UI_Game)ui).UpdateShipStats(s.GetBoostFuelAmount(), s.GetShieldPUState(), s.ShipHealth, s.GetNoMissiles(), playerShip.GetComponent<ShipController>().GetWeaponType());
+                if (!s.IsAlive())
+                    ((UI_Game)ui).Button_PausePressed(true);
+                else
+                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1))// B controller button or Escape button
+                    ((UI_Game)ui).Button_PausePressed(false);
+                break;
+            case "PauseScreen":
+            default:
+                //PauseScreen ui controls / updates
+                Time.timeScale = 0;
+                //UI_Pause mUIp = (UI_Pause)ui;
+                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Y))// if A controller button or Y keyboard button
+                {
+                    ((UI_Pause)ui).Button_RestartPressed();
+                }
+                else if (s.IsAlive() && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)))// B controller button or Escape button
+                    ((UI_Pause)ui).Button_ContinuePressed();
+                else if (Input.GetKeyDown(KeyCode.JoystickButton3))
+                    ((UI_Pause)ui).Button_QuitToMenuPressed();
+                //if (s.IsAlive() && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7))) // esape button or Start controller button
+                //{
+                //    UIManager.instance.Resume();
+                //}
+                break;
+        }
+        
+        //ShipStats s = playerShip.GetComponent<ShipStats>();
+        //ui.UpdateGameStats(currentScore, em.GetTotalShipLeft(), wm.GetWave());
+        //ui.UpdateShipStats(s.GetBoostFuelAmount(), s.GetShieldPUState(), s.ShipHealth, s.GetNoMissiles(), playerShip.GetComponent<ShipController>().GetWeaponType());
+        //if (!s.IsAlive()) ui.SetGameOverState(true);
 
-        Time.timeScale = (ui.GetMenuState() || ui.GetHintsState()) ? 0 : 1;
+        //Time.timeScale = (ui.GetMenuState() || ui.GetHintsState()) ? 0 : 1;
 
-        if (ui.GetMenuState())
-        {
-            if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Y)) RestartGame(); // if A controller button or Y keyboard button
-            else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) ToggleUIState(); // B controller button or Escape button
-            else if (Input.GetKeyDown(KeyCode.JoystickButton3)) LoadMainMenu();
-        }
-        else if (ui.GetHintsState() && (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return)))
-        {
-            ui.IncrementDHIndex();
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7)) // esape button or Start controller button
-        {
-            ui.ToggleEscState();
-        }
-    
+        //if (ui.GetMenuState())
+        //{
+        //    if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Y)) RestartGame(); // if A controller button or Y keyboard button
+        //    else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) ToggleUIState(); // B controller button or Escape button
+        //    else if (Input.GetKeyDown(KeyCode.JoystickButton3)) LoadMainMenu();
+        //}
+        //else
+        //{
+        //    if (ui.GetHintsState() && (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return)))
+        //    {
+        //        ui.IncrementDHIndex();
+        //    }
+        //    else
+        //    {
+        //        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7)) // esape button or Start controller button
+        //        {
+        //            ui.ToggleEscState();
+        //        }
+        //    }
+        //}
+
     }
 
     public void AddScore(int s)
@@ -108,19 +155,9 @@ public class GameManager : MonoBehaviour {
     {
         return playerShip;
     }
-
-    public void ToggleUIState()
+    public void ScreenChanged(ScreenElement newScreen)
     {
-        ui.ToggleEscState();
-    }
-
-    public void RestartGame()
-    {
-        SceneLoader.LoadTitleScene();    
-    }
-    public void LoadMainMenu()
-    {
-        SceneLoader.LoadTitleScene();
+        ui = newScreen;
     }
 
 

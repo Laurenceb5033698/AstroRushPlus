@@ -27,7 +27,7 @@ public class ShipController : MonoBehaviour
     //private Shield shield;
 
     // Mains --------------------------------------------------------------------------------------------------------
-    void Start() // Use this for initialization
+    void Awake() // Use this for initialization
     {
 
 
@@ -39,7 +39,21 @@ public class ShipController : MonoBehaviour
         arsenal = ship.GetComponentInChildren<Arsenal>();
         arsenal.SetShipObject(ship);
     }
+    void Start()
+    {
+        arsenal.RegisterUI();
 
+    }
+    private void OnEnable()
+    {
+        //UIManager.GamevolumeChanged += ShootVolumeChanged;
+
+    }
+    private void OnDisable()
+    {
+        //UIManager.GamevolumeChanged -= ShootVolumeChanged;
+
+    }
     void Update() // Update is called once per frame
     {
         UpdateController();
@@ -48,21 +62,12 @@ public class ShipController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.JoystickButton4) || Input.GetMouseButtonDown(1)) // left bumper
         {
-            arsenal.ChangeGun(1);
-            //if (gun.GetWeaponMode() == 0)
-            //{
-            //    weaponType = 1;
-            //    gun.changeType("tri");
-            //}
-            //else
-            //{
-            //    weaponType = 0;
-            //    gun.changeType("pew");
-            //}
+            weaponType = arsenal.ChangeGun(-1);
+            
         }
         if (Input.GetKeyDown(KeyCode.JoystickButton5))
         {
-            arsenal.ChangeGun(-1);
+            weaponType = arsenal.ChangeGun(1);
         }
 
 
@@ -183,5 +188,10 @@ public class ShipController : MonoBehaviour
     void OnApplicationQuit()
     {
         GamePad.SetVibration(playerIndex, 0, 0);
+    }
+
+    void ShootVolumeChanged(bool x)
+    {
+        arsenal.volumeChanged(PlayerPrefs.GetFloat("gameVolume") /10);
     }
 }

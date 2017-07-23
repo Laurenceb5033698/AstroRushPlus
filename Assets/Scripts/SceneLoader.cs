@@ -88,12 +88,12 @@ public class SceneLoader : MonoBehaviour
             }
         }
         yield return mWaitForEndOfFrame;
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(level));
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(level));//new scene should always be active scene by default, execpt when it isnt
         Loading = false;
 
     }
 
-    private void LoadGameLevel(string level)
+    private void LoadLevelFromMenu(string level)
     {
         Loading = true;
 
@@ -123,22 +123,44 @@ public class SceneLoader : MonoBehaviour
 
         //then load the new level
         StartCoroutine(LoadNewScene(TitleScene));
-    } 
+        wasLoading = true;
+
+    }
+    private void LoadLevelFromLevel(string levToLoad, string LevUnload)
+    {
+        Loading = true;
+        string leveName = SceneManager.GetActiveScene().name;
+
+        if (SceneManager.GetSceneByName(LevUnload).isLoaded)
+        {
+            StartCoroutine(UnloadScene(LevUnload));//unload it if it is
+        }
+
+        //then load the new level
+        StartCoroutine(LoadNewScene(levToLoad));
+        wasLoading = true;
+    }
 
     public static void LoadLevel(int sceneIndex)
     {
         SceneLoader sl = SceneLoader.instance;
         if(sceneIndex >= 0 && sceneIndex < sl.GameScenes.Length)
         {
-            sl.LoadGameLevel(sl.GameScenes[sceneIndex]);
+            sl.LoadLevelFromMenu(sl.GameScenes[sceneIndex]);//unloads titlescene then loads a gameScene
             
         }
     }
     public static void LoadTitleScene()
     {
         SceneLoader sl = SceneLoader.instance;
-        sl.LoadMainMenu();
+        sl.LoadMainMenu();//unloads currently active scene, then loads titleScene
     }
 
+    public static void RestartCurrentLevel()
+    {
+        SceneLoader sl = SceneLoader.instance;
+        string leveName = SceneManager.GetActiveScene().name;
+        sl.LoadLevelFromLevel(leveName, leveName);//unloads then loads itself again
+    }
 
 }

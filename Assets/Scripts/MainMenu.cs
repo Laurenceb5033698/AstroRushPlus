@@ -33,6 +33,9 @@ public class MainMenu : MonoBehaviour {
         else
             PlayerPrefs.SetFloat("musicVolume", 1);
 
+        
+
+
         PlayerPrefs.SetInt("showHints", 1);
         PlayerPrefs.Save();
 

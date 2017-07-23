@@ -22,21 +22,26 @@ abstract public class Weapon : MonoBehaviour{
     virtual public void Start () // Use this for initialization
     {
         shootSound = GetComponent<AudioSource>();
-    }
+        
 
+    }
+    public void volumeChanged(float val)
+    {
+        shootSound.volume = val;
+    }
     private void OnEnable()
     {
-        if(TurretPref != null)
+        if (TurretPref != null)
         {
             GetComponentInParent<Arsenal>().SwapTurret(TurretPref);
 
         }
+
     }
 
     private void OnDisable()
-    {
-        
-    }
+    { }
+    
 
     void Update () // Update is called once per frame
     {	}

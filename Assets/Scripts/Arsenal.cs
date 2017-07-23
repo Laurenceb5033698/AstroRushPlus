@@ -21,7 +21,7 @@ class Arsenal : MonoBehaviour
     private Weapon Gun = null;
     private int currentGun = 0;
 
-    private void Start()
+    private void Awake()
     {
         GetComponentsInChildren<Weapon>(Weapons);
         NoWeapons = Weapons.Count;
@@ -39,7 +39,13 @@ class Arsenal : MonoBehaviour
         ship = obj;
     }
 
-    public void ChangeGun( int a)
+    public void RegisterUI()
+    {
+        UI_Game GameUI = (UI_Game)UIManager.GetGameUiObject();
+        GameUI.RegisterWeaponIcons(Weapons);
+    }
+
+    public int ChangeGun( int a)
     {
         Gun.enabled = false;
         if (a > 0)
@@ -56,6 +62,7 @@ class Arsenal : MonoBehaviour
         }
         Gun = Weapons[currentGun];
         Gun.enabled = true;
+        return currentGun;
     } 
 
     public void FireWeapon(Vector3 Aimdir)
@@ -74,5 +81,13 @@ class Arsenal : MonoBehaviour
             Destroy(turret);
         
         turret = Instantiate<GameObject>(prefab, transform.position, transform.rotation, ship.transform);
+    }
+
+    public void volumeChanged(float v)
+    {
+        foreach (Weapon item in Weapons)
+        {
+            item.volumeChanged(v);
+        }
     }
 }
