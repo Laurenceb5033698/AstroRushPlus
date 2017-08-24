@@ -25,6 +25,10 @@ public class UI_Pause : ScreenElement
         UIManager.instance.EndLevel();
 
     }
+    public void Button_OptionsPressed()
+    {
+        UIManager.instance.OptionsButton();
+    }
     public void setMessage(bool isPlayerDead)
     {
         if (isPlayerDead)

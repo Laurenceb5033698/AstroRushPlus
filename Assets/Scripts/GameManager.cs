@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour {
         SceneLoader.Loaded += SL_OnLoadingComplete;
         UIManager.ScreenChanged += ScreenChanged;
         ui = UIManager.GetGameUiObject();
-        ((UI_Game)ui).AttachGameManager();
+        //((UI_Game)ui).AttachGameManager();
         
         Time.timeScale = 1;
 	}
@@ -63,6 +63,15 @@ public class GameManager : MonoBehaviour {
         asm.enabled = true;
         bdrym.enabled = true;
     }
+    private void OnEnable()
+    {
+        UIManager.MusicvolumeChanged += UI_OnVolumeChanged;
+    }
+    private void OnDisable()
+    {
+        UIManager.MusicvolumeChanged -= UI_OnVolumeChanged;
+
+    }
     private void SL_OnLoadingComplete()
     {//ensures instances are created in the right scene
         this.enabled = true;
@@ -71,7 +80,7 @@ public class GameManager : MonoBehaviour {
         SceneLoader.Loaded -= SL_OnLoadingComplete;
         UIManager.ScreenChanged -= ScreenChanged;
 
-        ((UI_Game)ui).RemoveGameManager();
+        //((UI_Game)ui).RemoveGameManager();
     }
 	// Update is called once per frame
 	void Update () 
@@ -85,6 +94,8 @@ public class GameManager : MonoBehaviour {
         ShipStats s = playerShip.GetComponent<ShipStats>();
         switch (ui.name)
         {
+            //case "OptionsScreen":
+            //break;
             case "GameScreen":
                 //GameScreen ui controls/ updates
                 Time.timeScale = 1;
@@ -96,6 +107,10 @@ public class GameManager : MonoBehaviour {
                 else
                 if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1))// B controller button or Escape button
                     ((UI_Game)ui).Button_PausePressed(false);
+                break;
+            case "OptionsScreen":
+                //return from options menu
+                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) { ((UI_Options)ui).Button_OptionsReturnPressed(); }
                 break;
             case "PauseScreen":
             default:
@@ -146,7 +161,11 @@ public class GameManager : MonoBehaviour {
         //}
 
     }
+    public void UI_OnVolumeChanged(bool temp)
+    {
+        music.volume = 0.2f * PlayerPrefs.GetFloat("musicVolume");
 
+    }
     public void AddScore(int s)
     {
         currentScore += s;

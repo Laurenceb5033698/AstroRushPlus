@@ -16,18 +16,11 @@ public class UIManager : MonoBehaviour
 
     //public static event GameEvent OnExitGame;
 
-    public enum Screens { TitleMenu, LoadingScreen, GameScreen, PauseScreen, NumScreens }
+    public enum Screens { TitleMenu, LoadingScreen, GameScreen, PauseScreen, OptionsScreen, NumScreens }
 
     private ScreenElement[] mScreens;
     private Screens mCurrentScreen;
-
-    //optionspanel
-    [SerializeField] private GameObject optionsPanel;
-    private bool optionPanelActive =false;
-    [SerializeField] private Slider MusicvolumeSlider;
-    [SerializeField] private Slider GamevolumeSlider;
-
-
+    
 
     public static UIManager instance = null;
 
@@ -42,20 +35,8 @@ public class UIManager : MonoBehaviour
 
         SceneLoader.Loaded += LoadingComplete;
 
-        if (PlayerPrefs.HasKey("musicVolume"))
-            MusicvolumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
-        else{
-            MusicvolumeSlider.value = 1;
-            PlayerPrefs.SetFloat("musicVolume", MusicvolumeSlider.value);
-        }
-        if (PlayerPrefs.HasKey("gameVolume"))
-            GamevolumeSlider.value = PlayerPrefs.GetFloat("gameVolume");
-        else
-        {
-            GamevolumeSlider.value = 0.5f;
-            PlayerPrefs.SetFloat("gameVolume", GamevolumeSlider.value);
-        }
-        PlayerPrefs.Save();
+        
+        
 
         //find canvas' in children and assign to apropriate slots
         mScreens = new ScreenElement[(int)Screens.NumScreens];
@@ -77,7 +58,6 @@ public class UIManager : MonoBehaviour
             //mScreens[screen].SetActive(false);
             mScreens[screen].enabled = false;
         }
-        optionsPanel.SetActive(false);
 
         mCurrentScreen = Screens.TitleMenu;
     }
@@ -115,6 +95,7 @@ public class UIManager : MonoBehaviour
     {
         SceneLoader.LoadLevel(0);
         SceneTransitionTo(Screens.GameScreen);
+        OnScreenChanged();
     }
 
     public void EndLevel()
@@ -122,7 +103,7 @@ public class UIManager : MonoBehaviour
         SceneLoader.LoadTitleScene();
 
         SceneTransitionTo(Screens.TitleMenu);
-        OnScreenChanged(Screens.GameScreen);//resets gamemanager reference
+        OnScreenChanged();
 
     }
     public void RestartLevel()
@@ -165,41 +146,31 @@ public class UIManager : MonoBehaviour
     {
         Screen.fullScreen = !Screen.fullScreen;
     }
+    public void OptionsButton()
+    {
+        TransitionTo(Screens.OptionsScreen);
+        OnScreenChanged();
+    }
+    public void ReturnToMenu()
+    {
+        TransitionTo(Screens.TitleMenu);
+        OnScreenChanged();
+    } 
 
     //Static Functions for script-UI interaction from other scenes
-    public static void StartGamePressed(){
-        UIManager.instance.StartGame();
-    }
-    public static void MenuQuitPressed(){
-        UIManager.instance.MenuQuit();
-    }
-    public static void PressedOptionsButton(){
-        UIManager.instance.OptionsButton();
-    }
-    //Event - options panel
-    public void OptionsButton()
-    {//as long as the event "Options" has subscribers
-        if (Options != null)
-        {//Trigger the Event for all subscribers
-            optionPanelActive = !optionPanelActive;
-            Options(optionPanelActive);
-            optionsPanel.SetActive(optionPanelActive);
-        }//!!! NOTE - MAKE SURE TO UNSUBSCRIBE BEFORE UNLOADING SCENE !!!
-
-    }
-    //Event - volume changed
+  
+    
+    //Events - volume changed
     public void musicVolumeOnValueChanged()
     {
-        PlayerPrefs.SetFloat("musicVolume", MusicvolumeSlider.value);
         if (MusicvolumeChanged != null)
             MusicvolumeChanged(true);
-        PlayerPrefs.Save();
     }
     public void gameVolumeOnValueChanged()
     {
-        PlayerPrefs.SetFloat("gameVolume", GamevolumeSlider.value);
         if (GamevolumeChanged != null)
             GamevolumeChanged(true);
-        PlayerPrefs.Save();
     }
+
+
 }

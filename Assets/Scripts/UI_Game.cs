@@ -18,7 +18,7 @@ public class UI_Game : ScreenElement
     [SerializeField] private GameObject healthIndicator;
     [SerializeField] private GameObject healthVignette;
 
-    private GameManager gm = null;
+    //private GameManager gm = null;
     [SerializeField] private Texture[] Icons = new Texture[7];//this is all available weapons
     //[SerializeField] private Texture[] Icons80 = new Texture[7];//this is all available transparanet weapons
 
@@ -29,8 +29,8 @@ public class UI_Game : ScreenElement
     private float fade = 1.5f;
     private float fadeTime = 0.0f;
 
-    public void AttachGameManager(){ gm = GameManager.instance; }
-    public void RemoveGameManager() { gm = null; }
+    //public void AttachGameManager(){ gm = GameManager.instance; }
+    //public void RemoveGameManager() { gm = null; }
 
     private void Update()
     {
@@ -173,7 +173,7 @@ public class UI_Game : ScreenElement
             healthIndicator.SetActive(hpActive);
         }
 
-        if (gm.GetComponent<BoundaryManager>().GetState())
+        if (GameManager.instance.GetComponent<BoundaryManager>().GetState())
         {
             popupElements[0].SetActive(true);
         }

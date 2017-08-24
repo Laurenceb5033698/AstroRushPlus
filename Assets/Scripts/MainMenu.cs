@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour {
     
     [SerializeField] private GameObject planet;
     [SerializeField] private AudioSource music;
-
+    private ScreenElement ui = null;
 
     // option menu
     private bool mOptionPanelActive = false;
@@ -25,16 +25,27 @@ public class MainMenu : MonoBehaviour {
     private Vector3 targetDir;
     private Vector3 targetRot;
 
+    public static MainMenu instance = null;
+
     void Awake()
     {
+        if (instance == null)
+            instance = this;
+        else if (instance != this)
+            Destroy(this);
+
+        UIManager.ScreenChanged += ScreenChanged;
+        ui = UIManager.GetGameUiObject();
+        //((UI_MainMenu)ui).AttachMainMenuManager();
 
         if (PlayerPrefs.HasKey("musicVolume"))
             music.volume = PlayerPrefs.GetFloat("musicVolume");
         else
             PlayerPrefs.SetFloat("musicVolume", 1);
-
-        
-
+        if (PlayerPrefs.HasKey("gameVolume"))
+            AudioListener.volume = PlayerPrefs.GetFloat("gameVolume");
+        else
+            PlayerPrefs.SetFloat("gameVolume", 0.5f);
 
         PlayerPrefs.SetInt("showHints", 1);
         PlayerPrefs.Save();
@@ -44,9 +55,15 @@ public class MainMenu : MonoBehaviour {
 
         
     }
+    private void OnDestroy()
+    {
+        UIManager.ScreenChanged -= ScreenChanged;
+        //UIManager.instance.ReturnToMenu();
+        //((UI_MainMenu)ui).RemoveMainMenuManager();
 
-	// Use this for initialization
-	void Start () {
+    }
+    // Use this for initialization
+    void Start () {
         shipStartPos = ship.transform.position;
         targetRot = ship.transform.eulerAngles;
         Time.timeScale = 1;
@@ -55,20 +72,29 @@ public class MainMenu : MonoBehaviour {
         targetDir = new Vector3(shipStartPos.x + Random.Range(-temp, temp), shipStartPos.y + Random.Range(-temp, temp), shipStartPos.z + Random.Range(-temp, temp));
     }
     private void OnEnable(){
-        UIManager.Options += UI_OnOptionsCall;//subscribe to options toggle event
+        //UIManager.Options += UI_OnOptionsCall;//subscribe to options toggle event
         UIManager.MusicvolumeChanged += UI_OnVolumeChanged;
     }
     private void OnDisable(){
-        UIManager.Options -= UI_OnOptionsCall;//unsubscribe
+        //UIManager.Options -= UI_OnOptionsCall;//unsubscribe
         UIManager.MusicvolumeChanged -= UI_OnVolumeChanged;
     }
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return)) UIManager.StartGamePressed(); // if A controller button or Enter keyboard button
-        else if (Input.GetKeyDown(KeyCode.JoystickButton3)) UIManager.PressedOptionsButton();
-        else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) UIManager.MenuQuitPressed(); // B controller button or Escape button
-
+        switch (ui.name)
+        {
+            case "OptionsScreen":
+                //return from options menu
+                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) { ((UI_Options)ui).Button_OptionsReturnPressed(); UI_OnOptionsCall(false); }
+                    break;
+            case "TitleScreen":
+            default:
+                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return)) ((UI_MainMenu)ui).Button_StartGamePressed();  // if A controller button or Enter keyboard button
+                else if (Input.GetKeyDown(KeyCode.JoystickButton3)) ((UI_MainMenu)ui).Button_OptionsPressed(); 
+                else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) ((UI_MainMenu)ui).Button_MenuQuitPressed(); // B controller button or Escape button
+                break;
+        }
         if (!mOptionPanelActive)
         {
             if (Vector3.Distance(ship.transform.position, shipStartPos) > 5)
@@ -147,5 +173,9 @@ public class MainMenu : MonoBehaviour {
 
 
 
-    
+    public void ScreenChanged(ScreenElement newScreen)
+    {
+        ui = newScreen;
+    }
+
 }

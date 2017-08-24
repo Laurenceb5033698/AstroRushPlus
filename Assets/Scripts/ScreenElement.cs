@@ -19,12 +19,4 @@ abstract public class ScreenElement : MonoBehaviour {
     {
         cv.enabled = false;
     }
-
-
-    void Start () {
-		
-	}
-	void Update () {
-		
-	}
 }
