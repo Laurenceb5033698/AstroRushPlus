@@ -19,7 +19,7 @@ abstract public class Weapon : MonoBehaviour{
     [SerializeField] protected float bulletSpeed = 20f;
     [SerializeField] protected AudioSource shootSound;
 
-    virtual public void Start () // Use this for initialization
+    virtual public void Awake () // Use this for initialization
     {
         shootSound = GetComponent<AudioSource>();
         
@@ -29,18 +29,20 @@ abstract public class Weapon : MonoBehaviour{
     {
         shootSound.volume = val;
     }
+
     private void OnEnable()
+    { }
+    private void OnDisable()
+    { }
+    
+    public void OnSwappedTo()
     {
         if (TurretPref != null)
         {
             GetComponentInParent<Arsenal>().SwapTurret(TurretPref);
 
         }
-
     }
-
-    private void OnDisable()
-    { }
     
 
     void Update () // Update is called once per frame

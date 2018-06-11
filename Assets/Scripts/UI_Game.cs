@@ -92,6 +92,7 @@ public class UI_Game : ScreenElement
 
             }
         }
+        WeaponChanged(0);
     }
     
     public void WeaponChanged(int newWeap)

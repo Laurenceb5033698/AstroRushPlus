@@ -4,10 +4,10 @@ using System.Collections;
 public class Missile : Projectile 
 {
     //private float detonateAt;
-    private Rigidbody rb;
-    
-    private GameObject target;
-    private Vector3 direction;
+    protected Rigidbody rb;
+
+    protected GameObject target;
+    protected Vector3 direction;
 
     // Use this for initialization
     void Start () 
@@ -44,7 +44,7 @@ public class Missile : Projectile
         }
 
 	}
-    void OnTriggerEnter(Collider collision)
+    protected override void OnTriggerEnter(Collider collision)
     {
         if ((collision.gameObject.GetComponent<Projectile>() == null) &&(collision.gameObject.GetComponent<PickupItem>() == null))
         {
@@ -53,7 +53,7 @@ public class Missile : Projectile
                 applyImpulse(collision.GetComponent<Rigidbody>());
             }
             else if (collision.gameObject.tag == "EnemyShip") {
-                collision.gameObject.GetComponentInParent<NewBasicAI>().TakeDamage(damage);
+                collision.gameObject.GetComponentInParent<NewBasicAI>().TakeDamage(transform.position, damage);
                 applyImpulse(collision.GetComponentInParent<Rigidbody>());
             }
             
@@ -65,7 +65,7 @@ public class Missile : Projectile
 	{
         
     }
-    private GameObject findTarget() //Looks for certain objects nearby 
+    protected GameObject findTarget() //Looks for certain objects nearby 
      {
         GameObject bestTarget = null;
         float closestDistanceSqr = Mathf.Infinity;

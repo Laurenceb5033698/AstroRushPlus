@@ -12,7 +12,7 @@ public class UI_MainMenu : ScreenElement
 
     public void Button_StartGamePressed()
     {
-        UIManager.instance.StartGame();
+        UIManager.instance.LevelSelectButton();
     }
     public void Button_OptionsPressed()
     {

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public delegate void UIEvent(bool active);
-    public static event UIEvent Options;
     public static event UIEvent MusicvolumeChanged;
     public static event UIEvent GamevolumeChanged;
     public delegate void ScreenEvent(ScreenElement screen);
@@ -16,7 +15,7 @@ public class UIManager : MonoBehaviour
 
     //public static event GameEvent OnExitGame;
 
-    public enum Screens { TitleMenu, LoadingScreen, GameScreen, PauseScreen, OptionsScreen, NumScreens }
+    public enum Screens { TitleMenu, LevelSelect, LoadingScreen, GameScreen, PauseScreen, OptionsScreen, NumScreens }
 
     private ScreenElement[] mScreens;
     private Screens mCurrentScreen;
@@ -91,11 +90,13 @@ public class UIManager : MonoBehaviour
         mScreens[(int)screen].enabled = true;
         mCurrentScreen = screen;
     }
-    public void StartGame()
+    public void StartGame(int lev)
     {
-        SceneLoader.LoadLevel(0);
-        SceneTransitionTo(Screens.GameScreen);
-        OnScreenChanged();
+        if (SceneLoader.LoadLevel(lev))
+        {
+            SceneTransitionTo(Screens.GameScreen);
+            OnScreenChanged();
+        }
     }
 
     public void EndLevel()
@@ -156,7 +157,11 @@ public class UIManager : MonoBehaviour
         TransitionTo(Screens.TitleMenu);
         OnScreenChanged();
     } 
-
+    public void LevelSelectButton()
+    {
+        TransitionTo(Screens.LevelSelect);
+        OnScreenChanged();
+    }
     //Static Functions for script-UI interaction from other scenes
   
     

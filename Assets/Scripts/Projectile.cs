@@ -23,7 +23,7 @@ public class Projectile : MonoBehaviour {
         damage = dmg;
         speed = spd;
     }
-    void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {//deal damage to target
         //Debug.Log("Entity hit: " + other.gameObject.name);
 
@@ -33,11 +33,11 @@ public class Projectile : MonoBehaviour {
             switch (other.gameObject.tag)
             {
                 case "PlayerShip":
-                    other.gameObject.GetComponentInParent<ShipController>().TakeDamage(damage);
+                    other.gameObject.GetComponentInParent<PlayerController>().TakeDamage(transform.position, damage);
                     applyImpulse(other.GetComponentInParent<Rigidbody>());
                     break;
                 case "EnemyShip":
-                    other.gameObject.GetComponentInParent<NewBasicAI>().TakeDamage(damage);
+                    other.gameObject.GetComponentInParent<NewBasicAI>().TakeDamage(transform.position, damage);
                     applyImpulse(other.GetComponentInParent<Rigidbody>());
                     break;
                 case "Asteroid":
@@ -58,7 +58,7 @@ public class Projectile : MonoBehaviour {
         }
     }
 
-    protected void applyImpulse(Rigidbody body)
+    protected virtual void applyImpulse(Rigidbody body)
     {
         //Vector3 direction = transform.position - body.transform.position;
         body.AddForce(transform.forward * ((damage/2)+(speed/(2+body.mass))), ForceMode.Impulse);

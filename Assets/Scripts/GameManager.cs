@@ -92,6 +92,7 @@ public class GameManager : MonoBehaviour {
         laser.SetPosition(1, ClosestEnemy);
         
         ShipStats s = playerShip.GetComponent<ShipStats>();
+        
         switch (ui.name)
         {
             //case "OptionsScreen":
@@ -101,7 +102,12 @@ public class GameManager : MonoBehaviour {
                 Time.timeScale = 1;
                 //UI_Game mUIg = ((UI_Game)ui);
                 ((UI_Game)ui).UpdateGameStats(currentScore, em.GetTotalShipLeft(), wm.GetWave());
-                ((UI_Game)ui).UpdateShipStats(s.GetBoostFuelAmount(), s.GetShieldPUState(), s.ShipHealth, s.GetNoMissiles(), playerShip.GetComponent<ShipController>().GetWeaponType());
+                ((UI_Game)ui).UpdateShipStats(
+                    s.GetBoostFuelAmount(),
+                    s.GetShieldPUState(),
+                    s.ShipHealth,
+                    playerShip.GetComponentInChildren<Equipment>().GetAmmoCount(),
+                    playerShip.GetComponent<PlayerController>().GetWeaponType());
                 if (!s.IsAlive())
                     ((UI_Game)ui).Button_PausePressed(true);
                 else

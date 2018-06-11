@@ -13,7 +13,7 @@ public class PickupItem : MonoBehaviour {
     private bool directionUp = true;
     private float KillTimer;
 
-    
+    public int refillval = 5;
 
 	// Use this for initialization
 	void Start () 
@@ -85,7 +85,9 @@ public class PickupItem : MonoBehaviour {
                     break;
 				case 3: c.transform.gameObject.GetComponentInParent<ShipStats>().SetHealth(); //Debug.Log("Ship Repaired"); 
                     break;
-				case 4: c.transform.gameObject.GetComponentInParent<ShipStats>().SetMissiles(); //Debug.Log("Missile Reloaded"); 
+				case 4: //c.transform.gameObject.GetComponentInParent<ShipStats>().SetMissiles(); //Debug.Log("Missile Reloaded"); 
+                    //c.gameObject.GetComponentInParent<Equipment>().AddAmmo(refillval);
+                    c.gameObject.GetComponentInParent<PlayerController>().gameObject.GetComponentInChildren<Equipment>().AddAmmo(refillval);
                     break;
                 default: //Debug.Log("WARNING! Wrong pickup type"); 
                     break;

@@ -98,7 +98,7 @@ public class ShipStats : Health {
                     ShipShield = -val;   //do damage to shield
                 else
                 {//otherwise split damage between shield and health
-                    ShipHealth = -(shield - val);   //remaining damage is delt to health
+                    ShipHealth = (shield - val);   //remaining damage is delt to health; (shield-val) here will always be negative
                     ShipShield = -shield;        //and shield is set to 0
                 }
             else
@@ -213,6 +213,9 @@ public class ShipStats : Health {
 	public void SetHealth(){
 		ShipHealth = maxHealth;
 	}
+    public float GetShieldMax() {
+        return maxShield;
+    }
 	public void SetMissiles(){
 		addMissile (maxMissiles);
 	}

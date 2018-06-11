@@ -11,7 +11,7 @@ using System.Collections.Generic;
 //{
     
 //}
-class Arsenal : MonoBehaviour
+public class Arsenal : MonoBehaviour
 {
     [SerializeField] private GameObject ship;
 
@@ -21,7 +21,7 @@ class Arsenal : MonoBehaviour
     private Weapon Gun = null;
     private int currentGun = 0;
 
-    private void Awake()
+    void Awake()
     {
         GetComponentsInChildren<Weapon>(Weapons);
         NoWeapons = Weapons.Count;
@@ -62,6 +62,7 @@ class Arsenal : MonoBehaviour
         }
         Gun = Weapons[currentGun];
         Gun.enabled = true;
+        Gun.OnSwappedTo();
         return currentGun;
     } 
 
