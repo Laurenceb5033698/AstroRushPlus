@@ -5,9 +5,7 @@ using XInputDotNetPure; // for controller rumble
 
 public class PlayerRamShip : PlayerController
 {
-
-    [SerializeField] private GameObject mPreF; // missile prefab
-    
+        
     //private bool UsingAbility = false;
     private bool Ramming = false;
     private float RamCharging = 0.0f;

@@ -237,6 +237,9 @@ abstract public class PlayerController : MonoBehaviour {
         shield_Emitter.transform.rotation = Quaternion.LookRotation(dir, Vector3.up) * Quaternion.Euler(0, -90, 0);
 
         shield_Emitter.Play();
+        GetComponentInChildren<Animation>().Stop();
+        GetComponentInChildren<Animation>().Play();
+
     }
 
     virtual public void TakeDamage(Vector3 otherpos, float amount)

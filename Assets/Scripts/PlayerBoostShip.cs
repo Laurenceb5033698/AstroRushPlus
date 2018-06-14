@@ -4,10 +4,7 @@ using System.Collections;
 using XInputDotNetPure; // for controller rumble
 
 public class PlayerBoostShip : PlayerController {
-
-
-    [SerializeField] private GameObject mPreF; // missile prefab
-
+    
     new void Awake() {
         //Call Base class Awake.
         base.Awake();

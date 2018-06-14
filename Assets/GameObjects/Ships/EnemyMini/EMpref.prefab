@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 33858744163691066}
   - component: {fileID: 23957367983030388}
   - component: {fileID: 114759819944303450}
+  - component: {fileID: 111445022149333714}
   m_Layer: 1
   m_Name: EnemyShield
   m_TagString: Untagged
@@ -320,6 +321,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.402635, y: 2.0491972, z: 4.548548}
   m_Center: {x: 0.10451698, y: -0.07007289, z: 0.3591864}
+--- !u!111 &111445022149333714
+Animation:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1201440317604280}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 3e76a03113965ec49aa91b72f97b51d8, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 3e76a03113965ec49aa91b72f97b51d8, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &114643328742306414
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -341,6 +357,7 @@ MonoBehaviour:
   shield_Emitter: {fileID: 198906000312413212}
   destination: {x: 0, y: 0, z: 0}
   CollisionImpulse: 18
+  player: {fileID: 0}
 --- !u!114 &114759819944303450
 MonoBehaviour:
   m_ObjectHideFlags: 1

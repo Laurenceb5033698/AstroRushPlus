@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 33586872477843330}
   - component: {fileID: 23264495857167354}
   - component: {fileID: 114164359378559890}
+  - component: {fileID: 111985377725899594}
   m_Layer: 1
   m_Name: shield
   m_TagString: Untagged
@@ -1059,6 +1060,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!111 &111985377725899594
+Animation:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1536392573198790}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 3e76a03113965ec49aa91b72f97b51d8, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 3e76a03113965ec49aa91b72f97b51d8, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &114066796094642078
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1073,7 +1089,6 @@ MonoBehaviour:
   shield_Emitter: {fileID: 198631340844456310}
   arsenal: {fileID: 0}
   equipment: {fileID: 0}
-  mPreF: {fileID: 1000011011204806, guid: 22ca76d6bef13aa40a80baef94fadb8f, type: 2}
   RamChargeMax: 1
 --- !u!114 &114075094649607246
 MonoBehaviour:

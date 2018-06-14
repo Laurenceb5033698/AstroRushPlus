@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 33500423925622934}
   - component: {fileID: 23077478615949660}
   - component: {fileID: 114058234271273966}
+  - component: {fileID: 111235272107948462}
   m_Layer: 1
   m_Name: shield
   m_TagString: Untagged
@@ -374,7 +375,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1840774733257694}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 126.35335, y: -2.1425, z: 503.42334}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4951515965144042}
@@ -389,7 +390,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1041841502963482}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 462.84784, y: 10.140614, z: 378.1008}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4566572494624392}
@@ -520,7 +521,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1339232573534010}
   m_LocalRotation: {x: -0, y: -0.70710576, z: -0, w: 0.70710784}
-  m_LocalPosition: {x: 8.19997, y: -1.9656463, z: -1.9808578}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4543119064973034}
@@ -1059,6 +1060,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!111 &111235272107948462
+Animation:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1136341473242160}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 3e76a03113965ec49aa91b72f97b51d8, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 3e76a03113965ec49aa91b72f97b51d8, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &114058234271273966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1084,7 +1100,6 @@ MonoBehaviour:
   shield_Emitter: {fileID: 198316402497470724}
   arsenal: {fileID: 114154831939512524}
   equipment: {fileID: 114075003607039664}
-  mPreF: {fileID: 1000011011204806, guid: 22ca76d6bef13aa40a80baef94fadb8f, type: 2}
 --- !u!114 &114075003607039664
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11428,7 +11443,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1398900197
+  randomSeed: -1472213111
   InitialModule:
     serializedVersion: 3
     enabled: 1
