@@ -1,21 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-class AoeMissile : Missile
-{
-    public float radius;
+public class ProximityMine : Projectile {
 
-    // Use this for initialization
+    protected Rigidbody rb;
+    //[SerializeField] private GameObject indicator;
+    //no movement 
+    //can hold an "effect"
+
+    //detonates at set distance
+    public float DetonationDistance = 4.0f;
+    public float BlastRadius = 20f;
+
     void Start()
     {
-        radius = 10f;
+        //indicator
         rb = transform.GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * 50f, ForceMode.Impulse);
-        lifetime = 10f;
-        target = findTarget();
-    }
+        lifetime = 20f;
+        GetComponent<SphereCollider>().radius = DetonationDistance;
 
-    // Update is called once per frame
+    }
+    
     protected override void Update()
     {
         lifetime -= Time.deltaTime;
@@ -23,52 +29,40 @@ class AoeMissile : Missile
         {
             DestroySelf();
         }
-        if (target)
-        {
-            direction = (target.transform.position - transform.position).normalized;
+        //  spin    
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.FromToRotation(transform.forward, transform.right), 10.0f);
 
-            rb.AddForce(direction * 1500 * Time.deltaTime, ForceMode.Force);
-            if (Vector3.Dot(transform.forward, direction) < 0.2f)
-                rb.AddForce(direction * 200 * Time.deltaTime, ForceMode.VelocityChange);
-            if (rb.velocity.magnitude > 80)
-                rb.velocity = rb.velocity.normalized * 80;
+        //  slow down
 
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.FromToRotation(Vector3.forward, direction), 300 * Time.deltaTime);
-
-        }
-        else
-        {
-            rb.AddForce(transform.forward * 1500 * Time.deltaTime, ForceMode.Force);
-        }
 
     }
 
     protected override void OnTriggerEnter(Collider collision)
     {
         if ((collision.gameObject.GetComponent<Projectile>() == null) && (collision.gameObject.GetComponent<PickupItem>() == null))
-        {           
+        {
             DestroySelf();
         }
     }
     protected override void DestroySelf()
     {
-        Collider[] inRange = Physics.OverlapSphere(transform.position, radius);
+        Collider[] inRange = Physics.OverlapSphere(transform.position, BlastRadius);
 
         foreach (Collider victim in inRange)
         {
-            float dist = Vector3.Distance(victim.transform.position, transform.position);
+            //float dist = Vector3.Distance(victim.transform.position, transform.position);
 
 
             if (victim.gameObject.tag == "Asteroid")
             {
-                victim.gameObject.GetComponent<Asteroid>().TakeDamage(damage - 2 * dist);
+                victim.gameObject.GetComponent<Asteroid>().TakeDamage(damage);
                 applyImpulse(victim.GetComponent<Rigidbody>());
             }
             else
             {
                 if (victim.gameObject.tag == "EnemyShip")
                 {
-                    victim.GetComponentInParent<NewBasicAI>().TakeDamage(transform.position, damage - (2f * dist));
+                    victim.GetComponentInParent<NewBasicAI>().TakeDamage(transform.position, damage);
                     applyImpulse(victim.GetComponentInParent<Rigidbody>());
                 }
             }
@@ -81,6 +75,7 @@ class AoeMissile : Missile
         Instantiate(psImpactPrefab, transform.position, transform.rotation);
         Destroy(transform.gameObject);
     }
+
     protected override void applyImpulse(Rigidbody body)
     {
         Vector3 direction = body.transform.position - transform.position;
@@ -88,4 +83,3 @@ class AoeMissile : Missile
         body.AddForce(direction * ((damage / 2) + (speed / (2 + body.mass))), ForceMode.Impulse);
     }
 }
-

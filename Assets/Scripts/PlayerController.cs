@@ -53,25 +53,29 @@ abstract public class PlayerController : MonoBehaviour {
     {
         UpdateController();
         direction = transform.right;
-        ///Handle inputs:
-        // Mouse Buttons
-        InputLMB();
-        InputRMB();
 
-        // Analogs
-        InputLeftAnalog();
-        InputRightAnalog();
+        if (!stats.GetDisabled())   //can only be controlled if not disabled/emp'd
+        {
+            ///Handle inputs:
+            // Mouse Buttons
+            InputLMB();
+            InputRMB();
 
-        //DpadY
-        InputDpadYAxis();
+            // Analogs
+            InputLeftAnalog();
+            InputRightAnalog();
 
-        // Triggers
-        InputLeftTrigger();
-        InputRightTrigger();
+            //DpadY
+            InputDpadYAxis();
 
-        // Bumpers
-        InputLeftBumper();
-        InputRightBumper();
+            // Triggers
+            InputLeftTrigger();
+            InputRightTrigger();
+
+            // Bumpers
+            InputLeftBumper();
+            InputRightBumper();
+        }
         rb.angularVelocity = new Vector3(0, 0, 0);
 
     }

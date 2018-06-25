@@ -315,6 +315,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114857559966011024, guid: 5c3c0cf80c01bac4d9673a11b7f6f1cf,
+        type: 2}
+      propertyPath: Icons.Array.size
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4024721596396376, guid: 5c3c0cf80c01bac4d9673a11b7f6f1cf, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -387,6 +392,11 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114857559966011024, guid: 5c3c0cf80c01bac4d9673a11b7f6f1cf,
+        type: 2}
+      propertyPath: Icons.Array.data[7]
+      value: 
+      objectReference: {fileID: 2800000, guid: 441f9c229c0d2c14890fa2c9e51ffdfb, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5c3c0cf80c01bac4d9673a11b7f6f1cf, type: 2}
   m_IsPrefabParent: 0

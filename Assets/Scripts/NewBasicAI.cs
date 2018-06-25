@@ -42,8 +42,11 @@ public class NewBasicAI : MonoBehaviour {
 	void Update () {
         if (stats.IsAlive())
         {
-            destination = player.transform.position;
-            move();
+            if (!stats.GetDisabled())
+            {
+                destination = player.transform.position;
+                move();
+            }
         }
         else
         {

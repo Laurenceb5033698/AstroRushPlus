@@ -1,29 +1,12 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class Projectile : MonoBehaviour {
+public class EmpProjectile : Projectile {
 
-    public float damage;
-    public float lifetime = 5f;//lifetime in seconds
-    public string ownertag; //(eg player)
-    public float speed;//forward speed
-    public GameObject psImpactPrefab;//particleSystem prefab
+    public float EMPDuration = 1.0f;
 
-
-    // Use this for initialization
-    void Start () {
-        //damage = 10f;
-        //speed = 10f;
-	    //test self collision
-        ///ownertag = "PlayerShip";
-	}
-    public void SetupValues(float dmg, float spd,string str)
-    {
-        ownertag = str;
-        damage = dmg;
-        speed = spd;
-    }
-    protected virtual void OnTriggerEnter(Collider other)
+    protected override void OnTriggerEnter(Collider other)
     {//deal damage to target
         //Debug.Log("Entity hit: " + other.gameObject.name);
 
@@ -35,11 +18,13 @@ public class Projectile : MonoBehaviour {
             {
                 case "PlayerShip":
                     other.gameObject.GetComponentInParent<PlayerController>().TakeDamage(transform.position, damage);
+                    other.gameObject.GetComponentInParent<ShipStats>().SetDisable(EMPDuration/2);
                     applyImpulse(other.GetComponentInParent<Rigidbody>());
                     hit = true;
                     break;
                 case "EnemyShip":
                     other.gameObject.GetComponentInParent<NewBasicAI>().TakeDamage(transform.position, damage);
+                    other.gameObject.GetComponentInParent<ShipStats>().SetDisable(EMPDuration);
                     applyImpulse(other.GetComponentInParent<Rigidbody>());
                     hit = true;
                     break;
@@ -57,29 +42,12 @@ public class Projectile : MonoBehaviour {
 
                     break;
             }
-            
-            if ( hit ) DestroySelf();
+
+            if (hit) DestroySelf();
 
         }
     }
 
-    protected virtual void applyImpulse(Rigidbody body)
-    {
-        //Vector3 direction = transform.position - body.transform.position;
-        body.AddForce(transform.forward * ((damage/2)+(speed/(2+body.mass))), ForceMode.Impulse);
-    }
 
-    // Update is called once per frame
-    protected virtual void Update () {
-        transform.position += transform.forward * speed * Time.deltaTime;
-        lifetime -= Time.deltaTime;
-        if (lifetime < 0)
-            DestroySelf();
-	}
 
-    protected virtual void DestroySelf()
-    {// perhaps spawn a particle? like missile does
-        Instantiate(psImpactPrefab, transform.position, transform.rotation);
-        Destroy(transform.gameObject);
-    }
 }

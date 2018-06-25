@@ -19,7 +19,7 @@ public class UI_Game : ScreenElement
     [SerializeField] private GameObject healthVignette;
 
     //private GameManager gm = null;
-    [SerializeField] private Texture[] Icons = new Texture[7];//this is all available weapons
+    [SerializeField] private Texture[] Icons = new Texture[8];//this is all available weapons
     //[SerializeField] private Texture[] Icons80 = new Texture[7];//this is all available transparanet weapons
 
     private List<Texture> activeWeaponIcons = new List<Texture>();//this is weapons in inventory
@@ -85,6 +85,9 @@ public class UI_Game : ScreenElement
                     break;
                 case "WeaponBFOM":
                     activeWeaponIcons.Add(Icons[6]);
+                    break;
+                case "WeaponEMP":
+                    activeWeaponIcons.Add(Icons[7]);
                     break;
                 default:
                     activeWeaponIcons.Add(Icons[0]);
