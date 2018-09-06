@@ -116,7 +116,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1778817720549756}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50.6, y: 0, z: -72}
+  m_LocalPosition: {x: 9.702232, y: 12.455206, z: -25.89293}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4365929795912140}
@@ -146,7 +146,7 @@ Transform:
   m_GameObject: {fileID: 1151094385394324}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 1, z: 0.25}
+  m_LocalScale: {x: 0.22, y: 1, z: 0.22}
   m_Children: []
   m_Father: {fileID: 4988086088177810}
   m_RootOrder: 0
@@ -315,8 +315,11 @@ MonoBehaviour:
   speed: 0
   psImpactPrefab: {fileID: 1000012913820410, guid: c6c8651041f3bdf49a5edf18c28b6522,
     type: 2}
-  DetonationDistance: 8
-  BlastRadius: 20
+  indicator: {fileID: 4988086088177810}
+  AoeEffectPrefab: {fileID: 1768495959160604, guid: 9e91af3ae8be8b4489dc54dee44775da,
+    type: 2}
+  DetonationDistance: 4
+  BlastRadius: 8
 --- !u!120 &120807254644316012
 LineRenderer:
   m_ObjectHideFlags: 1

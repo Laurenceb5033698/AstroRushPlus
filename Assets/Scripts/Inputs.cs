@@ -78,11 +78,12 @@ public class Inputs : MonoBehaviour
         LTriggerPressed = LTriggerPressed || Input.GetKeyDown(KeyCode.LeftShift);
         LTriggerInUse = LTriggerInUse || Input.GetKey(KeyCode.LeftShift);
 
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) LeftStick.y = 1;
-        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) LeftStick.y = -1;
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) { LeftStick.y = 1; LeftAnalogueInUse = true; }
+        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) { LeftStick.y = -1; LeftAnalogueInUse = true; }
+            
 
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) LeftStick.x = -1;
-        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) LeftStick.x = 1;   
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) { LeftStick.x = -1; LeftAnalogueInUse = true; }
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) { LeftStick.x = 1; LeftAnalogueInUse = true; }
     }
 
     private void DirectionalPad()

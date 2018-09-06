@@ -137,7 +137,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014282705904}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 44.27, y: 0, z: -22.98}
+  m_LocalPosition: {x: -0.878358, y: 67.97841, z: -47.44431}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4768745784300466}
@@ -444,6 +444,7 @@ MonoBehaviour:
   mainThrust: 50
   boostSpeed: 200
   rotSpeed: 350
+  EmpDisabled: 0
 --- !u!114 &114000012755614326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -460,7 +461,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   stats: {fileID: 0}
   arsenal: {fileID: 0}
-  psDestructPrefab: {fileID: 1757954528477580, guid: 952f80489fd736347b6a9eb33e6021b6,
+  psDestructPrefab: {fileID: 1226382822747598, guid: 3700763d6b9d11f419bd71e1dc30182e,
     type: 2}
   shield_Emitter: {fileID: 198830199492969330}
   destination: {x: 0, y: 0, z: 0}
@@ -490,7 +491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 148762c594004e64998a63931a038252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet1: {fileID: 1000011757418032, guid: e274e545976475e458db8aa8863c4d8c, type: 2}
+  bullet1: {fileID: 1791828775739272, guid: 1aee3d1ac2c033442a7021477256d266, type: 2}
   TurretPref: {fileID: 1897680203412384, guid: 4fe44cd76d1b6874fba38940060141d5, type: 2}
   ship: {fileID: 0}
   shootSpeed: 0.5

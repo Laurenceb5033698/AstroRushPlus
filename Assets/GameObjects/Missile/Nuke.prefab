@@ -95,7 +95,8 @@ GameObject:
   - component: {fileID: 223807311724863954}
   - component: {fileID: 222325461415007162}
   - component: {fileID: 114594736684901854}
-  - component: {fileID: 95670334639399242}
+  - component: {fileID: 111156925514791198}
+  - component: {fileID: 95871538299529536}
   m_Layer: 5
   m_Name: Symbol
   m_TagString: Untagged
@@ -279,14 +280,14 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!95 &95670334639399242
+--- !u!95 &95871538299529536
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1998698992975632}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: fe152998b7bb9a748880dbab7c7c6fb7, type: 2}
   m_CullingMode: 0
@@ -296,6 +297,22 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!111 &111156925514791198
+Animation:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1998698992975632}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 36f89cd4a4a52af449389f811f9cf3b9, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 36f89cd4a4a52af449389f811f9cf3b9, type: 2}
+  - {fileID: 7400000, guid: 1fa870c307f0496418f849a796874308, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &114079008480802310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -329,7 +346,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1945451225037128}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0eca269aeb7d4eb409a482bee968da35, type: 3}
   m_Name: 
@@ -385,10 +402,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 250
-  lifetime: 10
+  lifetime: 5
   ownertag: 
   speed: 0
-  psImpactPrefab: {fileID: 1000012913820410, guid: c6c8651041f3bdf49a5edf18c28b6522,
+  psImpactPrefab: {fileID: 1286009212852204, guid: 1cb7eb4d7697bf84b9c900bece08b5dc,
     type: 2}
   radius: 40
 --- !u!198 &198693394609519550
