@@ -39,7 +39,7 @@ public class Projectile : MonoBehaviour {
                     hit = true;
                     break;
                 case "EnemyShip":
-                    other.gameObject.GetComponentInParent<NewBasicAI>().TakeDamage(transform.position, damage);
+                    other.gameObject.GetComponentInParent<AICore>().TakeDamage(transform.position, damage);
                     applyImpulse(other.GetComponentInParent<Rigidbody>());
                     hit = true;
                     break;

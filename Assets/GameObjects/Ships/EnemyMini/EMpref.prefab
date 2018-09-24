@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 33548766750797092}
   - component: {fileID: 23467590487020876}
   - component: {fileID: 114762675273265530}
-  - component: {fileID: 114643328742306414}
+  - component: {fileID: 114435017249816202}
   - component: {fileID: 54421646775328430}
   - component: {fileID: 65806005107591020}
   m_Layer: 0
@@ -336,7 +336,7 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &114643328742306414
+--- !u!114 &114435017249816202
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -344,20 +344,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1440663641900600}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6541fa44418f66544bc525aa024f12b8, type: 3}
+  m_Script: {fileID: 11500000, guid: c9059900d90d01f4f813d9aa0de73f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostRange: 45
-  ship: {fileID: 0}
-  rb: {fileID: 0}
-  stats: {fileID: 0}
-  arsenal: {fileID: 0}
+  scoreValue: 80
+  innerRange: 11
+  ShootRange: 28
+  KeepAwayRange: 15
+  torqueMultiplier: 0.5
+  rb: {fileID: 54986166685203426, guid: 3686d767447a4f542ac757cbbe1989fd, type: 2}
+  stats: {fileID: 114355879930006260, guid: 3686d767447a4f542ac757cbbe1989fd, type: 2}
+  arsenal: {fileID: 114182419930961262, guid: 3686d767447a4f542ac757cbbe1989fd, type: 2}
+  SceneManagerObject: {fileID: 0}
+  aiManager: {fileID: 0}
   psDestructPrefab: {fileID: 1226382822747598, guid: 3700763d6b9d11f419bd71e1dc30182e,
     type: 2}
-  shield_Emitter: {fileID: 198906000312413212}
-  destination: {x: 0, y: 0, z: 0}
-  CollisionImpulse: 18
+  shield_Emitter: {fileID: 198586857167558148, guid: 3686d767447a4f542ac757cbbe1989fd,
+    type: 2}
   player: {fileID: 0}
+  destination: {x: -0.06660414, y: -0.00019478798, z: -0.17422855}
+  CollisionImpulse: 80
 --- !u!114 &114759819944303450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -386,7 +392,7 @@ MonoBehaviour:
   maxShield: 0
   maxMissiles: 0
   mainThrust: 80
-  boostSpeed: 400
+  boostSpeed: 300
   rotSpeed: 3000
   EmpDisabled: 0
 --- !u!198 &198638049381105770

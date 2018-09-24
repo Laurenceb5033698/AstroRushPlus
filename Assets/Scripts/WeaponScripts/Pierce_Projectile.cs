@@ -20,7 +20,7 @@ public class Pierce_Projectile : Projectile {
                     applyImpulse(other.GetComponentInParent<Rigidbody>());
                     break;
                 case "EnemyShip":
-                    other.gameObject.GetComponentInParent<NewBasicAI>().TakeDamage(transform.position, damage);
+                    other.gameObject.GetComponentInParent<AICore>().TakeDamage(transform.position, damage);
                     applyImpulse(other.GetComponentInParent<Rigidbody>());
                     break;
                 case "Asteroid":

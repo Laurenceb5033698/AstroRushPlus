@@ -23,12 +23,10 @@ GameObject:
   - component: {fileID: 114830234316784298}
   - component: {fileID: 114902171399596346}
   - component: {fileID: 114648062127691344}
-  - component: {fileID: 114095125253342290}
-  - component: {fileID: 114856465742883426}
+  - component: {fileID: 114898201069782662}
   - component: {fileID: 82205659764995654}
   - component: {fileID: 82397636292632932}
   - component: {fileID: 82841872887762272}
-  - component: {fileID: 120928617956294356}
   - component: {fileID: 114990620905786280}
   m_Layer: 8
   m_Name: SceneManager
@@ -468,24 +466,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114095125253342290
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014267789580}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6065f9dff3ab8bd4695a1840966f5a62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dropShipPref: {fileID: 1440663641900600, guid: c99d6c7b030b58849ae7b47bbdfb43a5,
-    type: 2}
-  prefRef:
-  - {fileID: 1000014282705904, guid: 72a6d6a147e1b6e40be82fed5ce6d959, type: 2}
-  - {fileID: 1000012975942040, guid: 2ee0b6c52f0ae1743a421e49fd69de40, type: 2}
-  - {fileID: 1800241870786566, guid: d67554b035ceb7e4981a9ca941f0bac1, type: 2}
-  group: {fileID: 1071140213903642}
 --- !u!114 &114103187194007118
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -511,7 +491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b5cbab746b47b84f95af3e583a950ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerShipPref: {fileID: 1113305914210738, guid: e43f44f296793174a9f10b366b6f8dd4,
+  playerShipPref: {fileID: 1285581705939522, guid: d8cc8145d1808a64cb64daa4b053aabe,
     type: 2}
   pointerPref: {fileID: 1000012266939556, guid: 38f2ce99039529744b1968d690fc052f,
     type: 2}
@@ -626,18 +606,26 @@ MonoBehaviour:
   - {fileID: 1000011899702836, guid: 826faa4e30c200b49b40ec4140dbd776, type: 2}
   - {fileID: 1000012189318170, guid: 1d580331398b7dc4e9d8d1806e6d86cd, type: 2}
   pickupSound: {fileID: 82397636292632932}
---- !u!114 &114856465742883426
+--- !u!114 &114898201069782662
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014267789580}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87d2b8bad9fad20429ac1b3e941b6d1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5348054ee26998742b9520978f6446c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextWaveSound: {fileID: 82841872887762272}
+  ShipPrefabs:
+  - {fileID: 1000014282705904, guid: 72a6d6a147e1b6e40be82fed5ce6d959, type: 2}
+  - {fileID: 1000012975942040, guid: 2ee0b6c52f0ae1743a421e49fd69de40, type: 2}
+  - {fileID: 1800241870786566, guid: d67554b035ceb7e4981a9ca941f0bac1, type: 2}
+  - {fileID: 1958769108598396, guid: 6c774449d92124d4cbc50c724abbb6f6, type: 2}
+  SceneGroup: {fileID: 1071140213903642}
+  newWaveSound: {fileID: 82841872887762272}
+  rPickupManager: {fileID: 114830234316784298}
+  player: {fileID: 0}
 --- !u!114 &114902171399596346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -823,94 +811,6 @@ LineRenderer:
         tangentMode: 0
       - serializedVersion: 2
         time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    colorGradient:
-      serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
-      key4: {r: 0, g: 0, b: 0, a: 0}
-      key5: {r: 0, g: 0, b: 0, a: 0}
-      key6: {r: 0, g: 0, b: 0, a: 0}
-      key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 0
-      ctime1: 65535
-      ctime2: 0
-      ctime3: 0
-      ctime4: 0
-      ctime5: 0
-      ctime6: 0
-      ctime7: 0
-      atime0: 0
-      atime1: 65535
-      atime2: 0
-      atime3: 0
-      atime4: 0
-      atime5: 0
-      atime6: 0
-      atime7: 0
-      m_Mode: 0
-      m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
-    alignment: 0
-    textureMode: 0
-    generateLightingData: 0
-  m_UseWorldSpace: 1
-  m_Loop: 0
---- !u!120 &120928617956294356
-LineRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014267789580}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 0
-  m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 0d6db045f516d6142b0611a8384abed7, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
-  m_Parameters:
-    serializedVersion: 2
-    widthMultiplier: 1
-    widthCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
         value: 1
         inSlope: 0
         outSlope: 0

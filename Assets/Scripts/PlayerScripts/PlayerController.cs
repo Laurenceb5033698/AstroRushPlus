@@ -230,7 +230,7 @@ abstract public class PlayerController : MonoBehaviour {
         TakeDamage(c.transform.position, c.relativeVelocity.magnitude / 4);
         if (c.gameObject.tag == "EnemyShip")
         {
-            c.gameObject.GetComponent<NewBasicAI>().TakeDamage(transform.position,50);
+            c.gameObject.GetComponent<AICore>().TakeDamage(transform.position,50);
         }
     }
     private void Shield_effect(Vector3 other)

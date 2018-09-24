@@ -53,7 +53,7 @@ public class Missile : Projectile
                 applyImpulse(collision.GetComponent<Rigidbody>());
             }
             else if (collision.gameObject.tag == "EnemyShip") {
-                collision.gameObject.GetComponentInParent<NewBasicAI>().TakeDamage(transform.position, damage);
+                collision.gameObject.GetComponentInParent<AICore>().TakeDamage(transform.position, damage);
                 applyImpulse(collision.GetComponentInParent<Rigidbody>());
             }
             
@@ -73,7 +73,7 @@ public class Missile : Projectile
         foreach (Collider col in targetColliders) 
         {
             //Debug.Log(col.gameObject.name); 
-            if (col.gameObject.GetComponentInParent<NewBasicAI>() != null)
+            if (col.gameObject.GetComponentInParent<AICore>() != null)
             {
                 Vector3 directionToTarget = col.gameObject.transform.position - transform.position;
                 float dSqrToTarget = directionToTarget.sqrMagnitude;

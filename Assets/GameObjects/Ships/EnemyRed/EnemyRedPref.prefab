@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 4000011298423368}
   - component: {fileID: 54000014048845214}
   - component: {fileID: 114000012421858068}
-  - component: {fileID: 114000014187363702}
+  - component: {fileID: 114023974720588430}
   m_Layer: 0
   m_Name: EnemyRedPref
   m_TagString: EnemyShip
@@ -423,11 +423,11 @@ MonoBehaviour:
   maxHealth: 100
   maxShield: 50
   maxMissiles: 0
-  mainThrust: 50
-  boostSpeed: 120
-  rotSpeed: 997.36
+  mainThrust: 40
+  boostSpeed: 50
+  rotSpeed: 1600
   EmpDisabled: 0
---- !u!114 &114000014187363702
+--- !u!114 &114023974720588430
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -435,20 +435,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000012975942040}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6541fa44418f66544bc525aa024f12b8, type: 3}
+  m_Script: {fileID: 11500000, guid: c9059900d90d01f4f813d9aa0de73f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostRange: 30
-  ship: {fileID: 0}
+  scoreValue: 100
+  innerRange: 21
+  ShootRange: 50
+  KeepAwayRange: 25
+  torqueMultiplier: 2
   rb: {fileID: 0}
   stats: {fileID: 0}
   arsenal: {fileID: 0}
-  psDestructPrefab: {fileID: 1830323574267388, guid: bbfed2a4178ec9a4e91382986eb1b7f7,
+  SceneManagerObject: {fileID: 0}
+  aiManager: {fileID: 0}
+  psDestructPrefab: {fileID: 1226382822747598, guid: 3700763d6b9d11f419bd71e1dc30182e,
     type: 2}
-  shield_Emitter: {fileID: 198137216437895342}
-  destination: {x: 0, y: 0, z: 0}
-  CollisionImpulse: 18
+  shield_Emitter: {fileID: 198677695340460118, guid: f0d6c80d254789d4daa6676e09539b9c,
+    type: 2}
   player: {fileID: 0}
+  destination: {x: 0, y: 0, z: 0}
+  CollisionImpulse: 90
 --- !u!114 &114377188220761102
 MonoBehaviour:
   m_ObjectHideFlags: 1

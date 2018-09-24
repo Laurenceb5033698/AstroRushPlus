@@ -23,7 +23,7 @@ public class EmpProjectile : Projectile {
                     hit = true;
                     break;
                 case "EnemyShip":
-                    other.gameObject.GetComponentInParent<NewBasicAI>().TakeDamage(transform.position, damage);
+                    other.gameObject.GetComponentInParent<AICore>().TakeDamage(transform.position, damage);
                     other.gameObject.GetComponentInParent<ShipStats>().SetDisable(EMPDuration);
                     applyImpulse(other.GetComponentInParent<Rigidbody>());
                     hit = true;

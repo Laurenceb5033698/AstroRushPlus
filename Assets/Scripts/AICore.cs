@@ -14,15 +14,16 @@ public class AICore : MonoBehaviour {
 
     //Customise AI range behaviours
     [SerializeField] private float innerRange = 30f;
-    [SerializeField] private float ShootRange = 30f;
+    [SerializeField] private float MaxShootRange = 30f;
+    [SerializeField] private float MinShootRange = 9f;
     [SerializeField] private float KeepAwayRange = 10f;
     [SerializeField] private float torqueMultiplier = 1.5f;
     //Component References
-    [SerializeField] private GameObject ship; // enemy ship object
     [SerializeField] private Rigidbody rb;
     [SerializeField] private ShipStats stats;
     [SerializeField] private Arsenal arsenal;
     public GameObject SceneManagerObject;
+    public AIManager aiManager;
 
     //Visual Effects
     [SerializeField] private GameObject psDestructPrefab;
@@ -40,13 +41,12 @@ public class AICore : MonoBehaviour {
     void Awake()
     {   //Setup AICore references
         stats = gameObject.GetComponent<ShipStats>();       //local stats
-        ship = gameObject;                                  //local gameobject
-        rb = ship.gameObject.GetComponent<Rigidbody>();     //local rigidbody
+        rb = gameObject.GetComponent<Rigidbody>();     //local rigidbody
 
         arsenal = GetComponentInChildren<Arsenal>();        //local weapons platform
         if (arsenal == null) Debug.Log("No weapon attached.");
         else
-            arsenal.SetShipObject(ship);
+            arsenal.SetShipObject(gameObject);
 
     }
 
@@ -67,13 +67,8 @@ public class AICore : MonoBehaviour {
             }
         }
         else
-        {
-            //if (!spawnedPickup) spawnedPickup = sm.GetComponent<PickupManager>().SpawnPickup(transform.position);
-            Instantiate(psDestructPrefab, transform.position, transform.rotation);
-            //spawn debris?
-
-            //DestroySelf();    //destruction handled by AIManager
-            gameObject.SetActive(false);
+        {   //die immediately
+            DestroySelf();
         }
 
     }
@@ -121,7 +116,7 @@ public class AICore : MonoBehaviour {
         //attack method (sometimes melee? sometimes ranged?)
 
         //determine if I can shoot at the target
-        if ((dist > KeepAwayRange) && (dist <= ShootRange) && (arsenal != null))
+        if ((dist > MinShootRange) && (dist <= MaxShootRange) && (arsenal != null))
             arsenal.FireWeapon(controlDir); //shoot at target
     }
 
@@ -133,13 +128,13 @@ public class AICore : MonoBehaviour {
     virtual protected void DistToDestination()
     {
         dist = Vector3.Distance(destination, gameObject.transform.position);
-        controlDir = (destination - ship.transform.position).normalized;
+        controlDir = (destination - gameObject.transform.position).normalized;
         //if dest is too close, fly away
         torqueMul = 1f;
 
         if (dist < KeepAwayRange)
         {
-            controlDir = (ship.transform.position - destination).normalized;
+            controlDir = (gameObject.transform.position - destination).normalized;
             torqueMul = torqueMultiplier;
         }
     }
@@ -158,7 +153,7 @@ public class AICore : MonoBehaviour {
 
         if (Vector3.Cross(controlDir, gameObject.transform.forward).y < 0) angle = -angle;
         angle = angle / -180;
-
+        
         float torque = stats.GetRotSpeed() * torqueMul;
         rb.AddRelativeTorque(Vector3.up * torque * angle * Time.deltaTime);
     }
@@ -190,28 +185,31 @@ public class AICore : MonoBehaviour {
     private void OnCollisionStay(Collision c)
     {
         if (!c.gameObject.GetComponent<Projectile>())
-            rb.AddForce(((ship.transform.position - c.gameObject.transform.position).normalized) * 100, ForceMode.Force);
+            rb.AddForce(((gameObject.transform.position - c.gameObject.transform.position).normalized) * 100, ForceMode.Force);
     }
 
     void OnCollisionEnter(Collision c)
     {   //Collided with any rigidbody object
         if (!c.gameObject.GetComponent<Projectile>())
         {
-            rb.AddForce(((ship.transform.position - c.gameObject.transform.position).normalized) * CollisionImpulse, ForceMode.Impulse);
+            rb.AddForce(((gameObject.transform.position - c.gameObject.transform.position).normalized) * CollisionImpulse, ForceMode.Impulse);
             TakeDamage(c.gameObject.transform.position, 10 * Time.deltaTime);
         }
     }
 
-    private void DestroySelf()
+    public void DestroySelf()
     {
         //sm.GetComponent<GameManager>().AddScore(scoreValue);
         //if (type != -1) sm.GetComponent<EnemyManager>().RemoveShip(id, type);
+        Instantiate(psDestructPrefab, transform.position, transform.rotation);
+        aiManager.Remove(gameObject);
         Destroy(transform.gameObject);
     }
 
-    public void Initialise(GameObject ThePlayer, GameObject sceneManager)
+    public void Initialise(GameObject ThePlayer, AIManager aiMngr, GameObject sceneManager)
     {
         player = ThePlayer;
+        aiManager = aiMngr;
         SceneManagerObject = sceneManager;
     }
 

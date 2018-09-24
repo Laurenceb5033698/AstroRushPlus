@@ -83,7 +83,7 @@ public class AoeEffect : MonoBehaviour {
         switch (mEffect)
         {
             case Effect.DAMAGE:
-                other.GetComponentInParent<NewBasicAI>().TakeDamage(transform.position, effectAmount * Time.deltaTime);
+                other.GetComponentInParent<AICore>().TakeDamage(transform.position, effectAmount * Time.deltaTime);
                 break;
             case Effect.EMP:
                 other.GetComponentInParent<ShipStats>().SetDisable(0.25f);

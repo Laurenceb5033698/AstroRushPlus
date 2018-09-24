@@ -9,13 +9,13 @@ public class AIManager : MonoBehaviour {
 
     int maxActiveShips = 20; //(ship limit onscreen)
     int RemainingShipsToSpawn= 0 ;
-    int totalShipsThisWave = 6; //(+2 per wave)
+    int totalShipsThisWave = 2; //(+2 per wave)
 
     float spawnDelay = 1f;
     float spawnTimer = 0f;
     float ResetDistance = 300f;
-    float minResetDistance = 200f;
-    bool InWave = false;
+    float minResetDistance = 150f;
+    bool SpawningShips = false;
     int SlowIndex = 0;  //slowUpdate ship Index
     int WaveCounter = 0;
 
@@ -41,12 +41,28 @@ public class AIManager : MonoBehaviour {
 
     void Start() {
 
-
+        ActiveShips = new List<GameObject>();
+        NewWave();
     }
 
     void Update() {
-
-        RemoveDeadShips();
+        
+        //wave management
+        if (SpawningShips)
+        {
+            if (ActiveShips.Count < maxActiveShips)
+            {
+                SpawnShip();
+            }
+        }
+        else
+        {  //all ships spawned
+            if (ActiveShips.Count == 0 && RemainingShipsToSpawn == 0)
+            {
+                newWaveSound.Play();    //play sound on end of wave
+                NewWave();  //waits for all ships to die
+            }
+        }
         SlowUpdate();
         
     }
@@ -57,13 +73,14 @@ public class AIManager : MonoBehaviour {
         {
             GameObject RandomPref = ShipPrefabs[Random.Range(0, ShipPrefabs.Count)];
             GameObject NewShip = Instantiate(RandomPref, GetRandomPosition(), Quaternion.identity);
-            NewShip.GetComponent<AICore>().Initialise(player, gameObject);
+            NewShip.GetComponent<AICore>().Initialise(player, this, gameObject);
 
             ActiveShips.Add(NewShip);
             NewShip.transform.parent = SceneGroup.transform;
-
-            --RemainingShipsToSpawn;
+            
             spawnTimer = Time.time + spawnDelay;
+            if (--RemainingShipsToSpawn == 0)
+                SpawningShips = false; //end spawning
         }
     }
 
@@ -73,8 +90,7 @@ public class AIManager : MonoBehaviour {
 
         totalShipsThisWave += 4;
         RemainingShipsToSpawn = totalShipsThisWave;
-        InWave = true;
-        newWaveSound.Play();
+        SpawningShips = true;
         ++WaveCounter;
     }
 
@@ -83,49 +99,36 @@ public class AIManager : MonoBehaviour {
     // ~good for retargeting and unimportant stuff (repositioning)
     private void SlowUpdate()
     {
-        //number of active ships can change (removeDeadShips) so check and account for that
-        if (SlowIndex >= ActiveShips.Count)
-            SlowIndex = ActiveShips.Count - 1;
-
-        //wave management
-        if (InWave)
+        //only do this if ships exist
+        if (ActiveShips.Count > 0)
         {
-            if (ActiveShips.Count < maxActiveShips)
-            {
-                SpawnShip();
-            }
+            //number of active ships can change (removeDeadShips) so check and account for that
+            if (SlowIndex >= ActiveShips.Count)
+                SlowIndex = ActiveShips.Count - 1;
+
+
+            //retargetship(SlowIndex);
+
+            //reposition lost ships
+            RepositionShip(SlowIndex);
+
+            //advance SlowIndex
+            if (--SlowIndex < 0)
+                SlowIndex = ActiveShips.Count - 1;
         }
-        else
-        {  //all ships spawned
-            if (ActiveShips.Count == 0 && RemainingShipsToSpawn == 0)
-                NewWave();  //waits for all ships to die
-        }
-
-        //retargetship(SlowIndex);
-
-        //reposition lost ships
-        RepositionShip(SlowIndex);
-
-        //advance SlowIndex
-        if(--SlowIndex < 0)
-            SlowIndex = ActiveShips.Count-1;
-      
     }
 
     //////////////////////
     //  Ship Processing
     //
 
-    private void RemoveDeadShips()
-    {   //called from Update;   processes all ships and destroys dead ones
-        foreach (GameObject ship in ActiveShips) {
-            if (!ship.GetComponent<AICore>().GetAlive()){
-                rPickupManager.GetComponent<PickupManager>().SpawnPickup(ship.transform.position);
-                ActiveShips.Remove(ship);
-                Destroy(ship);
-          }
-      }
+    public void Remove(GameObject ship)
+    {   //called by ship's OnDestroy();
+        rPickupManager.GetComponent<PickupManager>().SpawnPickup(ship.transform.position);
+        if (ActiveShips.Contains(ship))
+            ActiveShips.Remove(ship);
     }
+    
 
     private void RepositionShip(int index)
     {   //called from SlowUpdate;
@@ -177,8 +180,16 @@ public class AIManager : MonoBehaviour {
         return pos;
     }
 
+    /////////////
+    //  Getters
+    //
+
     public int GetTotalShipLeft()
     {
         return ActiveShips.Count;
+    }
+    public int GetWaveNumber()
+    {
+        return WaveCounter;
     }
 }

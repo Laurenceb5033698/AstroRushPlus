@@ -13,13 +13,11 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private GameObject pointerPref;
     [SerializeField] private CameraScript cam;
     private ScreenElement ui=null;
-    private EnemyManager em;
-    private WaveManager wm;
+    private AIManager aiMngr;
     private AsteroidManager asm;
     private BoundaryManager bdrym;
     private GameObject pointer;
-
-    private LineRenderer laser;
+    
     [SerializeField] private AudioSource music;
 
     public static GameManager instance = null;
@@ -45,21 +43,17 @@ public class GameManager : MonoBehaviour {
     
     void Start()
     {
-
-        laser = GetComponent<LineRenderer>();
-        laser.startWidth = 0.2f;
-        laser.endWidth = 0.2f;
+        
         playerShip = (GameObject)Instantiate(playerShipPref, Vector3.zero, Quaternion.identity);
         pointer = (GameObject)Instantiate(pointerPref, Vector3.zero, Quaternion.identity);
         pointer.GetComponent<Pointer>().SetFollowTarget(playerShip);
         cam.SetTarget(playerShip); // give the player ship reference to the camera
-        
 
-        em = GetComponent<EnemyManager>();
-        wm = GetComponent<WaveManager>();
+
+        aiMngr = GetComponent<AIManager>();
         asm = GetComponent<AsteroidManager>();
         bdrym = GetComponent<BoundaryManager>();
-        em.enabled = true;
+        aiMngr.enabled = true;
         asm.enabled = true;
         bdrym.enabled = true;
     }
@@ -85,11 +79,8 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        Vector3 ClosestEnemy = em.getClosestShipPos(playerShip.transform.position);
+        Vector3 ClosestEnemy = aiMngr.GetClosestShipPos(playerShip.transform.position);
         pointer.GetComponent<Pointer>().SetNewTarget(ClosestEnemy);
-
-        laser.SetPosition(0, playerShip.transform.position);
-        laser.SetPosition(1, ClosestEnemy);
         
         ShipStats s = playerShip.GetComponent<ShipStats>();
         
@@ -101,7 +92,7 @@ public class GameManager : MonoBehaviour {
                 //GameScreen ui controls/ updates
                 Time.timeScale = 1;
                 //UI_Game mUIg = ((UI_Game)ui);
-                ((UI_Game)ui).UpdateGameStats(currentScore, em.GetTotalShipLeft(), wm.GetWave());
+                ((UI_Game)ui).UpdateGameStats(currentScore, aiMngr.GetTotalShipLeft(), aiMngr.GetWaveNumber());
                 ((UI_Game)ui).UpdateShipStats(
                     s.GetBoostFuelAmount(),
                     s.GetShieldPUState(),
