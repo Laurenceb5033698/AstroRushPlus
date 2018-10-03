@@ -85,8 +85,7 @@ GameObject:
   - component: {fileID: 114807223829378572}
   - component: {fileID: 114055076617513378}
   - component: {fileID: 114626640103928378}
-  - component: {fileID: 114300250175577146}
-  - component: {fileID: 114315680106112168}
+  - component: {fileID: 114915637381689288}
   - component: {fileID: 82987254552464792}
   - component: {fileID: 82072091004402452}
   - component: {fileID: 82803473781501296}
@@ -479,7 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b5cbab746b47b84f95af3e583a950ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerShipPref: {fileID: 1064669131998520, guid: e5ea497f59bdd424d9decf42cbe761e1,
+  playerShipPref: {fileID: 1285581705939522, guid: d8cc8145d1808a64cb64daa4b053aabe,
     type: 2}
   pointerPref: {fileID: 1000012266939556, guid: 38f2ce99039529744b1968d690fc052f,
     type: 2}
@@ -498,36 +497,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boundaryz: {fileID: 1551790837549000}
   boundaryx: {fileID: 1086233956649726}
---- !u!114 &114300250175577146
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1499179188678986}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6065f9dff3ab8bd4695a1840966f5a62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dropShipPref: {fileID: 1440663641900600, guid: c99d6c7b030b58849ae7b47bbdfb43a5,
-    type: 2}
-  prefRef:
-  - {fileID: 1136387554503754, guid: bc8685d98af04764ea6ad78ddaa80272, type: 2}
-  - {fileID: 1879254951966198, guid: 59bc7c7683a0df040b54f5ff175c5ac1, type: 2}
-  - {fileID: 1936799462492080, guid: 7e29b27c1cc62dc4aac31565d577ac38, type: 2}
-  group: {fileID: 1613310253802748}
---- !u!114 &114315680106112168
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1499179188678986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87d2b8bad9fad20429ac1b3e941b6d1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextWaveSound: {fileID: 82803473781501296}
 --- !u!114 &114626640103928378
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -678,6 +647,26 @@ MonoBehaviour:
   ship: {fileID: 0}
   drawLine: 0
   ZORX: 1
+--- !u!114 &114915637381689288
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1499179188678986}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5348054ee26998742b9520978f6446c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShipPrefabs:
+  - {fileID: 1136387554503754, guid: bc8685d98af04764ea6ad78ddaa80272, type: 2}
+  - {fileID: 1879254951966198, guid: 59bc7c7683a0df040b54f5ff175c5ac1, type: 2}
+  - {fileID: 1936799462492080, guid: 7e29b27c1cc62dc4aac31565d577ac38, type: 2}
+  - {fileID: 1958769108598396, guid: 6c774449d92124d4cbc50c724abbb6f6, type: 2}
+  SceneGroup: {fileID: 1613310253802748}
+  newWaveSound: {fileID: 82803473781501296}
+  rPickupManager: {fileID: 114807223829378572}
+  player: {fileID: 0}
 --- !u!120 &120074536207964882
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -687,6 +676,7 @@ LineRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -702,12 +692,14 @@ LineRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -734,30 +726,15 @@ LineRenderer:
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
-      key0:
-        serializedVersion: 2
-        rgba: 4294967295
-      key1:
-        serializedVersion: 2
-        rgba: 4294967295
-      key2:
-        serializedVersion: 2
-        rgba: 0
-      key3:
-        serializedVersion: 2
-        rgba: 0
-      key4:
-        serializedVersion: 2
-        rgba: 0
-      key5:
-        serializedVersion: 2
-        rgba: 0
-      key6:
-        serializedVersion: 2
-        rgba: 0
-      key7:
-        serializedVersion: 2
-        rgba: 0
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 65535
       ctime2: 0
@@ -781,7 +758,9 @@ LineRenderer:
     numCapVertices: 0
     alignment: 0
     textureMode: 0
+    generateLightingData: 0
   m_UseWorldSpace: 1
+  m_Loop: 0
 --- !u!120 &120271797565010702
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -791,6 +770,7 @@ LineRenderer:
   m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -806,12 +786,14 @@ LineRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -832,30 +814,15 @@ LineRenderer:
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
-      key0:
-        serializedVersion: 2
-        rgba: 4294967295
-      key1:
-        serializedVersion: 2
-        rgba: 4294967295
-      key2:
-        serializedVersion: 2
-        rgba: 0
-      key3:
-        serializedVersion: 2
-        rgba: 0
-      key4:
-        serializedVersion: 2
-        rgba: 0
-      key5:
-        serializedVersion: 2
-        rgba: 0
-      key6:
-        serializedVersion: 2
-        rgba: 0
-      key7:
-        serializedVersion: 2
-        rgba: 0
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 65535
       ctime2: 0
@@ -879,7 +846,9 @@ LineRenderer:
     numCapVertices: 0
     alignment: 0
     textureMode: 0
+    generateLightingData: 0
   m_UseWorldSpace: 1
+  m_Loop: 0
 --- !u!120 &120631811065720492
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -889,6 +858,7 @@ LineRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -904,12 +874,14 @@ LineRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -936,30 +908,15 @@ LineRenderer:
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
-      key0:
-        serializedVersion: 2
-        rgba: 4294967295
-      key1:
-        serializedVersion: 2
-        rgba: 4294967295
-      key2:
-        serializedVersion: 2
-        rgba: 0
-      key3:
-        serializedVersion: 2
-        rgba: 0
-      key4:
-        serializedVersion: 2
-        rgba: 0
-      key5:
-        serializedVersion: 2
-        rgba: 0
-      key6:
-        serializedVersion: 2
-        rgba: 0
-      key7:
-        serializedVersion: 2
-        rgba: 0
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 65535
       ctime2: 0
@@ -983,4 +940,6 @@ LineRenderer:
     numCapVertices: 0
     alignment: 0
     textureMode: 0
+    generateLightingData: 0
   m_UseWorldSpace: 1
+  m_Loop: 0

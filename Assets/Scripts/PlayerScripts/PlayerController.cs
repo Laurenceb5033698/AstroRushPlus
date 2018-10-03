@@ -44,7 +44,7 @@ abstract public class PlayerController : MonoBehaviour {
         equipment.SetShipObject(ship);
     }
 
-    protected void Start ()
+    protected void Start()
     {
         arsenal.RegisterUI();
     }

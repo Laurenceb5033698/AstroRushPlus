@@ -436,7 +436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8c81138388fbfd44ba7c0f54035e631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 98.00003
+  health: 100
   GodMode: 0
   maxHealth: 100
   maxShield: 0
@@ -500,12 +500,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreValue: 80
   innerRange: 11
-  ShootRange: 40
+  MaxShootRange: 30
+  MinShootRange: 9
   KeepAwayRange: 15
   torqueMultiplier: 3
   rb: {fileID: 54986166685203426, guid: 3686d767447a4f542ac757cbbe1989fd, type: 2}
-  stats: {fileID: 114355879930006260, guid: 3686d767447a4f542ac757cbbe1989fd, type: 2}
-  arsenal: {fileID: 114182419930961262, guid: 3686d767447a4f542ac757cbbe1989fd, type: 2}
+  stats: {fileID: 0}
+  arsenal: {fileID: 0}
   SceneManagerObject: {fileID: 0}
   aiManager: {fileID: 0}
   psDestructPrefab: {fileID: 1226382822747598, guid: 3700763d6b9d11f419bd71e1dc30182e,

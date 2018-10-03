@@ -68,7 +68,7 @@ class AoeMissile : Missile
             {
                 if (victim.gameObject.tag == "EnemyShip")
                 {
-                    victim.GetComponentInParent<NewBasicAI>().TakeDamage(transform.position, damage - (2f * dist));
+                    victim.GetComponentInParent<AICore>().TakeDamage(transform.position, damage - (2f * dist));
                     applyImpulse(victim.GetComponentInParent<Rigidbody>());
                 }
             }

@@ -13,22 +13,27 @@ public class Pierce_Projectile : Projectile {
         if ((other != null) && (other.gameObject.tag != ownertag) && (other.gameObject.GetComponent<Projectile>() == null))
         {//successful collision that wasnt with shooter
             //Debug.Log("other Entity: " + other.gameObject.tag);
+            bool hit = false;
             switch (other.gameObject.tag)
             {
                 case "PlayerShip":
                     other.gameObject.GetComponentInParent<PlayerController>().TakeDamage(transform.position, damage);
                     applyImpulse(other.GetComponentInParent<Rigidbody>());
+                    hit = true;
                     break;
                 case "EnemyShip":
                     other.gameObject.GetComponentInParent<AICore>().TakeDamage(transform.position, damage);
                     applyImpulse(other.GetComponentInParent<Rigidbody>());
+                    hit = true;
                     break;
                 case "Asteroid":
                     other.gameObject.GetComponent<Asteroid>().TakeDamage(damage);
                     applyImpulse(other.GetComponent<Rigidbody>());
+                    hit = true;
                     break;
                 case "shard":
                     Destroy(other.transform.gameObject);
+                    hit = true;
                     break;
                 default:
                     Debug.Log("Unknown entity. " + other.gameObject.tag);
@@ -36,7 +41,8 @@ public class Pierce_Projectile : Projectile {
                     break;
             }
             //play entry particle here
-            Instantiate(psImpactPrefab, transform.position, transform.rotation);
+            if (hit)
+                Instantiate(psImpactPrefab, transform.position, transform.rotation);
 
         }
     }

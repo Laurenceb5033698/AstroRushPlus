@@ -33,6 +33,8 @@ public class AICore : MonoBehaviour {
     public GameObject player;
     [SerializeField] private Vector3 destination;
     private Vector3 controlDir;
+    private Vector3 AttackDir;
+
     public float CollisionImpulse = 50;
     float dist;             //dist to destination
     float torqueMul = 1f;   //amplify turn speed
@@ -117,7 +119,7 @@ public class AICore : MonoBehaviour {
 
         //determine if I can shoot at the target
         if ((dist > MinShootRange) && (dist <= MaxShootRange) && (arsenal != null))
-            arsenal.FireWeapon(controlDir); //shoot at target
+            arsenal.FireWeapon(AttackDir); //shoot at target
     }
 
     //
@@ -129,6 +131,7 @@ public class AICore : MonoBehaviour {
     {
         dist = Vector3.Distance(destination, gameObject.transform.position);
         controlDir = (destination - gameObject.transform.position).normalized;
+        AttackDir = controlDir;
         //if dest is too close, fly away
         torqueMul = 1f;
 
@@ -151,11 +154,17 @@ public class AICore : MonoBehaviour {
     {
         float angle = Vector3.Angle(controlDir, gameObject.transform.forward);
 
+        if (Mathf.Abs(angle) < 10f)
+            rb.angularVelocity *= 0.99f;
+
         if (Vector3.Cross(controlDir, gameObject.transform.forward).y < 0) angle = -angle;
         angle = angle / -180;
         
         float torque = stats.GetRotSpeed() * torqueMul;
         rb.AddRelativeTorque(Vector3.up * torque * angle * Time.deltaTime);
+
+        
+        
     }
 
     protected void LateUpdate()

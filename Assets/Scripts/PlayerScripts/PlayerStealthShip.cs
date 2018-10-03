@@ -3,19 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStealthShip : PlayerController {
+
+    private Animation mAnimationComp; // reference to shield animation component
+    [SerializeField] private Material mStealthedShipMat;
+    private Material mRegularShipMat;
+    [SerializeField] private GameObject mShipModel;
+    [SerializeField] private GameObject mEMPAttack;
+
     new void Awake()
     {
         //Call Base class Awake.
         base.Awake();
         //SubClass implementation:
         Debug.Log("Player StealthShip");
-
+        mAnimationComp = GetComponentInChildren<Animation>();
+        mRegularShipMat = mShipModel.GetComponent<Renderer>().material;
     }
 
-    new protected void Start()
+    new void Start()
     {
         base.Start();
         //SubClass implementation:
+        
 
     }
 
@@ -55,12 +64,17 @@ public class PlayerStealthShip : PlayerController {
         //gameObject.tag = "PlayerStealth";
         GetComponentInChildren<MeshCollider>().gameObject.tag = "PlayerStealth";
         //visual effect
+        //Debug.Log( "number of shield animations found: " + GetComponentInChildren<Animation>().GetClipCount());
+        
+        //mAnimationComp.GetClip("StealthedShieldEffectAnim").;
+        mAnimationComp.Play("StealthedShieldEffectAnim");
+        mShipModel.GetComponent<Renderer>().material = mStealthedShipMat;
         //no collisions?
     }
 
     void Stealthed()
     {   //do every update
-
+        
         stats.ShipFuel = -25 * Time.deltaTime;
 
     }
@@ -69,9 +83,12 @@ public class PlayerStealthShip : PlayerController {
     {
         //gameObject.tag = "PlayerShip";
         GetComponentInChildren<MeshCollider>().gameObject.tag = "PlayerShip";
-
-        //do aoe emp
         //visual effect ends
+        mAnimationComp.Play("ShieldFlashingAnim");
+        mShipModel.GetComponent<Renderer>().material = mRegularShipMat;
+        //do aoe emp
+        GameObject emp = Instantiate<GameObject>(mEMPAttack, transform.position, transform.rotation);
+        emp.GetComponent<AoeEffect>().SetupValues(0, tag);
     }
 
     override protected void MoveShip()

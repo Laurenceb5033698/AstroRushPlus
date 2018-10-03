@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 4714827733020826}
   - component: {fileID: 54287793679940004}
   - component: {fileID: 114734734706442396}
-  - component: {fileID: 114384270916381284}
+  - component: {fileID: 114745433013005780}
   m_Layer: 0
   m_Name: EnemyShip2
   m_TagString: EnemyShip
@@ -190,7 +190,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1879254951966198}
   m_LocalRotation: {x: -0.0000004768371, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.5291247, y: 67.10346, z: -48.910404}
+  m_LocalPosition: {x: 27.692043, y: 44.821754, z: -8.261574}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4690398135275920}
@@ -290,7 +290,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 25
   m_Drag: 1
-  m_AngularDrag: 0.5
+  m_AngularDrag: 0.6
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -416,28 +416,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5145dba8493a401459413601d8638dac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114384270916381284
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1879254951966198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6541fa44418f66544bc525aa024f12b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boostRange: 45
-  ship: {fileID: 1879254951966198}
-  rb: {fileID: 54287793679940004}
-  stats: {fileID: 114734734706442396}
-  arsenal: {fileID: 114419714209572168}
-  psDestructPrefab: {fileID: 1830323574267388, guid: bbfed2a4178ec9a4e91382986eb1b7f7,
-    type: 2}
-  shield_Emitter: {fileID: 198206592050443258}
-  destination: {x: 0, y: 0, z: 0}
-  CollisionImpulse: 18
-  player: {fileID: 0}
 --- !u!114 &114419714209572168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -469,8 +447,36 @@ MonoBehaviour:
   maxMissiles: 0
   mainThrust: 60
   boostSpeed: 50
-  rotSpeed: 800
+  rotSpeed: 1600
   EmpDisabled: 0
+--- !u!114 &114745433013005780
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1879254951966198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9059900d90d01f4f813d9aa0de73f49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreValue: 175
+  innerRange: 45
+  MaxShootRange: 45
+  MinShootRange: 9
+  KeepAwayRange: 20
+  torqueMultiplier: 3
+  rb: {fileID: 54287793679940004}
+  stats: {fileID: 114734734706442396}
+  arsenal: {fileID: 114419714209572168}
+  SceneManagerObject: {fileID: 0}
+  aiManager: {fileID: 0}
+  psDestructPrefab: {fileID: 1830323574267388, guid: bbfed2a4178ec9a4e91382986eb1b7f7,
+    type: 2}
+  shield_Emitter: {fileID: 198206592050443258}
+  player: {fileID: 0}
+  destination: {x: 0, y: 0, z: 0}
+  CollisionImpulse: 50
 --- !u!114 &114933427434696366
 MonoBehaviour:
   m_ObjectHideFlags: 1

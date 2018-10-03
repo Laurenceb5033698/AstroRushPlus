@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4637715549801998}
   - component: {fileID: 54213872836633418}
   - component: {fileID: 114900568824374786}
-  - component: {fileID: 114525767191714204}
+  - component: {fileID: 114214345557345870}
   m_Layer: 0
   m_Name: EnemyShip1
   m_TagString: EnemyShip
@@ -163,7 +163,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1136387554503754}
   m_LocalRotation: {x: -0.00000008940696, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.0451514, y: 67.52341, z: -48.070183}
+  m_LocalPosition: {x: 28.200142, y: 44.385532, z: -8.307596}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4121202589780704}
@@ -290,7 +290,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 10
   m_Drag: 1
-  m_AngularDrag: 0.5
+  m_AngularDrag: 0.8
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -405,6 +405,34 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &114214345557345870
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1136387554503754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9059900d90d01f4f813d9aa0de73f49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreValue: 100
+  innerRange: 12
+  MaxShootRange: 25
+  MinShootRange: 9
+  KeepAwayRange: 10
+  torqueMultiplier: 3.5
+  rb: {fileID: 54213872836633418}
+  stats: {fileID: 114900568824374786}
+  arsenal: {fileID: 114538187248812560}
+  SceneManagerObject: {fileID: 0}
+  aiManager: {fileID: 0}
+  psDestructPrefab: {fileID: 1226382822747598, guid: 3700763d6b9d11f419bd71e1dc30182e,
+    type: 2}
+  shield_Emitter: {fileID: 198409414985468288}
+  player: {fileID: 0}
+  destination: {x: 0, y: 0, z: 0}
+  CollisionImpulse: 80
 --- !u!114 &114400673738661712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -416,28 +444,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5145dba8493a401459413601d8638dac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114525767191714204
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1136387554503754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6541fa44418f66544bc525aa024f12b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boostRange: 30
-  ship: {fileID: 1136387554503754}
-  rb: {fileID: 54213872836633418}
-  stats: {fileID: 114900568824374786}
-  arsenal: {fileID: 114538187248812560}
-  psDestructPrefab: {fileID: 1226382822747598, guid: 3700763d6b9d11f419bd71e1dc30182e,
-    type: 2}
-  shield_Emitter: {fileID: 198409414985468288}
-  destination: {x: 0, y: 0, z: 0}
-  CollisionImpulse: 18
-  player: {fileID: 0}
 --- !u!114 &114538187248812560
 MonoBehaviour:
   m_ObjectHideFlags: 1

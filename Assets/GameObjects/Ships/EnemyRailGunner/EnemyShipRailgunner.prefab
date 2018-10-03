@@ -479,7 +479,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreValue: 200
   innerRange: 28
-  ShootRange: 90
+  MaxShootRange: 75
+  MinShootRange: 30
   KeepAwayRange: 30
   torqueMultiplier: 3
   rb: {fileID: 54986166685203426, guid: 3686d767447a4f542ac757cbbe1989fd, type: 2}
