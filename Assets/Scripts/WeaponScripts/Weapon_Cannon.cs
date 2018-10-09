@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Weapon_Cannon : Weapon {
 
-    [SerializeField] private GameObject mAimingVisuals;//object that holds the laser
-    private Quaternion mLaserAimDir;//the actual direction used for aiming
+    [SerializeField] protected GameObject mAimingVisuals;//object that holds the laser
+    protected Quaternion mLaserAimDir;//the actual direction used for aiming
 
-    [SerializeField] private float mAimingSpeed = 2f;
+    [SerializeField] protected float mAimingSpeed = 2f;
 
     private void OnEnable()
     {

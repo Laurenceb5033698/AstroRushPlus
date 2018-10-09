@@ -13,11 +13,11 @@ public class AICore : MonoBehaviour {
     [SerializeField] private int scoreValue;
 
     //Customise AI range behaviours
-    [SerializeField] private float innerRange = 30f;
-    [SerializeField] private float MaxShootRange = 30f;
-    [SerializeField] private float MinShootRange = 9f;
-    [SerializeField] private float KeepAwayRange = 10f;
-    [SerializeField] private float torqueMultiplier = 1.5f;
+    [SerializeField] protected float innerRange = 30f;
+    [SerializeField] protected float MaxShootRange = 30f;
+    [SerializeField] protected float MinShootRange = 9f;
+    [SerializeField] protected float KeepAwayRange = 10f;
+    [SerializeField] protected float torqueMultiplier = 1.5f;
     //Component References
     [SerializeField] private Rigidbody rb;
     [SerializeField] private ShipStats stats;
@@ -31,13 +31,13 @@ public class AICore : MonoBehaviour {
 
     //Movement Behavior
     public GameObject player;
-    [SerializeField] private Vector3 destination;
-    private Vector3 controlDir;
-    private Vector3 AttackDir;
+    [SerializeField] protected Vector3 destination;
+    protected Vector3 controlDir;
+    protected Vector3 AttackDir;
 
     public float CollisionImpulse = 50;
-    float dist;             //dist to destination
-    float torqueMul = 1f;   //amplify turn speed
+    protected float dist;             //dist to destination
+    protected float torqueMul = 1f;   //amplify turn speed
 
     // Use this for initialization
     void Awake()

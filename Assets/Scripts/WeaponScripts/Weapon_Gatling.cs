@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon_Gatling : Weapon
+public class Weapon_Gatling : Weapon_Cannon
 {
     public float Max_Firerate= 10.0f; //shots per second
     public float Min_Firerate = 1.0f; //shots per second at start of Ramp. 0 = 1 shot/sec
@@ -16,9 +16,23 @@ public class Weapon_Gatling : Weapon
     public float CoolDown_Period = 2.0f;// How long it takes to completely cool off before firing again in seconds
     private bool cooling_off = false;
     private bool did_Shoot = false;
-    
+
+    private void OnEnable()
+    {   //from Weapon_Cannon
+        mLaserAimDir = transform.rotation;
+        mAimingVisuals.SetActive(true);
+        mAimingVisuals.transform.rotation = mLaserAimDir;
+    }
+
+    private void OnDisable()
+    {   //from Weapon_Cannon
+        mAimingVisuals.SetActive(false);
+    }
+
     void Update()
-    {
+    {   //from Weapon_Cannon
+        mAimingVisuals.transform.rotation = mLaserAimDir;
+
         if (cooling_off)
         {
             Current_Burnout -= Time.deltaTime;
@@ -67,16 +81,27 @@ public class Weapon_Gatling : Weapon
 
     override public void Shoot(Vector3 direction)
     {
+        //while trying to shoot
+        //turn laser sight towards player aim direction.
+        Quaternion PlayerShootDir = Quaternion.LookRotation(direction, Vector3.up);
+        mLaserAimDir = Quaternion.RotateTowards(mLaserAimDir, PlayerShootDir, mAimingSpeed);
+
+        //test new angle
+        float aimDiff = Quaternion.Angle(mLaserAimDir, PlayerShootDir);
+
         if (!cooling_off)
         {
             if (Time.time > reload)
             {
-                shootSpeed = (1 /(1 + Min_Firerate + Max_Firerate * (Current_Ramp/Ramp_up_Period)));
-                reload = Time.time + shootSpeed;
-                spawnProjectile(direction);
+                if (aimDiff < 5f)//test angle
+                {//if it's close enough, shoot bullet
+                    shootSpeed = (1 / (1 + Min_Firerate + Max_Firerate * (Current_Ramp / Ramp_up_Period)));
+                    reload = Time.time + shootSpeed;
+                    spawnProjectile(direction);
 
-                shootSound.Play();
+                    shootSound.Play();
 
+                }
             }
         did_Shoot = true;
         }
