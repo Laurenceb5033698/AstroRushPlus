@@ -167,7 +167,11 @@ public class PlayerRamShip : PlayerController
         {
             chargeDir = new Vector3(controls.LeftStick.x, 0, controls.LeftStick.y);
             if (RamCharging <= Time.time)
+            {
                 Ramming = true;
+                //hack some shield hp back onto shield...
+                stats.ShipShield = 30;
+            }
             //only rotate while aiming the ram
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(chargeDir) * Quaternion.Euler(new Vector3(0, -90, 0)), 10);
         }
@@ -212,5 +216,17 @@ public class PlayerRamShip : PlayerController
         }
     }
 
+    override public void TakeDamage(Vector3 otherpos, float amount)
+    {
+        if (stats.ShipShield > 0)
+            Shield_effect(otherpos);
+
+        
+        //reduce incoming damage to 33%
+        if (Ramming) amount /= 3;
+
+        stats.TakeDamage(amount);
+        rumbleTimer = Time.time + 0.3f;
+    }
 
 }

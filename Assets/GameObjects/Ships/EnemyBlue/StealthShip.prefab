@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 4000014027102902}
   - component: {fileID: 54000013212791408}
   - component: {fileID: 114000012249108654}
-  - component: {fileID: 114630247593503836}
+  - component: {fileID: 114908258343461838}
   m_Layer: 0
   m_Name: StealthShip
   m_TagString: EnemyShip
@@ -83,7 +83,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1799872689880520
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +137,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014282705904}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.878358, y: 67.97841, z: -47.44431}
+  m_LocalPosition: {x: -1.2, y: 0, z: -14.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4768745784300466}
@@ -487,7 +487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5145dba8493a401459413601d8638dac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114630247593503836
+--- !u!114 &114908258343461838
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -495,27 +495,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000014282705904}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9059900d90d01f4f813d9aa0de73f49, type: 3}
+  m_Script: {fileID: 11500000, guid: ab0579d983a8e044ea23928652322139, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 80
   innerRange: 11
   MaxShootRange: 30
-  MinShootRange: 9
+  MinShootRange: 15
   KeepAwayRange: 15
-  torqueMultiplier: 3
-  rb: {fileID: 54986166685203426, guid: 3686d767447a4f542ac757cbbe1989fd, type: 2}
-  stats: {fileID: 0}
-  arsenal: {fileID: 0}
+  torqueMultiplier: 1
+  rb: {fileID: 54000013212791408}
+  stats: {fileID: 114000012249108654}
+  arsenal: {fileID: 114031261655883800}
   SceneManagerObject: {fileID: 0}
   aiManager: {fileID: 0}
   psDestructPrefab: {fileID: 1226382822747598, guid: 3700763d6b9d11f419bd71e1dc30182e,
     type: 2}
-  shield_Emitter: {fileID: 198586857167558148, guid: 3686d767447a4f542ac757cbbe1989fd,
-    type: 2}
+  shield_Emitter: {fileID: 198830199492969330}
   player: {fileID: 0}
-  destination: {x: -0.06660414, y: -0.00019478798, z: -0.17422855}
+  destination: {x: 0, y: 0, z: 0}
   CollisionImpulse: 80
+  m_MeshRendr: {fileID: 23000012080449174}
+  m_Collider: {fileID: 64000010043204458}
+  mRegularShipMatDark: {fileID: 2100000, guid: 74b9e275769b5ab45b971196f7997e53, type: 2}
+  mRegularShipMatLight: {fileID: 2100000, guid: 5f35bdcd1c3be7f42b0626c7d7aed07f,
+    type: 2}
+  mSShipMatDark: {fileID: 2100000, guid: 00b2fa7d89f29374fa7f428df7515f81, type: 2}
+  mSShipMatLight: {fileID: 2100000, guid: 23bff2dde87fdc8499d17e1a684ea828, type: 2}
+  mShipModel: {fileID: 1000011381884964}
 --- !u!198 &198830199492969330
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -576,7 +583,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1112801299
+  randomSeed: -1556543208
   InitialModule:
     serializedVersion: 3
     enabled: 1

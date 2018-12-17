@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour {
     private AsteroidManager asm;
     private BoundaryManager bdrym;
     private GameObject pointer;
+    public Inputs GlobalInputs;
     
     [SerializeField] private AudioSource music;
 
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour {
 
         music.volume = 0.2f * PlayerPrefs.GetFloat("musicVolume");
         AudioListener.volume = PlayerPrefs.GetFloat("gameVolume");
+        GlobalInputs = GetComponent<Inputs>();
 
         //scene needs to have finished loading before we instantiate anything
         SceneLoader.Loaded += SL_OnLoadingComplete;
@@ -45,6 +47,8 @@ public class GameManager : MonoBehaviour {
     {
         
         playerShip = (GameObject)Instantiate(playerShipPref, Vector3.zero, Quaternion.identity);
+        playerShip.GetComponent<PlayerController>().SetInputs(GlobalInputs);
+        
         pointer = (GameObject)Instantiate(pointerPref, Vector3.zero, Quaternion.identity);
         pointer.GetComponent<Pointer>().SetFollowTarget(playerShip);
         cam.SetTarget(playerShip); // give the player ship reference to the camera
@@ -114,14 +118,17 @@ public class GameManager : MonoBehaviour {
                 //PauseScreen ui controls / updates
                 Time.timeScale = 0;
                 //UI_Pause mUIp = (UI_Pause)ui;
-                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Y))// if A controller button or Y keyboard button
+                if (GlobalInputs.LAnalogueYDown || (GlobalInputs.DpadYPressed && GlobalInputs.DpadDown)) ui.AdvanceSelector();
+                if (GlobalInputs.LAnalogueYUp || (GlobalInputs.DpadYPressed && GlobalInputs.DpadUp)) ui.RetreatSelector();
+
+                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space))// if A controller button or Y keyboard button
                 {
-                    ((UI_Pause)ui).Button_RestartPressed();
+                    ui.SubmitSelection();
                 }
                 else if (s.IsAlive() && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)))// B controller button or Escape button
                     ((UI_Pause)ui).Button_ContinuePressed();
-                else if (Input.GetKeyDown(KeyCode.JoystickButton3))
-                    ((UI_Pause)ui).Button_QuitToMenuPressed();
+                //else if (Input.GetKeyDown(KeyCode.JoystickButton3))
+                //    ((UI_Pause)ui).Button_QuitToMenuPressed();
                 //if (s.IsAlive() && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7))) // esape button or Start controller button
                 //{
                 //    UIManager.instance.Resume();

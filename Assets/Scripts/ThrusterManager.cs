@@ -13,7 +13,7 @@ public class ThrusterManager : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        controls = GetComponentInParent<Inputs>();
+        controls = GameManager.instance.GlobalInputs;
         state = true;
     }
 	

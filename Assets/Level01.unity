@@ -3620,12 +3620,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b96c7c44f541bca41abf2ab604c3e7d0, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &682713965 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4178770965573496, guid: c667f4ddef008164787351dd967eb139,
-    type: 2}
-  m_PrefabInternal: {fileID: 981994193}
---- !u!1001 &743466797
+--- !u!1001 &613189864
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -3669,21 +3664,14 @@ Prefab:
       propertyPath: cam
       value: 
       objectReference: {fileID: 887034384}
-    - target: {fileID: 114110893444429498, guid: bcdb893ba70365f479efa9e9954c7982,
-        type: 2}
-      propertyPath: playerShipPref
-      value: 
-      objectReference: {fileID: 1482047594200728, guid: b91a38172f2d9694e861917cd761e094,
-        type: 2}
-    - target: {fileID: 114095125253342290, guid: bcdb893ba70365f479efa9e9954c7982,
-        type: 2}
-      propertyPath: prefRef.Array.data[2]
-      value: 
-      objectReference: {fileID: 1958769108598396, guid: 6c774449d92124d4cbc50c724abbb6f6,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bcdb893ba70365f479efa9e9954c7982, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &682713965 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4178770965573496, guid: c667f4ddef008164787351dd967eb139,
+    type: 2}
+  m_PrefabInternal: {fileID: 981994193}
 --- !u!1 &783968441
 GameObject:
   m_ObjectHideFlags: 0

@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 114055076617513378}
   - component: {fileID: 114626640103928378}
   - component: {fileID: 114915637381689288}
+  - component: {fileID: 114733008149376216}
   - component: {fileID: 82987254552464792}
   - component: {fileID: 82072091004402452}
   - component: {fileID: 82803473781501296}
@@ -589,6 +590,46 @@ MonoBehaviour:
   - {fileID: 1452094892129334}
   - {fileID: 1125311233775240}
   - {fileID: 1162242659942262}
+--- !u!114 &114733008149376216
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1499179188678986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0388b1baa9bcf84580f9c8e749de999, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LeftStick: {x: 0, y: 0}
+  RightStick: {x: 0, y: 0}
+  LeftAnalogueInUse: 0
+  RightAnalogueInUse: 0
+  LAnalogueYUp: 0
+  LAnalogueYDown: 0
+  LAnalogueXLeft: 0
+  LAnalogueXRight: 0
+  DpadXaxisInUse: 0
+  DpadYaxisInUse: 0
+  DpadXPressed: 0
+  DpadYPressed: 0
+  DpadUp: 0
+  DpadDown: 0
+  DpadLeft: 0
+  DpadRight: 0
+  RTrigger: 0
+  LTrigger: 0
+  RTriggerInUse: 0
+  RTriggerPressed: 0
+  LTriggerInUse: 0
+  LTriggerPressed: 0
+  ability: 0
+  trishot: 0
+  shield: 0
+  RLaser: 0
+  shoot: 0
+  targeting: 0
+  reset: 0
 --- !u!114 &114787344712232132
 MonoBehaviour:
   m_ObjectHideFlags: 1

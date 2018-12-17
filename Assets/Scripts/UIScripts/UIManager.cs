@@ -59,6 +59,7 @@ public class UIManager : MonoBehaviour
         }
 
         mCurrentScreen = Screens.TitleMenu;
+        mScreens[(int)mCurrentScreen].OnScreenOpen();
     }
 
     public void LoadingComplete()
@@ -124,6 +125,7 @@ public class UIManager : MonoBehaviour
                 ScreenChanged(mScreens[(int)targetScreen]);
             else
                 ScreenChanged(mScreens[(int)mCurrentScreen]);
+            mScreens[(int)mCurrentScreen].OnScreenOpen();
         }
     }
     public void Pause(bool isPlayerDead)

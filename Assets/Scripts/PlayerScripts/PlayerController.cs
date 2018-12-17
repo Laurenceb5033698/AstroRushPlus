@@ -33,7 +33,7 @@ abstract public class PlayerController : MonoBehaviour {
     {
         Debug.Log("PlayerController Awake.");
         ship = transform.gameObject;
-        controls = ship.GetComponent<Inputs>();
+        //controls = ship.GetComponent<Inputs>();
         rb = ship.GetComponent<Rigidbody>();
         stats = ship.GetComponent<ShipStats>();
         //shield = ship.GetComponentInChildren<Shield>();
@@ -233,7 +233,7 @@ abstract public class PlayerController : MonoBehaviour {
             c.gameObject.GetComponent<AICore>().TakeDamage(transform.position,50);
         }
     }
-    private void Shield_effect(Vector3 other)
+    protected void Shield_effect(Vector3 other)
     {
         //Debug.Log("Collision Entered: " + other.gameObject.name);
         Vector3 dir = other - shield_Emitter.transform.position;
@@ -267,5 +267,10 @@ abstract public class PlayerController : MonoBehaviour {
     void ShootVolumeChanged(bool x)
     {
         arsenal.volumeChanged(PlayerPrefs.GetFloat("gameVolume") / 10);
+    }
+
+    public void SetInputs(Inputs glblinputs)
+    {
+        controls = glblinputs;
     }
 }

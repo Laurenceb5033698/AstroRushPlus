@@ -12,6 +12,11 @@ public class Inputs : MonoBehaviour
     public bool LeftAnalogueInUse = false;
     public bool RightAnalogueInUse = false;
 
+    public bool LAnalogueYUp;
+    public bool LAnalogueYDown;
+    public bool LAnalogueXLeft;
+    public bool LAnalogueXRight;
+
     //Dpad
     private Vector2 Dpad = new Vector2(0, 0);
     public bool DpadXaxisInUse = false;
@@ -44,6 +49,10 @@ public class Inputs : MonoBehaviour
     {
         DpadXPressed = false;
         DpadYPressed = false;
+        LAnalogueYUp = false;
+        LAnalogueYDown = false;
+        LAnalogueXLeft = false;
+        LAnalogueXRight = false;
         RTriggerPressed = false;
         LTriggerPressed = false;
         CheckInputs();
@@ -55,6 +64,24 @@ public class Inputs : MonoBehaviour
         LeftStick.y = Input.GetAxis("LeftStickY");
         RightStick.x = Input.GetAxis("RightStickX");
         RightStick.y = Input.GetAxis("RightStickY");
+        
+        
+        if (!LeftAnalogueInUse && LeftStick.y > 0.02f)
+        {
+            LAnalogueYUp = true;
+        }
+        if (!LeftAnalogueInUse && LeftStick.y < -0.02f)
+        {
+            LAnalogueYDown = true;
+        }
+        if (!LeftAnalogueInUse && LeftStick.x > 0.02f)
+        {
+            LAnalogueXLeft = true;
+        }
+        if (!LeftAnalogueInUse && LeftStick.x < -0.02f)
+        {
+            LAnalogueXRight = true;
+        }
 
         if (Mathf.Abs(LeftStick.x) > 0.02f || Mathf.Abs(LeftStick.y) > 0.02f)
             LeftAnalogueInUse = true;

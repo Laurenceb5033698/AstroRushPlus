@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour {
     [SerializeField] private GameObject planet;
     [SerializeField] private AudioSource music;
     private ScreenElement ui = null;
+    private Inputs GlobalInputs;
 
     // option menu
     private bool mOptionPanelActive = false;
@@ -33,6 +34,8 @@ public class MainMenu : MonoBehaviour {
             instance = this;
         else if (instance != this)
             Destroy(this);
+
+        GlobalInputs = GetComponent<Inputs>();
 
         UIManager.ScreenChanged += ScreenChanged;
         ui = UIManager.GetGameUiObject();
@@ -89,16 +92,32 @@ public class MainMenu : MonoBehaviour {
                 if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) { ((UI_Options)ui).Button_OptionsReturnPressed(); UI_OnOptionsCall(false); }
                     break;
             case "LevelSelect":
+                if (GlobalInputs.LAnalogueYDown || (GlobalInputs.DpadYPressed && GlobalInputs.DpadDown )) ui.AdvanceSelector();
+                if (GlobalInputs.LAnalogueYUp || (GlobalInputs.DpadYPressed && GlobalInputs.DpadUp)) ui.RetreatSelector();
+
+                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return))// if A controller button or Y keyboard button
+                {
+                    ui.SubmitSelection();
+                }
+                //back button
                 if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) ((UI_LevelSelect)ui).Button_LevelSelectReturnPressed();
-                else if (Input.GetKeyDown(KeyCode.JoystickButton0)) ((UI_LevelSelect)ui).Button_AlphaLevelPressed(); //A button
-                else if (Input.GetKeyDown(KeyCode.JoystickButton2)) ((UI_LevelSelect)ui).Button_BetaLevelPressed(); //X button
-                else if (Input.GetKeyDown(KeyCode.JoystickButton3)) ((UI_LevelSelect)ui).Button_GammaLevelPressed(); //Y button
+                //else if (Input.GetKeyDown(KeyCode.JoystickButton0)) ((UI_LevelSelect)ui).Button_AlphaLevelPressed(); //A button
+                //else if (Input.GetKeyDown(KeyCode.JoystickButton2)) ((UI_LevelSelect)ui).Button_BetaLevelPressed(); //X button
+                //else if (Input.GetKeyDown(KeyCode.JoystickButton3)) ((UI_LevelSelect)ui).Button_GammaLevelPressed(); //Y button
                 break;
             case "TitleScreen":
             default:
-                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return)) ((UI_MainMenu)ui).Button_StartGamePressed();  // if A controller button or Enter keyboard button
-                else if (Input.GetKeyDown(KeyCode.JoystickButton3)) ((UI_MainMenu)ui).Button_OptionsPressed(); 
-                else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) ((UI_MainMenu)ui).Button_MenuQuitPressed(); // B controller button or Escape button
+                if (GlobalInputs.LAnalogueYDown || (GlobalInputs.DpadYPressed && GlobalInputs.DpadDown)) ui.AdvanceSelector();
+                if (GlobalInputs.LAnalogueYUp || (GlobalInputs.DpadYPressed && GlobalInputs.DpadUp)) ui.RetreatSelector();
+
+                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return))// if A controller button or Y keyboard button
+                {
+                    ui.SubmitSelection();
+                }
+
+                //if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return)) ((UI_MainMenu)ui).Button_StartGamePressed();  // if A controller button or Enter keyboard button
+                //else if (Input.GetKeyDown(KeyCode.JoystickButton3)) ((UI_MainMenu)ui).Button_OptionsPressed(); 
+                //else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) ((UI_MainMenu)ui).Button_MenuQuitPressed(); // B controller button or Escape button
                 break;
         }
         if (!mOptionPanelActive)

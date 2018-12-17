@@ -37,7 +37,10 @@ public class UI_Options : ScreenElement {
             UIManager.instance.ReturnToMenu();//return to menu
             }
     }
-    
+    public void TestSelectable()
+    {
+        ((Selectable)MusicvolumeSlider).Select();
+    }
 
     public void musicVolumeOnValueChanged()
     {

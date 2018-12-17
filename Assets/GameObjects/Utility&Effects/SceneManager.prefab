@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114902171399596346}
   - component: {fileID: 114648062127691344}
   - component: {fileID: 114898201069782662}
+  - component: {fileID: 114743006858785704}
   - component: {fileID: 82205659764995654}
   - component: {fileID: 82397636292632932}
   - component: {fileID: 82841872887762272}
@@ -491,7 +492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b5cbab746b47b84f95af3e583a950ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerShipPref: {fileID: 1285581705939522, guid: d8cc8145d1808a64cb64daa4b053aabe,
+  playerShipPref: {fileID: 1482047594200728, guid: b91a38172f2d9694e861917cd761e094,
     type: 2}
   pointerPref: {fileID: 1000012266939556, guid: 38f2ce99039529744b1968d690fc052f,
     type: 2}
@@ -589,6 +590,46 @@ MonoBehaviour:
   - {fileID: 1343559437385262}
   - {fileID: 1295645058136308}
   - {fileID: 1281870660249382}
+--- !u!114 &114743006858785704
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014267789580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0388b1baa9bcf84580f9c8e749de999, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LeftStick: {x: 0, y: 0}
+  RightStick: {x: 0, y: 0}
+  LeftAnalogueInUse: 0
+  RightAnalogueInUse: 0
+  LAnalogueYUp: 0
+  LAnalogueYDown: 0
+  LAnalogueXLeft: 0
+  LAnalogueXRight: 0
+  DpadXaxisInUse: 0
+  DpadYaxisInUse: 0
+  DpadXPressed: 0
+  DpadYPressed: 0
+  DpadUp: 0
+  DpadDown: 0
+  DpadLeft: 0
+  DpadRight: 0
+  RTrigger: 0
+  LTrigger: 0
+  RTriggerInUse: 0
+  RTriggerPressed: 0
+  LTriggerInUse: 0
+  LTriggerPressed: 0
+  ability: 0
+  trishot: 0
+  shield: 0
+  RLaser: 0
+  shoot: 0
+  targeting: 0
+  reset: 0
 --- !u!114 &114830234316784298
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -155,7 +155,6 @@ GameObject:
   - component: {fileID: 114592479229094840}
   - component: {fileID: 114614602881849576}
   - component: {fileID: 54420898913619102}
-  - component: {fileID: 114773452777681548}
   - component: {fileID: 81223480341845810}
   m_Layer: 0
   m_Name: PlayerStealth
@@ -392,7 +391,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1482047594200728}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.33, y: 0, z: 4.4}
+  m_LocalPosition: {x: 41, y: 0, z: -85.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4935661067014270}
@@ -1650,42 +1649,6 @@ MonoBehaviour:
   bulletDamage: 15
   bulletSpeed: 120
   shootSound: {fileID: 0}
---- !u!114 &114773452777681548
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1482047594200728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0388b1baa9bcf84580f9c8e749de999, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LeftStick: {x: 0, y: 0}
-  RightStick: {x: 0, y: 0}
-  LeftAnalogueInUse: 0
-  RightAnalogueInUse: 0
-  DpadXaxisInUse: 0
-  DpadYaxisInUse: 0
-  DpadXPressed: 0
-  DpadYPressed: 0
-  DpadUp: 0
-  DpadDown: 0
-  DpadLeft: 0
-  DpadRight: 0
-  RTrigger: 0
-  LTrigger: 0
-  RTriggerInUse: 0
-  RTriggerPressed: 0
-  LTriggerInUse: 0
-  LTriggerPressed: 0
-  ability: 0
-  trishot: 0
-  shield: 0
-  RLaser: 0
-  shoot: 0
-  targeting: 0
-  reset: 0
 --- !u!114 &114805993351656128
 MonoBehaviour:
   m_ObjectHideFlags: 1

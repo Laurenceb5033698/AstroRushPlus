@@ -9,6 +9,7 @@ public class UI_Pause : ScreenElement
     private GameObject MsgGameOver;
     [SerializeField]
     private GameObject MsgPaused;
+
     public void Button_RestartPressed()
     {
         UIManager.instance.RestartLevel();
@@ -17,7 +18,8 @@ public class UI_Pause : ScreenElement
 
     public void Button_ContinuePressed()
     {
-        UIManager.instance.Resume();
+        if (GameManager.instance.GetShipRef().GetComponent<ShipStats>().IsAlive() )
+            UIManager.instance.Resume();
     }
 
     public void Button_QuitToMenuPressed()

@@ -42,7 +42,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1267673202029372
 GameObject:
   m_ObjectHideFlags: 1
@@ -206,7 +206,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1958769108598396}
   m_LocalRotation: {x: -0.0000004768371, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -30.9, y: 0, z: -14.1}
+  m_LocalPosition: {x: 7.3, y: 0, z: -22}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4184036529934058}
@@ -483,15 +483,14 @@ MonoBehaviour:
   MinShootRange: 30
   KeepAwayRange: 30
   torqueMultiplier: 3
-  rb: {fileID: 54986166685203426, guid: 3686d767447a4f542ac757cbbe1989fd, type: 2}
-  stats: {fileID: 114355879930006260, guid: 3686d767447a4f542ac757cbbe1989fd, type: 2}
-  arsenal: {fileID: 114182419930961262, guid: 3686d767447a4f542ac757cbbe1989fd, type: 2}
+  rb: {fileID: 0}
+  stats: {fileID: 0}
+  arsenal: {fileID: 0}
   SceneManagerObject: {fileID: 0}
   aiManager: {fileID: 0}
   psDestructPrefab: {fileID: 1226382822747598, guid: 3700763d6b9d11f419bd71e1dc30182e,
     type: 2}
-  shield_Emitter: {fileID: 198586857167558148, guid: 3686d767447a4f542ac757cbbe1989fd,
-    type: 2}
+  shield_Emitter: {fileID: 0}
   player: {fileID: 0}
   destination: {x: -0.06660414, y: -0.00019478798, z: -0.17422855}
   CollisionImpulse: 80
@@ -565,7 +564,7 @@ LineRenderer:
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 15}
-  - {x: 0, y: 0, z: 30}
+  - {x: 0, y: 0, z: 50}
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 1
