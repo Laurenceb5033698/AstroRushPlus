@@ -8,20 +8,19 @@ public class AIStealth : AICore {
     [SerializeField] private MeshRenderer m_MeshRendr;
     [SerializeField] private Collider m_Collider;
     Material[] RegularMats = new Material[3];
-    [SerializeField] private Material mRegularShipMatDark;
-    [SerializeField] private Material mRegularShipMatLight;
     Material[] StealthedMats = new Material[3];
+    [SerializeField] private ParticleSystem ParticleStealthEffect;
+    [SerializeField] private ParticleSystem ParticleStealthTransitEffect;
 
-    [SerializeField] private Material mSShipMatDark;
-    [SerializeField] private Material mSShipMatLight;
+    [SerializeField] private Material mStealthedShipMat;    //stealth texture (transparent)
 
     [SerializeField] private GameObject mShipModel;
     private void Start()
     {
         RegularMats = m_MeshRendr.materials;
-        StealthedMats[0] = mSShipMatDark;
-        StealthedMats[1] = mSShipMatLight;
-        StealthedMats[2] = mSShipMatLight;
+        StealthedMats[0] = mStealthedShipMat;
+        StealthedMats[1] = mStealthedShipMat;
+        StealthedMats[2] = mStealthedShipMat;
 
     }
     override protected void DistToDestination()
@@ -52,9 +51,9 @@ public class AIStealth : AICore {
             m_Collider.enabled = false;
             //play enter phase animation effect
             m_MeshRendr.materials = StealthedMats;
-
-            //mShipModel.GetComponent<Renderer>().materials = RegularMats
-
+            //play particle effect once
+            ParticleStealthEffect.Play();
+            ParticleStealthTransitEffect.Play();
         }
         usingAbility = true;
     }
@@ -66,7 +65,7 @@ public class AIStealth : AICore {
             m_Collider.enabled = true;
             //play exit phase animation effect
             m_MeshRendr.materials = RegularMats;
-
+            ParticleStealthTransitEffect.Stop();
         }
         usingAbility = false;
 

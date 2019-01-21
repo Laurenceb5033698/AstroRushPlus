@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour {
                 break;
             case "OptionsScreen":
                 //return from options menu
+                ((UI_Options)ui).ProcessInputs();
                 if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) { ((UI_Options)ui).Button_OptionsReturnPressed(); }
                 break;
             case "PauseScreen":

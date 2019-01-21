@@ -9,6 +9,8 @@ public class PlayerStealthShip : PlayerController {
     private Material mRegularShipMat;
     [SerializeField] private GameObject mShipModel;
     [SerializeField] private GameObject mEMPAttack;
+    [SerializeField] private ParticleSystem ParticleStealthEffect;
+    [SerializeField] private ParticleSystem ParticleStealthTransitEffect;
 
     new void Awake()
     {
@@ -64,9 +66,8 @@ public class PlayerStealthShip : PlayerController {
         //gameObject.tag = "PlayerStealth";
         GetComponentInChildren<MeshCollider>().gameObject.tag = "PlayerStealth";
         //visual effect
-        //Debug.Log( "number of shield animations found: " + GetComponentInChildren<Animation>().GetClipCount());
-        
-        //mAnimationComp.GetClip("StealthedShieldEffectAnim").;
+        ParticleStealthEffect.Play();
+        ParticleStealthTransitEffect.Play();
         mAnimationComp.Play("StealthedShieldEffectAnim");
         mShipModel.GetComponent<Renderer>().material = mStealthedShipMat;
         //no collisions?
@@ -84,6 +85,7 @@ public class PlayerStealthShip : PlayerController {
         //gameObject.tag = "PlayerShip";
         GetComponentInChildren<MeshCollider>().gameObject.tag = "PlayerShip";
         //visual effect ends
+        ParticleStealthTransitEffect.Stop();
         mAnimationComp.Play("ShieldFlashingAnim");
         mShipModel.GetComponent<Renderer>().material = mRegularShipMat;
         //do aoe emp

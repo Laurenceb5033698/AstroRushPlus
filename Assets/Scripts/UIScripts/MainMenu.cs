@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour {
     [SerializeField] private GameObject planet;
     [SerializeField] private AudioSource music;
     private ScreenElement ui = null;
-    private Inputs GlobalInputs;
+    public Inputs GlobalInputs;
 
     // option menu
     private bool mOptionPanelActive = false;
@@ -89,6 +89,7 @@ public class MainMenu : MonoBehaviour {
         {
             case "OptionsScreen":
                 //return from options menu
+                ((UI_Options)ui).ProcessInputs();
                 if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) { ((UI_Options)ui).Button_OptionsReturnPressed(); UI_OnOptionsCall(false); }
                     break;
             case "LevelSelect":

@@ -6,8 +6,10 @@ using UnityEngine.UI;
 abstract public class ScreenElement : MonoBehaviour {
 
     private Canvas cv = null;
-    [SerializeField] protected List<Button> ButtonList;
-    private int selector = 0;
+    [SerializeField] protected List<Selectable> ButtonList;
+    protected int selector = 0;
+    protected Inputs controls;
+
 
     virtual public void Awake()
     {
@@ -27,8 +29,19 @@ abstract public class ScreenElement : MonoBehaviour {
     {   //called from UIManager when screenElement is swapped to.
         selector = 0;
         SelectButton();
+        if (GameManager.instance != null)//if there is a game active
+            controls = GameManager.instance.GlobalInputs;
+        else
+            if (MainMenu.instance != null)
+            {//if there is a main menu active
+                controls = MainMenu.instance.GlobalInputs;
+            }
     }
-    public void AdvanceSelector()
+
+
+    ///////////////////////
+    //UI Button interaction
+    virtual public void AdvanceSelector()
     {
         if (selector == (ButtonList.Count - 1))
             selector = 0;
@@ -37,7 +50,7 @@ abstract public class ScreenElement : MonoBehaviour {
         SelectButton();
     }
 
-    public void RetreatSelector()
+    virtual public void RetreatSelector()
     {
         if (selector == 0)
             selector = (ButtonList.Count - 1);
@@ -45,12 +58,12 @@ abstract public class ScreenElement : MonoBehaviour {
             --selector;
         SelectButton();
     }
-    public void SubmitSelection()
+    virtual public void SubmitSelection()
     {
-        ButtonList[selector].onClick.Invoke();
+        ((Button)ButtonList[selector]).onClick.Invoke();
     }
 
-    private void SelectButton()
+    virtual protected void SelectButton()
     {
         if (ButtonList.Count > 0)
             ButtonList[selector].Select();

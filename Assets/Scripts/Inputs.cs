@@ -119,8 +119,8 @@ public class Inputs : MonoBehaviour
         Dpad.y = Input.GetAxis("XboxDpadVertical");
         DpadUp = Dpad.y > 0;
         DpadDown = Dpad.y < 0;
-        DpadRight = Dpad.x > 0;
-        DpadLeft = Dpad.x < 0;
+        DpadRight = Dpad.x < 0;
+        DpadLeft = Dpad.x > 0;
 
         //Dpad on-pressed logic
         if (Dpad.x != 0 && !DpadXaxisInUse)
