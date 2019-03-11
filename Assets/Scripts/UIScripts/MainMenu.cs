@@ -26,6 +26,17 @@ public class MainMenu : MonoBehaviour {
     private Vector3 targetDir;
     private Vector3 targetRot;
 
+    //  selectShip
+    public GameObject selectTray;
+    private Vector3 trayStartPos;
+    public bool movingCamera = false;
+    private int trayindex = 0;
+
+    [SerializeField] private Transform DefaultCameraPos;
+    [SerializeField] private Transform SelectShipCameraPos;
+
+
+    //
     public static MainMenu instance = null;
 
     void Awake()
@@ -68,6 +79,7 @@ public class MainMenu : MonoBehaviour {
     // Use this for initialization
     void Start () {
         shipStartPos = ship.transform.position;
+        trayStartPos = selectTray.transform.position;
         targetRot = ship.transform.eulerAngles;
         Time.timeScale = 1;
         timeToChangeDir = Time.time + 3f;
@@ -92,6 +104,27 @@ public class MainMenu : MonoBehaviour {
                 ((UI_Options)ui).ProcessInputs();
                 if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) { ((UI_Options)ui).Button_OptionsReturnPressed(); UI_OnOptionsCall(false); }
                     break;
+            case "ShipSelectionScreen":
+                //on enter shipSelect: moves camera to ShipSelCamPos
+                //left/right change ship && change shipTray
+                if (GlobalInputs.LAnalogueXLeft || (GlobalInputs.DpadXPressed && GlobalInputs.DpadLeft)) ((UI_ShipSelect)ui).AdvanceSelector();//override moves ship tray +1
+                if (GlobalInputs.LAnalogueXRight || (GlobalInputs.DpadXPressed && GlobalInputs.DpadRight)) ((UI_ShipSelect)ui).RetreatSelector();//override mores ship tray -1
+                //A/enter submit && goto levelSelect
+                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return))// if A controller button or Y keyboard button
+                {
+                    ui.SubmitSelection();
+                    trayindex = 0;
+                }
+                //back button
+                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1))
+                {
+                    ((UI_ShipSelect)ui).Button_ShipSelectReturnPressed();
+                    trayindex = 0;
+                }
+                MoveTray();
+
+
+                break;
             case "LevelSelect":
                 if (GlobalInputs.LAnalogueYDown || (GlobalInputs.DpadYPressed && GlobalInputs.DpadDown )) ui.AdvanceSelector();
                 if (GlobalInputs.LAnalogueYUp || (GlobalInputs.DpadYPressed && GlobalInputs.DpadUp)) ui.RetreatSelector();
@@ -156,6 +189,13 @@ public class MainMenu : MonoBehaviour {
 
         RotatePlanet();
 
+        if (movingCamera)//moving camera is set from UI_ShipSelect screen
+        {   //resets bool to false when anim finished
+            if (!Camera.main.GetComponent<Animation>().isPlaying)
+                movingCamera = false;
+        }
+
+
     }
 
     private void RotatePlanet()
@@ -188,6 +228,25 @@ public class MainMenu : MonoBehaviour {
         }
 
         
+    }
+
+    //ShipSelect
+    public void UI_SwappedToShipSelectScreen(bool towards)
+    {   //call once on screen swap
+        if (towards)
+            Camera.main.GetComponent<Animation>().Play("CameraSelectShipPingpong");
+        else
+            Camera.main.GetComponent<Animation>().Play("CameraSelectShippong");
+    }
+    //move tray
+    public void setTrayMoveTo(int posIndex)
+    {   //called once by ship select advance/retreat selector
+        trayindex = posIndex;
+    }
+    private void MoveTray()
+    {//call every update
+        selectTray.transform.position = Vector3.MoveTowards(selectTray.transform.position, trayStartPos - new Vector3(0,0,trayindex*5), 100 * Time.deltaTime);
+
     }
 
     public void UI_OnVolumeChanged(bool temp)

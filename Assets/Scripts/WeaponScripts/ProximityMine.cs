@@ -12,6 +12,7 @@ public class ProximityMine : Projectile {
     //detonates at set distance
     public float DetonationDistance = 4.0f;
     public float BlastRadius = 20f;
+    private bool Triggered = false;
 
     void Start()
     {
@@ -30,8 +31,9 @@ public class ProximityMine : Projectile {
         lifetime -= Time.deltaTime;
         if (lifetime <= 0.0f)
         {
-            DestroySelf();
+            Triggered = true;
         }
+        if (Triggered) DestroySelf();
         //  spin    
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.FromToRotation(transform.forward, transform.right), 10.0f);
 
@@ -44,7 +46,7 @@ public class ProximityMine : Projectile {
     {
         if ((collision.gameObject.tag != ownertag) && (collision.gameObject.GetComponent<Projectile>() == null)&& (collision.gameObject.GetComponent<PickupItem>() == null))
         {
-            DestroySelf();   
+            Triggered = true;
         }
     }
     protected override void DestroySelf()

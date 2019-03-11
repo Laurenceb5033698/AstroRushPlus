@@ -15,11 +15,12 @@ public class UIManager : MonoBehaviour
 
     //public static event GameEvent OnExitGame;
 
-    public enum Screens { TitleMenu, LevelSelect, LoadingScreen, GameScreen, PauseScreen, OptionsScreen, NumScreens }
+    public enum Screens { TitleMenu, ShipSelectionScreen, LevelSelect, LoadingScreen, GameScreen, PauseScreen, OptionsScreen, NumScreens }
 
     private ScreenElement[] mScreens;
     private Screens mCurrentScreen;
-    
+
+    public int ShipSelectValue;
 
     public static UIManager instance = null;
 
@@ -34,8 +35,9 @@ public class UIManager : MonoBehaviour
 
         SceneLoader.Loaded += LoadingComplete;
 
-        
-        
+        ShipSelectValue = 0;
+
+
 
         //find canvas' in children and assign to apropriate slots
         mScreens = new ScreenElement[(int)Screens.NumScreens];
@@ -164,9 +166,23 @@ public class UIManager : MonoBehaviour
         TransitionTo(Screens.LevelSelect);
         OnScreenChanged();
     }
+    public void ShipSelectionButton()
+    {
+        TransitionTo(Screens.ShipSelectionScreen);
+        OnScreenChanged();
+    }
     //Static Functions for script-UI interaction from other scenes
-  
-    
+    public static ScreenElement GetShipUiObject()
+    {
+        ScreenElement ui = null;
+        ui = UIManager.instance.GetShipSelectElement();
+        return ui;
+    }
+    public ScreenElement GetShipSelectElement()
+    {
+        return mScreens[(int)Screens.ShipSelectionScreen];
+    }
+
     //Events - volume changed
     public void musicVolumeOnValueChanged()
     {

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
     private int currentScore = 0;
     //private int highestScore = 0;
 
-    [SerializeField] private GameObject playerShipPref;
+    [SerializeField] private GameObject[] playerShipPref = new GameObject[4];
     [SerializeField] private GameObject pointerPref;
     [SerializeField] private CameraScript cam;
     private ScreenElement ui=null;
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour {
     void Start()
     {
         
-        playerShip = (GameObject)Instantiate(playerShipPref, Vector3.zero, Quaternion.identity);
+        playerShip = (GameObject)Instantiate(playerShipPref[UIManager.instance.ShipSelectValue], Vector3.zero, Quaternion.identity);
         playerShip.GetComponent<PlayerController>().SetInputs(GlobalInputs);
         
         pointer = (GameObject)Instantiate(pointerPref, Vector3.zero, Quaternion.identity);

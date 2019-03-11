@@ -7571,6 +7571,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114048815659739954, guid: 5d387acb05dd1d44b89e8d74fdc12bc3,
+        type: 2}
+      propertyPath: playerShipPref.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4291532657079724, guid: 5d387acb05dd1d44b89e8d74fdc12bc3, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7608,6 +7613,30 @@ Prefab:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1764922048}
+    - target: {fileID: 114048815659739954, guid: 5d387acb05dd1d44b89e8d74fdc12bc3,
+        type: 2}
+      propertyPath: playerShipPref.Array.data[0]
+      value: 
+      objectReference: {fileID: 1041841502963482, guid: bb9c13bba0bda234983fec90d8cff784,
+        type: 2}
+    - target: {fileID: 114048815659739954, guid: 5d387acb05dd1d44b89e8d74fdc12bc3,
+        type: 2}
+      propertyPath: playerShipPref.Array.data[1]
+      value: 
+      objectReference: {fileID: 1285581705939522, guid: d8cc8145d1808a64cb64daa4b053aabe,
+        type: 2}
+    - target: {fileID: 114048815659739954, guid: 5d387acb05dd1d44b89e8d74fdc12bc3,
+        type: 2}
+      propertyPath: playerShipPref.Array.data[2]
+      value: 
+      objectReference: {fileID: 1113305914210738, guid: e43f44f296793174a9f10b366b6f8dd4,
+        type: 2}
+    - target: {fileID: 114048815659739954, guid: 5d387acb05dd1d44b89e8d74fdc12bc3,
+        type: 2}
+      propertyPath: playerShipPref.Array.data[3]
+      value: 
+      objectReference: {fileID: 1482047594200728, guid: b91a38172f2d9694e861917cd761e094,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5d387acb05dd1d44b89e8d74fdc12bc3, type: 2}
   m_IsPrefabParent: 0
