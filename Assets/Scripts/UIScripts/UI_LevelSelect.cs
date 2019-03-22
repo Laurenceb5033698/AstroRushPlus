@@ -12,7 +12,7 @@ public class UI_LevelSelect : ScreenElement {
     }
     public void Button_GammaLevelPressed()
     {
-        UIManager.instance.StartGame(3);
+        UIManager.instance.StartGame(2);
     }
 
     public void Button_LevelSelectReturnPressed()
