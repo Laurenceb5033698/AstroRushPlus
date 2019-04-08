@@ -60,6 +60,11 @@ public class UIManager : MonoBehaviour
             mScreens[screen].enabled = false;
         }
 
+    }
+
+    private void Start()
+    {
+        //set screen and once other game objects have initialized
         mCurrentScreen = Screens.TitleMenu;
         mScreens[(int)mCurrentScreen].OnScreenOpen();
     }
