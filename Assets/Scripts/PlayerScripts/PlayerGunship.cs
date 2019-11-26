@@ -44,7 +44,7 @@ public class PlayerGunship : PlayerController {
 
     protected override void InputLeftTrigger()
     {   //while held
-        if (controls.LTriggerInUse && stats.ShipFuel > 0.1f)
+        if (controls.LTriggerInUse && stats.ShipFuel > 0.01f)
         {
             //ability charge for a second
             //then all guns enabled(not arsenal: separate gunlist)

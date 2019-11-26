@@ -177,7 +177,7 @@ public class PlayerRamShip : PlayerController
         }
         else
         {
-            currentSpeed = stats.GetBoostSpeed();
+            currentSpeed = stats.GetSpecial();
             stats.ShipFuel = -25 * Time.deltaTime;
             chargeDir.Normalize();
             rb.velocity = new Vector3(chargeDir.x * currentSpeed, 0, chargeDir.z * currentSpeed);

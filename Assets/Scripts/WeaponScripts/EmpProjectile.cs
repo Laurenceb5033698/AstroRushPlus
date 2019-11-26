@@ -18,13 +18,13 @@ public class EmpProjectile : Projectile {
             {
                 case "PlayerShip":
                     other.gameObject.GetComponentInParent<PlayerController>().TakeDamage(transform.position, damage);
-                    other.gameObject.GetComponentInParent<ShipStats>().SetDisable(EMPDuration/2);
+                    other.gameObject.GetComponentInParent<Stats>().SetDisable(EMPDuration/2);
                     applyImpulse(other.GetComponentInParent<Rigidbody>());
                     hit = true;
                     break;
                 case "EnemyShip":
                     other.gameObject.GetComponentInParent<AICore>().TakeDamage(transform.position, damage);
-                    other.gameObject.GetComponentInParent<ShipStats>().SetDisable(EMPDuration);
+                    other.gameObject.GetComponentInParent<Stats>().SetDisable(EMPDuration);
                     applyImpulse(other.GetComponentInParent<Rigidbody>());
                     hit = true;
                     break;

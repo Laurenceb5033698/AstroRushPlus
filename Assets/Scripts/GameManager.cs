@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour {
         Vector3 ClosestEnemy = aiMngr.GetClosestShipPos(playerShip.transform.position);
         pointer.GetComponent<Pointer>().SetNewTarget(ClosestEnemy);
         
-        ShipStats s = playerShip.GetComponent<ShipStats>();
+        Stats s = playerShip.GetComponent<Stats>();
         
         switch (ui.name)
         {
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour {
                 //UI_Game mUIg = ((UI_Game)ui);
                 ((UI_Game)ui).UpdateGameStats(currentScore, aiMngr.GetTotalShipLeft(), aiMngr.GetWaveNumber());
                 ((UI_Game)ui).UpdateShipStats(
-                    s.GetBoostFuelAmount(),
+                    s.ShipFuel,
                     s.GetShieldPUState(),
                     s.ShipHealth,
                     playerShip.GetComponentInChildren<Equipment>().GetAmmoCount(),

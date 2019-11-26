@@ -16,7 +16,7 @@ abstract public class PlayerController : MonoBehaviour {
     protected float rumbleTimer = 0;
 
     protected Rigidbody rb; 	// ship's rigid body
-    protected ShipStats stats;
+    protected Stats stats;
     [SerializeField] protected ParticleSystem shield_Emitter;
     [SerializeField] protected Arsenal arsenal;
     [SerializeField] protected Equipment equipment;
@@ -35,7 +35,7 @@ abstract public class PlayerController : MonoBehaviour {
         ship = transform.gameObject;
         //controls = ship.GetComponent<Inputs>();
         rb = ship.GetComponent<Rigidbody>();
-        stats = ship.GetComponent<ShipStats>();
+        stats = ship.GetComponent<Stats>();
         //shield = ship.GetComponentInChildren<Shield>();
         arsenal = ship.GetComponentInChildren<Arsenal>();
         arsenal.SetShipObject(ship);

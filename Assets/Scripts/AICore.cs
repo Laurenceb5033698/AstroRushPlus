@@ -20,7 +20,7 @@ public class AICore : MonoBehaviour {
     [SerializeField] protected float torqueMultiplier = 1.5f;
     //Component References
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private ShipStats stats;
+    [SerializeField] private Stats stats;
     [SerializeField] private Arsenal arsenal;
     public GameObject SceneManagerObject;
     public AIManager aiManager;
@@ -42,7 +42,7 @@ public class AICore : MonoBehaviour {
     // Use this for initialization
     void Awake()
     {   //Setup AICore references
-        stats = gameObject.GetComponent<ShipStats>();       //local stats
+        stats = gameObject.GetComponent<Stats>();       //local stats
         rb = gameObject.GetComponent<Rigidbody>();     //local rigidbody
 
         arsenal = GetComponentInChildren<Arsenal>();        //local weapons platform
@@ -144,7 +144,7 @@ public class AICore : MonoBehaviour {
 
     virtual protected void Move()
     {   //Default Ship movement behavior
-        float currentSpeed = (dist <= innerRange) ? stats.GetBoostSpeed() : stats.GetMainThrust();//use speeds from shipStats. Change on prefabs
+        float currentSpeed = (dist <= innerRange) ? stats.GetSpecial() : stats.GetMainThrust();//use speeds from shipStats. Change on prefabs
 
         rb.AddForce(gameObject.transform.forward * currentSpeed * 20 * Time.deltaTime, ForceMode.Acceleration);
         

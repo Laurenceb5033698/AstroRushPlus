@@ -97,9 +97,9 @@ public class PlayerBoostShip : PlayerController {
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(controls.LeftStick.x, 0, controls.LeftStick.y)) * Quaternion.Euler(new Vector3(0, -90, 0)), 10);
 
-            if (UsingAbility && stats.ShipFuel > 0.1f)
+            if (UsingAbility && stats.ShipFuel > 0.01f)
             {
-                currentSpeed = stats.GetBoostSpeed();
+                currentSpeed = stats.GetSpecial();
                 stats.ShipFuel = -25 * Time.deltaTime;
             }
         }

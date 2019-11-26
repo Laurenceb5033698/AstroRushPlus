@@ -63,10 +63,10 @@ public class AoeEffect : MonoBehaviour {
         switch (mEffect)
         {
             case Effect.DAMAGE:
-                other.GetComponentInParent<ShipController>().TakeDamage(transform.position, effectAmount * Time.deltaTime);
+                other.GetComponentInParent<PlayerController>().TakeDamage(transform.position, effectAmount * Time.deltaTime);
                 break;
             case Effect.EMP:
-                other.GetComponentInParent<ShipStats>().SetDisable(0.25f/2);
+                other.GetComponentInParent<Stats>().SetDisable(0.25f/2);
                 break;
             case Effect.REPULSION:
                 applyImpulse(other.GetComponentInParent<Rigidbody>(), -1);
@@ -86,7 +86,7 @@ public class AoeEffect : MonoBehaviour {
                 other.GetComponentInParent<AICore>().TakeDamage(transform.position, effectAmount * Time.deltaTime);
                 break;
             case Effect.EMP:
-                other.GetComponentInParent<ShipStats>().SetDisable(0.25f);
+                other.GetComponentInParent<Stats>().SetDisable(0.25f);
                 break;
             case Effect.REPULSION:
                 applyImpulse(other.GetComponentInParent<Rigidbody>() ,-1);
@@ -108,7 +108,7 @@ public class AoeEffect : MonoBehaviour {
                     else other.gameObject.GetComponent<Asteroid>().TakeDamage(effectAmount * Time.deltaTime);
                     break;
                 case Effect.EMP:
-                    //other.GetComponentInParent<ShipStats>().SetDisable(0.25f);    //  do nothing
+                    //other.GetComponentInParent<Stats>().SetDisable(0.25f);    //  do nothing
                     break;
                 case Effect.REPULSION:
                     applyImpulse(other.GetComponentInParent<Rigidbody>(), -2);
