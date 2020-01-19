@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour {
         pointer.GetComponent<Pointer>().SetNewTarget(ClosestEnemy);
         
         Stats s = playerShip.GetComponent<Stats>();
-        
+
         switch (ui.name)
         {
             //case "OptionsScreen":
@@ -108,6 +108,19 @@ public class GameManager : MonoBehaviour {
                 else
                 if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1))// B controller button or Escape button
                     ((UI_Game)ui).Button_PausePressed(false);
+                if (aiMngr.EndOfWave == true)
+                    UIManager.instance.UpgradesButton();
+                break;
+            case "UpgradesScreen":
+                //do upgrades
+                Time.timeScale = 0;
+
+                ((UI_Upgrade)ui).ProcessInputs();
+                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) {  ((UI_Upgrade)ui).Button_ConfirmUpgrades();}
+                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space))// if A controller button or Y keyboard button
+                {
+                    ui.SubmitSelection();
+                }
                 break;
             case "OptionsScreen":
                 //return from options menu
@@ -128,42 +141,10 @@ public class GameManager : MonoBehaviour {
                 }
                 else if (s.IsAlive() && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)))// B controller button or Escape button
                     ((UI_Pause)ui).Button_ContinuePressed();
-                //else if (Input.GetKeyDown(KeyCode.JoystickButton3))
-                //    ((UI_Pause)ui).Button_QuitToMenuPressed();
-                //if (s.IsAlive() && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7))) // esape button or Start controller button
-                //{
-                //    UIManager.instance.Resume();
-                //}
+                
                 break;
         }
         
-        //ShipStats s = playerShip.GetComponent<ShipStats>();
-        //ui.UpdateGameStats(currentScore, em.GetTotalShipLeft(), wm.GetWave());
-        //ui.UpdateShipStats(s.GetBoostFuelAmount(), s.GetShieldPUState(), s.ShipHealth, s.GetNoMissiles(), playerShip.GetComponent<ShipController>().GetWeaponType());
-        //if (!s.IsAlive()) ui.SetGameOverState(true);
-
-        //Time.timeScale = (ui.GetMenuState() || ui.GetHintsState()) ? 0 : 1;
-
-        //if (ui.GetMenuState())
-        //{
-        //    if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Y)) RestartGame(); // if A controller button or Y keyboard button
-        //    else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) ToggleUIState(); // B controller button or Escape button
-        //    else if (Input.GetKeyDown(KeyCode.JoystickButton3)) LoadMainMenu();
-        //}
-        //else
-        //{
-        //    if (ui.GetHintsState() && (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return)))
-        //    {
-        //        ui.IncrementDHIndex();
-        //    }
-        //    else
-        //    {
-        //        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7)) // esape button or Start controller button
-        //        {
-        //            ui.ToggleEscState();
-        //        }
-        //    }
-        //}
 
     }
     public void UI_OnVolumeChanged(bool temp)

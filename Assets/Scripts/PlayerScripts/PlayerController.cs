@@ -18,7 +18,7 @@ abstract public class PlayerController : MonoBehaviour {
     protected Rigidbody rb; 	// ship's rigid body
     protected Stats stats;
     [SerializeField] protected ParticleSystem shield_Emitter;
-    [SerializeField] protected Arsenal arsenal;
+    [SerializeField] public Arsenal arsenal;
     [SerializeField] protected Equipment equipment;
     
     protected int weaponType = 0;
@@ -254,6 +254,22 @@ abstract public class PlayerController : MonoBehaviour {
         stats.TakeDamage(amount);
         rumbleTimer = Time.time + 0.3f;
     }
+
+    public void UpdateStats(float bHp, float bSh, float bAt, float bSp, float bSd, float bFl)
+    {   //used by UI_Upgrade
+        stats.Health.SetBonusMod(bHp);
+        stats.Shield.SetBonusMod(bSh);
+        stats.Attack.SetBonusMod(bAt);
+        stats.Special.SetBonusMod(bSp);
+        stats.Speed.SetBonusMod(bSd);
+        stats.Fuel.SetBonusMod(bFl);
+        //now recalculate
+        stats.RecalculateStats();
+
+        //now propagate to arsenal
+        arsenal.UpdateDamageFromAttackStat();
+    }
+
 
     public int GetWeaponType()
     {

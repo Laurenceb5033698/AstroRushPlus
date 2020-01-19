@@ -39,7 +39,7 @@ public class Weapon_Burst : Weapon {
         for (int shot=0 ;shot < numProjectilesPerBurst; shot++)
         {
             mBullet = (GameObject)Instantiate(bullet1, ship.transform.position + spreadera, Quaternion.LookRotation(spreadera.normalized, Vector3.up));
-            mBullet.GetComponent<Projectile>().SetupValues(bulletDamage, bulletSpeed, ship.tag);
+            mBullet.GetComponent<Projectile>().SetupValues(finalBulletDamage, bulletSpeed, ship.tag);
             spreadera = (aimDir * 6f) + (adjustTemp * Random.Range(-1f, 1f));
         }
     }

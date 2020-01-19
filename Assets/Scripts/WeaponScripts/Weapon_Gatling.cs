@@ -75,7 +75,7 @@ public class Weapon_Gatling : Weapon_Cannon
         aimDir += (new Vector3(Random.Range(-Current_Burnout, Current_Burnout), 0, Random.Range(-Current_Burnout, Current_Burnout))/32);
         GameObject mBullet;
         mBullet = (GameObject)Instantiate(bullet1, ship.transform.position + aimDir * 6f, Quaternion.LookRotation(aimDir, Vector3.up));
-        mBullet.GetComponent<Projectile>().SetupValues(bulletDamage, bulletSpeed, ship.tag);
+        mBullet.GetComponent<Projectile>().SetupValues(finalBulletDamage, bulletSpeed, ship.tag);
 
     }
 

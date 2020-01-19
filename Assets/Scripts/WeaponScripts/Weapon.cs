@@ -15,7 +15,10 @@ abstract public class Weapon : MonoBehaviour{
     
     protected float reload = 0;
 
-    [SerializeField] protected float bulletDamage = 5f;
+    [SerializeField] protected float baseBulletDamage = 5f;
+    
+    protected float finalBulletDamage = 5f;
+
     [SerializeField] protected float bulletSpeed = 20f;
     [SerializeField] protected AudioSource shootSound;
 
@@ -40,8 +43,14 @@ abstract public class Weapon : MonoBehaviour{
         if (TurretPref != null)
         {
             GetComponentInParent<Arsenal>().SwapTurret(TurretPref);
-
+            
         }
+    }
+
+    public void CalculateFinalDamage()
+    {
+        float newModifier = ship.GetComponent<Stats>().Attack.Value;
+        finalBulletDamage = baseBulletDamage * newModifier;
     }
     
 
@@ -56,5 +65,6 @@ abstract public class Weapon : MonoBehaviour{
     abstract public void spawnProjectile(Vector3 aimDir);
 
     abstract public void Shoot(Vector3 direction);
+
 
 }

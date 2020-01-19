@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class AIManager : MonoBehaviour {
 
-
+    [SerializeField]
+    StageDataScriptable Stage;
+    
     List<GameObject> ActiveShips; //(AIs)
 
     int maxActiveShips = 20; //(ship limit onscreen)
@@ -25,14 +27,14 @@ public class AIManager : MonoBehaviour {
     [SerializeField] PickupManager rPickupManager; //(Pickup Manager)
     [SerializeField] private GameObject player; //(Player Object (assigned through code)
 
-
+    public bool EndOfWave = false;
 
 
 
 
     private void Awake()
     {   //set references
-
+        //Stage.StageLevels[0].TotalShips;
     }
     void OnEnable()
     {
@@ -59,8 +61,10 @@ public class AIManager : MonoBehaviour {
         {  //all ships spawned
             if (ActiveShips.Count == 0 && RemainingShipsToSpawn == 0)
             {
-                newWaveSound.Play();    //play sound on end of wave
-                NewWave();  //waits for all ships to die
+                EndOfWave = true;
+                
+                //new waveis now called by gamemanger
+                //NewWave();  //waits for all ships to die
             }
         }
         SlowUpdate();
@@ -74,7 +78,7 @@ public class AIManager : MonoBehaviour {
             GameObject RandomPref = ShipPrefabs[Random.Range(0, ShipPrefabs.Count)];
             GameObject NewShip = Instantiate(RandomPref, GetRandomPosition(), Quaternion.identity);
             NewShip.GetComponent<AICore>().Initialise(player, this, gameObject);
-
+            //
             ActiveShips.Add(NewShip);
             NewShip.transform.parent = SceneGroup.transform;
             
@@ -84,9 +88,11 @@ public class AIManager : MonoBehaviour {
         }
     }
 
-    private void NewWave()
+    public void NewWave()
     {   //advances number of ships per wave;
+        EndOfWave = false;
         //  ?bosswave? how? spawn separately?
+        newWaveSound.Play();    //play sound on end of wave
 
         totalShipsThisWave += 4;
         RemainingShipsToSpawn = totalShipsThisWave;
@@ -125,6 +131,7 @@ public class AIManager : MonoBehaviour {
     public void Remove(GameObject ship)
     {   //called by ship's OnDestroy();
         rPickupManager.GetComponent<PickupManager>().SpawnPickup(ship.transform.position);
+        //add ships points to upgrade points (UI?)
         if (ActiveShips.Contains(ship))
             ActiveShips.Remove(ship);
     }

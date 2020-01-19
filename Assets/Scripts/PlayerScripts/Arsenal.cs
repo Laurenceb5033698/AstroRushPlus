@@ -34,6 +34,10 @@ public class Arsenal : MonoBehaviour
         Gun = Weapons[currentGun];
         Gun.enabled = true;
     }
+    private void Start()
+    {
+        UpdateDamageFromAttackStat();
+    }
 
     public void SetShipObject(GameObject obj)
     {
@@ -66,6 +70,14 @@ public class Arsenal : MonoBehaviour
         Gun.OnSwappedTo();
         return currentGun;
     } 
+
+    public void UpdateDamageFromAttackStat()
+    {   //call this after adding new weapons and after upgrading from upgrade screen
+        foreach (Weapon item in Weapons)
+        {
+            item.CalculateFinalDamage();
+        }
+    }
 
     public void FireWeapon(Vector3 Aimdir)
     {

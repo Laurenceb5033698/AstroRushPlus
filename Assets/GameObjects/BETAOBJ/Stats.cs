@@ -29,12 +29,7 @@ public class Stats : MonoBehaviour
     private void Awake()
     {
         //  Recalculate stat max & values from values set in editor
-        Health.Recalculate();
-        Shield.Recalculate();
-        Attack.Recalculate();
-        Special.Recalculate();
-        Speed.Recalculate();
-        Fuel.Recalculate();
+        RecalculateStats();
     }
 
     private void Start()
@@ -46,6 +41,15 @@ public class Stats : MonoBehaviour
         decreaseEmp();
     }
 
+    public void RecalculateStats()
+    {
+        Health.Recalculate();
+        Shield.Recalculate();
+        Attack.Recalculate();
+        Special.Recalculate();
+        Speed.Recalculate();
+        Fuel.Recalculate();
+    }
 
     //  Functions
     //  Health

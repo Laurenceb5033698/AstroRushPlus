@@ -41,9 +41,9 @@ public class Stat
     }
 
 
-    public void AddToBonusMod(float valToadd)
+    public void SetBonusMod(float valToadd)
     {
-        BonusMod += valToadd;
+        BonusMod = 1.0f + valToadd;
         BonusMod = Mathf.Max(0.05f, BonusMod);  //cannot go lower than 5%
         Recalculate();
     }

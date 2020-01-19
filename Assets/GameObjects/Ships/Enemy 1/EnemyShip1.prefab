@@ -26,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1136387554503754}
-  m_LocalRotation: {x: -0.00000008940696, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 28.200142, y: 44.385532, z: -8.307596}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -73,7 +73,7 @@ MonoBehaviour:
     ShipMod: 0.5
     BonusMod: 1
   Attack:
-    BaseStatMax: 100
+    BaseStatMax: 1
     ShipMod: 1
     BonusMod: 1
   Special:
@@ -307,7 +307,7 @@ MonoBehaviour:
   TurretPref: {fileID: 0}
   ship: {fileID: 0}
   shootSpeed: 0.5
-  bulletDamage: 20
+  baseBulletDamage: 8
   bulletSpeed: 30
   shootSound: {fileID: 0}
 --- !u!82 &82660340868655376

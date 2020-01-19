@@ -299,7 +299,7 @@ MonoBehaviour:
   TurretPref: {fileID: 1891799757114346, guid: 0c53142284899734497b7be9f2084dee, type: 3}
   ship: {fileID: 0}
   shootSpeed: 0.7
-  bulletDamage: 10
+  baseBulletDamage: 6
   bulletSpeed: 40
   shootSound: {fileID: 0}
 --- !u!82 &82775082927659634
@@ -5282,7 +5282,7 @@ MonoBehaviour:
     ShipMod: 0.2
     BonusMod: 1
   Attack:
-    BaseStatMax: 100
+    BaseStatMax: 1
     ShipMod: 1
     BonusMod: 1
   Special:

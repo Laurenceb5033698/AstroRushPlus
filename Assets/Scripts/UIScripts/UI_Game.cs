@@ -136,12 +136,14 @@ public class UI_Game : ScreenElement
         missileCounter.text = "X " + missile;
 
         Vector3 temp;
+        float maxval = GameManager.instance.GetShipRef().GetComponent<Stats>().Health.Max;
         temp = statBars[0].transform.localScale;
-        temp.x = (2.5f / 100) * health;
+        temp.x = (2.5f / maxval) * health;
         statBars[0].transform.localScale = temp;
 
+        maxval = GameManager.instance.GetShipRef().GetComponent<Stats>().Fuel.Max;
         temp = statBars[1].transform.localScale;
-        temp.x = (2.5f / 100) * boost;
+        temp.x = (2.5f / maxval) * boost;
         statBars[1].transform.localScale = temp;
 
 
