@@ -9,16 +9,20 @@ public class Weapon_Cannon : Weapon {
 
     [SerializeField] protected float mAimingSpeed = 2f;
 
-    private void OnEnable()
+    protected void OnEnable()
     {
         mLaserAimDir = transform.rotation;
         mAimingVisuals.SetActive(true);
         mAimingVisuals.transform.rotation = mLaserAimDir;
+
+        Debug.Log("CannonEnabled.");
     }
 
-    private void OnDisable()
+    protected void OnDisable()
     {
         mAimingVisuals.SetActive(false);
+        Debug.Log("CannonDisabled.");
+
     }
 
     private void Update()

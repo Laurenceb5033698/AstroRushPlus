@@ -5,7 +5,7 @@ using TMPro;
 
 
 ////upgrade stats represent the visual upgrades that players buy in the menu
-//    //there are 10 points to buy at teh minute
+//    //there are 10 points to buy at the minute
 //    public class upgradestats
 //    {
 //        const int maxValues = 10;
@@ -30,6 +30,8 @@ public class UI_Upgrade : ScreenElement
     [SerializeField] private float[] StatUpgradeValues; //How much each upgrade point adds to the stat modifier
     [SerializeField] private int[] StatUpgradeCosts;    //How much the corrisoponding point costs to buy
 
+    [SerializeField]
+    private Text UpgradePoints;
 
     [SerializeField] protected List<Selectable> pluses;
     [SerializeField] protected List<Selectable> minuses;
@@ -63,6 +65,15 @@ public class UI_Upgrade : ScreenElement
      * after that relates to ButtonList selectables
      * 
     */
+
+    new protected void OnEnable()
+    {
+        base.OnEnable();
+        //update upgrade points
+        UpgradePoints.text = GameManager.instance.currentScore.ToString();
+    }
+
+
     public void ProcessInputs()
     {
         
@@ -91,28 +102,34 @@ public class UI_Upgrade : ScreenElement
 
     public void Button_PlusPressed(Button self)
     {   //clicked/pressed to buy an upgrade point
-        Debug.Log("Upgrade Plus Button pressed: "+ pluses.IndexOf(self) );
         int statindex = pluses.IndexOf(self);
         //do upgrade
         if (tempstats[statindex] < maxValues)
             //check price vs cost
-            //buy stat
-            //record stat bought
-            tempstats[statindex]++;//level up by 1 point
+            //tempstat[hp]+1 === next value in the hp stat line
+            //statUpgradeCosts[hp+1]+1 == cost of next value
 
+            if (StatUpgradeCosts[tempstats[statindex]+1]+1 < GameManager.instance.currentScore)
+            {
+                //buy stat
+                GameManager.instance.currentScore -= StatUpgradeCosts[tempstats[statindex] +1]+1;
+                //record stat bought
+                tempstats[statindex]++;//level up by 1 point
+            }
         setVisuals(statindex);
     }
 
     public void Button_MinusPressed(Button self)
     {   //clicked/pressed to buy an upgrade point
-        Debug.Log("Upgrade Minus Button pressed: " + minuses.IndexOf(self));
-
         int statindex = minuses.IndexOf(self);
         //do refund
-        if (tempstats[statindex]>prevstats[statindex])  //cannot reduce below prevstats
+        if (tempstats[statindex] > prevstats[statindex])
+        {  //cannot reduce below prevstats
             //refund cost of stat undone
-            tempstats[statindex]--;//leveldown up by 1 point
+            GameManager.instance.currentScore += StatUpgradeCosts[tempstats[statindex]];
 
+            tempstats[statindex]--;//leveldown up by 1 point
+        }
         setVisuals(statindex);
 
     }
@@ -215,5 +232,8 @@ public class UI_Upgrade : ScreenElement
         float val = StatUpgradeValues[tempstats[index]];
         
         textVisuals[index].SetText(val.ToString("F1"));
+
+        //update upgrade points
+        UpgradePoints.text = GameManager.instance.currentScore.ToString();
     }
 }

@@ -6,12 +6,13 @@ public class AIManager : MonoBehaviour {
 
     [SerializeField]
     StageDataScriptable Stage;
+    LevelDataScriptable levelData;
     
     List<GameObject> ActiveShips; //(AIs)
 
-    int maxActiveShips = 20; //(ship limit onscreen)
+    //int maxActiveShips = 20; //(ship limit onscreen)
     int RemainingShipsToSpawn= 0 ;
-    int totalShipsThisWave = 2; //(+2 per wave)
+    //int totalShipsThisWave = 2; //(+2 per wave)
 
     float spawnDelay = 1f;
     float spawnTimer = 0f;
@@ -21,7 +22,7 @@ public class AIManager : MonoBehaviour {
     int SlowIndex = 0;  //slowUpdate ship Index
     int WaveCounter = 0;
 
-    [SerializeField] List<GameObject> ShipPrefabs;
+    //[SerializeField] List<GameObject> ShipPrefabs;
     [SerializeField] GameObject SceneGroup; //(parent of ships)
     [SerializeField] AudioSource newWaveSound;
     [SerializeField] PickupManager rPickupManager; //(Pickup Manager)
@@ -34,7 +35,14 @@ public class AIManager : MonoBehaviour {
 
     private void Awake()
     {   //set references
-        //Stage.StageLevels[0].TotalShips;
+        //Debug.Log( "number of levels in Stage: " + Stage.StageLevels.Count);
+        //Debug.Log( "Total ships in this level: " + Stage.StageLevels[0].TotalShips );
+        //Debug.Log( "Max number of active ships: " + Stage.StageLevels[0].MaxActiveShip );
+        //Debug.Log( "Level Difficulty: " + Stage.StageLevels[0].Difficulty );
+        //Debug.Log( "number of differnt ship prefabs: " + Stage.StageLevels[0].NormalShipPrefabs.Count );
+        //Debug.Log( "Number of Elites in level: " + Stage.StageLevels[0].EliteShipPrefabs.Count );
+        levelData = Stage.StageLevels[0];
+
     }
     void OnEnable()
     {
@@ -52,7 +60,7 @@ public class AIManager : MonoBehaviour {
         //wave management
         if (SpawningShips)
         {
-            if (ActiveShips.Count < maxActiveShips)
+            if (ActiveShips.Count < levelData.MaxActiveShip)
             {
                 SpawnShip();
             }
@@ -75,10 +83,14 @@ public class AIManager : MonoBehaviour {
     {   //spawns a random ship from set prefabs in a random place
         if (spawnTimer < Time.time)
         {
-            GameObject RandomPref = ShipPrefabs[Random.Range(0, ShipPrefabs.Count)];
+            GameObject RandomPref = levelData.NormalShipPrefabs[Random.Range(0, levelData.NormalShipPrefabs.Count)];
             GameObject NewShip = Instantiate(RandomPref, GetRandomPosition(), Quaternion.identity);
-            NewShip.GetComponent<AICore>().Initialise(player, this, gameObject);
-            //
+
+            //use difficulty value to add to bonus stats
+            float statbonus = levelData.Difficulty / 100;
+            NewShip.GetComponent<AICore>().Initialise(player, this, gameObject, statbonus);
+            NewShip.GetComponent<AICore>().UpdateStats(statbonus);
+
             ActiveShips.Add(NewShip);
             NewShip.transform.parent = SceneGroup.transform;
             
@@ -89,13 +101,23 @@ public class AIManager : MonoBehaviour {
     }
 
     public void NewWave()
-    {   //advances number of ships per wave;
+    {
+        if (WaveCounter >= Stage.StageLevels.Count)
+            WaveCounter = 0;    //temp fix, needs to "win"stage
+        levelData = Stage.StageLevels[WaveCounter];
+        Debug.Log("number of levels in Stage: " + Stage.StageLevels.Count);
+        Debug.Log("Total ships in this level: " + Stage.StageLevels[0].TotalShips);
+        Debug.Log("Max number of active ships: " + Stage.StageLevels[0].MaxActiveShip);
+        Debug.Log("Level Difficulty: " + Stage.StageLevels[0].Difficulty);
+        Debug.Log("number of differnt ship prefabs: " + Stage.StageLevels[0].NormalShipPrefabs.Count);
+        Debug.Log("Number of Elites in level: " + Stage.StageLevels[0].EliteShipPrefabs.Count);
+
         EndOfWave = false;
         //  ?bosswave? how? spawn separately?
         newWaveSound.Play();    //play sound on end of wave
 
-        totalShipsThisWave += 4;
-        RemainingShipsToSpawn = totalShipsThisWave;
+        //totalShipsThisWave = levelData.TotalShips;
+        RemainingShipsToSpawn = levelData.TotalShips;
         SpawningShips = true;
         ++WaveCounter;
     }
@@ -132,6 +154,7 @@ public class AIManager : MonoBehaviour {
     {   //called by ship's OnDestroy();
         rPickupManager.GetComponent<PickupManager>().SpawnPickup(ship.transform.position);
         //add ships points to upgrade points (UI?)
+        GameManager.instance.AddScore( ship.GetComponent<AICore>().scoreValue );
         if (ActiveShips.Contains(ship))
             ActiveShips.Remove(ship);
     }

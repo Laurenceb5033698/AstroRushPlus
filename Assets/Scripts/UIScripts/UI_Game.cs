@@ -11,7 +11,6 @@ public class UI_Game : ScreenElement
     [SerializeField] private GameObject[] HUDs = new GameObject[3];
     [SerializeField] private GameObject[] statBars = new GameObject[2];     // helth, boost
     [SerializeField] private GameObject[] indicators = new GameObject[2];   // shield on, shield off, single, tri, missile
-    [SerializeField] private GameObject[] popupElements= new GameObject[1];
 
     private float helthFlashingTimer = 0;
     private bool hpActive = true;
@@ -179,14 +178,6 @@ public class UI_Game : ScreenElement
             healthIndicator.SetActive(hpActive);
         }
 
-        if (GameManager.instance.GetComponent<BoundaryManager>().GetState())
-        {
-            popupElements[0].SetActive(true);
-        }
-        else
-        {
-            popupElements[0].SetActive(false);
-        }
 
 
     }

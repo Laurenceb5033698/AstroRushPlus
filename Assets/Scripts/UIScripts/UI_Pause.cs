@@ -18,7 +18,7 @@ public class UI_Pause : ScreenElement
 
     public void Button_ContinuePressed()
     {
-        if (GameManager.instance.GetShipRef().GetComponent<ShipStats>().IsAlive() )
+        if (GameManager.instance.GetShipRef().GetComponent<Stats>().IsAlive() )
             UIManager.instance.Resume();
     }
 

@@ -7,14 +7,14 @@ using XInputDotNetPure; // for controller rumble
 abstract public class PlayerController : MonoBehaviour {
 
     protected GameObject ship;  // ship gameobject
-
+    //controller number and rumble vars
     protected bool playerIndexSet = false;
     protected PlayerIndex playerIndex;
     protected GamePadState state;
     protected GamePadState prevState;
     protected Inputs controls;
     protected float rumbleTimer = 0;
-
+    //compoent vars
     protected Rigidbody rb; 	// ship's rigid body
     protected Stats stats;
     [SerializeField] protected ParticleSystem shield_Emitter;
@@ -33,10 +33,8 @@ abstract public class PlayerController : MonoBehaviour {
     {
         Debug.Log("PlayerController Awake.");
         ship = transform.gameObject;
-        //controls = ship.GetComponent<Inputs>();
         rb = ship.GetComponent<Rigidbody>();
         stats = ship.GetComponent<Stats>();
-        //shield = ship.GetComponentInChildren<Shield>();
         arsenal = ship.GetComponentInChildren<Arsenal>();
         arsenal.SetShipObject(ship);
         //single weapon "Equipment" is a collection for Ordinance
@@ -89,19 +87,11 @@ abstract public class PlayerController : MonoBehaviour {
             GamePad.SetVibration(playerIndex, 0, 0);
     }
 
-    //private void OnEnable()
-    //{     //something-something audio manager...
-    //      //UIManager.GamevolumeChanged += ShootVolumeChanged;
-    //}
-    //private void OnDisable()
-    //{
-    //    //UIManager.GamevolumeChanged -= ShootVolumeChanged;
-    //}
-
+    
     ///################################################################
     /// Player Inputs #################################################
     /// Made Into functions for inherited classes to override as needed
-    ///currently emulates boost ship by default
+    ///currently functions as boost ship by default
     
     //####  ANALOG STICKS
     virtual protected void InputLeftAnalog()

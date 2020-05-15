@@ -11,16 +11,16 @@ abstract public class ScreenElement : MonoBehaviour {
     protected Inputs controls;
 
 
-    virtual public void Awake()
+    protected void Awake()
     {
         cv = GetComponent<Canvas>();
     }
 
-    virtual public void OnEnable()
+    protected void OnEnable()
     {
         cv.enabled = true;
     }
-    virtual public void OnDisable()
+    protected void OnDisable()
     {
         cv.enabled = false;
     }

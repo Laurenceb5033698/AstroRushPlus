@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
     private GameObject playerShip;
-    private int currentScore = 0;
+    public int currentScore = 0;
     //private int highestScore = 0;
 
     [SerializeField] private GameObject[] playerShipPref = new GameObject[4];
@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour {
     private ScreenElement ui=null;
     private AIManager aiMngr;
     private AsteroidManager asm;
-    private BoundaryManager bdrym;
     private GameObject pointer;
     public Inputs GlobalInputs;
     
@@ -56,10 +55,9 @@ public class GameManager : MonoBehaviour {
 
         aiMngr = GetComponent<AIManager>();
         asm = GetComponent<AsteroidManager>();
-        bdrym = GetComponent<BoundaryManager>();
+
         aiMngr.enabled = true;
         asm.enabled = true;
-        bdrym.enabled = true;
     }
     private void OnEnable()
     {

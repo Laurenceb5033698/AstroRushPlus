@@ -10,7 +10,7 @@ public class AICore : MonoBehaviour {
     private int id;
     private int type;
     //private GameObject sm;
-    [SerializeField] private int scoreValue;
+    public int scoreValue;
 
     //Customise AI range behaviours
     [SerializeField] protected float innerRange = 30f;
@@ -215,11 +215,31 @@ public class AICore : MonoBehaviour {
         Destroy(transform.gameObject);
     }
 
-    public void Initialise(GameObject ThePlayer, AIManager aiMngr, GameObject sceneManager)
+    public void Initialise(GameObject ThePlayer, AIManager aiMngr, GameObject sceneManager, float difficultyBonus)
     {
         player = ThePlayer;
         aiManager = aiMngr;
         SceneManagerObject = sceneManager;
+        //now update Base score Value to scaled value
+        scoreValue = (int)(scoreValue * (1.0f + difficultyBonus));
+    }
+
+
+    public void UpdateStats(float statbonus)
+    {   //used by UI_Upgrade
+        stats.Health.SetBonusMod(statbonus);
+        stats.Shield.SetBonusMod(statbonus);
+        stats.Attack.SetBonusMod(statbonus);
+        stats.Special.SetBonusMod(statbonus);
+        stats.Speed.SetBonusMod(statbonus);
+        stats.Fuel.SetBonusMod(statbonus);
+        //now recalculate
+        stats.RecalculateStats();
+
+        //now propagate to arsenal
+        arsenal.UpdateDamageFromAttackStat();
+
+        
     }
 
     public bool GetAlive()
