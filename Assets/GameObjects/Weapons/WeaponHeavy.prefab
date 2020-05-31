@@ -47,9 +47,9 @@ MonoBehaviour:
   bullet1: {fileID: 1537852893804026, guid: efeeee0b3a284774f8e0934b076641c2, type: 3}
   TurretPref: {fileID: 1903755262234688, guid: d4ae992490a20424c95dcec8b831413d, type: 3}
   ship: {fileID: 0}
-  shootSpeed: 0.2
-  baseBulletDamage: 18
-  bulletSpeed: 60
+  shootSpeed: 0.333
+  baseBulletDamage: 19
+  bulletSpeed: 50
   shootSound: {fileID: 0}
 --- !u!82 &82637291563009162
 AudioSource:
@@ -61,10 +61,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2c2c964829cfd354c9fe75d5e0c82397, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4c334912946662a419c0f7a44893a7e5, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.04
-  m_Pitch: 2.5
+  m_Volume: 0.123
+  m_Pitch: 0.93
   Loop: 0
   Mute: 0
   Spatialize: 0

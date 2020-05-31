@@ -44,7 +44,11 @@ public class Inputs : MonoBehaviour
 	public bool shoot = false;
 	public bool targeting = false;
 	public bool reset = false;
-    
+
+    public Vector2 MouseWheel = new Vector2(0, 0);
+    public bool ScrollUp = false;
+    public bool ScrollDown = false;
+
     void Update()
     {
         DpadXPressed = false;
@@ -55,6 +59,9 @@ public class Inputs : MonoBehaviour
         LAnalogueXRight = false;
         RTriggerPressed = false;
         LTriggerPressed = false;
+
+        ScrollUp = false;
+        ScrollDown = false;
         CheckInputs();
     }
 
@@ -64,8 +71,18 @@ public class Inputs : MonoBehaviour
         LeftStick.y = Input.GetAxis("LeftStickY");
         RightStick.x = Input.GetAxis("RightStickX");
         RightStick.y = Input.GetAxis("RightStickY");
-        
-        
+
+        MouseWheel = Input.mouseScrollDelta;
+        if (MouseWheel.y > 0f)
+        {
+            ScrollUp = true;
+        }
+        else if (MouseWheel.y < 0f)
+        {
+            ScrollDown = true;
+
+        }
+
         if (!LeftAnalogueInUse && LeftStick.y > 0.02f)
         {
             LAnalogueYUp = true;

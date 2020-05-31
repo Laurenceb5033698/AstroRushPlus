@@ -107,8 +107,8 @@ public class MainMenu : MonoBehaviour {
             case "ShipSelectionScreen":
                 //on enter shipSelect: moves camera to ShipSelCamPos
                 //left/right change ship && change shipTray
-                if (GlobalInputs.LAnalogueXLeft || (GlobalInputs.DpadXPressed && GlobalInputs.DpadLeft)) ((UI_ShipSelect)ui).AdvanceSelector();//override moves ship tray +1
-                if (GlobalInputs.LAnalogueXRight || (GlobalInputs.DpadXPressed && GlobalInputs.DpadRight)) ((UI_ShipSelect)ui).RetreatSelector();//override mores ship tray -1
+                if (Input.GetKeyDown(KeyCode.D) || GlobalInputs.ScrollUp || GlobalInputs.LAnalogueXLeft || (GlobalInputs.DpadXPressed && GlobalInputs.DpadLeft)) ((UI_ShipSelect)ui).AdvanceSelector();//override moves ship tray +1
+                if (Input.GetKeyDown(KeyCode.A) ||GlobalInputs.ScrollDown || GlobalInputs.LAnalogueXRight || (GlobalInputs.DpadXPressed && GlobalInputs.DpadRight)) ((UI_ShipSelect)ui).RetreatSelector();//override mores ship tray -1
                 //A/enter submit && goto levelSelect
                 if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return))// if A controller button or Y keyboard button
                 {
@@ -127,7 +127,7 @@ public class MainMenu : MonoBehaviour {
                 break;
             case "LevelSelect":
                 if (GlobalInputs.LAnalogueYDown || (GlobalInputs.DpadYPressed && GlobalInputs.DpadDown )) ui.AdvanceSelector();
-                if (GlobalInputs.LAnalogueYUp || (GlobalInputs.DpadYPressed && GlobalInputs.DpadUp)) ui.RetreatSelector();
+                if ( GlobalInputs.LAnalogueYUp || (GlobalInputs.DpadYPressed && GlobalInputs.DpadUp)) ui.RetreatSelector();
 
                 if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return))// if A controller button or Y keyboard button
                 {

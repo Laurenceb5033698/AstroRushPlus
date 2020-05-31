@@ -135,14 +135,14 @@ public class UI_Game : ScreenElement
         missileCounter.text = "X " + missile;
 
         Vector3 temp;
-        float maxval = GameManager.instance.GetShipRef().GetComponent<Stats>().Health.Max;
+        float maxHp = GameManager.instance.GetShipRef().GetComponent<Stats>().Health.Max;
         temp = statBars[0].transform.localScale;
-        temp.x = (2.5f / maxval) * health;
+        temp.x = (2.5f / maxHp) * health;
         statBars[0].transform.localScale = temp;
 
-        maxval = GameManager.instance.GetShipRef().GetComponent<Stats>().Fuel.Max;
+        float maxboost = GameManager.instance.GetShipRef().GetComponent<Stats>().Fuel.Max;
         temp = statBars[1].transform.localScale;
-        temp.x = (2.5f / maxval) * boost;
+        temp.x = (2.5f / maxboost) * boost;
         statBars[1].transform.localScale = temp;
 
 
@@ -153,10 +153,10 @@ public class UI_Game : ScreenElement
           WeaponChanged(wType);
         
 
-        if (health < 50)
+        if (health < (maxHp / 2))
         {
             Color tempCol = healthVignette.GetComponent<RawImage>().color;
-            tempCol.a = -((health / 50) * 0.7f) + 0.7f;
+            tempCol.a = 0.7f - ((health / (maxHp / 2)) * 0.7f);
             healthVignette.GetComponent<RawImage>().color = tempCol;
 
 

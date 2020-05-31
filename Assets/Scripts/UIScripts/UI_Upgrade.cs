@@ -98,6 +98,15 @@ public class UI_Upgrade : ScreenElement
     {   //save stats to playerprefs
         //prevstate -> prefs
     }
+    public void ResetStats()
+    {
+        prevstats = new int[6] { 0, 0, 0, 0, 0, 0 };
+        tempstats = new int[6] { 0, 0, 0, 0, 0, 0 };
+        for (int i=0; i<statMasks.Count; ++i) {
+            setVisuals(i);
+        }
+
+    }
 
 
     public void Button_PlusPressed(Button self)
@@ -229,7 +238,7 @@ public class UI_Upgrade : ScreenElement
     {
         //calc mask val (0->)
         statMasks[index].fillAmount = (float)tempstats[index] * 0.1f;
-        float val = StatUpgradeValues[tempstats[index]];
+        float val = 1+StatUpgradeValues[tempstats[index]];
         
         textVisuals[index].SetText(val.ToString("F1"));
 

@@ -110,7 +110,7 @@ public class UIManager : MonoBehaviour
     public void EndLevel()
     {
         SceneLoader.LoadTitleScene();
-
+        ((UI_Upgrade)mScreens[(int)Screens.UpgradesScreen]).ResetStats();
         SceneTransitionTo(Screens.TitleMenu);
         OnScreenChanged();
 
@@ -120,6 +120,7 @@ public class UIManager : MonoBehaviour
         SceneLoader.RestartCurrentLevel();
         TransitionTo(Screens.GameScreen);
         OnScreenChanged();
+        ((UI_Upgrade)mScreens[(int)Screens.UpgradesScreen]).ResetStats();
     }
 
 
