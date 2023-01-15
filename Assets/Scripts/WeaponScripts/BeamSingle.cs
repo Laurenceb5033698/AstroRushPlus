@@ -20,6 +20,12 @@ public class BeamSingle : Weapon_Cannon
         
     }
 
+    new private void OnDisable()
+    {
+        base.OnDisable();
+        lr.enabled = false;
+    }
+
     private void Update()
     {
         //while enabled: every tick, set laser AimingVisuals = mLaserAimDir;

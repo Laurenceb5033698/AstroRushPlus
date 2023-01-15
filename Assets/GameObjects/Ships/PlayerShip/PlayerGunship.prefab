@@ -109,54 +109,6 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!1 &1057928770908784
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4679810331482180}
-  - component: {fileID: 114096601265681600}
-  m_Layer: 0
-  m_Name: OdinanceNuke
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4679810331482180
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1057928770908784}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4103816868943402}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114096601265681600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1057928770908784}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bfca3492ee83e64f881f8e48b0e070a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ProjectilePrefab: {fileID: 1945451225037128, guid: b81790b1f56424e4e9ef1184ea859e36,
-    type: 3}
-  ship: {fileID: 0}
-  Damage: 220
-  Speed: 1500
 --- !u!1 &1113305914210738
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,9 +406,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4561799737832490}
-  - {fileID: 4679810331482180}
-  - {fileID: 4383394763591332}
+  - {fileID: 1486562861813258555}
   m_Father: {fileID: 4835124457669320}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -910,54 +860,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 0
   m_Loop: 0
---- !u!1 &1428365065975830
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4383394763591332}
-  - component: {fileID: 114853300705827142}
-  m_Layer: 0
-  m_Name: OdinanceMine
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4383394763591332
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1428365065975830}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 54.89576, y: 5.405852, z: -75.89857}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4103816868943402}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114853300705827142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1428365065975830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bfca3492ee83e64f881f8e48b0e070a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ProjectilePrefab: {fileID: 1778817720549756, guid: d51203e097c50a24dacd64072723316c,
-    type: 3}
-  ship: {fileID: 0}
-  Damage: 60
-  Speed: 0
 --- !u!1 &1457313584233946
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,54 +1007,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!1 &1510383286800696
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4561799737832490}
-  - component: {fileID: 114233215823181400}
-  m_Layer: 0
-  m_Name: OdinanceMissile
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4561799737832490
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1510383286800696}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -126.35335, y: 2.1425, z: -515.24896}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4103816868943402}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114233215823181400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1510383286800696}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bfca3492ee83e64f881f8e48b0e070a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ProjectilePrefab: {fileID: 1000011011204806, guid: 22ca76d6bef13aa40a80baef94fadb8f,
-    type: 3}
-  ship: {fileID: 0}
-  Damage: 500
-  Speed: 3000
 --- !u!1 &1559425020217204
 GameObject:
   m_ObjectHideFlags: 0
@@ -20804,6 +20658,69 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4915503058460236, guid: 569c927d178d34143bf4ecdd536d7937,
     type: 3}
   m_PrefabInstance: {fileID: 109055719133114390}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1490265376946623909
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4103816868943402}
+    m_Modifications:
+    - target: {fileID: 1704855380913058, guid: c3cfde10047d8894f8970f8bf33b3d9f, type: 3}
+      propertyPath: m_Name
+      value: OdinanceDumbfire
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267742024518814, guid: c3cfde10047d8894f8970f8bf33b3d9f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -126.35335
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267742024518814, guid: c3cfde10047d8894f8970f8bf33b3d9f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.1425
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267742024518814, guid: c3cfde10047d8894f8970f8bf33b3d9f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -515.24896
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267742024518814, guid: c3cfde10047d8894f8970f8bf33b3d9f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267742024518814, guid: c3cfde10047d8894f8970f8bf33b3d9f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267742024518814, guid: c3cfde10047d8894f8970f8bf33b3d9f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267742024518814, guid: c3cfde10047d8894f8970f8bf33b3d9f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267742024518814, guid: c3cfde10047d8894f8970f8bf33b3d9f, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267742024518814, guid: c3cfde10047d8894f8970f8bf33b3d9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267742024518814, guid: c3cfde10047d8894f8970f8bf33b3d9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267742024518814, guid: c3cfde10047d8894f8970f8bf33b3d9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c3cfde10047d8894f8970f8bf33b3d9f, type: 3}
+--- !u!4 &1486562861813258555 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4267742024518814, guid: c3cfde10047d8894f8970f8bf33b3d9f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1490265376946623909}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2038023116557947724
 PrefabInstance:

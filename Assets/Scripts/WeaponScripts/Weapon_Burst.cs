@@ -15,6 +15,7 @@ public class Weapon_Burst : Weapon {
     public override void Awake()
     {
         base.Awake();
+        ammo = maxAmmo;
         reloadingClip = reloadRate;
     }
     private void Update()

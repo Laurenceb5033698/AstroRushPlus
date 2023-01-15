@@ -39,6 +39,9 @@ public class AICore : MonoBehaviour {
     protected float dist;             //dist to destination
     protected float torqueMul = 1f;   //amplify turn speed
 
+    //boids
+
+
     // Use this for initialization
     void Awake()
     {   //Setup AICore references
@@ -122,9 +125,10 @@ public class AICore : MonoBehaviour {
             arsenal.FireWeapon(AttackDir); //shoot at target
     }
 
+
     //
     //
-    //
+    // Locamotion
     //
     
     virtual protected void DistToDestination()
