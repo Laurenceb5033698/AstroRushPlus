@@ -7,7 +7,7 @@ public class Boid : MonoBehaviour
 {
     //mass, pos, vel, orientation
     [SerializeField] public Vector3 velocity;
-    [SerializeField] public Vector3 ;
+    //[SerializeField] public Vector3 ;
 
 
     [SerializeField] public float maxSpeed = 50f;
@@ -22,7 +22,7 @@ public class Boid : MonoBehaviour
     protected Vector3 Seek()
     {
         Vector3 force = target.getPosition() - velocity;
-        force.normalize();
+        force.Normalize();
         force *= maxSpeed;
         Vector3 steering = force - velocity;
 
@@ -34,17 +34,17 @@ public class Boid : MonoBehaviour
         return -Seek();
     }
 
-    protected void Pursue()
+    protected Vector3 Pursue()
     {
         Vector3 force = target.getPosition() - velocity + target.getVelocity();
-        force.normalize();
+        force.Normalize();
         force *= maxSpeed;
         Vector3 steering = force - velocity;
 
         return Vector3.ClampMagnitude(steering, maxForce);
     }
 
-    protected void Evade()
+    protected Vector3 Evade()
     {
         return -Pursue();
     }
@@ -54,7 +54,7 @@ public class Boid : MonoBehaviour
         Vector3 force = target.getPosition() - velocity;// + target.getVelocity();
         Vector3 steering;
         float forceMag = force.magnitude;
-        float distance = Vector3(target.getPosition() - getPosition()).magnitude;
+        float distance = (target.getPosition() - getPosition()).magnitude;
         if( distance < innerRange)
         {
             float remainingDist = distance / innerRange;

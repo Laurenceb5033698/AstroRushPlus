@@ -30,8 +30,8 @@ class AoeMissile : Missile
             rb.AddForce(direction * 1500 * Time.deltaTime, ForceMode.Force);
             if (Vector3.Dot(transform.forward, direction) < 0.2f)
                 rb.AddForce(direction * 200 * Time.deltaTime, ForceMode.VelocityChange);
-            if (rb.velocity.magnitude > 80)
-                rb.velocity = rb.velocity.normalized * 80;
+            if (rb.linearVelocity.magnitude > 80)
+                rb.linearVelocity = rb.linearVelocity.normalized * 80;
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.FromToRotation(Vector3.forward, direction), 300 * Time.deltaTime);
 

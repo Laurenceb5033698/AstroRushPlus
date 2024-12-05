@@ -166,7 +166,7 @@ public class AIManager : MonoBehaviour {
         if (Vector3.Distance(player.transform.position, currShip.transform.position) > ResetDistance)
         {   //move ship into range and halt motion
             currShip.transform.position = GetRandomPosition();
-            currShip.GetComponent<Rigidbody>().velocity *= 0;
+            currShip.GetComponent<Rigidbody>().linearVelocity *= 0;
         }
 
     }

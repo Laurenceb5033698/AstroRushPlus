@@ -106,7 +106,7 @@ public class PlayerStealthShip : PlayerController {
             
         }
 
-        rb.velocity = new Vector3(controls.LeftStick.x * currentSpeed, 0, controls.LeftStick.y * currentSpeed);
+        rb.linearVelocity = new Vector3(controls.LeftStick.x * currentSpeed, 0, controls.LeftStick.y * currentSpeed);
         rb.angularVelocity = new Vector3(0, 0, 0);
     }
 }
