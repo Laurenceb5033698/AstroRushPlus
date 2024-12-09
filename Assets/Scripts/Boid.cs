@@ -52,7 +52,7 @@ public class Boid : MonoBehaviour
     protected void Arrive()
     {
         Vector3 force = target.getPosition() - velocity;// + target.getVelocity();
-        Vector3 steering;
+        //Vector3 steering;
         float forceMag = force.magnitude;
         float distance = (target.getPosition() - getPosition()).magnitude;
         if( distance < innerRange)

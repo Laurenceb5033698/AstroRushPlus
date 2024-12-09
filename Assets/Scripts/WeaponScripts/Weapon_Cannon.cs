@@ -15,13 +15,13 @@ public class Weapon_Cannon : Weapon {
         mAimingVisuals.SetActive(true);
         mAimingVisuals.transform.rotation = mLaserAimDir;
 
-        Debug.Log("CannonEnabled.");
+        //Debug.Log("CannonEnabled.");
     }
 
     protected void OnDisable()
     {
         mAimingVisuals.SetActive(false);
-        Debug.Log("CannonDisabled.");
+        //Debug.Log("CannonDisabled.");
 
     }
 

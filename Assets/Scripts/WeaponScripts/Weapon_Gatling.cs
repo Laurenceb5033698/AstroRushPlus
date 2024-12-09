@@ -17,14 +17,14 @@ public class Weapon_Gatling : Weapon_Cannon
     private bool cooling_off = false;
     private bool did_Shoot = false;
 
-    private void OnEnable()
+    new private void OnEnable()
     {   //from Weapon_Cannon
         mLaserAimDir = transform.rotation;
         mAimingVisuals.SetActive(true);
         mAimingVisuals.transform.rotation = mLaserAimDir;
     }
 
-    private void OnDisable()
+    new private void OnDisable()
     {   //from Weapon_Cannon
         mAimingVisuals.SetActive(false);
     }

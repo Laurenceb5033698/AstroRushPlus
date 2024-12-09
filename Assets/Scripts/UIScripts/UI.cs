@@ -23,7 +23,6 @@ public class UI : MonoBehaviour {
     private int messageIndex;           // index of showing a specific pop up
     [SerializeField] private GameObject[] popUpMessages = new GameObject[3]; // gameOver, Paused, BoundaryWarning
 
-    private bool displayBoundary;       // display boundary toggle
     private bool escButtonPressed;      // esc button toggle
     private bool gameOver;
 
@@ -38,7 +37,6 @@ public class UI : MonoBehaviour {
         messageIndex = 1;
         displayHintIndex = 0;
         escButtonPressed = false;
-        displayBoundary = false;
         displayMenu = false;
         displayPopUpMessages = false;
         gameOver = false;
