@@ -13,7 +13,7 @@ public class PickupItem : MonoBehaviour {
     private bool directionUp = true;
     private float KillTimer;
 
-    
+    public int refillval = 5;
 
 	// Use this for initialization
 	void Start () 
@@ -79,13 +79,15 @@ public class PickupItem : MonoBehaviour {
         {
             switch (type)
             {
-				case 1: c.transform.gameObject.GetComponentInParent<ShipStats>().SetFuel(); //Debug.Log("Boost Recharged"); 
+				case 1: c.transform.gameObject.GetComponentInParent<Stats>().SetFuel(); //Debug.Log("Boost Recharged"); 
                     break;
-				case 2: c.transform.gameObject.GetComponentInParent<ShipStats> ().SetShieldPU(); //Debug.Log("Shield Recharged"); 
+				case 2: c.transform.gameObject.GetComponentInParent<Stats> ().SetShieldPU(); //Debug.Log("Shield Recharged"); 
                     break;
-				case 3: c.transform.gameObject.GetComponentInParent<ShipStats>().SetHealth(); //Debug.Log("Ship Repaired"); 
+				case 3: c.transform.gameObject.GetComponentInParent<Stats>().SetHealth(); //Debug.Log("Ship Repaired"); 
                     break;
-				case 4: c.transform.gameObject.GetComponentInParent<ShipStats>().SetMissiles(); //Debug.Log("Missile Reloaded"); 
+				case 4: //c.transform.gameObject.GetComponentInParent<ShipStats>().SetMissiles(); //Debug.Log("Missile Reloaded"); 
+                    //c.gameObject.GetComponentInParent<Equipment>().AddAmmo(refillval);
+                    c.gameObject.GetComponentInParent<PlayerController>().gameObject.GetComponentInChildren<Equipment>().AddAmmo(refillval);
                     break;
                 default: //Debug.Log("WARNING! Wrong pickup type"); 
                     break;

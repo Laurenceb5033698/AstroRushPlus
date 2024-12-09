@@ -7,7 +7,7 @@ public class Asteroid : MonoBehaviour
     private GameObject am; // asteroid manager
     private Health hp;
     [SerializeField] private GameObject psDestructPrefab;
-
+    public float CollisionImpulse = 18;
     void OnEnable()
     {
         hp.SetHealth(200);
@@ -26,6 +26,7 @@ public class Asteroid : MonoBehaviour
 
     void OnCollisionEnter(Collision c)
     {
+        GetComponent<Rigidbody>().AddForce(((transform.position - c.gameObject.transform.position).normalized) * CollisionImpulse, ForceMode.Impulse);
         if (c.relativeVelocity.magnitude > 5f)
         {
             TakeDamage(c.relativeVelocity.magnitude);

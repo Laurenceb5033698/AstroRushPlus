@@ -7,8 +7,7 @@ public class ShipStats : Health {
     //private float health = maxHealth;
     private float shield;
     public bool GodMode = false;
-
-
+    
     //Default values for new functional ships. Alter stats in prefabs
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private int maxShield = 100;
@@ -23,6 +22,8 @@ public class ShipStats : Health {
 	private bool boostMinCutoff = false;
 	private float boostFuel = 100f;
 
+    [SerializeField] private bool EmpDisabled = false;
+    private float empTime = 0.0f;   //time in seconds
 
 	// WEAPONS
 	private int MissileAmount = 20;
@@ -42,6 +43,7 @@ public class ShipStats : Health {
     void Update()
     {
         //regenerateShield();
+        decreaseEmp();
     }
 
 
@@ -98,7 +100,7 @@ public class ShipStats : Health {
                     ShipShield = -val;   //do damage to shield
                 else
                 {//otherwise split damage between shield and health
-                    ShipHealth = -(shield - val);   //remaining damage is delt to health
+                    ShipHealth = (shield - val);   //remaining damage is delt to health; (shield-val) here will always be negative
                     ShipShield = -shield;        //and shield is set to 0
                 }
             else
@@ -152,6 +154,24 @@ public class ShipStats : Health {
 
     }
 
+    public void SetDisable (float value)
+    {
+        if (value > 0.0f)
+        {   //recieve +ve value: set empTime and EmpDisabled to TRUE;
+            empTime = value;
+            EmpDisabled = true;
+        }
+        else
+        {   //receive 0 || -ve val: reset emps to false;
+            empTime = 0.0f;
+            EmpDisabled = false;
+        }
+    }
+    public bool GetDisabled()
+    {
+        return EmpDisabled;
+    }
+
     // validate
     public bool inCombat
     {
@@ -187,6 +207,15 @@ public class ShipStats : Health {
             ShipShield = 5 * Time.deltaTime;
     }
 
+    private void decreaseEmp()
+    {
+        if (EmpDisabled)
+        {
+            empTime -= Time.deltaTime;
+            if (empTime <= 0.0f)
+                EmpDisabled = false;
+        }
+    }
 
 
 
@@ -213,6 +242,9 @@ public class ShipStats : Health {
 	public void SetHealth(){
 		ShipHealth = maxHealth;
 	}
+    public float GetShieldMax() {
+        return maxShield;
+    }
 	public void SetMissiles(){
 		addMissile (maxMissiles);
 	}

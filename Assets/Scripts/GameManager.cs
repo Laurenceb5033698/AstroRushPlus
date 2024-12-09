@@ -6,20 +6,18 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
     private GameObject playerShip;
-    private int currentScore = 0;
+    public int currentScore = 0;
     //private int highestScore = 0;
 
-    [SerializeField] private GameObject playerShipPref;
+    [SerializeField] private GameObject[] playerShipPref = new GameObject[4];
     [SerializeField] private GameObject pointerPref;
     [SerializeField] private CameraScript cam;
     private ScreenElement ui=null;
-    private EnemyManager em;
-    private WaveManager wm;
+    private AIManager aiMngr;
     private AsteroidManager asm;
-    private BoundaryManager bdrym;
     private GameObject pointer;
-
-    private LineRenderer laser;
+    public Inputs GlobalInputs;
+    
     [SerializeField] private AudioSource music;
 
     public static GameManager instance = null;
@@ -33,6 +31,7 @@ public class GameManager : MonoBehaviour {
 
         music.volume = 0.2f * PlayerPrefs.GetFloat("musicVolume");
         AudioListener.volume = PlayerPrefs.GetFloat("gameVolume");
+        GlobalInputs = GetComponent<Inputs>();
 
         //scene needs to have finished loading before we instantiate anything
         SceneLoader.Loaded += SL_OnLoadingComplete;
@@ -45,23 +44,20 @@ public class GameManager : MonoBehaviour {
     
     void Start()
     {
-
-        laser = GetComponent<LineRenderer>();
-        laser.startWidth = 0.2f;
-        laser.endWidth = 0.2f;
-        playerShip = (GameObject)Instantiate(playerShipPref, Vector3.zero, Quaternion.identity);
+        
+        playerShip = (GameObject)Instantiate(playerShipPref[UIManager.instance.ShipSelectValue], Vector3.zero, Quaternion.identity);
+        playerShip.GetComponent<PlayerController>().SetInputs(GlobalInputs);
+        
         pointer = (GameObject)Instantiate(pointerPref, Vector3.zero, Quaternion.identity);
         pointer.GetComponent<Pointer>().SetFollowTarget(playerShip);
         cam.SetTarget(playerShip); // give the player ship reference to the camera
-        
 
-        em = GetComponent<EnemyManager>();
-        wm = GetComponent<WaveManager>();
+
+        aiMngr = GetComponent<AIManager>();
         asm = GetComponent<AsteroidManager>();
-        bdrym = GetComponent<BoundaryManager>();
-        em.enabled = true;
+
+        aiMngr.enabled = true;
         asm.enabled = true;
-        bdrym.enabled = true;
     }
     private void OnEnable()
     {
@@ -85,13 +81,11 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        Vector3 ClosestEnemy = em.getClosestShipPos(playerShip.transform.position);
+        Vector3 ClosestEnemy = aiMngr.GetClosestShipPos(playerShip.transform.position);
         pointer.GetComponent<Pointer>().SetNewTarget(ClosestEnemy);
-
-        laser.SetPosition(0, playerShip.transform.position);
-        laser.SetPosition(1, ClosestEnemy);
         
-        ShipStats s = playerShip.GetComponent<ShipStats>();
+        Stats s = playerShip.GetComponent<Stats>();
+
         switch (ui.name)
         {
             //case "OptionsScreen":
@@ -100,16 +94,35 @@ public class GameManager : MonoBehaviour {
                 //GameScreen ui controls/ updates
                 Time.timeScale = 1;
                 //UI_Game mUIg = ((UI_Game)ui);
-                ((UI_Game)ui).UpdateGameStats(currentScore, em.GetTotalShipLeft(), wm.GetWave());
-                ((UI_Game)ui).UpdateShipStats(s.GetBoostFuelAmount(), s.GetShieldPUState(), s.ShipHealth, s.GetNoMissiles(), playerShip.GetComponent<ShipController>().GetWeaponType());
+                ((UI_Game)ui).UpdateGameStats(currentScore, aiMngr.GetTotalShipLeft(), aiMngr.GetWaveNumber());
+                ((UI_Game)ui).UpdateShipStats(
+                    s.ShipFuel,
+                    s.GetShieldPUState(),
+                    s.ShipHealth,
+                    playerShip.GetComponentInChildren<Equipment>().GetAmmoCount(),
+                    playerShip.GetComponent<PlayerController>().GetWeaponType());
                 if (!s.IsAlive())
                     ((UI_Game)ui).Button_PausePressed(true);
                 else
                 if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1))// B controller button or Escape button
                     ((UI_Game)ui).Button_PausePressed(false);
+                if (aiMngr.EndOfWave == true)
+                    UIManager.instance.UpgradesButton();
+                break;
+            case "UpgradesScreen":
+                //do upgrades
+                Time.timeScale = 0;
+
+                ((UI_Upgrade)ui).ProcessInputs();
+                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) {  ((UI_Upgrade)ui).Button_ConfirmUpgrades();}
+                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space))// if A controller button or Y keyboard button
+                {
+                    ui.SubmitSelection();
+                }
                 break;
             case "OptionsScreen":
                 //return from options menu
+                ((UI_Options)ui).ProcessInputs();
                 if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) { ((UI_Options)ui).Button_OptionsReturnPressed(); }
                 break;
             case "PauseScreen":
@@ -117,48 +130,19 @@ public class GameManager : MonoBehaviour {
                 //PauseScreen ui controls / updates
                 Time.timeScale = 0;
                 //UI_Pause mUIp = (UI_Pause)ui;
-                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Y))// if A controller button or Y keyboard button
+                if (GlobalInputs.LAnalogueYDown || (GlobalInputs.DpadYPressed && GlobalInputs.DpadDown)) ui.AdvanceSelector();
+                if (GlobalInputs.LAnalogueYUp || (GlobalInputs.DpadYPressed && GlobalInputs.DpadUp)) ui.RetreatSelector();
+
+                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space))// if A controller button or Y keyboard button
                 {
-                    ((UI_Pause)ui).Button_RestartPressed();
+                    ui.SubmitSelection();
                 }
                 else if (s.IsAlive() && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)))// B controller button or Escape button
                     ((UI_Pause)ui).Button_ContinuePressed();
-                else if (Input.GetKeyDown(KeyCode.JoystickButton3))
-                    ((UI_Pause)ui).Button_QuitToMenuPressed();
-                //if (s.IsAlive() && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7))) // esape button or Start controller button
-                //{
-                //    UIManager.instance.Resume();
-                //}
+                
                 break;
         }
         
-        //ShipStats s = playerShip.GetComponent<ShipStats>();
-        //ui.UpdateGameStats(currentScore, em.GetTotalShipLeft(), wm.GetWave());
-        //ui.UpdateShipStats(s.GetBoostFuelAmount(), s.GetShieldPUState(), s.ShipHealth, s.GetNoMissiles(), playerShip.GetComponent<ShipController>().GetWeaponType());
-        //if (!s.IsAlive()) ui.SetGameOverState(true);
-
-        //Time.timeScale = (ui.GetMenuState() || ui.GetHintsState()) ? 0 : 1;
-
-        //if (ui.GetMenuState())
-        //{
-        //    if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Y)) RestartGame(); // if A controller button or Y keyboard button
-        //    else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) ToggleUIState(); // B controller button or Escape button
-        //    else if (Input.GetKeyDown(KeyCode.JoystickButton3)) LoadMainMenu();
-        //}
-        //else
-        //{
-        //    if (ui.GetHintsState() && (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return)))
-        //    {
-        //        ui.IncrementDHIndex();
-        //    }
-        //    else
-        //    {
-        //        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7)) // esape button or Start controller button
-        //        {
-        //            ui.ToggleEscState();
-        //        }
-        //    }
-        //}
 
     }
     public void UI_OnVolumeChanged(bool temp)

@@ -14,7 +14,7 @@ public class EnemyManager : MonoBehaviour {
         public List<GameObject> shipP; // list of all ships on scene
     }
 
-    private const int shipPreftypes = 4;
+    private const int shipPreftypes = 3;
     private const float spawnDelay = 0.5f;
     private const int shipLimitOnScreen = 20;
     private const float ResetDistance = 250;
@@ -139,7 +139,7 @@ public class EnemyManager : MonoBehaviour {
                     if (Vector3.Distance(player.transform.position, shipOrder[i].shipP[j].transform.position) > ResetDistance)
                     {
                         shipOrder[i].shipP[j].transform.position = GetRandomPosition();
-                        shipOrder[i].shipP[j].GetComponent<Rigidbody>().velocity *= 0;
+                        shipOrder[i].shipP[j].GetComponent<Rigidbody>().linearVelocity *= 0;
                     }
                 }
                 else
@@ -190,7 +190,7 @@ public class EnemyManager : MonoBehaviour {
     }
     public void RemoveShip(int id, int type)
     {    
-        shipOrder[type].deadCounter++;
+        
 
         int counter = 0;
         bool found = false;
@@ -199,8 +199,10 @@ public class EnemyManager : MonoBehaviour {
             if (shipOrder[type].shipP[counter].GetComponent<NewBasicAI>().GetId() == id)
             {
                 if (Random.Range(0,10) < 3) SpawnDropShip(shipOrder[type].shipP[counter].transform.position);
+                
                 shipOrder[type].shipP.RemoveAt(counter);
                 found = true;
+                shipOrder[type].deadCounter++;
             }
             counter++;
         } while (!found && counter < shipOrder[type].shipP.Count);

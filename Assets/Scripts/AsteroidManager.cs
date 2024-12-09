@@ -63,8 +63,8 @@ public class AsteroidManager : MonoBehaviour
     }
 
     private GameObject SpawnAsteroid()
-    {
-        GameObject temp = (GameObject)Instantiate(asteroids[Random.Range(0, 5)], GetRandomPos(), Quaternion.identity);
+    {   
+        GameObject temp = (GameObject)Instantiate(asteroids[Random.Range(0, 5)], GetRandomPos(), Random.rotation);
         //temp.transform.parent = transform;
         temp.transform.parent = groups[0].transform;
         temp.GetComponent<Asteroid>().SetAsteroidManager(gameObject);

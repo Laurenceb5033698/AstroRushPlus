@@ -31,7 +31,10 @@ public class Pointer : MonoBehaviour {
 
         Vector3 pointDir = (posB - posA).normalized;
         pointerM.transform.position = posA + pointDir * distance;
-        pointerM.transform.rotation = Quaternion.LookRotation(-pointDir);
+        if (pointDir != Vector3.zero)
+        {
+            pointerM.transform.rotation = Quaternion.LookRotation(-pointDir);
+        }
     }
 
     public void SetNewTarget(Vector3 go)

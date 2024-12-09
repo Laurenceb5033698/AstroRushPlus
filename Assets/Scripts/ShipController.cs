@@ -24,7 +24,7 @@ public class ShipController : MonoBehaviour
 
     private Rigidbody rb; 	// ship's rigid body
     private ShipStats stats;
-    //private Shield shield;
+    public ParticleSystem shield_Emitter;
 
     // Mains --------------------------------------------------------------------------------------------------------
     void Awake() // Use this for initialization
@@ -161,22 +161,35 @@ public class ShipController : MonoBehaviour
             }
         }
 
-        rb.velocity = new Vector3(controls.LeftStick.x * currentSpeed, 0, controls.LeftStick.y * currentSpeed);
+        rb.linearVelocity = new Vector3(controls.LeftStick.x * currentSpeed, 0, controls.LeftStick.y * currentSpeed);
         rb.angularVelocity = new Vector3(0, 0, 0);
     }
 
     // EVENT HANDLERS-------------------------------------------------------------------------------------
     void OnCollisionEnter(Collision c)
     {
-        TakeDamage(c.relativeVelocity.magnitude / 4);
+        TakeDamage(c.transform.position, c.relativeVelocity.magnitude / 4);
         if (c.gameObject.tag == "EnemyShip")
         {
-            c.gameObject.GetComponent<NewBasicAI>().TakeDamage(50);
+            c.gameObject.GetComponent<NewBasicAI>().TakeDamage(transform.position, 50);
         }
     }
 
-    public void TakeDamage(float amount)
+    private void Shield_effect(Vector3 other)
     {
+        //Debug.Log("Collision Entered: " + other.gameObject.name);
+        Vector3 dir = other - shield_Emitter.transform.position;
+        dir.Normalize();
+        shield_Emitter.transform.rotation = Quaternion.LookRotation(dir, Vector3.up) * Quaternion.Euler(0,-90,0);
+        
+        shield_Emitter.Play();
+    }
+
+    public void TakeDamage(Vector3 otherpos, float amount)
+    {
+        if (stats.ShipShield > 0)
+            Shield_effect(otherpos);
+
         stats.TakeDamage(amount);
         rumbleTimer = Time.time + 0.3f;
     }

@@ -13,7 +13,7 @@ public class ThrusterManager : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        controls = GetComponentInParent<Inputs>();
+        controls = GameManager.instance.GlobalInputs;
         state = true;
     }
 	
@@ -25,7 +25,7 @@ public class ThrusterManager : MonoBehaviour {
 
     private void UpdateThrusters()
     {
-        state = (Mathf.Abs(controls.LeftStick.x) > deadzone || controls.LeftStick.y > deadzone);
+        state = controls.LeftAnalogueInUse;
         thrusters[2].SetState(state); // rear
         thrusters[3].SetState(state); // rear
 

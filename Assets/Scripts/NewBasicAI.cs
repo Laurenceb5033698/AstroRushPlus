@@ -15,10 +15,12 @@ public class NewBasicAI : MonoBehaviour {
     [SerializeField] private ShipStats stats;
     [SerializeField] private Arsenal arsenal;
     [SerializeField] private GameObject psDestructPrefab;
+    [SerializeField] private ParticleSystem shield_Emitter;
 
 
     [SerializeField] private Vector3 destination;
-    private GameObject player;
+    public float CollisionImpulse = 18;
+    public GameObject player;
 
     private bool spawnedPickup = false;
 
@@ -27,19 +29,24 @@ public class NewBasicAI : MonoBehaviour {
         stats = gameObject.GetComponent<ShipStats>();
         ship = gameObject;
         rb = ship.gameObject.GetComponent<Rigidbody>();
-
+        
         arsenal = GetComponentInChildren<Arsenal>();
         if (arsenal == null) Debug.Log("No weapon attached.");
         else
             arsenal.SetShipObject(ship);
-	}
+        //TakeDamage(0);
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
         if (stats.IsAlive())
         {
-            destination = player.transform.position;
-            move();
+            if (!stats.GetDisabled())
+            {
+                destination = player.transform.position;
+                move();
+            }
         }
         else
         {
@@ -64,17 +71,36 @@ public class NewBasicAI : MonoBehaviour {
 
         if (dist <= 50 && arsenal != null) arsenal.FireWeapon(controlDir);
     }
-
-    public void TakeDamage(float amount)
+    protected void LateUpdate()
     {
+        transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
+    }
+    private void Shield_effect(Vector3 other)
+    {
+        //Debug.Log("Collision Entered: " + other.gameObject.name);
+        Vector3 dir = other - shield_Emitter.transform.position;
+        dir.Normalize();
+        shield_Emitter.transform.rotation = Quaternion.LookRotation(dir, Vector3.up) * Quaternion.Euler(0, -90, 0);
+
+        shield_Emitter.Play();
+        GetComponentInChildren<Animation>().Stop();
+        GetComponentInChildren<Animation>().Play();
+    }
+    public void TakeDamage(Vector3 otherpos, float amount)
+    {
+        if (shield_Emitter != null && stats.ShipShield > 0)
+            Shield_effect(otherpos);
         stats.TakeDamage(amount);
     }
 
     // enemy spawner related functions
     void OnCollisionEnter(Collision c)
     {
-        if (!c.gameObject.GetComponent<Projectile>()) rb.AddForce((ship.transform.position - c.gameObject.transform.position) * 18, ForceMode.Impulse);
-        stats.TakeDamage(10 * Time.deltaTime);
+        if (!c.gameObject.GetComponent<Projectile>())
+        {
+            rb.AddForce(((ship.transform.position - c.gameObject.transform.position).normalized) * CollisionImpulse, ForceMode.Impulse);
+            TakeDamage(c.gameObject.transform.position, 10 * Time.deltaTime);
+        }
     }
     private void DestroySelf()
     {

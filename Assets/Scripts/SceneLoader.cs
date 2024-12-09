@@ -141,14 +141,22 @@ public class SceneLoader : MonoBehaviour
         wasLoading = true;
     }
 
-    public static void LoadLevel(int sceneIndex)
+    public static bool LoadLevel(int sceneIndex)
     {
+        
         SceneLoader sl = SceneLoader.instance;
-        if(sceneIndex >= 0 && sceneIndex < sl.GameScenes.Length)
+        bool ret = false;
+        if (sceneIndex >= 0 && sceneIndex < sl.GameScenes.Length)
         {
             sl.LoadLevelFromMenu(sl.GameScenes[sceneIndex]);//unloads titlescene then loads a gameScene
-            
+            ret = true;
         }
+        else{
+            //requested game scene is out of range.
+            //therefore load default level (menu? or level(0) )
+            ret = false;
+        }
+        return ret;
     }
     public static void LoadTitleScene()
     {
