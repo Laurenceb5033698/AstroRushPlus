@@ -5,12 +5,12 @@ public class ShipStats : Health {
 
 	// Health
     //private float health = maxHealth;
-    private float shield;
+    private int shield;
     public bool GodMode = false;
     
     //Default values for new functional ships. Alter stats in prefabs
-    [SerializeField] private int maxHealth = 100;
-    [SerializeField] private int maxShield = 100;
+    [SerializeField] private int maxHealth = 10;
+    [SerializeField] private int maxShield = 10;
 	[SerializeField] private int maxMissiles = 20;
 
 	// Thruster Variables -------------------------------------------
@@ -28,6 +28,9 @@ public class ShipStats : Health {
 	// WEAPONS
 	private int MissileAmount = 20;
 
+    //time between damage instances
+    private float damageIframeCooldown = 0.5f;
+    private float damageTimer = 0.0f;
 
     private bool currentlyInCombat = false;
     private float outOfCombatTimer = 0;
@@ -44,6 +47,7 @@ public class ShipStats : Health {
     {
         //regenerateShield();
         decreaseEmp();
+        decreaseDamageTimer();
     }
 
 
@@ -90,24 +94,29 @@ public class ShipStats : Health {
     }
 
     // health
-    public override void TakeDamage(float val)
+    public override void TakeDamage(int val)
     {
         if (!GodMode)
         {
-            inCombat = true;
-            if (ShipShield > 0) //if we have shields
-                if (shield - val > 0)   //and the damage taken is lower than sheild health
-                    ShipShield = -val;   //do damage to shield
+            if (damageTimer <= 0)
+            {   //set combat flags
+                damageTimer = damageIframeCooldown;
+                inCombat = true;
+
+                if (ShipShield > 0) //if we have shields
+                    if (shield - val > 0)   //and the damage taken is lower than sheild health
+                        ShipShield = -val;   //do damage to shield
+                    else
+                    {//otherwise split damage between shield and health
+                        ShipHealth = (shield - val);   //remaining damage is delt to health; (shield-val) here will always be negative
+                        ShipShield = -shield;        //and shield is set to 0
+                    }
                 else
-                {//otherwise split damage between shield and health
-                    ShipHealth = (shield - val);   //remaining damage is delt to health; (shield-val) here will always be negative
-                    ShipShield = -shield;        //and shield is set to 0
-                }
-            else
-                ShipHealth = -val;   //shield is at 0, so deal damage directly to health
+                    ShipHealth = -val;   //shield is at 0, so deal damage directly to health
+            }
         }
     }
-    public float ShipHealth
+    public int ShipHealth
     {
         get { return health; }
         set
@@ -122,7 +131,7 @@ public class ShipStats : Health {
             }
         }
     }
-    public float ShipShield
+    public int ShipShield
     {
         get { return shield; }
         set
@@ -203,8 +212,8 @@ public class ShipStats : Health {
     // other functions
     private void regenerateShield()
     {
-        if ((!inCombat) && (ShipShield < maxShield))
-            ShipShield = 5 * Time.deltaTime;
+        //if ((!inCombat) && (ShipShield < maxShield))
+            //ShipShield = 5 * Time.deltaTime;
     }
 
     private void decreaseEmp()
@@ -217,7 +226,13 @@ public class ShipStats : Health {
         }
     }
 
-
+    private void decreaseDamageTimer()
+    {
+        if(damageTimer > 0)
+        {
+            damageTimer -= Time.deltaTime;
+        }
+    }
 
 	// pickup functions
 	public void ActivateShieldPU(){

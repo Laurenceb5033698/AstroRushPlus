@@ -86,7 +86,7 @@ public class NewBasicAI : MonoBehaviour {
         GetComponentInChildren<Animation>().Stop();
         GetComponentInChildren<Animation>().Play();
     }
-    public void TakeDamage(Vector3 otherpos, float amount)
+    public void TakeDamage(Vector3 otherpos, int amount)
     {
         if (shield_Emitter != null && stats.ShipShield > 0)
             Shield_effect(otherpos);
@@ -99,7 +99,8 @@ public class NewBasicAI : MonoBehaviour {
         if (!c.gameObject.GetComponent<Projectile>())
         {
             rb.AddForce(((ship.transform.position - c.gameObject.transform.position).normalized) * CollisionImpulse, ForceMode.Impulse);
-            TakeDamage(c.gameObject.transform.position, 10 * Time.deltaTime);
+            int impactDamage = Mathf.FloorToInt(c.relativeVelocity.magnitude);
+            TakeDamage(c.gameObject.transform.position, impactDamage);
         }
     }
     private void DestroySelf()

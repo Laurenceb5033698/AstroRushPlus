@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 
-    public float damage;
+    public int damage;
     public float lifetime = 5f;//lifetime in seconds
     public string ownertag; //(eg player)
     public float speed;//forward speed
@@ -17,7 +17,7 @@ public class Projectile : MonoBehaviour {
 	    //test self collision
         ///ownertag = "PlayerShip";
 	}
-    public void SetupValues(float dmg, float spd,string str)
+    public void SetupValues(int dmg, float spd,string str)
     {
         ownertag = str;
         damage = dmg;

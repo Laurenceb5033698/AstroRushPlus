@@ -13,6 +13,10 @@ public class BoundaryManager : MonoBehaviour {
     private const int SBOUND = 600;
     private const int HBOUND = SBOUND + 70;
 
+    //damage period
+    public float PeriodicDamageCooldown = 2.0f;
+    private float lastPeriodicDamage = 0;
+
     // Use this for initialization
     void Start ()
     {
@@ -51,7 +55,13 @@ public class BoundaryManager : MonoBehaviour {
 
         if (Mathf.Abs(ship.transform.position.x) > HBOUND || Mathf.Abs(ship.transform.position.z) > HBOUND)
         {
-            ship.GetComponent<ShipStats>().TakeDamage(10.0f * Time.deltaTime); //every sec ship takes 5% damage
+            //periodically deal 1 damage while out of bounds.
+            if (Time.time - lastPeriodicDamage < PeriodicDamageCooldown)
+                return;
+            
+            ship.GetComponent<ShipStats>().TakeDamage(1); //every sec ship takes 5% damage
+            lastPeriodicDamage = Time.time;
+            
         }
     }
 

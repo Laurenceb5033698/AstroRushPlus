@@ -13,6 +13,7 @@ public class PlayerRamShip : PlayerController
     private float RamChargeMax = 1.0f;
     private Vector3 chargeDir;
 
+
     new void Awake()
     {
         //Call Base class Awake.
@@ -178,9 +179,9 @@ public class PlayerRamShip : PlayerController
         else
         {
             currentSpeed = stats.GetSpecial();
-            stats.ShipFuel = -25 * Time.deltaTime;
             chargeDir.Normalize();
             rb.linearVelocity = new Vector3(chargeDir.x * currentSpeed, 0, chargeDir.z * currentSpeed);
+            SpendShipFuel();
         }
 
         rb.angularVelocity = new Vector3(0, 0, 0);
@@ -216,7 +217,7 @@ public class PlayerRamShip : PlayerController
         }
     }
 
-    override public void TakeDamage(Vector3 otherpos, float amount)
+    override public void TakeDamage(Vector3 otherpos, int amount)
     {
         if (stats.ShipShield > 0)
             Shield_effect(otherpos);

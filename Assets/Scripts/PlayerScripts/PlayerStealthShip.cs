@@ -75,8 +75,8 @@ public class PlayerStealthShip : PlayerController {
 
     void Stealthed()
     {   //do every update
-        
-        stats.ShipFuel = -25 * Time.deltaTime;
+
+        SpendShipFuel();
 
     }
 

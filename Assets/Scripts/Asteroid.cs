@@ -10,7 +10,7 @@ public class Asteroid : MonoBehaviour
     public float CollisionImpulse = 18;
     void OnEnable()
     {
-        hp.SetHealth(200);
+        hp.SetHealth(10);
     }
 
     void Awake()
@@ -29,11 +29,12 @@ public class Asteroid : MonoBehaviour
         GetComponent<Rigidbody>().AddForce(((transform.position - c.gameObject.transform.position).normalized) * CollisionImpulse, ForceMode.Impulse);
         if (c.relativeVelocity.magnitude > 5f)
         {
-            TakeDamage(c.relativeVelocity.magnitude);
+            int impactDamage = Mathf.FloorToInt(c.relativeVelocity.magnitude);
+            TakeDamage(impactDamage);
             
         }
     }
-    public void TakeDamage(float val)
+    public void TakeDamage(int val)
     {
         hp.TakeDamage(val);
         if (!hp.IsAlive())

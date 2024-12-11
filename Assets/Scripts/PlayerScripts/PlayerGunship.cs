@@ -94,7 +94,7 @@ public class PlayerGunship : PlayerController {
 
             //reduce ability fuel.
             // This is called regardless if we're shooting or not, But is only called while fully in turret mode
-            stats.ShipFuel = -25 * Time.deltaTime;
+            SpendShipFuel();
 
             if (aiming)
             {   //fire weapons

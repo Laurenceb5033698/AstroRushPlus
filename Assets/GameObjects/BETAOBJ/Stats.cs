@@ -54,7 +54,7 @@ public class Stats : MonoBehaviour
     //  Functions
     //  Health
     //-----------------------------------------------------------------------------------------
-    public void TakeDamage(float val)
+    public void TakeDamage(int val)
     {
         if (!GodMode)
         {
@@ -72,7 +72,7 @@ public class Stats : MonoBehaviour
         }
     }
 
-    public float ShipHealth
+    public int ShipHealth
     {
         get { return Health.Value; }
         set //can be set using powerups
@@ -88,7 +88,7 @@ public class Stats : MonoBehaviour
         }
     }
 
-    public float ShipShield
+    public int ShipShield
     {
         get { return Shield.Value; }
         set //can be set using powerups
@@ -125,7 +125,7 @@ public class Stats : MonoBehaviour
 
     //  Speed & movement
     //-----------------------------------------------------------------------------------------
-    public float ShipFuel
+    public int ShipFuel
     {
         get { return Fuel.Value; }
         set
@@ -136,7 +136,7 @@ public class Stats : MonoBehaviour
             }
             else if (value < 0)
             {
-                Fuel.Value = (Fuel.Value + value < 0.0f) ? 0.0f : Fuel.Value + value;
+                Fuel.Value = (Fuel.Value + value < 0.0f) ? 0 : Fuel.Value + value;
             }
         }
     }

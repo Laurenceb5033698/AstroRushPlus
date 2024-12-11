@@ -168,7 +168,8 @@ public class ShipController : MonoBehaviour
     // EVENT HANDLERS-------------------------------------------------------------------------------------
     void OnCollisionEnter(Collision c)
     {
-        TakeDamage(c.transform.position, c.relativeVelocity.magnitude / 4);
+        int impactDamage = Mathf.FloorToInt(c.relativeVelocity.magnitude/4);
+        TakeDamage(c.transform.position, impactDamage);
         if (c.gameObject.tag == "EnemyShip")
         {
             c.gameObject.GetComponent<NewBasicAI>().TakeDamage(transform.position, 50);
@@ -185,7 +186,7 @@ public class ShipController : MonoBehaviour
         shield_Emitter.Play();
     }
 
-    public void TakeDamage(Vector3 otherpos, float amount)
+    public void TakeDamage(Vector3 otherpos, int amount)
     {
         if (stats.ShipShield > 0)
             Shield_effect(otherpos);

@@ -15,9 +15,9 @@ abstract public class Weapon : MonoBehaviour{
     
     protected float reload = 0;
 
-    [SerializeField] protected float baseBulletDamage = 5f;
+    [SerializeField] protected int baseBulletDamage = 5;
     
-    protected float finalBulletDamage = 5f;
+    protected int finalBulletDamage = 1;
 
     [SerializeField] protected float bulletSpeed = 20f;
     [SerializeField] protected AudioSource shootSound;
@@ -50,7 +50,7 @@ abstract public class Weapon : MonoBehaviour{
     public void CalculateFinalDamage()
     {
         float newModifier = ship.GetComponent<Stats>().Attack.Value;
-        finalBulletDamage = baseBulletDamage * newModifier;
+        finalBulletDamage = baseBulletDamage;// * newModifier;
     }
     
 

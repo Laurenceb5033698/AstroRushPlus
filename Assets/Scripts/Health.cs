@@ -1,22 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Unity.Mathematics;
+using System;
 
 public class Health : MonoBehaviour {
 
-    [SerializeField] protected float health = 100.0f;
+    [SerializeField] protected int health = 100;
 
     //void OnCollisionEnter(Collision c)
     //{
     //    if (c.relativeVelocity.magnitude > 5f) TakeDamage(c.relativeVelocity.magnitude);
     //}
 
-    public virtual void TakeDamage(float amount)
+    public virtual void TakeDamage(int amount)
     {
-        health -= Mathf.Abs(amount);
+        health -= math.abs(amount);
 
         if (health <= 0)
         {
-            health = 0.0f;    
+            health = 0;    
 
             //switch (transform.gameObject.tag)
             //{
@@ -34,7 +36,7 @@ public class Health : MonoBehaviour {
         return health;
     }
 
-    public void SetHealth(float h)
+    public void SetHealth(int h)
     {
         health = h;
     }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Unity.Mathematics;
 
 class AoeMissile : Missile
 {
@@ -61,14 +62,16 @@ class AoeMissile : Missile
 
             if (victim.gameObject.tag == "Asteroid")
             {
-                victim.gameObject.GetComponent<Asteroid>().TakeDamage(damage - 2 * dist);
+                int damageOverDistance = Mathf.FloorToInt( damage - 2 * dist);
+                victim.gameObject.GetComponent<Asteroid>().TakeDamage(damageOverDistance);
                 applyImpulse(victim.GetComponent<Rigidbody>());
             }
             else
             {
                 if (victim.gameObject.tag == "EnemyShip")
                 {
-                    victim.GetComponentInParent<AICore>().TakeDamage(transform.position, damage - (2f * dist));
+                    int damageOverDistance = Mathf.FloorToInt(damage - 2 * dist);
+                    victim.GetComponentInParent<AICore>().TakeDamage(transform.position, damageOverDistance);
                     applyImpulse(victim.GetComponentInParent<Rigidbody>());
                 }
             }

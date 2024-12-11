@@ -29,6 +29,11 @@ abstract public class PlayerController : MonoBehaviour {
     protected bool usedEquipment = false;
     protected bool UsingAbility = false;
 
+    //fuel usage 
+    [SerializeField] private int fuelConsumeRate = 1;
+    [SerializeField] private float fuelConsumePeriod = 1.0f;
+    private float fuelConsumetimer = 0.0f;
+
     protected void Awake()
     {
         Debug.Log("PlayerController Awake.");
@@ -85,6 +90,12 @@ abstract public class PlayerController : MonoBehaviour {
             GamePad.SetVibration(playerIndex, 0.5f, 0.5f);
         else
             GamePad.SetVibration(playerIndex, 0, 0);
+
+        //process fuel timer
+        if(fuelConsumetimer > 0.0f)
+        {
+            fuelConsumetimer -= Time.deltaTime;
+        }
     }
 
     
@@ -217,10 +228,11 @@ abstract public class PlayerController : MonoBehaviour {
     // EVENT HANDLERS-------------------------------------------------------------------------------------
     virtual protected void OnCollisionEnter(Collision c)
     {
-        TakeDamage(c.transform.position, c.relativeVelocity.magnitude / 4);
+        int impactDamage = Mathf.FloorToInt(c.relativeVelocity.magnitude/4);
+        TakeDamage(c.transform.position, impactDamage);
         if (c.gameObject.tag == "EnemyShip")
         {
-            c.gameObject.GetComponent<AICore>().TakeDamage(transform.position,50);
+            c.gameObject.GetComponent<AICore>().TakeDamage(transform.position, impactDamage);
         }
     }
     protected void Shield_effect(Vector3 other)
@@ -236,7 +248,7 @@ abstract public class PlayerController : MonoBehaviour {
 
     }
 
-    virtual public void TakeDamage(Vector3 otherpos, float amount)
+    virtual public void TakeDamage(Vector3 otherpos, int amount)
     {
         if (stats.ShipShield > 0)
             Shield_effect(otherpos);
@@ -260,7 +272,17 @@ abstract public class PlayerController : MonoBehaviour {
         arsenal.UpdateDamageFromAttackStat();
     }
 
+    virtual protected void SpendShipFuel()
+    {
+        //remove fuel each period (defualt 1s)
+        if (fuelConsumetimer <= 0.0f)
+        {
+            fuelConsumetimer = fuelConsumePeriod;
+            stats.ShipFuel = -fuelConsumeRate;
+        }
+    }
 
+    //UTIL
     public int GetWeaponType()
     {
         return weaponType;
