@@ -206,8 +206,9 @@ public class AICore : MonoBehaviour {
         if (!c.gameObject.GetComponent<Projectile>())
         {
             rb.AddForce(((gameObject.transform.position - c.gameObject.transform.position).normalized) * CollisionImpulse, ForceMode.Impulse);
-            
-            int impactDamage = Mathf.FloorToInt(c.relativeVelocity.magnitude);
+
+            //int impactDamage = Mathf.FloorToInt(c.relativeVelocity.magnitude);
+            int impactDamage = 4;
             TakeDamage(c.gameObject.transform.position, impactDamage);
         }
     }

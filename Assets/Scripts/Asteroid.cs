@@ -29,7 +29,8 @@ public class Asteroid : MonoBehaviour
         GetComponent<Rigidbody>().AddForce(((transform.position - c.gameObject.transform.position).normalized) * CollisionImpulse, ForceMode.Impulse);
         if (c.relativeVelocity.magnitude > 5f)
         {
-            int impactDamage = Mathf.FloorToInt(c.relativeVelocity.magnitude);
+            //int impactDamage = Mathf.FloorToInt(c.relativeVelocity.magnitude);
+            int impactDamage = 4;
             TakeDamage(impactDamage);
             
         }

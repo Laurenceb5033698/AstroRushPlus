@@ -24,7 +24,6 @@ public class Stats : MonoBehaviour
     [SerializeField] private bool EmpDisabled = false;
     private float empTime = 0.0f;   //time in seconds
 
-
     //  Unity Functions
     private void Awake()
     {
@@ -39,6 +38,7 @@ public class Stats : MonoBehaviour
     private void Update()
     {
         decreaseEmp();
+
     }
 
     public void RecalculateStats()

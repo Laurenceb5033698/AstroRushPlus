@@ -255,7 +255,7 @@ MonoBehaviour:
   TurretPref: {fileID: 1903755262234688, guid: d4ae992490a20424c95dcec8b831413d, type: 3}
   ship: {fileID: 1958769108598396}
   shootSpeed: 2
-  baseBulletDamage: 40
+  baseBulletDamage: 5
   bulletSpeed: 200
   shootSound: {fileID: 82794434831651180}
   mAimingVisuals: {fileID: 1178464392919682}
@@ -326,7 +326,7 @@ AudioSource:
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -341,7 +341,7 @@ AudioSource:
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -356,7 +356,7 @@ AudioSource:
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
 --- !u!1 &1392371869621460
 GameObject:
   m_ObjectHideFlags: 0

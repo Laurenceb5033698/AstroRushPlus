@@ -34,6 +34,10 @@ abstract public class PlayerController : MonoBehaviour {
     [SerializeField] private float fuelConsumePeriod = 1.0f;
     private float fuelConsumetimer = 0.0f;
 
+    //time between damage instances
+    [SerializeField] private float damageIframeCooldown = 0.5f;
+    private float damageTimer = 0.0f;
+
     protected void Awake()
     {
         Debug.Log("PlayerController Awake.");
@@ -55,6 +59,8 @@ abstract public class PlayerController : MonoBehaviour {
     protected void Update()
     {
         UpdateController();
+
+        decreaseDamageTimer();
         direction = transform.right;
 
         if (!stats.GetDisabled())   //can only be controlled if not disabled/emp'd
@@ -228,7 +234,8 @@ abstract public class PlayerController : MonoBehaviour {
     // EVENT HANDLERS-------------------------------------------------------------------------------------
     virtual protected void OnCollisionEnter(Collision c)
     {
-        int impactDamage = Mathf.FloorToInt(c.relativeVelocity.magnitude/4);
+        //int impactDamage = Mathf.FloorToInt(c.relativeVelocity.magnitude/4);
+        int impactDamage = 2;
         TakeDamage(c.transform.position, impactDamage);
         if (c.gameObject.tag == "EnemyShip")
         {
@@ -250,11 +257,16 @@ abstract public class PlayerController : MonoBehaviour {
 
     virtual public void TakeDamage(Vector3 otherpos, int amount)
     {
-        if (stats.ShipShield > 0)
-            Shield_effect(otherpos);
+        if (damageTimer <= 0)
+        {   //set combat flags
+            damageTimer = damageIframeCooldown;
 
-        stats.TakeDamage(amount);
-        rumbleTimer = Time.time + 0.3f;
+            if (stats.ShipShield > 0)
+                Shield_effect(otherpos);
+
+            stats.TakeDamage(amount);
+            rumbleTimer = Time.time + 0.3f;
+        }
     }
 
     public void UpdateStats(float bHp, float bSh, float bAt, float bSp, float bSd, float bFl)
@@ -282,6 +294,13 @@ abstract public class PlayerController : MonoBehaviour {
         }
     }
 
+    private void decreaseDamageTimer()
+    {
+        if (damageTimer > 0)
+        {
+            damageTimer -= Time.deltaTime;
+        }
+    }
     //UTIL
     public int GetWeaponType()
     {
