@@ -206,10 +206,14 @@ public class AICore : MonoBehaviour {
         if (!c.gameObject.GetComponent<Projectile>())
         {
             rb.AddForce(((gameObject.transform.position - c.gameObject.transform.position).normalized) * CollisionImpulse, ForceMode.Impulse);
-
-            //int impactDamage = Mathf.FloorToInt(c.relativeVelocity.magnitude);
-            int impactDamage = 4;
-            TakeDamage(c.gameObject.transform.position, impactDamage);
+            //no damage if collision was sufficiently slow
+            if (c.relativeVelocity.magnitude > 5)
+            {   //enemies generally slower than player. max velocity impact normally <60
+                //1 damage minimum on impact, takes more damage from fast collision.
+                float velocityDamage = c.relativeVelocity.magnitude;
+                int impactDamage = 1 + Mathf.FloorToInt(velocityDamage / 20);
+                TakeDamage(c.gameObject.transform.position, impactDamage);
+            }
         }
     }
 

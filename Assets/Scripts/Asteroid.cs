@@ -10,7 +10,7 @@ public class Asteroid : MonoBehaviour
     public float CollisionImpulse = 18;
     void OnEnable()
     {
-        hp.SetHealth(10);
+        hp.SetHealth(20);
     }
 
     void Awake()

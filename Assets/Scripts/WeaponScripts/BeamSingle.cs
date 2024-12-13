@@ -28,6 +28,7 @@ public class BeamSingle : Weapon_Cannon
     {
         base.OnDisable();
         lr.enabled = false;
+        psEffect.GetComponent<ParticleSystem>().Stop();
     }
 
     private void Update()

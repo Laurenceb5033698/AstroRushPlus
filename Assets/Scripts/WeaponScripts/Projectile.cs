@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour {
     {//deal damage to target
         //Debug.Log("Entity hit: " + other.gameObject.name);
 
-        if ((other != null) && (other.gameObject.tag != ownertag) && (other.gameObject.GetComponent<Projectile>() == null))
+        if ((other != null) && (other.gameObject.tag != ownertag) && (!other.gameObject.CompareTag("bullet")))
         {//successful collision that wasnt with shooter
             //Debug.Log("other Entity: " + other.gameObject.tag);
             bool hit = false;

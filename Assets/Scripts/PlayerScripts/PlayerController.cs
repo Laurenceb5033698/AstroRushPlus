@@ -234,10 +234,18 @@ abstract public class PlayerController : MonoBehaviour {
     // EVENT HANDLERS-------------------------------------------------------------------------------------
     virtual protected void OnCollisionEnter(Collision c)
     {
-        //int impactDamage = Mathf.FloorToInt(c.relativeVelocity.magnitude/4);
-        int impactDamage = 2;
+        //no damage vs shards, just allow to bounce around
+        if(c.gameObject.CompareTag("shard"))
+            return;
+        
+        //regular speed collision ~ 30
+        //max velocity collision from boost into stationary asteroid ~120
+        float velocityDamage = c.relativeVelocity.magnitude;
+
+        //impact damage scales with velocity of impact.
+        int impactDamage = 0 + Mathf.FloorToInt(velocityDamage/30);
         TakeDamage(c.transform.position, impactDamage);
-        if (c.gameObject.tag == "EnemyShip")
+        if (c.gameObject.CompareTag("EnemyShip"))
         {
             c.gameObject.GetComponent<AICore>().TakeDamage(transform.position, impactDamage);
         }
