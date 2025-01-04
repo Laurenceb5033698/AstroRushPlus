@@ -54,7 +54,7 @@ public class AoeEffect : MonoBehaviour {
                     ApplyEffectToAsteroid(other.gameObject, true);
                     break;
                 default:
-                    Debug.Log("Unknown entity. " + other.gameObject.tag);
+                    Debug.Log("Unknown entity. " + other.gameObject.name + ". " + other.gameObject.tag);
 
                     break;
             }

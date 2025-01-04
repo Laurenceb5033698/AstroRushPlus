@@ -59,7 +59,7 @@ public class BoundaryManager : MonoBehaviour {
             if (Time.time - lastPeriodicDamage < PeriodicDamageCooldown)
                 return;
             
-            ship.GetComponent<ShipStats>().TakeDamage(1); //every sec ship takes 5% damage
+            ship.GetComponent<Stats>().TakeDamage(1); //every sec ship takes 5% damage
             lastPeriodicDamage = Time.time;
             
         }

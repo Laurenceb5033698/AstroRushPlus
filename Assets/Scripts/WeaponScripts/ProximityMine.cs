@@ -70,7 +70,7 @@ public class ProximityMine : Projectile {
                 {
                     if (victim.gameObject.tag == "EnemyShip")
                     {
-                        victim.GetComponentInParent<NewBasicAI>().TakeDamage(transform.position, damage);
+                        victim.GetComponentInParent<AICore>().TakeDamage(transform.position, damage);
                         applyImpulse(victim.GetComponentInParent<Rigidbody>());
                     }
                 }
