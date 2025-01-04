@@ -6,7 +6,7 @@ public class RadialBurstProjectile : Projectile
 {
     [SerializeField] GameObject PrefSecondaryBullet;
     [SerializeField] [Range(1,20)] int numberOfShards = 4;
-    [SerializeField] float SecondDmg = 5;
+    [SerializeField] int SecondDmg = 5;
     [SerializeField] float SecondSpd = 5;
 
 

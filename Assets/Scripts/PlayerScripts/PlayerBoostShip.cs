@@ -38,7 +38,7 @@ public class PlayerBoostShip : PlayerController {
             if (UsingAbility && stats.ShipFuel > 0.01f)
             {
                 currentSpeed = stats.GetSpecial();
-                stats.ShipFuel = -25 * Time.deltaTime;
+                SpendShipFuel();
             }
         }
 

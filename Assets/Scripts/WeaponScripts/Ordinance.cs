@@ -9,7 +9,7 @@ public class Ordinance : MonoBehaviour {
     [SerializeField] protected GameObject ProjectilePrefab;//bullet prefab
     [SerializeField] protected GameObject ship; //reference to ship
 
-    [SerializeField] protected float Damage = 5f;
+    [SerializeField] protected int Damage = 5;
     [SerializeField] protected float Speed = 20f;
     //[SerializeField] protected AudioSource shootSound;
     

@@ -14,6 +14,10 @@ public class BeamSingle : Weapon_Cannon
     public GameObject psImpactPrefab;//particleSystem prefab
     GameObject psEffect;
 
+    //time between dealing instances of damage
+    public float damagePeriodCooldown = 0.5f;
+    float damageTimer = 0;
+
     private void Start()
     {
         psEffect = Instantiate(psImpactPrefab, ship.transform.position, ship.transform.rotation);
@@ -24,6 +28,7 @@ public class BeamSingle : Weapon_Cannon
     {
         base.OnDisable();
         lr.enabled = false;
+        psEffect.GetComponent<ParticleSystem>().Stop();
     }
 
     private void Update()
@@ -74,21 +79,26 @@ public class BeamSingle : Weapon_Cannon
     //because there are no Projectiles; we must handle hit code here instead
     private void BeamHitTarget(Collider other)
     {
+        if (Time.time - damageTimer < damagePeriodCooldown)
+            return;
+
         if ((other != null) && (other.gameObject.tag != ship.tag) && (other.gameObject.GetComponent<Projectile>() == null))
         {//successful collision that wasnt with shooter
             //Debug.Log("other Entity: " + other.gameObject.tag);
+            damageTimer = Time.time;
+
             switch (other.gameObject.tag)
             {
                 case "PlayerShip":
-                    other.gameObject.GetComponentInParent<PlayerController>().TakeDamage(transform.position, finalBulletDamage * Time.deltaTime);
+                    other.gameObject.GetComponentInParent<PlayerController>().TakeDamage(transform.position, finalBulletDamage);
                     applyImpulse(other.GetComponentInParent<Rigidbody>());
                     break;
                 case "EnemyShip":
-                    other.gameObject.GetComponentInParent<AICore>().TakeDamage(transform.position, finalBulletDamage * Time.deltaTime);
+                    other.gameObject.GetComponentInParent<AICore>().TakeDamage(transform.position, finalBulletDamage);
                     applyImpulse(other.GetComponentInParent<Rigidbody>());
                     break;
                 case "Asteroid":
-                    other.gameObject.GetComponent<Asteroid>().TakeDamage(finalBulletDamage * Time.deltaTime);
+                    other.gameObject.GetComponent<Asteroid>().TakeDamage(finalBulletDamage);
                     applyImpulse(other.GetComponent<Rigidbody>());
                     break;
                 case "shard":

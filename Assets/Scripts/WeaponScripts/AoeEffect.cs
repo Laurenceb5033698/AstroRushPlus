@@ -14,8 +14,11 @@ public class AoeEffect : MonoBehaviour {
     [SerializeField] public enum Effect { DAMAGE, EMP, REPULSION, ATTRACTION };
     public Effect mEffect = Effect.DAMAGE;
 
-    [SerializeField] float effectAmount = 10.0f;
-        
+    [SerializeField] int effectAmount = 1;
+
+    public float PeriodicEffectCooldown = 1.0f;
+    private float LastPeriodicEffect = 0;
+
     void Start () {
         
 	}
@@ -26,7 +29,7 @@ public class AoeEffect : MonoBehaviour {
             DestroySelf();
     }
 
-    public void SetupValues(float dmg, string str)
+    public void SetupValues(int dmg, string str)
     {
         ownertag = str;
         effectAmount = dmg;
@@ -51,7 +54,7 @@ public class AoeEffect : MonoBehaviour {
                     ApplyEffectToAsteroid(other.gameObject, true);
                     break;
                 default:
-                    Debug.Log("Unknown entity. " + other.gameObject.tag);
+                    Debug.Log("Unknown entity. " + other.gameObject.name + ". " + other.gameObject.tag);
 
                     break;
             }
@@ -63,7 +66,9 @@ public class AoeEffect : MonoBehaviour {
         switch (mEffect)
         {
             case Effect.DAMAGE:
-                other.GetComponentInParent<PlayerController>().TakeDamage(transform.position, effectAmount * Time.deltaTime);
+                if (Time.time - LastPeriodicEffect < PeriodicEffectCooldown)
+                    break;
+                other.GetComponentInParent<PlayerController>().TakeDamage(transform.position, effectAmount);
                 break;
             case Effect.EMP:
                 other.GetComponentInParent<Stats>().SetDisable(0.25f/2);
@@ -83,7 +88,9 @@ public class AoeEffect : MonoBehaviour {
         switch (mEffect)
         {
             case Effect.DAMAGE:
-                other.GetComponentInParent<AICore>().TakeDamage(transform.position, effectAmount * Time.deltaTime);
+                if (Time.time - LastPeriodicEffect < PeriodicEffectCooldown)
+                    break;
+                other.GetComponentInParent<AICore>().TakeDamage(transform.position, effectAmount);
                 break;
             case Effect.EMP:
                 other.GetComponentInParent<Stats>().SetDisable(0.25f);
@@ -104,8 +111,13 @@ public class AoeEffect : MonoBehaviour {
             switch (mEffect)
             {
                 case Effect.DAMAGE:
-                    if (shard) Destroy(other);
-                    else other.gameObject.GetComponent<Asteroid>().TakeDamage(effectAmount * Time.deltaTime);
+                if (shard) Destroy(other);
+                else
+                {
+                    if (Time.time - LastPeriodicEffect < PeriodicEffectCooldown)
+                        break;
+                    other.gameObject.GetComponent<Asteroid>().TakeDamage(effectAmount);
+                }
                     break;
                 case Effect.EMP:
                     //other.GetComponentInParent<Stats>().SetDisable(0.25f);    //  do nothing

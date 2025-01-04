@@ -148,7 +148,7 @@ public class AICore : MonoBehaviour {
 
     virtual protected void Move()
     {   //Default Ship movement behavior
-        float currentSpeed = (dist <= innerRange) ? stats.GetSpecial() : stats.GetMainThrust();//use speeds from shipStats. Change on prefabs
+        float currentSpeed = (dist <= innerRange) ? stats.GetSpecial() : stats.GetMainThrust();//use speeds from Stats. Change on prefabs
 
         rb.AddForce(gameObject.transform.forward * currentSpeed * 20 * Time.deltaTime, ForceMode.Acceleration);
         
@@ -188,7 +188,7 @@ public class AICore : MonoBehaviour {
         GetComponentInChildren<Animation>().Play();
     }
 
-    virtual public void TakeDamage(Vector3 otherpos, float amount)
+    virtual public void TakeDamage(Vector3 otherpos, int amount)
     {   //Default method for Taking Damage
         if (shield_Emitter != null && stats.ShipShield > 0)
             Shield_effect(otherpos);
@@ -206,7 +206,14 @@ public class AICore : MonoBehaviour {
         if (!c.gameObject.GetComponent<Projectile>())
         {
             rb.AddForce(((gameObject.transform.position - c.gameObject.transform.position).normalized) * CollisionImpulse, ForceMode.Impulse);
-            TakeDamage(c.gameObject.transform.position, 10 * Time.deltaTime);
+            //no damage if collision was sufficiently slow
+            if (c.relativeVelocity.magnitude > 5)
+            {   //enemies generally slower than player. max velocity impact normally <60
+                //1 damage minimum on impact, takes more damage from fast collision.
+                float velocityDamage = c.relativeVelocity.magnitude;
+                int impactDamage = 1 + Mathf.FloorToInt(velocityDamage / 20);
+                TakeDamage(c.gameObject.transform.position, impactDamage);
+            }
         }
     }
 
