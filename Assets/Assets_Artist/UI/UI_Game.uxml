@@ -1,0 +1,45 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI_Game.uss?fileID=7433441132597879392&amp;guid=4573b810a947d0c46a7cd25128dca946&amp;type=3#UI_Game" />
+    <engine:VisualElement name="UI_Background" style="flex-grow: 1;">
+        <engine:VisualElement name="Player_UI" class="panel" style="height: 556px; bottom: 0; left: -1px; position: absolute; align-items: stretch; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px; width: 50%;">
+            <engine:VisualElement name="Container" style="flex-grow: 1; flex-shrink: 1; flex-wrap: nowrap; left: 0; flex-direction: column;">
+                <engine:VisualElement name="MIssiles" class="PlayerHudContainer" style="flex-direction: row; flex-wrap: nowrap;">
+                    <engine:VisualElement name="Descriptor" class="Player-Hud-Descriptor missiles-descriptor" style="background-image: url(&quot;project://database/Assets/Assets_Artist/Textures/UI/GameUI/UI_Player_HUD_Icon_Missiles.png?fileID=2800000&amp;guid=ccdd756499c7e7749a8f8083bdc5d1a6&amp;type=3#UI_Player_HUD_Icon_Missiles&quot;);" />
+                    <engine:VisualElement name="MIssilePips" class="PlayerHudSlim">
+                        <engine:VisualElement name="missilePip" class="MissilePip" />
+                        <engine:VisualElement name="missilePip" class="MissilePip" style="flex-grow: 0; -unity-background-scale-mode: scale-to-fit; flex-shrink: 0;" />
+                        <engine:VisualElement name="missilePip" class="MissilePip" style="flex-grow: 0; -unity-background-scale-mode: scale-to-fit; flex-shrink: 0;" />
+                    </engine:VisualElement>
+                </engine:VisualElement>
+                <engine:VisualElement name="Special" class="PlayerHudContainer" style="flex-direction: row;">
+                    <engine:VisualElement name="Descriptor" class="Player-Hud-Descriptor special-descriptor" />
+                    <engine:VisualElement name="SpecialBar" class="PlayerHudSlim">
+                        <engine:VisualElement name="BarContainer" class="PlayerHud-BarContainer">
+                            <engine:VisualElement name="BarFIll" class="PlayerHud-BarFill">
+                                <engine:VisualElement name="BarInner" class="PlayerHud-BarInner" />
+                            </engine:VisualElement>
+                        </engine:VisualElement>
+                    </engine:VisualElement>
+                </engine:VisualElement>
+                <engine:VisualElement name="Shield" class="PlayerHudContainer" style="flex-direction: row;">
+                    <engine:VisualElement name="Descriptor" class="Player-Hud-Descriptor shield-desrciptor" />
+                    <engine:VisualElement name="ShieldBar" class="PlayerHudSlim" style="flex-grow: 1;">
+                        <engine:VisualElement name="BarContainer" class="PlayerHud-BarContainer">
+                            <engine:VisualElement name="BarFIll" class="PlayerHud-BarFill">
+                                <engine:VisualElement name="BarInner" class="PlayerHud-BarInner" />
+                            </engine:VisualElement>
+                        </engine:VisualElement>
+                    </engine:VisualElement>
+                </engine:VisualElement>
+                <engine:VisualElement name="Health" class="PlayerHudContainer" style="height: 256px; flex-direction: row; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px;">
+                    <engine:VisualElement name="Descriptor" class="Player-Hud-Descriptor health-descriptor" />
+                    <engine:VisualElement name="HealthPips" class="PlayerHudLarge" style="flex-grow: 0; height: auto; flex-direction: row; flex-shrink: 1; align-items: stretch; justify-content: flex-start; align-self: auto; align-content: flex-start;">
+                        <engine:VisualElement name="HealthPip" class="HealthPip HealthPipFull" />
+                        <engine:VisualElement name="HealthPip" class="HealthPip HealthPipFull" />
+                        <engine:VisualElement name="HealthPip" class="HealthPip HealthPipFull" />
+                    </engine:VisualElement>
+                </engine:VisualElement>
+            </engine:VisualElement>
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

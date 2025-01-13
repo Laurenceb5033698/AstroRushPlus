@@ -519,6 +519,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1054465486}
   - component: {fileID: 1054465485}
+  - component: {fileID: 1054465487}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
@@ -540,7 +541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PanelSettings: {fileID: 11400000, guid: bc2848cdea54a63468b24741e8c70618, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: dc0b6792aed60154d9ef50bf2aba279c,
+  sourceAsset: {fileID: 9197481963319205126, guid: 223a2e66d8fb81f43a989a606549ab75,
     type: 3}
   m_SortingOrder: 0
   m_WorldSpaceSizeMode: 1
@@ -561,6 +562,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1054465487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1054465484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2772b38d60a415c4496af681bacc16a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerShip: {fileID: 0}
+  GameUI: {fileID: 0}
 --- !u!1 &1303277227
 GameObject:
   m_ObjectHideFlags: 0

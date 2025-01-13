@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using XInputDotNetPure; // for controller rumble
+using XInputDotNetPure;
+using System; // for controller rumble
 
 
 abstract public class PlayerController : MonoBehaviour {
@@ -14,6 +15,11 @@ abstract public class PlayerController : MonoBehaviour {
     protected GamePadState prevState;
     protected Inputs controls;
     protected float rumbleTimer = 0;
+
+    //events for gameUI to update
+    public Action<Stats> OnMaxStatsChanged;
+    public Action<Stats> OnHealthChanged;
+
     //compoent vars
     protected Rigidbody rb; 	// ship's rigid body
     protected Stats stats;
@@ -232,6 +238,7 @@ abstract public class PlayerController : MonoBehaviour {
         state = GamePad.GetState(playerIndex);
     }
     // EVENT HANDLERS-------------------------------------------------------------------------------------
+    
     virtual protected void OnCollisionEnter(Collision c)
     {
         //no damage vs shards, just allow to bounce around
@@ -274,7 +281,19 @@ abstract public class PlayerController : MonoBehaviour {
 
             stats.TakeDamage(amount);
             rumbleTimer = Time.time + 0.3f;
+
+            //update ui
+            HealthChanged();
         }
+    }
+    private void HealthChanged()
+    {
+        OnHealthChanged?.Invoke(stats);
+    }
+
+    private void StatsChanged()
+    {
+        OnMaxStatsChanged?.Invoke(stats);
     }
 
     public void UpdateStats(float bHp, float bSh, float bAt, float bSp, float bSd, float bFl)

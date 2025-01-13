@@ -57,7 +57,7 @@ public class UIManager : MonoBehaviour
         for (int screen = 1; screen < mScreens.Length; ++screen)
         {
             //mScreens[screen].SetActive(false);
-            mScreens[screen].enabled = false;
+            mScreens[screen].gameObject.SetActive(false);
         }
 
     }
@@ -71,8 +71,8 @@ public class UIManager : MonoBehaviour
 
     public void LoadingComplete()
     {
-        mScreens[(int)Screens.LoadingScreen].enabled = false;
-        mScreens[(int)mCurrentScreen].enabled = true;
+        mScreens[(int)Screens.LoadingScreen].gameObject.SetActive(false);
+        mScreens[(int)mCurrentScreen].gameObject.SetActive(true);
     }
 
     public static ScreenElement GetGameUiObject()
@@ -88,14 +88,14 @@ public class UIManager : MonoBehaviour
     private void SceneTransitionTo(Screens screen)
     {//ONLY used when loading new scenes
         
-        mScreens[(int)mCurrentScreen].enabled = false;
-        mScreens[(int)Screens.LoadingScreen].enabled = true;
+        mScreens[(int)mCurrentScreen].gameObject.SetActive(false);
+        mScreens[(int)Screens.LoadingScreen].gameObject.SetActive(true);
         mCurrentScreen = screen;
     }
     private void TransitionTo(Screens screen)
     {//used when a UI screen is swapped in-scene
-        mScreens[(int)mCurrentScreen].enabled = false;
-        mScreens[(int)screen].enabled = true;
+        mScreens[(int)mCurrentScreen].gameObject.SetActive(false);
+        mScreens[(int)screen].gameObject.SetActive(true);
         mCurrentScreen = screen;
     }
     public void StartGame(int lev)
