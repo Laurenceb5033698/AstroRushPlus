@@ -17,8 +17,8 @@ abstract public class PlayerController : MonoBehaviour {
     protected float rumbleTimer = 0;
 
     //events for gameUI to update
-    public Action<Stats> OnMaxStatsChanged;
-    public Action<Stats> OnHealthChanged;
+    public Action OnMaxStatsChanged;
+    public Action OnHealthChanged;
 
     //compoent vars
     protected Rigidbody rb; 	// ship's rigid body
@@ -60,6 +60,8 @@ abstract public class PlayerController : MonoBehaviour {
     protected void Start()
     {
         arsenal.RegisterUI();
+        StatsChanged();
+        HealthChanged();
     }
 
     protected void Update()
@@ -97,7 +99,6 @@ abstract public class PlayerController : MonoBehaviour {
 
     protected void FixedUpdate()
     {
-        if (stats.ShipShield < 0.1f) stats.ActivateShieldPU();
         if (rumbleTimer > Time.time)
             GamePad.SetVibration(playerIndex, 0.5f, 0.5f);
         else
@@ -288,12 +289,12 @@ abstract public class PlayerController : MonoBehaviour {
     }
     private void HealthChanged()
     {
-        OnHealthChanged?.Invoke(stats);
+        OnHealthChanged?.Invoke();
     }
 
     private void StatsChanged()
     {
-        OnMaxStatsChanged?.Invoke(stats);
+        OnMaxStatsChanged?.Invoke();
     }
 
     public void UpdateStats(float bHp, float bSh, float bAt, float bSp, float bSd, float bFl)
@@ -309,6 +310,8 @@ abstract public class PlayerController : MonoBehaviour {
 
         //now propagate to arsenal
         arsenal.UpdateDamageFromAttackStat();
+
+        StatsChanged();
     }
 
     virtual protected void SpendShipFuel()
@@ -346,5 +349,10 @@ abstract public class PlayerController : MonoBehaviour {
     public void SetInputs(Inputs glblinputs)
     {
         controls = glblinputs;
+    }
+
+    public void PickupCollected()
+    {
+        HealthChanged();
     }
 }

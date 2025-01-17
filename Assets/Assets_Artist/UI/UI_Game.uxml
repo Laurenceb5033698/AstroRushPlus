@@ -15,8 +15,8 @@
                     <engine:VisualElement name="Descriptor" class="Player-Hud-Descriptor special-descriptor" />
                     <engine:VisualElement name="SpecialBar" class="PlayerHudSlim">
                         <engine:VisualElement name="BarContainer" class="PlayerHud-BarContainer">
-                            <engine:VisualElement name="BarFIll" class="PlayerHud-BarFill">
-                                <engine:VisualElement name="BarInner" class="PlayerHud-BarInner" />
+                            <engine:VisualElement name="AbilityBarMask" class="PlayerHud-BarFill" style="position: absolute; height: 55%; top: 21px; width: 100%; left: 32px;">
+                                <engine:VisualElement name="BarInner" class="PlayerHud-BarInner" style="position: absolute; top: auto; height: 100%;" />
                             </engine:VisualElement>
                         </engine:VisualElement>
                     </engine:VisualElement>
@@ -25,8 +25,8 @@
                     <engine:VisualElement name="Descriptor" class="Player-Hud-Descriptor shield-desrciptor" />
                     <engine:VisualElement name="ShieldBar" class="PlayerHudSlim" style="flex-grow: 1;">
                         <engine:VisualElement name="BarContainer" class="PlayerHud-BarContainer">
-                            <engine:VisualElement name="BarFIll" class="PlayerHud-BarFill">
-                                <engine:VisualElement name="BarInner" class="PlayerHud-BarInner" />
+                            <engine:VisualElement name="ShieldBarMask" class="PlayerHud-BarFill" style="position: absolute; height: 55%; width: 100%; top: 21px; left: 32px;">
+                                <engine:VisualElement name="BarInner" class="PlayerHud-BarInner" style="width: 100%; position: absolute; height: 100%; top: auto;" />
                             </engine:VisualElement>
                         </engine:VisualElement>
                     </engine:VisualElement>

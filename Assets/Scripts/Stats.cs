@@ -18,8 +18,6 @@ public class Stats : MonoBehaviour
     [SerializeField]
     private bool GodMode = false;
     //private bool inCombat = false;
-    private bool shieldPowerUp = false;
-
 
     [SerializeField] private bool EmpDisabled = false;
     private float empTime = 0.0f;   //time in seconds
@@ -188,22 +186,14 @@ public class Stats : MonoBehaviour
 
     // Pickup Functions
     //-----------------------------------------------------------------------------------------
-    public void ActivateShieldPU()
-    {
-        if (shieldPowerUp)
-        {
-            Shield.Value = Shield.Max;
-            shieldPowerUp = false;
-        }
-    }
     public void SetShieldPU()
     {
-        ActivateShieldPU(); // if have one already, use it before getting the next one
-        shieldPowerUp = true;
+        Shield.Value = Shield.Max;
     }
+    //OBSELETE
     public bool GetShieldPUState()
     {
-        return shieldPowerUp;
+        return false;
     }
     public void SetFuel()
     {

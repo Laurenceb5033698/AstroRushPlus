@@ -206,5 +206,11 @@ public class UIManager : MonoBehaviour
             GamevolumeChanged(true);
     }
 
+    //event - gamescene loaded: set object data for uxml hud
+    public void setPlayershipObject(GameObject playerShip)
+    {
+        //get playerhud ui component and set playership object
+        mScreens[(int)Screens.GameScreen].gameObject.GetComponent<GameUIPlayerHealth>().onGameSceneLoaded(playerShip);
+    }
 
 }

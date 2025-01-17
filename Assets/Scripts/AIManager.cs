@@ -105,12 +105,12 @@ public class AIManager : MonoBehaviour {
         if (WaveCounter >= Stage.StageLevels.Count)
             WaveCounter = 0;    //temp fix, needs to "win"stage
         levelData = Stage.StageLevels[WaveCounter];
-        Debug.Log("number of levels in Stage: " + Stage.StageLevels.Count);
-        Debug.Log("Total ships in this level: " + Stage.StageLevels[0].TotalShips);
-        Debug.Log("Max number of active ships: " + Stage.StageLevels[0].MaxActiveShip);
-        Debug.Log("Level Difficulty: " + Stage.StageLevels[0].Difficulty);
-        Debug.Log("number of differnt ship prefabs: " + Stage.StageLevels[0].NormalShipPrefabs.Count);
-        Debug.Log("Number of Elites in level: " + Stage.StageLevels[0].EliteShipPrefabs.Count);
+        //Debug.Log("number of levels in Stage: " + Stage.StageLevels.Count);
+        //Debug.Log("Total ships in this level: " + Stage.StageLevels[0].TotalShips);
+        //Debug.Log("Max number of active ships: " + Stage.StageLevels[0].MaxActiveShip);
+        //Debug.Log("Level Difficulty: " + Stage.StageLevels[0].Difficulty);
+        //Debug.Log("number of differnt ship prefabs: " + Stage.StageLevels[0].NormalShipPrefabs.Count);
+        //Debug.Log("Number of Elites in level: " + Stage.StageLevels[0].EliteShipPrefabs.Count);
 
         EndOfWave = false;
         //  ?bosswave? how? spawn separately?
@@ -200,7 +200,7 @@ public class AIManager : MonoBehaviour {
                 }
                 else
                 {
-                    Debug.Log("ship not found");
+                    Debug.Log("AIManager: ship not found");
                 }
             }
         

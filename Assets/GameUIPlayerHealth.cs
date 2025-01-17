@@ -7,87 +7,121 @@ public class GameUIPlayerHealth : MonoBehaviour
 {
 
     public PlayerController playerShip;
-    public UIDocument GameUI;
-    public VisualElement healthPipContainer;
-    public VisualElement shieldBar;
+    //public UIDocument GameUI;
+    //public VisualElement healthPipContainer;
+    //public VisualElement shieldBar;
     public VisualElement specialBar;
     public VisualElement missilePipsContainer;
 
 
-    void Start()
+    void Awake()
     {
-        healthPipContainer = GameUI.rootVisualElement.Q<VisualElement>("HealthPips");
+    }
 
-        if(GameManager.instance != null)
-        {
-            playerShip = GameManager.instance.GetShipRef().GetComponent<PlayerController>();
-        }
-        if(playerShip == null)
-        {
-            Debug.LogError("GameUIPLayerHealth: no playerController assigned!");
-        }
+    //Gamemanager calls this via UIManager to set playership object and any other data
+    public void onGameSceneLoaded(GameObject playerObject)
+    {
+        disconnectActions();
+        playerShip = playerObject.GetComponent<PlayerController>();
+        connectActions();
     }
 
     private void OnEnable()
-    {   //add event when ui is created
-        if (playerShip == null)
-        {
-            if (GameManager.instance != null)
-            {
-                playerShip = GameManager.instance.GetShipRef().GetComponent<PlayerController>();
-            }
-        }
+    {
+        //GameUI = GetComponent<UIDocument>();
+        //healthPipContainer = GameUI.rootVisualElement.Q<VisualElement>("HealthPips");
+        connectActions();
+
+    }
+    private void connectActions()
+    {
         playerShip.OnHealthChanged += UpdateUI;
         playerShip.OnMaxStatsChanged += StatsChanged;
-
     }
 
     private void OnDisable()
-    {   
-        playerShip.OnHealthChanged -= UpdateUI;
-        playerShip.OnMaxStatsChanged -= StatsChanged;
+    {
+        disconnectActions();
+    }
+
+    private void disconnectActions()
+    {
+        if (playerShip != null)
+        {
+            playerShip.OnHealthChanged -= UpdateUI;
+            playerShip.OnMaxStatsChanged -= StatsChanged;
+        }
     }
 
     //when playership takes damage, this updates the ui without changing ui sizing ect
-    void UpdateUI(Stats playerstats)
+    void UpdateUI()
     {
+        Stats playerstats = playerShip.gameObject.GetComponent<Stats>();
         updateHealthPips(playerstats.Health.Max, playerstats.Health.Value);
+        updateShieldBar(playerstats.Shield.Max, playerstats.Shield.Value);
+        updateAbilityBar(playerstats.Fuel.Max, playerstats.Fuel.Value);
     }
 
     //health can increase or decrease during gameplay.
     void updateHealthPips(int maxHP, int CurrHP)
     {
+        VisualElement healthPipContainer = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("HealthPips");
         //swaps active image using uss class styling.
         int index = 0;
         foreach (var item in healthPipContainer.Children())
         {
             if (index < CurrHP)
             {
-                item.EnableInClassList(".HealthPipFull", true);
-                item.EnableInClassList(".HealthPipEmpty", false);
+                item.EnableInClassList("HealthPipFull", true);
+                item.EnableInClassList("HealthPipEmpty", false);
             }
             else 
             {
-                item.EnableInClassList(".HealthPipFull", false);
-                item.EnableInClassList(".HealthPipEmpty", true);
+                item.EnableInClassList("HealthPipFull", false);
+                item.EnableInClassList("HealthPipEmpty", true);
             }
             index++;
         }
+    }
+
+    void updateShieldBar(int maxShield, int currShield)
+    {
+        VisualElement shieldBarmask = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("ShieldBarMask");
+
+        float ShieldPercent = ((float)currShield / (float)maxShield)*100;
+        //scale barmask width to shield percent
+        shieldBarmask.style.width = Length.Percent(ShieldPercent);
+    }
+
+    void updateAbilityBar(int maxAbility, int currAbility)
+    {
+        VisualElement abilityBarmask = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("AbilityBarMask");
+
+        float abilityPercent = ((float)currAbility / (float)maxAbility) * 100;
+        //scale barmask width to shield percent
+        abilityBarmask.style.width = Length.Percent(abilityPercent);
     }
 
     //##################
 
     //when Playership stats change (increase or decrease) including max amounts
     //refreshes existing pips aswell, could result in wierd scaling
-    void StatsChanged(Stats playerStats)
+    public void StatsChanged()
     {
-        SetHealthPips(playerStats.Health.Max, playerStats.Health.Value);
+        if (playerShip != null)
+        {
+            Stats playerStats = playerShip.gameObject.GetComponent<Stats>();
+            SetHealthPips(playerStats.Health.Max, playerStats.Health.Value);
+        }
+
+        UpdateUI();
     }
 
     //remove and re-add all healthpips. sets css for 
     void SetHealthPips(int max, int current)
     {
         //remove all pips
+        VisualElement healthPipContainer = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("HealthPips");
         healthPipContainer.Clear();
 
         //add new pips up to new amount
@@ -95,27 +129,11 @@ public class GameUIPlayerHealth : MonoBehaviour
         {
             VisualElement hpPip = new VisualElement();
             hpPip.name = "HealthPip";
-            hpPip.AddToClassList(".HealthPip");
-            hpPip.AddToClassList(".HealthPipFull:enabled");
-            hpPip.AddToClassList(".HealthPipEmpty:disabled");
+            hpPip.AddToClassList("HealthPip");
+            hpPip.AddToClassList("HealthPipFull:enabled");
+            hpPip.AddToClassList("HealthPipEmpty:disabled");
             healthPipContainer.Add(hpPip);
         }
-
-        //assign css styling for pips
-        //int index = 0;
-        //foreach (var item in healthPipContainer.Children())
-        //{
-        //    if(index<current)
-        //    {
-        //        item.AddToClassList(".HealthPipFull");
-        //    }
-        //    else
-        //    {
-        //        item.AddToClassList(".HealthPipEmpty");
-        //    }
-        //    index++;
-        //}
-
     }
 
 

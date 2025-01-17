@@ -94,7 +94,8 @@ public class PickupItem : MonoBehaviour {
             }
 
             pm.playPickupSound();
-            
+            c.gameObject.GetComponentInParent<PlayerController>().PickupCollected();
+
             if (!stayOnScene)
             Destroy(transform.gameObject);
         }

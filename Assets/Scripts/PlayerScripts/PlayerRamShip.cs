@@ -219,15 +219,14 @@ public class PlayerRamShip : PlayerController
 
     override public void TakeDamage(Vector3 otherpos, int amount)
     {
-        if (stats.ShipShield > 0)
-            Shield_effect(otherpos);
-
-        
-        //reduce incoming damage to 33%
+        //if (stats.ShipShield > 0)
+        //    Shield_effect(otherpos);
+        ////reduce incoming damage to 33%
         if (Ramming) amount /= 3;
+        //stats.TakeDamage(amount);
+        //rumbleTimer = Time.time + 0.3f;
 
-        stats.TakeDamage(amount);
-        rumbleTimer = Time.time + 0.3f;
+        base.TakeDamage(otherpos, amount);
     }
 
 }

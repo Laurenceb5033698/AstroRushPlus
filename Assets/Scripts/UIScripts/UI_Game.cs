@@ -50,6 +50,21 @@ public class UI_Game : ScreenElement
         }
     }
 
+    //hide base class function for derived func.
+    public new void OnScreenOpen()
+    {
+        OnScreenOpenInternal();
+    }
+    protected override void OnScreenOpenInternal()
+    { 
+        //fix uxml hud
+        GetComponent<GameUIPlayerHealth>().StatsChanged();
+
+        base.OnScreenOpenInternal();
+    }
+
+
+    //Button callbacks
     public void Button_PausePressed(bool isPlayerDead)
     {
         UIManager.instance.Pause(isPlayerDead);

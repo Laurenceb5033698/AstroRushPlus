@@ -26,16 +26,22 @@ abstract public class ScreenElement : MonoBehaviour {
     }
 
     public void OnScreenOpen()
-    {   //called from UIManager when screenElement is swapped to.
+    {   
+        OnScreenOpenInternal();
+    }
+
+    protected virtual void OnScreenOpenInternal()
+    {
+        //called from UIManager when screenElement is swapped to.
         selector = 0;
         SelectButton();
         if (GameManager.instance != null)//if there is a game active
             controls = GameManager.instance.GlobalInputs;
         else
             if (MainMenu.instance != null)
-            {//if there is a main menu active
-                controls = MainMenu.instance.GlobalInputs;
-            }
+        {//if there is a main menu active
+            controls = MainMenu.instance.GlobalInputs;
+        }
     }
 
 
