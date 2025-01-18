@@ -1,7 +1,7 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI_Game.uss?fileID=7433441132597879392&amp;guid=4573b810a947d0c46a7cd25128dca946&amp;type=3#UI_Game" />
     <engine:VisualElement name="UI_Background" style="flex-grow: 1;">
-        <engine:VisualElement name="Player_UI" class="panel" style="height: 556px; bottom: 0; left: -1px; position: absolute; align-items: stretch; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px; width: 50%;">
+        <engine:VisualElement name="Player_UI" class="panel" style="height: 556px; bottom: 0; left: -1px; position: absolute; align-items: stretch; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px; width: 35%;">
             <engine:VisualElement name="Container" style="flex-grow: 1; flex-shrink: 1; flex-wrap: nowrap; left: 0; flex-direction: column;">
                 <engine:VisualElement name="MIssiles" class="PlayerHudContainer" style="flex-direction: row; flex-wrap: nowrap;">
                     <engine:VisualElement name="Descriptor" class="Player-Hud-Descriptor missiles-descriptor" style="background-image: url(&quot;project://database/Assets/Assets_Artist/Textures/UI/GameUI/UI_Player_HUD_Icon_Missiles.png?fileID=2800000&amp;guid=ccdd756499c7e7749a8f8083bdc5d1a6&amp;type=3#UI_Player_HUD_Icon_Missiles&quot;);" />
@@ -15,7 +15,7 @@
                     <engine:VisualElement name="Descriptor" class="Player-Hud-Descriptor special-descriptor" />
                     <engine:VisualElement name="SpecialBar" class="PlayerHudSlim">
                         <engine:VisualElement name="BarContainer" class="PlayerHud-BarContainer">
-                            <engine:VisualElement name="AbilityBarMask" class="PlayerHud-BarFill" style="position: absolute; height: 55%; top: 21px; width: 100%; left: 32px;">
+                            <engine:VisualElement name="AbilityBarMask" class="PlayerHud-BarFill" style="position: absolute; height: 55%; top: 21px; width: 100%;">
                                 <engine:VisualElement name="BarInner" class="PlayerHud-BarInner" style="position: absolute; top: auto; height: 100%;" />
                             </engine:VisualElement>
                         </engine:VisualElement>
@@ -25,7 +25,7 @@
                     <engine:VisualElement name="Descriptor" class="Player-Hud-Descriptor shield-desrciptor" />
                     <engine:VisualElement name="ShieldBar" class="PlayerHudSlim" style="flex-grow: 1;">
                         <engine:VisualElement name="BarContainer" class="PlayerHud-BarContainer">
-                            <engine:VisualElement name="ShieldBarMask" class="PlayerHud-BarFill" style="position: absolute; height: 55%; width: 100%; top: 21px; left: 32px;">
+                            <engine:VisualElement name="ShieldBarMask" class="PlayerHud-BarFill" style="position: absolute; height: 55%; width: 100%; top: 21px;">
                                 <engine:VisualElement name="BarInner" class="PlayerHud-BarInner" style="width: 100%; position: absolute; height: 100%; top: auto;" />
                             </engine:VisualElement>
                         </engine:VisualElement>
