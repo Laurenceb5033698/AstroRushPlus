@@ -311,7 +311,7 @@ abstract public class PlayerController : MonoBehaviour {
         //now propagate to arsenal
         arsenal.UpdateDamageFromAttackStat();
 
-        StatsChanged();
+        //StatsChanged();
     }
 
     virtual protected void SpendShipFuel()
