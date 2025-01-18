@@ -90,7 +90,7 @@ MonoBehaviour:
     BonusMod: 1
   Speed:
     BaseStatMax: 100
-    ShipMod: 0.4
+    ShipMod: 0.5
     BonusMod: 1
   Fuel:
     BaseStatMax: 10
@@ -20295,6 +20295,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ship_Player_Boost
       objectReference: {fileID: 0}
+    - target: {fileID: 2724375784213991085, guid: 2c143b321becf344096e49d3d153099d,
+        type: 3}
+      propertyPath: m_TagString
+      value: PlayerShip
+      objectReference: {fileID: 0}
     - target: {fileID: 3352153650162045975, guid: 2c143b321becf344096e49d3d153099d,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -20313,7 +20318,7 @@ PrefabInstance:
     - target: {fileID: 3352153650162045975, guid: 2c143b321becf344096e49d3d153099d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.28
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3352153650162045975, guid: 2c143b321becf344096e49d3d153099d,
         type: 3}

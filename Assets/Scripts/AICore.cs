@@ -47,6 +47,7 @@ public class AICore : MonoBehaviour {
     {   //Setup AICore references
         stats = gameObject.GetComponent<Stats>();       //local stats
         rb = gameObject.GetComponent<Rigidbody>();     //local rigidbody
+        shield_Emitter = gameObject.GetComponentInChildren<ParticleSystem>();
 
         arsenal = GetComponentInChildren<Arsenal>();        //local weapons platform
         if (arsenal == null) Debug.Log("No weapon attached.");
