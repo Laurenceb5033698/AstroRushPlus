@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour {
         asm.enabled = true;
 
         //set instantiated objects for hud
-        UIManager.instance.setPlayershipObject(playerShip);
+        //UIManager.instance.setPlayershipObject(playerShip);
     }
     private void OnEnable()
     {

@@ -60,8 +60,9 @@ abstract public class PlayerController : MonoBehaviour {
     protected void Start()
     {
         arsenal.RegisterUI();
-        StatsChanged();
-        HealthChanged();
+        //Actions for uxml hud
+        //StatsChanged();
+        //HealthChanged();
     }
 
     protected void Update()
@@ -283,8 +284,8 @@ abstract public class PlayerController : MonoBehaviour {
             stats.TakeDamage(amount);
             rumbleTimer = Time.time + 0.3f;
 
-            //update ui
-            HealthChanged();
+            //update uxml ui
+            //HealthChanged();
         }
     }
     private void HealthChanged()
