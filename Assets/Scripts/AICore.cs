@@ -239,12 +239,12 @@ public class AICore : MonoBehaviour {
 
     public void UpdateStats(float statbonus)
     {   //used by UI_Upgrade
-        stats.Health.SetBonusMod(statbonus);
-        stats.Shield.SetBonusMod(statbonus);
-        stats.Attack.SetBonusMod(statbonus);
-        stats.Special.SetBonusMod(statbonus);
-        stats.Speed.SetBonusMod(statbonus);
-        stats.Fuel.SetBonusMod(statbonus);
+        stats.sHealth.SetBonusMod(statbonus);
+        stats.sShield.SetBonusMod(statbonus);
+        stats.gAttack.SetBonusMod(statbonus);
+        stats.sSpecial.SetBonusMod(statbonus);
+        stats.sSpeed.SetBonusMod(statbonus);
+        stats.sFuel.SetBonusMod(statbonus);
         //now recalculate
         stats.RecalculateStats();
 

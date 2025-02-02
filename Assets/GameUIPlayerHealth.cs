@@ -57,13 +57,13 @@ public class GameUIPlayerHealth : MonoBehaviour
     void UpdateUI()
     {
         Stats playerstats = playerShip.gameObject.GetComponent<Stats>();
-        updateHealthPips(playerstats.Health.Max, playerstats.Health.Value);
-        updateShieldBar(playerstats.Shield.Max, playerstats.Shield.Value);
-        updateAbilityBar(playerstats.Fuel.Max, playerstats.Fuel.Value);
+        updateHealthPips(playerstats.sHealth.Max, playerstats.sHealth.Value);
+        updateShieldBar(playerstats.sShield.Max, playerstats.sShield.Value);
+        updateAbilityBar(playerstats.sFuel.Max, playerstats.sFuel.Value);
     }
 
     //health can increase or decrease during gameplay.
-    void updateHealthPips(int maxHP, int CurrHP)
+    void updateHealthPips(float maxHP, float CurrHP)
     {
         VisualElement healthPipContainer = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("HealthPips");
         //swaps active image using uss class styling.
@@ -84,7 +84,7 @@ public class GameUIPlayerHealth : MonoBehaviour
         }
     }
 
-    void updateShieldBar(int maxShield, int currShield)
+    void updateShieldBar(float maxShield, float currShield)
     {
         VisualElement shieldBarmask = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("ShieldBarMask");
 
@@ -93,7 +93,7 @@ public class GameUIPlayerHealth : MonoBehaviour
         shieldBarmask.style.width = Length.Percent(ShieldPercent);
     }
 
-    void updateAbilityBar(int maxAbility, int currAbility)
+    void updateAbilityBar(float maxAbility, float currAbility)
     {
         VisualElement abilityBarmask = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("AbilityBarMask");
 
@@ -111,14 +111,14 @@ public class GameUIPlayerHealth : MonoBehaviour
         if (playerShip != null)
         {
             Stats playerStats = playerShip.gameObject.GetComponent<Stats>();
-            SetHealthPips(playerStats.Health.Max, playerStats.Health.Value);
+            SetHealthPips(playerStats.sHealth.Max, playerStats.sHealth.Value);
         }
 
         UpdateUI();
     }
 
     //remove and re-add all healthpips. sets css for 
-    void SetHealthPips(int max, int current)
+    void SetHealthPips(float max, float current)
     {
         //remove all pips
         VisualElement healthPipContainer = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("HealthPips");
