@@ -3,55 +3,60 @@
 [System.Serializable]
 public class Stat
 {
-
-    [SerializeField] private int BaseStatMax = 100;     //default value that stat starts on
-    [SerializeField] private float ShipMod = 1.0f;       //per-ship modifier. x<1.0 means total stat is reduced & growth is reduced
-    [SerializeField] private float BonusMod = 1.0f;      //bonus mods that can be added/removed. 
+    //values to re-create max at anytime.
+    [SerializeField] private float BaseStatMax = 10.0f;//default value that stat starts on
+    [SerializeField] private float flat = 0.0f;         // flat bonus added to base value
+    [SerializeField] private float scale = 1.0f;        //per-ship modifier. x<1.0 means total stat is reduced & growth is reduced
+    [SerializeField] private float mod = 0.0f;          //% bonus mods that can be added/removed. 
 
     //Value is actual value in use
-    public int Value { get; set; }
-    public int Max { get; private set; }
+    public float Value { get; set; }
+    public float Max { get; private set; }
 
-    public Stat(int baseStatMax = 100, float shipMod = 1.0f, float bonusMod = 1.0f)
+    public Stat(float _baseStatMax = 10, float _flat = 0.0f, float _shipMod = 1.0f, float _bonusMod = 0.0f)
     {
-        BaseStatMax = baseStatMax;
-        ShipMod = Mathf.Abs(shipMod);
-        BonusMod = bonusMod;
+        BaseStatMax = _baseStatMax;
+        flat = _flat;
+        scale = Mathf.Abs(_shipMod);
+        mod = _bonusMod;
 
         RecalculateFinalStat();
         Value = Max;
     }
 
-
-
-
     private void RecalculateFinalStat()
     {
-        Max = Mathf.FloorToInt((((float)BaseStatMax) * ShipMod * BonusMod));
+        //general formula for calculating max. scale+mod cannot reduce lower than 5%
+        Max = (BaseStatMax+flat) * Mathf.Max(0.05f,scale + mod);
     }
 
-    //TODO: Refactor for upgerade slot implementation.
+
     public void Recalculate()
     {
         //recalculate max value, but maintain stat proportion
-        float oldpercentage = (float)Value / Max;
+        float oldpercentage = Value / Max;
 
         RecalculateFinalStat();
-        Value = Mathf.FloorToInt((float)Max * oldpercentage);
+        Value = (Max * oldpercentage);
 
     }
 
-
-    public void SetBonusMod(float valToadd)
+    //interfaces for modifiers.
+    public void SetFlatMod(float _valToSet)
     {
-        BonusMod = 1.0f + valToadd;
-        BonusMod = Mathf.Max(0.05f, BonusMod);  //cannot go lower than 5%
+        flat += _valToSet;
+        Recalculate();
+    }
+    public void SetBonusMod(float _valToadd)
+    {
+        mod = 1.0f + _valToadd;
+        mod = Mathf.Max(0.05f, mod);  //cannot go lower than 5%
         Recalculate();
     }
 
-    public void SetShipMod(float valToSet)
+    public void SetShipMod(float _valToSet)
     {
-        ShipMod = Mathf.Abs(valToSet);
+        scale = Mathf.Abs(_valToSet);
         Recalculate();
 
     }

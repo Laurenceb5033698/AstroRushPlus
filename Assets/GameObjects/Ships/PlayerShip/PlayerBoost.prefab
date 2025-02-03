@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4543119064973034}
   - component: {fileID: 114071074708821948}
-  - component: {fileID: -2304623442112608374}
+  - component: {fileID: 3602292554117484140}
   - component: {fileID: 54871364947400782}
   - component: {fileID: 81004517288866908}
   m_Layer: 0
@@ -40,7 +40,6 @@ Transform:
   - {fileID: 4832837843485184}
   - {fileID: 4774178356718008}
   - {fileID: 4565687483472234}
-  - {fileID: 1761455557119203636}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114071074708821948
@@ -61,7 +60,7 @@ MonoBehaviour:
   fuelConsumeRate: 1
   fuelConsumePeriod: 1
   damageIframeCooldown: 0.5
---- !u!114 &-2304623442112608374
+--- !u!114 &3602292554117484140
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,30 +72,241 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5410f6ca06a014ca6442378f8a3ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health:
+  sHealth:
+    BaseStatMax: 100
+    flat: 0
+    scale: 1
+    mod: 0
+  sShield:
+    BaseStatMax: 100
+    flat: 0
+    scale: 1
+    mod: 0
+  sSpecial:
+    BaseStatMax: 90
+    flat: 0
+    scale: 1
+    mod: 0
+  sSpeed:
+    BaseStatMax: 55
+    flat: 0
+    scale: 1
+    mod: 0
+  sFuel:
+    BaseStatMax: 100
+    flat: 0
+    scale: 1
+    mod: 0
+  sTurnrate:
+    BaseStatMax: 350
+    flat: 0
+    scale: 1
+    mod: 0
+  sHealthRegen:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  sShieldRegen:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gAttack:
     BaseStatMax: 10
-    ShipMod: 1
-    BonusMod: 1
-  Shield:
-    BaseStatMax: 10
-    ShipMod: 1
-    BonusMod: 1
-  Attack:
+    flat: 0
+    scale: 1
+    mod: 0
+  gAttackspeed:
     BaseStatMax: 1
-    ShipMod: 1
-    BonusMod: 1
-  Special:
+    flat: 0
+    scale: 1
+    mod: 0
+  gProjectileAmount:
+    BaseStatMax: 1
+    flat: 0
+    scale: 1
+    mod: 0
+  gSpreadAngle:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gReloadTime:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gReloadAmmo:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gRampAmount:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gRampTime:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gBurnoutTime:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gChargeTime:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gBurstAmount:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gAoeDamage:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gAoeSize:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gDotDamage:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gDotDuration:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  bSpeed:
+    BaseStatMax: 20
+    flat: 0
+    scale: 1
+    mod: 0
+  bAcceleration:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  bRange:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  bLifetime:
+    BaseStatMax: 5
+    flat: 0
+    scale: 1
+    mod: 0
+  bMagentPower:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  bPenetrationAmount:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  bRicochetAmount:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  bSize:
+    BaseStatMax: 1
+    flat: 0
+    scale: 1
+    mod: 0
+  bFalloff:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  mAttack:
+    BaseStatMax: 500
+    flat: 0
+    scale: 1
+    mod: 0
+  mAmmo:
+    BaseStatMax: 3
+    flat: 0
+    scale: 1
+    mod: 0
+  mBurst:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  mProjectileAmount:
+    BaseStatMax: 1
+    flat: 0
+    scale: 1
+    mod: 0
+  mSpreadAngle:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  mAoeDamage:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  mAoeSize:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  mDotDamage:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  mDotDuration:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  mSpeed:
+    BaseStatMax: 20
+    flat: 0
+    scale: 1
+    mod: 0
+  mAcceleration:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  mRange:
     BaseStatMax: 100
-    ShipMod: 1
-    BonusMod: 1
-  Speed:
-    BaseStatMax: 100
-    ShipMod: 0.4
-    BonusMod: 1
-  Fuel:
+    flat: 0
+    scale: 1
+    mod: 0
+  mLifetime:
     BaseStatMax: 10
-    ShipMod: 1
-    BonusMod: 1
+    flat: 0
+    scale: 1
+    mod: 0
+  mMagnetPower:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  mSize:
+    BaseStatMax: 1
+    flat: 0
+    scale: 1
+    mod: 0
   RotationSpeed: 350
   GodMode: 0
   EmpDisabled: 0
@@ -10007,6 +10217,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19880,127 +20091,6 @@ MonoBehaviour:
   ship: {fileID: 1041841502963482}
   ordini: []
   AmmoCommon: 20
---- !u!1 &1916220410527088277
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1761455557119203636}
-  - component: {fileID: 381461248869485462}
-  - component: {fileID: 938051289412287424}
-  m_Layer: 0
-  m_Name: Ship Light
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1761455557119203636
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1916220410527088277}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.678, y: 1.37, z: -0.054}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4543119064973034}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!108 &381461248869485462
-Light:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1916220410527088277}
-  m_Enabled: 1
-  serializedVersion: 11
-  m_Type: 2
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
-  m_Range: 10
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-    m_CullingMatrixOverride:
-      e00: 1
-      e01: 0
-      e02: 0
-      e03: 0
-      e10: 0
-      e11: 1
-      e12: 0
-      e13: 0
-      e20: 0
-      e21: 0
-      e22: 1
-      e23: 0
-      e30: 0
-      e31: 0
-      e32: 0
-      e33: 1
-    m_UseCullingMatrixOverride: 0
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingLayerMask: 1
-  m_Lightmapping: 4
-  m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_UseBoundingSphereOverride: 0
-  m_UseViewFrustumForShadowCasterCull: 1
-  m_ForceVisible: 0
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
-  m_LightUnit: 1
-  m_LuxAtDistance: 1
-  m_EnableSpotReflector: 1
---- !u!114 &938051289412287424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1916220410527088277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Version: 3
-  m_UsePipelineSettings: 1
-  m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_RenderingLayers: 1
-  m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_ShadowRenderingLayers: 1
-  m_LightCookieSize: {x: 1, y: 1}
-  m_LightCookieOffset: {x: 0, y: 0}
-  m_SoftShadowQuality: 0
 --- !u!1 &4692497252871698778
 GameObject:
   m_ObjectHideFlags: 0
@@ -20416,6 +20506,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ship_Player_Boost
       objectReference: {fileID: 0}
+    - target: {fileID: 2724375784213991085, guid: 2c143b321becf344096e49d3d153099d,
+        type: 3}
+      propertyPath: m_TagString
+      value: PlayerShip
+      objectReference: {fileID: 0}
     - target: {fileID: 3352153650162045975, guid: 2c143b321becf344096e49d3d153099d,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -20434,7 +20529,7 @@ PrefabInstance:
     - target: {fileID: 3352153650162045975, guid: 2c143b321becf344096e49d3d153099d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.99
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3352153650162045975, guid: 2c143b321becf344096e49d3d153099d,
         type: 3}

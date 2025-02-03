@@ -150,17 +150,17 @@ public class UI_Game : ScreenElement
         missileCounter.text = "X " + missile;
 
         Vector3 temp;
-        float maxHp = GameManager.instance.GetShipRef().GetComponent<Stats>().Health.Max;
+        float maxHp = GameManager.instance.GetShipRef().GetComponent<Stats>().sHealth.Max;
         temp = statBars[0].transform.localScale;
         temp.x = (2.5f / maxHp) * health;
         statBars[0].transform.localScale = temp;
 
-        float maxboost = GameManager.instance.GetShipRef().GetComponent<Stats>().Fuel.Max;
+        float maxboost = GameManager.instance.GetShipRef().GetComponent<Stats>().sFuel.Max;
         temp = statBars[1].transform.localScale;
         temp.x = (2.5f / maxboost) * boost;
         statBars[1].transform.localScale = temp;
 
-        Stat statShield = GameManager.instance.GetShipRef().GetComponent<Stats>().Shield;
+        Stat statShield = GameManager.instance.GetShipRef().GetComponent<Stats>().sShield;
         temp = statBars[2].transform.localScale;
         temp.x = (2.5f / statShield.Max) * statShield.Value;
         statBars[2].transform.localScale = temp;

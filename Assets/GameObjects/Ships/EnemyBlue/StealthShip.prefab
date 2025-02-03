@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000014027102902}
   - component: {fileID: 54000013212791408}
-  - component: {fileID: -7916518180120578867}
+  - component: {fileID: 2790777525657224881}
   - component: {fileID: 114908258343461838}
   m_Layer: 0
   m_Name: StealthShip
@@ -66,7 +66,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
---- !u!114 &-7916518180120578867
+--- !u!114 &2790777525657224881
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,31 +78,242 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5410f6ca06a014ca6442378f8a3ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health:
-    BaseStatMax: 5
-    ShipMod: 1
-    BonusMod: 1
-  Shield:
-    BaseStatMax: 5
-    ShipMod: 0
-    BonusMod: 1
-  Attack:
+  sHealth:
+    BaseStatMax: 80
+    flat: 0
+    scale: 1
+    mod: 0
+  sShield:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  sSpecial:
+    BaseStatMax: 80
+    flat: 0
+    scale: 1
+    mod: 0
+  sSpeed:
+    BaseStatMax: 50
+    flat: 0
+    scale: 1
+    mod: 0
+  sFuel:
+    BaseStatMax: 100
+    flat: 0
+    scale: 1
+    mod: 0
+  sTurnrate:
+    BaseStatMax: 1100
+    flat: 0
+    scale: 1
+    mod: 0
+  sHealthRegen:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  sShieldRegen:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gAttack:
+    BaseStatMax: 10
+    flat: 0
+    scale: 1
+    mod: 0
+  gAttackspeed:
     BaseStatMax: 1
-    ShipMod: 1
-    BonusMod: 1
-  Special:
+    flat: 0
+    scale: 1
+    mod: 0
+  gProjectileAmount:
+    BaseStatMax: 1
+    flat: 0
+    scale: 1
+    mod: 0
+  gSpreadAngle:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gReloadTime:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gReloadAmmo:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gRampAmount:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gRampTime:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gBurnoutTime:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gChargeTime:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gBurstAmount:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gAoeDamage:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gAoeSize:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gDotDamage:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  gDotDuration:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  bSpeed:
+    BaseStatMax: 20
+    flat: 0
+    scale: 1
+    mod: 0
+  bAcceleration:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  bRange:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  bLifetime:
+    BaseStatMax: 5
+    flat: 0
+    scale: 1
+    mod: 0
+  bMagentPower:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  bPenetrationAmount:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  bRicochetAmount:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  bSize:
+    BaseStatMax: 1
+    flat: 0
+    scale: 1
+    mod: 0
+  bFalloff:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  mAttack:
+    BaseStatMax: 500
+    flat: 0
+    scale: 1
+    mod: 0
+  mAmmo:
+    BaseStatMax: 3
+    flat: 0
+    scale: 1
+    mod: 0
+  mBurst:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  mProjectileAmount:
+    BaseStatMax: 1
+    flat: 0
+    scale: 1
+    mod: 0
+  mSpreadAngle:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  mAoeDamage:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  mAoeSize:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  mDotDamage:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  mDotDuration:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  mSpeed:
+    BaseStatMax: 20
+    flat: 0
+    scale: 1
+    mod: 0
+  mAcceleration:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  mRange:
     BaseStatMax: 100
-    ShipMod: 1.5
-    BonusMod: 1
-  Speed:
-    BaseStatMax: 100
-    ShipMod: 0.5
-    BonusMod: 1
-  Fuel:
-    BaseStatMax: 100
-    ShipMod: 1
-    BonusMod: 1
-  RotationSpeed: 1100
+    flat: 0
+    scale: 1
+    mod: 0
+  mLifetime:
+    BaseStatMax: 10
+    flat: 0
+    scale: 1
+    mod: 0
+  mMagnetPower:
+    BaseStatMax: 0
+    flat: 0
+    scale: 1
+    mod: 0
+  mSize:
+    BaseStatMax: 1
+    flat: 0
+    scale: 1
+    mod: 0
+  RotationSpeed: 350
   GodMode: 0
   EmpDisabled: 0
 --- !u!114 &114908258343461838
@@ -124,7 +335,7 @@ MonoBehaviour:
   KeepAwayRange: 15
   torqueMultiplier: 1
   rb: {fileID: 54000013212791408}
-  stats: {fileID: 0}
+  stats: {fileID: 2790777525657224881}
   arsenal: {fileID: 114031261655883800}
   SceneManagerObject: {fileID: 0}
   aiManager: {fileID: 0}
@@ -15196,7 +15407,7 @@ MonoBehaviour:
   TurretPref: {fileID: 1897680203412384, guid: 4fe44cd76d1b6874fba38940060141d5, type: 3}
   ship: {fileID: 0}
   shootSpeed: 0.5
-  baseBulletDamage: 1
+  baseBulletDamage: 8
   bulletSpeed: 50
   shootSound: {fileID: 0}
 --- !u!82 &82815901002119204
