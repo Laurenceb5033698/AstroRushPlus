@@ -9,7 +9,7 @@ public class UI_Game : ScreenElement
 
     [SerializeField] private Text[] gameStats = new Text[3];                // score, enemy left, wave counter
     [SerializeField] private GameObject[] HUDs = new GameObject[3];
-    [SerializeField] private GameObject[] statBars = new GameObject[2];     // helth, boost
+    [SerializeField] private GameObject[] statBars = new GameObject[3];     // helth, boost
     [SerializeField] private GameObject[] indicators = new GameObject[2];   // shield on, shield off, single, tri, missile
 
     private float helthFlashingTimer = 0;
@@ -55,13 +55,13 @@ public class UI_Game : ScreenElement
     {
         OnScreenOpenInternal();
     }
-    protected override void OnScreenOpenInternal()
-    { 
-        //fix uxml hud
-        GetComponent<GameUIPlayerHealth>().StatsChanged();
+    //protected override void OnScreenOpenInternal()
+    //{ 
+    //    //fix uxml hud
+    //    GetComponent<GameUIPlayerHealth>().StatsChanged();
 
-        base.OnScreenOpenInternal();
-    }
+    //    base.OnScreenOpenInternal();
+    //}
 
 
     //Button callbacks
@@ -160,6 +160,10 @@ public class UI_Game : ScreenElement
         temp.x = (2.5f / maxboost) * boost;
         statBars[1].transform.localScale = temp;
 
+        Stat statShield = GameManager.instance.GetShipRef().GetComponent<Stats>().Shield;
+        temp = statBars[2].transform.localScale;
+        temp.x = (2.5f / statShield.Max) * statShield.Value;
+        statBars[2].transform.localScale = temp;
 
         indicators[0].SetActive(shield);
         indicators[1].SetActive(!shield);

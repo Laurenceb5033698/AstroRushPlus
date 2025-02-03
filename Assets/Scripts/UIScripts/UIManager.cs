@@ -210,7 +210,7 @@ public class UIManager : MonoBehaviour
     public void setPlayershipObject(GameObject playerShip)
     {
         //get playerhud ui component and set playership object
-        mScreens[(int)Screens.GameScreen].gameObject.GetComponent<GameUIPlayerHealth>().onGameSceneLoaded(playerShip);
+        //mScreens[(int)Screens.GameScreen].gameObject.GetComponent<GameUIPlayerHealth>().onGameSceneLoaded(playerShip);
     }
 
 }
