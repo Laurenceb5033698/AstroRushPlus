@@ -7,13 +7,13 @@ public class Stat
     [SerializeField] private float BaseStatMax = 10.0f;//default value that stat starts on
     [SerializeField] private float flat = 0.0f;         // flat bonus added to base value
     [SerializeField] private float scale = 1.0f;        //per-ship modifier. x<1.0 means total stat is reduced & growth is reduced
-    [SerializeField] private float mod = 0.0f;          //% bonus mods that can be added/removed. 
+    [SerializeField] private float mod = 1.0f;          //% bonus mods that can be added/removed. 
 
     //Value is actual value in use
     public float Value { get; set; }
     public float Max { get; private set; }
 
-    public Stat(float _baseStatMax = 10, float _flat = 0.0f, float _shipMod = 1.0f, float _bonusMod = 0.0f)
+    public Stat(float _baseStatMax = 10, float _flat = 0.0f, float _shipMod = 1.0f, float _bonusMod = 1.0f)
     {
         BaseStatMax = _baseStatMax;
         flat = _flat;
@@ -27,7 +27,7 @@ public class Stat
     private void RecalculateFinalStat()
     {
         //general formula for calculating max. scale+mod cannot reduce lower than 5%
-        Max = (BaseStatMax+flat) * Mathf.Max(0.05f,scale + mod);
+        Max = (BaseStatMax+flat) * Mathf.Max(0.05f,scale * mod);
     }
 
 

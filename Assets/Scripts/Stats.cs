@@ -13,7 +13,7 @@ public class Stats : MonoBehaviour
     public Stat sHealth = new Stat(100);
     public Stat sShield = new Stat(100);
     public Stat sSpecial = new Stat(100);   //replaces boost, can now be uesd to augment ability intensity
-    public Stat sSpeed = new Stat(20);     //replaces thrust, can now upgrade base speed
+    public Stat sSpeed = new Stat(50);     //replaces thrust, can now upgrade base speed
     public Stat sFuel = new Stat(100);         //replaces fuel, can now increase amount of fuel for ability
     public Stat sTurnrate = new Stat(350);
     public Stat sHealthRegen = new Stat(0);
