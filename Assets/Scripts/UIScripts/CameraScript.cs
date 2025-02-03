@@ -4,7 +4,7 @@ using System.Collections;
 public class CameraScript : MonoBehaviour {
 
 	private GameObject target;
-    private readonly Vector3 offset = new Vector3(0,70,-40);
+    [SerializeField] private Vector3 offset = new Vector3(0,70,-40);
 
 	void Update ()
     {
