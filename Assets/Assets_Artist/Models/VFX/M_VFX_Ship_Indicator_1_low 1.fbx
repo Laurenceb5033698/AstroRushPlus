@@ -9,10 +9,10 @@ FBXHeaderExtension:  {
 		Year: 2025
 		Month: 2
 		Day: 4
-		Hour: 16
-		Minute: 26
-		Second: 54
-		Millisecond: 145
+		Hour: 17
+		Minute: 58
+		Second: 26
+		Millisecond: 657
 	}
 	Creator: "FBX SDK/FBX Plugins version 2020.0.1"
 	SceneInfo: "SceneInfo::GlobalInfo", "UserData" {
@@ -34,13 +34,13 @@ FBXHeaderExtension:  {
 			P: "Original|ApplicationVendor", "KString", "", "", "Autodesk"
 			P: "Original|ApplicationName", "KString", "", "", "3ds Max"
 			P: "Original|ApplicationVersion", "KString", "", "", "2021"
-			P: "Original|DateTime_GMT", "DateTime", "", "", "04/02/2025 16:26:54.143"
+			P: "Original|DateTime_GMT", "DateTime", "", "", "04/02/2025 17:58:26.655"
 			P: "Original|FileName", "KString", "", "", "D:\Documents\Projects\Portfolio\Games\AstroRush\3D Models\Exports\Low Poly\VFX Meshes\M_VFX_Ship_Indicator_1_low.fbx"
 			P: "LastSaved", "Compound", "", ""
 			P: "LastSaved|ApplicationVendor", "KString", "", "", "Autodesk"
 			P: "LastSaved|ApplicationName", "KString", "", "", "3ds Max"
 			P: "LastSaved|ApplicationVersion", "KString", "", "", "2021"
-			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "04/02/2025 16:26:54.143"
+			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "04/02/2025 17:58:26.655"
 			P: "Original|ApplicationActiveProject", "KString", "", "", "C:\Users\diggi\Documents\3ds Max 2021"
 			P: "Original|ApplicationNativeFile", "KString", "", "", "D:\Documents\Projects\Portfolio\Games\AstroRush\3D Models\3DS Max\Ship_Playuer_Boost_1_008.max"
 		}
@@ -77,7 +77,7 @@ GlobalSettings:  {
 
 Documents:  {
 	Count: 1
-	Document: 2489429623664, "", "Scene" {
+	Document: 1868585100048, "", "Scene" {
 		Properties70:  {
 			P: "SourceObject", "object", "", ""
 			P: "ActiveAnimStackName", "KString", "", "", ""
@@ -226,7 +226,7 @@ Definitions:  {
 ;------------------------------------------------------------------
 
 Objects:  {
-	Geometry: 2489451814816, "Geometry::", "Mesh" {
+	Geometry: 1867833500704, "Geometry::", "Mesh" {
 		Properties70:  {
 			P: "Color", "ColorRGB", "Color", "",0.890196078431372,0.6,0.6
 		}
@@ -303,7 +303,7 @@ Objects:  {
 			}
 		}
 	}
-	Model: 2489565708672, "Model::Plane001", "Mesh" {
+	Model: 1868590394368, "Model::VFX_Indicator_1", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
@@ -316,13 +316,13 @@ Objects:  {
 		Shading: T
 		Culling: "CullingOff"
 	}
-	AnimationStack: 2489452495584, "AnimStack::Take 001", "" {
+	AnimationStack: 1866674070864, "AnimStack::Take 001", "" {
 		Properties70:  {
 			P: "LocalStop", "KTime", "Time", "",153953860000
 			P: "ReferenceStop", "KTime", "Time", "",153953860000
 		}
 	}
-	AnimationLayer: 2488821999040, "AnimLayer::BaseLayer", "" {
+	AnimationLayer: 1868580373872, "AnimLayer::BaseLayer", "" {
 	}
 }
 
@@ -331,14 +331,14 @@ Objects:  {
 
 Connections:  {
 	
-	;Model::Plane001, Model::RootNode
-	C: "OO",2489565708672,0
+	;Model::VFX_Indicator_1, Model::RootNode
+	C: "OO",1868590394368,0
 	
 	;AnimLayer::BaseLayer, AnimStack::Take 001
-	C: "OO",2488821999040,2489452495584
+	C: "OO",1868580373872,1866674070864
 	
-	;Geometry::, Model::Plane001
-	C: "OO",2489451814816,2489565708672
+	;Geometry::, Model::VFX_Indicator_1
+	C: "OO",1867833500704,1868590394368
 }
 ;Takes section
 ;----------------------------------------------------
