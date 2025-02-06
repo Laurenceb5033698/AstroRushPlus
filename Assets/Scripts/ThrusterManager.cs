@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.VFX;
+using static UnityEngine.ParticleSystem;
 
 public class ThrusterManager : MonoBehaviour {
 
     [SerializeField] private List<VisualEffect> thrusters = new List<VisualEffect>();
     [SerializeField] private List<VisualEffect> alternate = new List<VisualEffect>();
+    [SerializeField] private List<TrailRenderer> maintrails = new List<TrailRenderer>();
+    [SerializeField] private List<TrailRenderer> altTrails = new List<TrailRenderer>();
 
     private PlayerController playership;
 
@@ -23,9 +26,9 @@ public class ThrusterManager : MonoBehaviour {
     {
         GetInputs();
         //if player movement input detected play all normal thrusters
-        UpdateVisualEffects(thrusters, stateThruster);
+        MainEffects();
         //plays all alternate vfx when ship specific conditions are met (condition determined in player controller)
-        UpdateVisualEffects(alternate, stateAlternate);
+        AlternateEffects();
 	}
 
     private void GetInputs()
@@ -36,17 +39,43 @@ public class ThrusterManager : MonoBehaviour {
         //Alternate effects set by ship controller
         stateAlternate = playership.AlternateShipVFX();
     }
+    private void MainEffects()
+    {
+        //emit trails & vfx on normal movement
+        UpdateVisualEffects(thrusters, stateThruster);
+        UpdateTrailRenderers(maintrails, stateThruster);
+    }
+    private void AlternateEffects()
+    {
+        //emit trails & vfx on Alternate movement
+        UpdateVisualEffects(alternate, stateAlternate);
+        UpdateTrailRenderers(altTrails, stateAlternate);
+    }
 
+    //Trail handling
+    private void UpdateTrailRenderers(List<TrailRenderer> _trails, bool _state)
+    {
+        //controls if trail is emitting or not
+        foreach (TrailRenderer _trail in _trails)
+        {
+            TrailSetState(_trail, _state);
+        }
+    }
+    private void TrailSetState(TrailRenderer _trail, bool _state)
+    {
+        _trail.emitting = _state;
+    }
+
+    //vfx handling
     private void UpdateVisualEffects( List<VisualEffect> _effectslist, bool _state)
     {
         //controls play/stop state of all vfx in the given list.
         foreach (VisualEffect vfx in _effectslist)
         {
-            SetState(vfx, _state);
+            VFXSetState(vfx, _state);
         }
     }   
-    
-    private void SetState(VisualEffect _vfx, bool _state)
+    private void VFXSetState(VisualEffect _vfx, bool _state)
     {
         if (_state)
         {

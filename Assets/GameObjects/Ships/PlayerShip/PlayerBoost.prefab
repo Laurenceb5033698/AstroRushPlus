@@ -11009,6 +11009,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4644452305073379565}
   m_SourcePrefab: {fileID: 100100000, guid: 2c143b321becf344096e49d3d153099d, type: 3}
+--- !u!96 &98077076238198524 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 3863292505666658045, guid: 2c143b321becf344096e49d3d153099d,
+    type: 3}
+  m_PrefabInstance: {fileID: 3801421284604770305}
+  m_PrefabAsset: {fileID: 0}
 --- !u!2083052967 &684679394916618826 stripped
 VisualEffect:
   m_CorrespondingSourceObject: {fileID: 4413849569623878219, guid: 2c143b321becf344096e49d3d153099d,
@@ -11045,6 +11051,10 @@ MonoBehaviour:
   - {fileID: 8706707823960706059}
   - {fileID: 1015951642468249130}
   - {fileID: 684679394916618826}
+  maintrails: []
+  altTrails:
+  - {fileID: 98077076238198524}
+  - {fileID: 4169784616342300923}
 --- !u!64 &4644452305073379565
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11076,6 +11086,12 @@ VisualEffect:
 --- !u!4 &1892744943639325718 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3352153650162045975, guid: 2c143b321becf344096e49d3d153099d,
+    type: 3}
+  m_PrefabInstance: {fileID: 3801421284604770305}
+  m_PrefabAsset: {fileID: 0}
+--- !u!96 &4169784616342300923 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 945564058587844858, guid: 2c143b321becf344096e49d3d153099d,
     type: 3}
   m_PrefabInstance: {fileID: 3801421284604770305}
   m_PrefabAsset: {fileID: 0}
