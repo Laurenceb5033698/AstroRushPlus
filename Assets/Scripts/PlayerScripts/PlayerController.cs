@@ -332,6 +332,10 @@ abstract public class PlayerController : MonoBehaviour {
             damageTimer -= Time.deltaTime;
         }
     }
+
+    //Abstract func for playing ship alternate ship effects. eg boost thruster.
+    abstract public bool AlternateShipVFX();
+
     //UTIL
     public int GetWeaponType()
     {

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using XInputDotNetPure; // for controller rumble
+using XInputDotNetPure;
+using Unity.Services.Analytics; // for controller rumble
 
 public class PlayerBoostShip : PlayerController {
     
@@ -44,5 +45,13 @@ public class PlayerBoostShip : PlayerController {
 
         rb.linearVelocity = new Vector3(controls.LeftStick.x * currentSpeed, 0, controls.LeftStick.y * currentSpeed);
         rb.angularVelocity = new Vector3(0, 0, 0);
+    }
+
+    //Event Handlers
+    override public bool AlternateShipVFX()
+    {
+        //play boost trail vfx on thruster
+        return UsingAbility;
+
     }
 }

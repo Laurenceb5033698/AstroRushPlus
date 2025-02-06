@@ -205,6 +205,7 @@ public class PlayerRamShip : PlayerController
         rb.angularVelocity = new Vector3(0, 0, 0);
     }
 
+    //events
     override protected void OnCollisionEnter(Collision c)
     {
         //no collision damage for player Ramship
@@ -228,5 +229,8 @@ public class PlayerRamShip : PlayerController
 
         base.TakeDamage(otherpos, amount);
     }
-
+    public override bool AlternateShipVFX()
+    {
+        return false;
+    }
 }

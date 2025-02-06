@@ -1,53 +1,61 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.VFX;
 
 public class ThrusterManager : MonoBehaviour {
 
-    [SerializeField] private Thruster[] thrusters = new Thruster[4];
+    [SerializeField] private List<VisualEffect> thrusters = new List<VisualEffect>();
+    [SerializeField] private List<VisualEffect> alternate = new List<VisualEffect>();
     private Inputs controls;
+    private PlayerController playership;
 
-    private bool state; // master state
-    private const float deadzone = 0.1f;
+    private bool stateThruster; // master state for normal thruster effects
+    private bool stateAlternate;// for any ship specific or ability specific effects.
 
-	// Use this for initialization
 	void Start ()
     {
         controls = GameManager.instance.GlobalInputs;
-        state = true;
+        playership = GetComponentInParent<PlayerController>();
+        stateThruster = false;
+        stateAlternate = false;
     }
 	
-	// Update is called once per frame
 	void Update ()
     {
-        UpdateThrusters();
+        GetInputs();
+        //if player movement input detected play all normal thrusters
+        UpdateVisualEffects(thrusters, stateThruster);
+        //plays all alternate vfx when ship specific conditions are met (condition determined in player controller)
+        UpdateVisualEffects(alternate, stateAlternate);
 	}
 
-    private void UpdateThrusters()
+    private void GetInputs()
     {
-        state = controls.LeftAnalogueInUse;
-        thrusters[2].SetState(state); // rear
-        thrusters[3].SetState(state); // rear
+        //get inputs to set state for movement
+        stateThruster = controls.LeftAnalogueInUse;
 
+        //Alternate effects set by ship controller
+        stateAlternate = playership.AlternateShipVFX();
+    }
 
-        /*
-        if (state)
+    private void UpdateVisualEffects( List<VisualEffect> _effectslist, bool _state)
+    {
+        //controls play/stop state of all vfx in the given list.
+        foreach (VisualEffect vfx in _effectslist)
         {
-            //thrusters[0].SetState(controls.LeftStick.x < -deadzone); // right
-            //thrusters[1].SetState(controls.LeftStick.x > deadzone);  // left
-
-            thrusters[2].SetState(controls.LeftStick.y > deadzone); // rear
-            thrusters[3].SetState(controls.LeftStick.y > deadzone); // rear
+            SetState(vfx, _state);
+        }
+    }   
+    
+    private void SetState(VisualEffect _vfx, bool _state)
+    {
+        if (_state)
+        {
+            _vfx.Play();
         }
         else
         {
-            foreach (Thruster t in thrusters)
-            {
-                t.SetState(false);
-            }
+            _vfx.Stop();
         }
-        */
     }
-
-    
 }
