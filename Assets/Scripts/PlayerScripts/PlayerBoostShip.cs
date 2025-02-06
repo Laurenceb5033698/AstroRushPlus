@@ -48,10 +48,16 @@ public class PlayerBoostShip : PlayerController {
     }
 
     //Event Handlers
+    override public bool MainShipVFX()
+    {
+        //boost ship vfx must turn off main thruster when boosting (boost vfx replace main)
+        return (controls.LeftAnalogueInUse && !UsingAbility);
+    }
+
     override public bool AlternateShipVFX()
     {
         //play boost trail vfx on thruster
-        return UsingAbility;
+        return controls.LeftAnalogueInUse && UsingAbility;
 
     }
 }

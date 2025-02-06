@@ -10984,12 +10984,12 @@ PrefabInstance:
     - target: {fileID: 5564542719565145739, guid: 2c143b321becf344096e49d3d153099d,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6919641188211679105, guid: 2c143b321becf344096e49d3d153099d,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8284512831022814012, guid: 2c143b321becf344096e49d3d153099d,
         type: 3}
@@ -11015,6 +11015,12 @@ VisualEffect:
     type: 3}
   m_PrefabInstance: {fileID: 3801421284604770305}
   m_PrefabAsset: {fileID: 0}
+--- !u!2083052967 &1015951642468249130 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 4240207384920888875, guid: 2c143b321becf344096e49d3d153099d,
+    type: 3}
+  m_PrefabInstance: {fileID: 3801421284604770305}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1229396743540029100 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2724375784213991085, guid: 2c143b321becf344096e49d3d153099d,
@@ -11037,6 +11043,7 @@ MonoBehaviour:
   - {fileID: 1505075726640302056}
   alternate:
   - {fileID: 8706707823960706059}
+  - {fileID: 1015951642468249130}
   - {fileID: 684679394916618826}
 --- !u!64 &4644452305073379565
 MeshCollider:

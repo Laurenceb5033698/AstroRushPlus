@@ -332,7 +332,11 @@ abstract public class PlayerController : MonoBehaviour {
             damageTimer -= Time.deltaTime;
         }
     }
-
+    //virtual func for playing main thruster vfx.
+    virtual public bool MainShipVFX()
+    {
+        return controls.LeftAnalogueInUse;
+    }
     //Abstract func for playing ship alternate ship effects. eg boost thruster.
     abstract public bool AlternateShipVFX();
 

@@ -6,7 +6,7 @@ public class ThrusterManager : MonoBehaviour {
 
     [SerializeField] private List<VisualEffect> thrusters = new List<VisualEffect>();
     [SerializeField] private List<VisualEffect> alternate = new List<VisualEffect>();
-    private Inputs controls;
+
     private PlayerController playership;
 
     private bool stateThruster; // master state for normal thruster effects
@@ -14,7 +14,6 @@ public class ThrusterManager : MonoBehaviour {
 
 	void Start ()
     {
-        controls = GameManager.instance.GlobalInputs;
         playership = GetComponentInParent<PlayerController>();
         stateThruster = false;
         stateAlternate = false;
@@ -32,7 +31,7 @@ public class ThrusterManager : MonoBehaviour {
     private void GetInputs()
     {
         //get inputs to set state for movement
-        stateThruster = controls.LeftAnalogueInUse;
+        stateThruster = playership.MainShipVFX();
 
         //Alternate effects set by ship controller
         stateAlternate = playership.AlternateShipVFX();
