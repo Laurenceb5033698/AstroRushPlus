@@ -2,11 +2,16 @@
 using System.Collections;
 using UnityEngine;
 
-public class Script_Camera_Shake : MonoBehaviour {
+public class CameraScreenShake : MonoBehaviour {
     public bool start = false;
     public AnimationCurve curve;
     public float duration = 1f;
     public float intensity = 1f;
+
+
+
+
+
 
     void Update() {
         if (start) {
