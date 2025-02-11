@@ -7,26 +7,29 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat_Ship_Trail_Simple_1
-  m_Shader: {fileID: -6465566751694194690, guid: 3e882bfd12b8e1042b4ea5fbec48ffa2,
+  m_Name: Mat_VFX_Weapon_Duo_1
+  m_Shader: {fileID: -6465566751694194690, guid: 3c8244023dd2cc049a045191f2776380,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _ALPHATEST_ON
+  - _RECEIVE_SHADOWS_OFF
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2450
+  stringTagMap:
+    RenderType: TransparentCutout
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Trail_Texture:
-        m_Texture: {fileID: 2800000, guid: 0ccaf6a28c9c42049aae7763342e3c3e, type: 3}
+    - _Texture_EmissiveGradient:
+        m_Texture: {fileID: 2800000, guid: 097a7415d73274c45befa665d2f54808, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -43,17 +46,36 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Dissolve_Scale: 35
+    - _AlphaClip: 1
+    - _AlphaToMask: 1
+    - _Alpha_Clipping: 1
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 1
+    - _CastShadows: 1
+    - _Cull: 2
+    - _DstBlend: 0
+    - _Emissive_Intensity: 5.74
+    - _Metallic: 0
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _ReceiveShadows: 0
+    - _Roughness: 0
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _WorkflowMode: 1
+    - _ZTest: 4
+    - _ZWrite: 1
+    - _ZWriteControl: 0
     m_Colors:
-    - _Color_1: {r: 0, g: 45.78885, b: 43.15179, a: 1}
-    - _Color_2: {r: 0, g: 24.735434, b: 40.03787, a: 1}
-    - _Dissolve_Speed: {r: -0.5, g: 0, b: 0, a: 0}
-    - _Tiling_Speed: {r: -0.5, g: 0, b: 0, a: 0}
+    - _Color: {r: 1, g: 0.29411766, b: 0, a: 1}
+    - _Color_Base: {r: 1, g: 0.21484116, b: 0, a: 1}
+    - _Color_Emissive: {r: 0.7490196, g: 0.02966256, b: 0, a: 1}
+    - _PanningSpeed: {r: 0, g: 2, b: 0, a: 0}
+    - _Voronoi_Speed: {r: 0, g: 0, b: 0, a: 0}
+    - _Voronoi_Tiling: {r: 1, g: 0.01, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &3102645717511979894
+--- !u!114 &6324181102171556780
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
