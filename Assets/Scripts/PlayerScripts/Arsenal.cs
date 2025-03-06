@@ -104,4 +104,51 @@ public class Arsenal : MonoBehaviour
             item.volumeChanged(v);
         }
     }
+
+
+    //###############//
+    //Weapon Callbacks
+
+    /// <summary>
+    /// When a bullet first hits an object it calls this.
+    /// Any subsequent hits in the bullets path will call onBulletHit.
+    /// </summary>
+    /// <param name="other">Other object Hit, either Enemy AI or Asteroid.</param>
+    public void OnBulletFirstHitCAllback(GameObject _other)
+    {
+        //called once by bullet on the first thing it hits.
+    }
+
+    /// <summary>
+    /// when a bullet hits, do this to its target
+    /// </summary>
+    public void OnBulletHitCallback(GameObject _other)
+    {
+        //called by bullet when it hits anything (exluding other bullets)
+    }
+
+    /// <summary>
+    /// do this when a bullet self destroys (either on last hit or timeout)
+    /// Eg spawns aoe around bullet.
+    /// </summary>
+    public void OnBulletExpireCallback()
+    {
+        //called by bullet belonging to this ship when it expires.
+    }
+
+    /// <summary>
+    /// When an Enemy target is killed by this ship, apply these effects
+    /// </summary>
+    public void OnKillTarget()
+    {
+        //called by enemy target that was 'killed'.
+    }
+
+    /// <summary>
+    /// Callback for when an non-enemy object is destroyed by this ship. eg an asteroid.
+    /// </summary>
+    public void OnObjectDestroyed()
+    {
+        //called by object that was 'destroyed'.
+    }
 }
