@@ -35,11 +35,7 @@ public class Universal_Weapon : Universal_Weapon_Base
         //charge
     }
 
-    /// <summary>
-    /// Try every frame to shoot weapon.
-    /// Runs when controller is trying to fire in a direction.
-    /// Direction is governed by weapon indicator.
-    /// </summary>
+
     protected override void Shoot()
     {
         //check shooting conditions
@@ -49,7 +45,7 @@ public class Universal_Weapon : Universal_Weapon_Base
     }
 
     //when shoot is successful, does all spawning of projectiles
-    protected override void SpawProjectilesImpl()
+    protected override void SpawnProjectilesImpl()
     {
         
     }

@@ -11,6 +11,8 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     public Stats ShipStats;
     public GameObject m_AimingIndicator;
 
+    public GameObject m_BulletPrefab;
+
     //local flags
     bool m_DidShoot = false;
     bool m_CoolingOff = false;
@@ -46,15 +48,42 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
         
     }
 
-    abstract protected void Shoot();
-    abstract protected void SpawProjectilesImpl();
-    virtual protected void SpawnProjectiles()
+    /// <summary>
+    /// Runs when controller is trying to fire in a direction.
+    /// Try every frame to shoot weapon.
+    /// Direction is governed by weapon indicator.
+    /// </summary>
+    virtual protected void Shoot()
     {
-        SpawProjectilesImpl();
-        DoneSpawning();
+        preShoot();
+        ShootImpl();
+        postShoot();
+    }
+    virtual protected void preShoot()
+    {
+        m_DidShoot = false;
+    }
+    virtual protected void ShootImpl()
+    {
+        if (ShootConditions())
+        {
+            SpawnProjectiles();
+            m_DidShoot = true;
+        }
+    }
+    virtual protected void postShoot()
+    {
+        //sanitise attackspeed. minimum attackspeed = 1 shot every 10s lol
+        float attackInterval = ShipStats.gAttackspeed.Value < 0.1f ? 0.1f : ShipStats.gAttackspeed.Value;
+        m_AttackInterval = Time.time + 1 / attackInterval;
     }
 
-
+    abstract protected void SpawnProjectilesImpl();
+    virtual protected void SpawnProjectiles()
+    {
+        SpawnProjectilesImpl();
+        DoneSpawning();
+    }
     protected void DoneSpawning()
     {
         m_AudioSource.Play();
@@ -66,7 +95,25 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     }
 
 
+
+
     //weapon mechanics
+
+    /// <summary>
+    /// test if weapon can fire.
+    /// </summary>
+    /// <returns></returns>
+    virtual protected bool ShootConditions()
+    {
+        if(Time.time > m_AttackInterval)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+
     protected float CalcAttackspeed()
     {
         //attackspeed can change per shot each frame.

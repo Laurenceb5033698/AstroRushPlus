@@ -14,6 +14,7 @@ public class UpgradeModule
     
 
     /// <summary>
+    /// Called Once on apply. or once on recalc
     /// Core function for applying module effects to ship.
     /// needs to know what it's applying its effects to, eg if given a playership or ai ship.
     /// </summary>
@@ -28,10 +29,29 @@ public class UpgradeModule
     /// Implementation of process. this gets overriden.
     /// by default it applies simple stat changes.
     /// </summary>
-    protected void ProcessImpl()
+    virtual protected void ProcessImpl()
     {
         ApplyStats();
         AttachCallbacks();
+    }
+
+    /// <summary>
+    /// Called once per update while attached to a manager.
+    /// Some modules do nothing here.
+    /// </summary>
+    public void UpdateModule()
+    {
+        //preUpdate();
+        UpdateImpl();
+        //postUpdate();
+    }
+
+    /// <summary>
+    /// override func for updating the module.
+    /// </summary>
+    virtual protected void UpdateImpl()
+    {
+
     }
 
     /// <summary>

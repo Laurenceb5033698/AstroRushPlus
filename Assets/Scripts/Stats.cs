@@ -21,7 +21,7 @@ public class Stats : MonoBehaviour
 
     //Weapon stats
     public Stat gAttack = new Stat(10);
-    public Stat gAttackspeed = new Stat(1);
+    public Stat gAttackspeed = new Stat(1);     //number of shots fired per second
     public Stat gProjectileAmount = new Stat(1);
     public Stat gSpreadAngle = new Stat(0);
     public Stat gReloadTime = new Stat(0);
