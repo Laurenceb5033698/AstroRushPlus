@@ -50,15 +50,14 @@ public class AICore : MonoBehaviour {
         shield_Emitter = gameObject.GetComponentInChildren<ParticleSystem>();
 
         arsenal = GetComponentInChildren<Arsenal>();        //local weapons platform
-        if (arsenal == null) Debug.Log("No weapon attached.");
-        else
-            arsenal.SetShipObject(gameObject);
-
     }
 
-    void Start () {
-		
-	}
+    protected void Start () {
+        if (arsenal == null) 
+            Debug.Log("No weapon attached.");
+        else
+            arsenal.SetShipObject(gameObject);
+    }
 	
 
 	void Update () {

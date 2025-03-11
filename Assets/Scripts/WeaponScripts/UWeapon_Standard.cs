@@ -22,7 +22,7 @@ public class UWeapon_Standard : Universal_Weapon_Base
     /// Standard Shoots one projectile in direction of aim.
     /// loadout upgrades still affect it though, so still reads from stats.
     /// </summary>
-    protected override void SpawnProjectilesImpl()
+    protected override void SpawnProjectilesImpl(Vector3 _shootPosition, Quaternion _aimDirection)
     {
         //number of projectiles
         int numProjectiles = Mathf.CeilToInt(ShipStats.gProjectileAmount.Value);
@@ -36,11 +36,8 @@ public class UWeapon_Standard : Universal_Weapon_Base
         //angle between each bullet.
         float separation = spreadAngle / numProjectiles;
 
-        Vector3 spawnPosition = m_AimingIndicator.transform.position;
-        Quaternion spawnDirection = m_AimingIndicator.transform.rotation;
-
         //create rotation about up vector for start direction.
-        Quaternion StartRotation = spawnDirection * Quaternion.AngleAxis(-spreadAngle/2, Vector3.up);
+        Quaternion StartRotation = _aimDirection * Quaternion.AngleAxis(-spreadAngle/2, Vector3.up);
         
 
         GameObject bullet;
@@ -50,7 +47,7 @@ public class UWeapon_Standard : Universal_Weapon_Base
             Quaternion unitRotation = Quaternion.AngleAxis(separation*i, Vector3.up);
             //quaternions rotate by multiplying. Rotates startdirection by step amount.
             Quaternion bulletDirection = StartRotation * unitRotation;
-            bullet = Instantiate<GameObject>(m_BulletPrefab, spawnPosition, spawnDirection);
+            bullet = Instantiate<GameObject>(m_BulletPrefab, _shootPosition, bulletDirection);
             //bullet.setupBullet
             bullet.GetComponent<Projectile>().SetupValues(5,20.0f, m_Ship.tag);
         }

@@ -15,94 +15,58 @@ public class Arsenal : MonoBehaviour
 {
     [SerializeField] private GameObject ship;
 
-    private int NoWeapons = 3;
-    [SerializeField] private List<Weapon> Weapons;//weapon prefabs
-    private GameObject turret = null;
-    private Weapon Gun = null;
-    private int currentGun = 0;
-
+    //single weapon owned. is replaced via picking weapon type upgrade.
+    [SerializeField] private Universal_Weapon_Base m_UWeapon;
+    
     void Awake()
     {
-        GetComponentsInChildren<Weapon>(Weapons);
-        NoWeapons = Weapons.Count;
-        foreach (Weapon item in Weapons)
-        {
-            item.SetShipObject(ship);
-            item.enabled = false;
-            //Debug.Log(item.gameObject.name);
-        }
-        Gun = Weapons[currentGun];
-        Gun.enabled = true;
+        m_UWeapon = GetComponentInChildren<Universal_Weapon_Base>();
     }
     private void Start()
     {
+        if (m_UWeapon)
+            m_UWeapon.Setup(ship);
+
         UpdateDamageFromAttackStat();
     }
 
-    public void SetShipObject(GameObject obj)
+    public void SetShipObject(GameObject _obj)
     {
-        ship = obj;
+        ship = _obj;
     }
 
-    public void RegisterUI()
+    /// <summary>
+    /// Called when a new weapon is chosen via upgrade.
+    /// replaces existing weapon for complete new one from prefab.
+    /// </summary>
+    public void ChangeGun( GameObject _newPrefab )
     {
-        UI_Game GameUI = (UI_Game)UIManager.GetGameUiObject();
-        GameUI.RegisterWeaponIcons(Weapons);
-    }
+        float getvolume = m_UWeapon.gameObject.GetComponent<AudioSource>().volume;
+        m_UWeapon.transform.parent = null;
+        Destroy(m_UWeapon.gameObject);
+        //create
+        GameObject newWeapon = Instantiate<GameObject>(_newPrefab, this.transform);
+        //set volume.
+        newWeapon.GetComponent<AudioSource>().volume = getvolume;
 
-    public int ChangeGun( int a)
-    {
-        Gun.enabled = false;
-        if (a > 0)
-        {
-            currentGun += 1;
-            if (currentGun >= NoWeapons)
-                currentGun = 0;
-        }
-        else if (a < 0)
-        {
-            currentGun -= 1;
-            if (currentGun < 0)
-                currentGun = NoWeapons-1;
-        }
-        Gun = Weapons[currentGun];
-        Gun.enabled = true;
-        Gun.OnSwappedTo();
-        return currentGun;
-    } 
+        m_UWeapon = newWeapon.GetComponent<Universal_Weapon_Base>();
+        m_UWeapon.Setup(ship);
+    }
 
     public void UpdateDamageFromAttackStat()
     {   //call this after adding new weapons and after upgrading from upgrade screen
-        foreach (Weapon item in Weapons)
-        {
-            item.CalculateFinalDamage();
-        }
-    }
-
-    public void FireWeapon(Vector3 Aimdir)
-    {
-        if (Gun)
-        //{
-            Gun.Shoot(Aimdir);
-        //    Quaternion temp = new Quaternion();
-        //    temp.SetLookRotation(Aimdir, transform.up);
-        //    turret.transform.rotation = temp;
-        //}
-    }
-    public void SwapTurret(GameObject prefab)
-    {
-        if (turret)
-            Destroy(turret);
         
-        turret = Instantiate<GameObject>(prefab, transform.position, transform.rotation, ship.transform);
     }
 
-    public void volumeChanged(float v)
+    public void FireWeapon(Vector3 _aimDir)
     {
-        foreach (Weapon item in Weapons)
-        {
-            item.volumeChanged(v);
-        }
+        if (m_UWeapon)
+            m_UWeapon.Shoot(_aimDir);
+    }
+
+    public void VolumeChanged(float v)
+    {
+        m_UWeapon.VolumeChanged(v);
     }
 
 

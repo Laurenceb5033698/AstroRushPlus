@@ -38,14 +38,6 @@ abstract public class Weapon : MonoBehaviour{
     private void OnDisable()
     { }
     
-    public void OnSwappedTo()
-    {
-        if (TurretPref != null)
-        {
-            GetComponentInParent<Arsenal>().SwapTurret(TurretPref);
-            
-        }
-    }
 
     public void CalculateFinalDamage()
     {

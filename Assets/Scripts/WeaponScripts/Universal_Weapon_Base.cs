@@ -11,6 +11,7 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     public GameObject m_Ship;
     public Stats ShipStats;
     public GameObject m_AimingIndicator;
+    public GameObject m_AimingIndicatorHolder;
 
     public GameObject m_BulletPrefab;
 
@@ -31,12 +32,12 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
 
     private void Awake()
     {
-        
+        //GetComponentInParent<Arsenal>().SetWeaponOnLoad(this);
     }
 
     void Start()
     {
-        
+
     }
     //for visual or audio updating
     void Update()
@@ -58,14 +59,17 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     /// Try every frame to shoot weapon.
     /// Direction is governed by weapon indicator.
     /// </summary>
-    virtual protected void Shoot()
+    virtual public void Shoot(Vector3 _aimDir)
     {
-        preShoot();
+        preShoot(_aimDir);
         ShootImpl();
         postShoot();
     }
-    virtual protected void preShoot()
+    virtual protected void preShoot(Vector3 _aimDir)
     {
+        //turn indicator
+        m_AimingIndicatorHolder.transform.rotation = Quaternion.LookRotation(_aimDir, Vector3.up);
+
         m_DidShoot = false;
     }
     virtual protected void ShootImpl()
@@ -84,10 +88,12 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     }
 
     //when shoot is successful, does all spawning of projectiles
-    abstract protected void SpawnProjectilesImpl();
+    abstract protected void SpawnProjectilesImpl(Vector3 _shootPosition, Quaternion _aimDirection);
     virtual protected void SpawnProjectiles()
     {
-        SpawnProjectilesImpl();
+        Vector3 shootPosition = m_AimingIndicator.transform.position;
+        Quaternion aimDirection = m_AimingIndicatorHolder.transform.rotation;
+        SpawnProjectilesImpl(shootPosition, aimDirection);
         DoneSpawning();
     }
     protected void DoneSpawning()
@@ -200,5 +206,13 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     protected bool isCharging()
     {
         return m_Charging;
+    }
+
+
+    //SETUP
+    public void Setup(GameObject _Ship)
+    {
+        m_Ship = _Ship;
+        ShipStats = m_Ship.GetComponent<Stats>();
     }
 }

@@ -15,8 +15,9 @@ public class AIStealth : AICore {
     [SerializeField] private Material mStealthedShipMat;    //stealth texture (transparent)
 
     [SerializeField] private GameObject mShipModel;
-    private void Start()
+    new void Start()
     {
+        base.Start();
         RegularMats = m_MeshRendr.materials;
         StealthedMats[0] = mStealthedShipMat;
         StealthedMats[1] = mStealthedShipMat;

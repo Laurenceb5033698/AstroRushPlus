@@ -46,20 +46,22 @@ abstract public class PlayerController : MonoBehaviour {
 
     protected void Awake()
     {
-        Debug.Log("PlayerController Awake.");
+        //Debug.Log("PlayerController Awake.");
         ship = transform.gameObject;
         rb = ship.GetComponent<Rigidbody>();
         stats = ship.GetComponent<Stats>();
         arsenal = ship.GetComponentInChildren<Arsenal>();
-        arsenal.SetShipObject(ship);
+
         //single weapon "Equipment" is a collection for Ordinance
         equipment = ship.GetComponentInChildren<Equipment>();
-        equipment.SetShipObject(ship);
     }
 
     protected void Start()
     {
-        arsenal.RegisterUI();
+        arsenal.SetShipObject(ship);
+        equipment.SetShipObject(ship);
+
+        //arsenal.RegisterUI();
         //Actions for uxml hud
         //StatsChanged();
         //HealthChanged();
@@ -180,13 +182,9 @@ abstract public class PlayerController : MonoBehaviour {
     //####  BUMPERS     ####
     virtual protected void InputLeftBumper()
     {
-        if (Input.GetKeyDown(KeyCode.JoystickButton4))
-            weaponType = arsenal.ChangeGun(-1);
     }
     virtual protected void InputRightBumper()
     {
-        if (Input.GetKeyDown(KeyCode.JoystickButton5))
-            weaponType = arsenal.ChangeGun(1);
     }
 
     //#### MOUSE BUTTONS    ####
@@ -208,8 +206,6 @@ abstract public class PlayerController : MonoBehaviour {
     }
     virtual protected void InputRMB()
     {
-        if (Input.GetMouseButtonDown(1))
-            weaponType = arsenal.ChangeGun(1);
 
     }
 
@@ -341,10 +337,6 @@ abstract public class PlayerController : MonoBehaviour {
     abstract public bool AlternateShipVFX();
 
     //UTIL
-    public int GetWeaponType()
-    {
-        return weaponType;
-    }
     void OnApplicationQuit()
     {
         GamePad.SetVibration(playerIndex, 0, 0);
@@ -352,7 +344,7 @@ abstract public class PlayerController : MonoBehaviour {
 
     void ShootVolumeChanged(bool x)
     {
-        arsenal.volumeChanged(PlayerPrefs.GetFloat("gameVolume") / 10);
+        arsenal.VolumeChanged(PlayerPrefs.GetFloat("gameVolume") / 10);
     }
 
     public void SetInputs(Inputs glblinputs)

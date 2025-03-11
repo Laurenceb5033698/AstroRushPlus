@@ -102,8 +102,7 @@ public class GameManager : MonoBehaviour {
                     s.ShipFuel,
                     s.GetShieldPUState(),
                     s.ShipHealth,
-                    playerShip.GetComponentInChildren<Equipment>().GetAmmoCount(),
-                    playerShip.GetComponent<PlayerController>().GetWeaponType());
+                    playerShip.GetComponentInChildren<Equipment>().GetAmmoCount());
                 if (!s.IsAlive())
                     ((UI_Game)ui).Button_PausePressed(true);
                 else
