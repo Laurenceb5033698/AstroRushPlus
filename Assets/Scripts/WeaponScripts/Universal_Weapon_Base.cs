@@ -8,6 +8,7 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     //system variables
     public AudioSource m_AudioSource;
 
+    public GameObject m_Ship;
     public Stats ShipStats;
     public GameObject m_AimingIndicator;
 
@@ -45,7 +46,11 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     //for gameplay updating
     private void FixedUpdate()
     {
-        
+        //most of these handled by their respective weapons
+        //reduce attack interval
+        //cooldown
+        //reload
+        //charge
     }
 
     /// <summary>
@@ -78,6 +83,7 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
         m_AttackInterval = Time.time + 1 / attackInterval;
     }
 
+    //when shoot is successful, does all spawning of projectiles
     abstract protected void SpawnProjectilesImpl();
     virtual protected void SpawnProjectiles()
     {

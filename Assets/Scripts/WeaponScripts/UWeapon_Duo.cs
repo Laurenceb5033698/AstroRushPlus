@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Duo_Universal_Weapon : Universal_Weapon_Base
+public class UWeapon_Duo : Universal_Weapon_Base
 {
 
     void Start()
@@ -37,6 +37,10 @@ public class Duo_Universal_Weapon : Universal_Weapon_Base
         if (spreadAngle < 1)
             spreadAngle = 1;
 
+        //TODO:
+        //figure out sensible horizontal separation that is adjusted by spread...
+        //for now: uses spread as horizontal distance.
+
         float separation = spreadAngle / numProjectiles;
 
         //Spawning requires aiming Indicator object.
@@ -54,7 +58,7 @@ public class Duo_Universal_Weapon : Universal_Weapon_Base
         {
             Vector3 bulletSpawn = horizontalSpreadStart + (separationUnit * i);
             bullet = Instantiate<GameObject>(m_BulletPrefab, bulletSpawn, spawnDirection);
-            //bullet.setupBullet
+            bullet.GetComponent<Projectile>().SetupValues(5, 20.0f, m_Ship.tag);
         }
     }
 }
