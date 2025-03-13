@@ -29,23 +29,28 @@ public class UWeapon_Duo : Universal_Weapon_Base
     override protected void SpawnProjectilesImpl(Vector3 _shootPosition, Quaternion _aimDirection)
     {
         //number of projectiles
-        int numProjectiles = Mathf.CeilToInt( ShipStats.gProjectileAmount.Value);
-        float spreadAngle = ShipStats.gSpreadAngle.Value;
+        int numProjectiles = Mathf.CeilToInt( ShipStats.gProjectileAmount.Max);
+        float spreadAngle = ShipStats.gSpreadAngle.Max/10;
+
+        //angle between each bullet. S = A/N-1, where N>1
+        float separation = 0.0f;
 
         if (numProjectiles < 1)
             numProjectiles = 1;
-        if (spreadAngle < 1)
-            spreadAngle = 1;
+
+        if (numProjectiles == 1)
+            spreadAngle = 0;
+        else
+            separation = spreadAngle / (numProjectiles - 1);
 
         //TODO:
         //figure out sensible horizontal separation that is adjusted by spread...
         //for now: uses spread as horizontal distance.
 
-        float separation = spreadAngle / numProjectiles;
-
-
+        Vector3 AimDir = (_shootPosition - transform.position).normalized;
+        Quaternion direction = Quaternion.LookRotation(_shootPosition - transform.position, Vector3.up);
         //perpendicular to aimDir and Up, where aimdir is always horizontal.
-        Vector3 spreadDirection = Vector3.Cross(_aimDirection.eulerAngles, Vector3.up);
+        Vector3 spreadDirection = Vector3.Cross(AimDir, Vector3.up);
 
         Vector3 horizontalSpreadStart = _shootPosition - (spreadDirection * spreadAngle/2);
         Vector3 separationUnit = spreadDirection * separation;
@@ -54,8 +59,8 @@ public class UWeapon_Duo : Universal_Weapon_Base
         for (int i =0; i < numProjectiles; i++)
         {
             Vector3 bulletSpawn = horizontalSpreadStart + (separationUnit * i);
-            bullet = Instantiate<GameObject>(m_BulletPrefab, bulletSpawn, _aimDirection);
-            bullet.GetComponent<Projectile>().SetupValues(5, 20.0f, m_Ship.tag);
+            bullet = Instantiate<GameObject>(m_BulletPrefab, bulletSpawn, direction);
+            bullet.GetComponent<Projectile>().SetupValues(5, 100.0f, m_Ship.tag);
         }
     }
 }

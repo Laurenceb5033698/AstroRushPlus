@@ -37,12 +37,14 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
 
     void Start()
     {
+        //spawn indicator, but not a child.
 
     }
     //for visual or audio updating
     void Update()
     {
-        
+        //move indicator to copy this position.
+        //rotate indicator towards aimdir.
     }
     //for gameplay updating
     private void FixedUpdate()
@@ -82,9 +84,12 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     }
     virtual protected void postShoot()
     {
-        //sanitise attackspeed. minimum attackspeed = 1 shot every 10s lol
-        float attackInterval = ShipStats.gAttackspeed.Value < 0.1f ? 0.1f : ShipStats.gAttackspeed.Value;
-        m_AttackInterval = Time.time + 1 / attackInterval;
+        if (m_DidShoot)
+        {
+            //sanitise attackspeed. minimum attackspeed = 1 shot every 10s lol
+            float attackInterval = ShipStats.gAttackspeed.Value < 0.1f ? 0.1f : ShipStats.gAttackspeed.Value;
+            m_AttackInterval = Time.time + (1 / attackInterval);
+        }
     }
 
     //when shoot is successful, does all spawning of projectiles
@@ -92,7 +97,9 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     virtual protected void SpawnProjectiles()
     {
         Vector3 shootPosition = m_AimingIndicator.transform.position;
-        Quaternion aimDirection = m_AimingIndicatorHolder.transform.rotation;
+        Vector3 toIndicator = m_AimingIndicatorHolder.transform.position - m_AimingIndicator.transform.position;
+        toIndicator.Normalize();
+        Quaternion aimDirection = Quaternion.LookRotation(toIndicator, Vector3.up);
         SpawnProjectilesImpl(shootPosition, aimDirection);
         DoneSpawning();
     }

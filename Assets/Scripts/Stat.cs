@@ -33,12 +33,13 @@ public class Stat
 
     public void Recalculate()
     {
-        //recalculate max value, but maintain stat proportion
-        float oldpercentage = Value / Max;
+        //does not maintain proportion by default.
+        //if max value is 0, and is never changed, cannot create proportion due to div by 0.
+        //some stats do not use float, and 0 is a reasonable value.
 
         RecalculateFinalStat();
-        Value = (Max * oldpercentage);
 
+        //if value is to be made to increase proportionally to max, then must be done outside stat.
     }
 
     //interfaces for modifiers.
