@@ -8,13 +8,17 @@ using UnityEngine;
 /// </summary>
 public class UpgradeManager : MonoBehaviour
 {
+    //one upgrade manager per ship. Stats of ship related to manager.
+    [SerializeField] Stats shipStats;
+
     //list of upgrade modules
-    List<UpgradeModule> m_modules;
+    [SerializeField] List<UpgradeModule> m_modules;
+
+    //use this to test applying a module to a ship.
+    [SerializeField] UWeaponTypeScriptable m_TestModule;
 
     void Start()
     {
-        UpgradeModule module = new UpgradeModule();
-        AddNewUpgrade(module);
     }
 
     
@@ -23,6 +27,10 @@ public class UpgradeManager : MonoBehaviour
         
     }
 
+    public void TestAddModule()
+    {
+        AddNewUpgrade(m_TestModule.Parse());
+    }
 
     //add new upgrade
     /// <summary>
@@ -33,6 +41,7 @@ public class UpgradeManager : MonoBehaviour
     {
         //validation? does module already exist?
         m_modules.Add(module);
+        module.ProcessModule(shipStats);
     }
     //recalculate all upgrades (for spawning with modules already existing)
 }

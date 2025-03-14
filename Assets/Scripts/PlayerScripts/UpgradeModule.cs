@@ -5,7 +5,8 @@ using UnityEngine;
 //each upgrade represents a change in stats (added or removed)
 //  and also a change in behaviour
 //some modules have functions that need to be hooked up to callbacks
-public class UpgradeModule
+[System.Serializable]
+public class UpgradeModule 
 {
 
 
@@ -18,10 +19,10 @@ public class UpgradeModule
     /// Core function for applying module effects to ship.
     /// needs to know what it's applying its effects to, eg if given a playership or ai ship.
     /// </summary>
-    public void ProcessModule()
+    public void ProcessModule(Stats _shipStats)
     {
         //preProcess();
-        ProcessImpl();
+        ProcessImpl(_shipStats);
         //postProcess();
     }
 
@@ -29,7 +30,7 @@ public class UpgradeModule
     /// Implementation of process. this gets overriden.
     /// by default it applies simple stat changes.
     /// </summary>
-    virtual protected void ProcessImpl()
+    virtual protected void ProcessImpl(Stats _shipStats)
     {
         ApplyStats();
         AttachCallbacks();

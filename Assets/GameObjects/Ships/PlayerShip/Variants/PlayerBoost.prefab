@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7107524837455436485}
+  - {fileID: 4915546814602963464}
   m_Father: {fileID: 2039538578371839916}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3171371581172305672
@@ -10180,6 +10180,7 @@ GameObject:
   - component: {fileID: 5520616335482222358}
   - component: {fileID: 1632157384311678071}
   - component: {fileID: 8074728522188550559}
+  - component: {fileID: 4499205243470417877}
   m_Layer: 0
   m_Name: PlayerBoost
   m_TagString: PlayerShip
@@ -10225,7 +10226,7 @@ MonoBehaviour:
   equipment: {fileID: 4641127478582008594}
   fuelConsumeRate: 1
   fuelConsumePeriod: 1
-  damageIframeCooldown: 0.5
+  damageIframeCooldown: 0.25
 --- !u!114 &5520616335482222358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10241,239 +10242,238 @@ MonoBehaviour:
   sHealth:
     BaseStatMax: 100
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   sShield:
     BaseStatMax: 100
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   sSpecial:
     BaseStatMax: 90
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   sSpeed:
     BaseStatMax: 55
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   sFuel:
     BaseStatMax: 100
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   sTurnrate:
     BaseStatMax: 350
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   sHealthRegen:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   sShieldRegen:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   gAttack:
     BaseStatMax: 10
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   gAttackspeed:
+    BaseStatMax: 2.5
+    flat: 0
+    scale: 0
+    mod: 0
+  gProjectileAmount:
     BaseStatMax: 1
     flat: 0
-    scale: 1
-    mod: 1
-  gProjectileAmount:
-    BaseStatMax: 2
-    flat: 0
-    scale: 1
-    mod: 2
+    scale: 0
+    mod: 0
   gSpreadAngle:
-    BaseStatMax: 20
+    BaseStatMax: 30
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   gReloadTime:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   gReloadAmmo:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   gRampAmount:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   gRampTime:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   gBurnoutTime:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   gChargeTime:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   gBurstAmount:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   gAoeDamage:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   gAoeSize:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   gDotDamage:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   gDotDuration:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   bSpeed:
     BaseStatMax: 20
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   bAcceleration:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   bRange:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   bLifetime:
     BaseStatMax: 5
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   bMagentPower:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   bPenetrationAmount:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   bRicochetAmount:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   bSize:
     BaseStatMax: 1
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   bFalloff:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   mAttack:
     BaseStatMax: 500
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   mAmmo:
     BaseStatMax: 3
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   mBurst:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   mProjectileAmount:
     BaseStatMax: 1
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   mSpreadAngle:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   mAoeDamage:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   mAoeSize:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   mDotDamage:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   mDotDuration:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   mSpeed:
     BaseStatMax: 20
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   mAcceleration:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   mRange:
     BaseStatMax: 100
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   mLifetime:
     BaseStatMax: 10
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   mMagnetPower:
     BaseStatMax: 0
     flat: 0
-    scale: 1
-    mod: 1
+    scale: 0
+    mod: 0
   mSize:
     BaseStatMax: 1
     flat: 0
-    scale: 1
-    mod: 1
-  RotationSpeed: 350
+    scale: 0
+    mod: 0
   GodMode: 0
   EmpDisabled: 0
 --- !u!54 &1632157384311678071
@@ -10511,7 +10511,22 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9203987926432576384}
   m_Enabled: 1
---- !u!1001 &5010625211733379510
+--- !u!114 &4499205243470417877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9203987926432576384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0065e7515353cc744922d9537aebcfe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipStats: {fileID: 5520616335482222358}
+  m_modules: []
+  m_TestModule: {fileID: 11400000, guid: db032680032d11245b0c6d067bdb8dec, type: 2}
+--- !u!1001 &4000593321505110198
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10519,71 +10534,71 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3824260591558606859}
     m_Modifications:
-    - target: {fileID: 2822157432882467699, guid: bc4f87023c4ce1c4baa61e9cf6307c38,
+    - target: {fileID: 1951176684053832767, guid: d334ce1dbafb4f24292e0e77e6a9fe9f,
+        type: 3}
+      propertyPath: m_Name
+      value: UWeapon_Standard
+      objectReference: {fileID: 0}
+    - target: {fileID: 8337132296363233982, guid: d334ce1dbafb4f24292e0e77e6a9fe9f,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2822157432882467699, guid: bc4f87023c4ce1c4baa61e9cf6307c38,
+    - target: {fileID: 8337132296363233982, guid: d334ce1dbafb4f24292e0e77e6a9fe9f,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2822157432882467699, guid: bc4f87023c4ce1c4baa61e9cf6307c38,
+    - target: {fileID: 8337132296363233982, guid: d334ce1dbafb4f24292e0e77e6a9fe9f,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2822157432882467699, guid: bc4f87023c4ce1c4baa61e9cf6307c38,
+    - target: {fileID: 8337132296363233982, guid: d334ce1dbafb4f24292e0e77e6a9fe9f,
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2822157432882467699, guid: bc4f87023c4ce1c4baa61e9cf6307c38,
+    - target: {fileID: 8337132296363233982, guid: d334ce1dbafb4f24292e0e77e6a9fe9f,
         type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2822157432882467699, guid: bc4f87023c4ce1c4baa61e9cf6307c38,
+    - target: {fileID: 8337132296363233982, guid: d334ce1dbafb4f24292e0e77e6a9fe9f,
         type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2822157432882467699, guid: bc4f87023c4ce1c4baa61e9cf6307c38,
+    - target: {fileID: 8337132296363233982, guid: d334ce1dbafb4f24292e0e77e6a9fe9f,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2822157432882467699, guid: bc4f87023c4ce1c4baa61e9cf6307c38,
+    - target: {fileID: 8337132296363233982, guid: d334ce1dbafb4f24292e0e77e6a9fe9f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2822157432882467699, guid: bc4f87023c4ce1c4baa61e9cf6307c38,
+    - target: {fileID: 8337132296363233982, guid: d334ce1dbafb4f24292e0e77e6a9fe9f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2822157432882467699, guid: bc4f87023c4ce1c4baa61e9cf6307c38,
+    - target: {fileID: 8337132296363233982, guid: d334ce1dbafb4f24292e0e77e6a9fe9f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5731631272654497266, guid: bc4f87023c4ce1c4baa61e9cf6307c38,
-        type: 3}
-      propertyPath: m_Name
-      value: UWeapon_Duo
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: bc4f87023c4ce1c4baa61e9cf6307c38, type: 3}
---- !u!4 &7107524837455436485 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: d334ce1dbafb4f24292e0e77e6a9fe9f, type: 3}
+--- !u!4 &4915546814602963464 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 2822157432882467699, guid: bc4f87023c4ce1c4baa61e9cf6307c38,
+  m_CorrespondingSourceObject: {fileID: 8337132296363233982, guid: d334ce1dbafb4f24292e0e77e6a9fe9f,
     type: 3}
-  m_PrefabInstance: {fileID: 5010625211733379510}
+  m_PrefabInstance: {fileID: 4000593321505110198}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8617054324075751596
 PrefabInstance:
