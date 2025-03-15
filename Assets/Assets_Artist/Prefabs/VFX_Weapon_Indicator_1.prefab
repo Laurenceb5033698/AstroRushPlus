@@ -208,7 +208,7 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 0.1
+      - m_Value: 0.2
         m_Name: Burst Delay
         m_Overridden: 1
     m_Vector2f:
@@ -233,6 +233,9 @@ VisualEffect:
       m_Array:
       - m_Value: 1
         m_Name: IsFiring?
+        m_Overridden: 1
+      - m_Value: 1
+        m_Name: IndicatorSpawned
         m_Overridden: 1
 --- !u!73398921 &2776002605524913956
 VFXRenderer:
