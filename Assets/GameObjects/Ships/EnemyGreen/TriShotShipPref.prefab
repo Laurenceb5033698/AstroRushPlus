@@ -258,7 +258,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4565674127192972}
-  - {fileID: 6641000058139363953}
+  - {fileID: 646414741659450604}
   m_Father: {fileID: 4716877375534890}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114789164020977658
@@ -5438,7 +5438,7 @@ MonoBehaviour:
       flat: 0
       scale: 0
       mod: 0
-    - BaseStatMax: 20
+    - BaseStatMax: 12
       flat: 0
       scale: 0
       mod: 0
@@ -5446,7 +5446,7 @@ MonoBehaviour:
       flat: 0
       scale: 0
       mod: 0
-    - BaseStatMax: 1
+    - BaseStatMax: 3
       flat: 0
       scale: 0
       mod: 0
@@ -5498,7 +5498,7 @@ MonoBehaviour:
       flat: 0
       scale: 0
       mod: 0
-    - BaseStatMax: 90
+    - BaseStatMax: 50
       flat: 0
       scale: 0
       mod: 0
@@ -5546,11 +5546,11 @@ MonoBehaviour:
       flat: 0
       scale: 0
       mod: 0
-    - BaseStatMax: 1
+    - BaseStatMax: 3
       flat: 0
       scale: 0
       mod: 0
-    - BaseStatMax: 0
+    - BaseStatMax: 60
       flat: 0
       scale: 0
       mod: 0
@@ -5635,7 +5635,7 @@ MonoBehaviour:
       scale: 0
       mod: 0
     gAttack:
-      BaseStatMax: 20
+      BaseStatMax: 12
       flat: 0
       scale: 0
       mod: 0
@@ -5645,7 +5645,7 @@ MonoBehaviour:
       scale: 0
       mod: 0
     gProjectileAmount:
-      BaseStatMax: 1
+      BaseStatMax: 3
       flat: 0
       scale: 0
       mod: 0
@@ -5710,7 +5710,7 @@ MonoBehaviour:
       scale: 0
       mod: 0
     bSpeed:
-      BaseStatMax: 90
+      BaseStatMax: 50
       flat: 0
       scale: 0
       mod: 0
@@ -5770,12 +5770,12 @@ MonoBehaviour:
       scale: 0
       mod: 0
     mProjectileAmount:
-      BaseStatMax: 1
+      BaseStatMax: 3
       flat: 0
       scale: 0
       mod: 0
     mSpreadAngle:
-      BaseStatMax: 0
+      BaseStatMax: 60
       flat: 0
       scale: 0
       mod: 0
@@ -5829,6 +5829,9 @@ MonoBehaviour:
       flat: 0
       scale: 0
       mod: 0
+  Health: 0
+  Shield: 0
+  Fuel: 0
   GodMode: 0
   EmpDisabled: 0
 --- !u!114 &114813607031590890
@@ -5860,7 +5863,7 @@ MonoBehaviour:
   player: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
   CollisionImpulse: 50
---- !u!1001 &5730329506127128245
+--- !u!1001 &1970092586990604328
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -5921,16 +5924,16 @@ PrefabInstance:
     - target: {fileID: 8867345158366829125, guid: c37c2493fce3f6d4a9c5649660c69c83,
         type: 3}
       propertyPath: m_Name
-      value: Green_UWeapon_Duo
+      value: Green_UWeapon_Standard
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c37c2493fce3f6d4a9c5649660c69c83, type: 3}
---- !u!4 &6641000058139363953 stripped
+--- !u!4 &646414741659450604 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1418539381666049220, guid: c37c2493fce3f6d4a9c5649660c69c83,
     type: 3}
-  m_PrefabInstance: {fileID: 5730329506127128245}
+  m_PrefabInstance: {fileID: 1970092586990604328}
   m_PrefabAsset: {fileID: 0}

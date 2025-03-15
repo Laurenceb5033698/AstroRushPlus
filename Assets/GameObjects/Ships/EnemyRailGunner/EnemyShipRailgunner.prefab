@@ -5598,11 +5598,11 @@ MonoBehaviour:
       flat: 0
       scale: 0
       mod: 0
-    - BaseStatMax: 20
+    - BaseStatMax: 45
       flat: 0
       scale: 0
       mod: 0
-    - BaseStatMax: 1
+    - BaseStatMax: 0.5
       flat: 0
       scale: 0
       mod: 0
@@ -5658,7 +5658,7 @@ MonoBehaviour:
       flat: 0
       scale: 0
       mod: 0
-    - BaseStatMax: 90
+    - BaseStatMax: 120
       flat: 0
       scale: 0
       mod: 0
@@ -5795,12 +5795,12 @@ MonoBehaviour:
       scale: 0
       mod: 0
     gAttack:
-      BaseStatMax: 20
+      BaseStatMax: 45
       flat: 0
       scale: 0
       mod: 0
     gAttackspeed:
-      BaseStatMax: 1
+      BaseStatMax: 0.5
       flat: 0
       scale: 0
       mod: 0
@@ -5870,7 +5870,7 @@ MonoBehaviour:
       scale: 0
       mod: 0
     bSpeed:
-      BaseStatMax: 90
+      BaseStatMax: 120
       flat: 0
       scale: 0
       mod: 0
@@ -5989,6 +5989,9 @@ MonoBehaviour:
       flat: 0
       scale: 0
       mod: 0
+  Health: 0
+  Shield: 0
+  Fuel: 0
   GodMode: 0
   EmpDisabled: 0
 --- !u!114 &114748562344563326

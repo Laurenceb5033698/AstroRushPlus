@@ -201,7 +201,7 @@ MonoBehaviour:
       flat: 0
       scale: 0
       mod: 0
-    - BaseStatMax: 50
+    - BaseStatMax: 40
       flat: 0
       scale: 0
       mod: 0
@@ -209,7 +209,7 @@ MonoBehaviour:
       flat: 0
       scale: 0
       mod: 0
-    - BaseStatMax: 1600
+    - BaseStatMax: 1500
       flat: 0
       scale: 0
       mod: 0
@@ -225,7 +225,7 @@ MonoBehaviour:
       flat: 0
       scale: 0
       mod: 0
-    - BaseStatMax: 1
+    - BaseStatMax: 1.2
       flat: 0
       scale: 0
       mod: 0
@@ -281,7 +281,7 @@ MonoBehaviour:
       flat: 0
       scale: 0
       mod: 0
-    - BaseStatMax: 90
+    - BaseStatMax: 35
       flat: 0
       scale: 0
       mod: 0
@@ -393,7 +393,7 @@ MonoBehaviour:
       scale: 0
       mod: 0
     sSpeed:
-      BaseStatMax: 50
+      BaseStatMax: 40
       flat: 0
       scale: 0
       mod: 0
@@ -403,7 +403,7 @@ MonoBehaviour:
       scale: 0
       mod: 0
     sTurnrate:
-      BaseStatMax: 1600
+      BaseStatMax: 1500
       flat: 0
       scale: 0
       mod: 0
@@ -423,7 +423,7 @@ MonoBehaviour:
       scale: 0
       mod: 0
     gAttackspeed:
-      BaseStatMax: 1
+      BaseStatMax: 1.2
       flat: 0
       scale: 0
       mod: 0
@@ -493,7 +493,7 @@ MonoBehaviour:
       scale: 0
       mod: 0
     bSpeed:
-      BaseStatMax: 90
+      BaseStatMax: 35
       flat: 0
       scale: 0
       mod: 0
@@ -612,6 +612,9 @@ MonoBehaviour:
       flat: 0
       scale: 0
       mod: 0
+  Health: 0
+  Shield: 0
+  Fuel: 0
   GodMode: 0
   EmpDisabled: 0
 --- !u!114 &114023974720588430
@@ -5720,6 +5723,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4920427076975050}
     m_Modifications:
+    - target: {fileID: 1478211041858732377, guid: 0cc05746be06e574cb942e12d6179f08,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1972880308249837987, guid: 0cc05746be06e574cb942e12d6179f08,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -127,10 +127,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1418539381666049220}
-  - component: {fileID: 444962173469720641}
+  - component: {fileID: 8085884811627731605}
   - component: {fileID: 1174279382387463847}
   m_Layer: 0
-  m_Name: Green_UWeapon_Duo
+  m_Name: Green_UWeapon_Standard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,7 +152,7 @@ Transform:
   - {fileID: 4656208200981819372}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &444962173469720641
+--- !u!114 &8085884811627731605
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8867345158366829125}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1977d0a2a469f64eb99a645e5fd286a, type: 3}
+  m_Script: {fileID: 11500000, guid: 090ba4611203ce0478744944a4115109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_AudioSource: {fileID: 1174279382387463847}
