@@ -227,7 +227,10 @@ VisualEffect:
     m_NamedObject:
       m_Array: []
     m_Bool:
-      m_Array: []
+      m_Array:
+      - m_Value: 0
+        m_Name: IsFiring?
+        m_Overridden: 1
 --- !u!73398921 &2776002605524913956
 VFXRenderer:
   serializedVersion: 1
