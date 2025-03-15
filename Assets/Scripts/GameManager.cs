@@ -98,11 +98,7 @@ public class GameManager : MonoBehaviour {
                 Time.timeScale = 1;
                 //UI_Game mUIg = ((UI_Game)ui);
                 ((UI_Game)ui).UpdateGameStats(currentScore, aiMngr.GetTotalShipLeft(), aiMngr.GetWaveNumber());
-                ((UI_Game)ui).UpdateShipStats(
-                    s.ShipFuel,
-                    s.GetShieldPUState(),
-                    s.ShipHealth,
-                    playerShip.GetComponentInChildren<Equipment>().GetAmmoCount());
+                ((UI_Game)ui).UpdateShipStats(s, playerShip.GetComponentInChildren<Equipment>().GetAmmoCount());
                 if (!s.IsAlive())
                     ((UI_Game)ui).Button_PausePressed(true);
                 else

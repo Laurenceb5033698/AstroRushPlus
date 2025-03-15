@@ -53,6 +53,7 @@ public class Arsenal : MonoBehaviour
         m_UWeapon.Setup(ship);
     }
 
+    //Obselete: stats used directly in weapon
     public void UpdateDamageFromAttackStat()
     {   //call this after adding new weapons and after upgrading from upgrade screen
         

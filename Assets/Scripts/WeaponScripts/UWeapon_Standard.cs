@@ -25,8 +25,8 @@ public class UWeapon_Standard : Universal_Weapon_Base
     protected override void SpawnProjectilesImpl(Vector3 _shootPosition, Quaternion _aimDirection)
     {
         //number of projectiles
-        int numProjectiles = Mathf.CeilToInt(ShipStats.gProjectileAmount.Max);
-        float spreadAngle = ShipStats.gSpreadAngle.Max;
+        int numProjectiles = Mathf.CeilToInt(ShipStats.block.gProjectileAmount.Get());
+        float spreadAngle = ShipStats.block.gSpreadAngle.Get();
 
         //angle between each bullet. S = A/N-1, where N>1
         float separation = 0.0f;

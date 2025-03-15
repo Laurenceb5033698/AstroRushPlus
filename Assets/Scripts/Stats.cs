@@ -9,65 +9,13 @@ using UnityEngine;
 public class Stats : MonoBehaviour
 {
     [SerializeField]
-    private List<Stat> statList;
-    //ship stats                        // suggested defaults. stats start uninitiallised for upgrade modules.
-    public Stat sHealth = new Stat();    //100
-    public Stat sShield = new Stat();    //100
-    public Stat sSpecial = new Stat();   //100   //replaces boost, can now be uesd to augment ability intensity
-    public Stat sSpeed = new Stat();      //50     //replaces thrust, can now upgrade base speed
-    public Stat sFuel = new Stat();      //100         //replaces fuel, can now increase amount of fuel for ability
-    public Stat sTurnrate = new Stat();  //1500
-    public Stat sHealthRegen = new Stat(); //0
-    public Stat sShieldRegen = new Stat(); //0
+    public StatBlock block = new StatBlock();
 
-    //Weapon stats
-    public Stat gAttack = new Stat();     //10
-    public Stat gAttackspeed = new Stat(); //1     //number of shots fired per second
-    public Stat gProjectileAmount = new Stat();    //1
-    public Stat gSpreadAngle = new Stat(); //30
-    public Stat gReloadTime = new Stat();  //0
-    public Stat gReloadAmmo = new Stat();  //0
-    public Stat gRampAmount = new Stat();  //0
-    public Stat gRampTime = new Stat();    //0
-    public Stat gBurnoutTime = new Stat(); //0
-    public Stat gChargeTime = new Stat();  //0
-    public Stat gBurstAmount = new Stat(); //0
-    public Stat gAoeDamage = new Stat();   //0
-    public Stat gAoeSize = new Stat();     //0
-    public Stat gDotDamage= new Stat();    //0
-    public Stat gDotDuration= new Stat();  //0
-
-    //bullet stats
-    public Stat bSpeed = new Stat();          //80
-    public Stat bAcceleration = new Stat();    //0
-    public Stat bRange = new Stat();           //0
-    public Stat bLifetime = new Stat();        //5
-    public Stat bMagentPower = new Stat();     //0
-    public Stat bPenetrationAmount = new Stat();   //0
-    public Stat bRicochetAmount = new Stat();  //0
-    public Stat bSize = new Stat();            //0
-    public Stat bFalloff= new Stat();          //0
-
-
-    //missile weapon stats
-    public Stat mAttack = new Stat(500);        //500
-    public Stat mAmmo = new Stat(3);            //3
-    public Stat mBurst = new Stat(0);           //0
-    public Stat mProjectileAmount = new Stat(1);    //1
-    public Stat mSpreadAngle = new Stat(0);     //0
-    public Stat mAoeDamage = new Stat(0);       //0
-    public Stat mAoeSize = new Stat(0);         //0
-    public Stat mDotDamage = new Stat(0);       //0
-    public Stat mDotDuration = new Stat(0);     //0
-
-    //missile bullet stats
-    public Stat mSpeed = new Stat(20);          //50
-    public Stat mAcceleration = new Stat(0);    //0
-    public Stat mRange = new Stat(100);         //100
-    public Stat mLifetime = new Stat(10);       //10
-    public Stat mMagnetPower = new Stat(0);     //0
-    public Stat mSize = new Stat(1);            //0
-
+    //Internal Current values for stats that have current and max. Get using properties ShipHealth, ShipShield, ShipFuel
+    //generally speaking these are important values.
+    [SerializeField] private float Health;
+    [SerializeField] private float Shield;
+    [SerializeField] private float Fuel;
 
     //Status effects
     [SerializeField]
@@ -80,17 +28,13 @@ public class Stats : MonoBehaviour
     //  Unity Functions
     private void Awake()
     {
-        //once declared and initialised, can group stats.
-        //add all stats to statlist. allows performing functions over all stats easily.
-        statList = new List<Stat>(){
-            sHealth, sShield, sSpecial, sSpeed, sFuel, sTurnrate, sHealthRegen, sShieldRegen,
-            gAttack,gAttackspeed,gProjectileAmount,gSpreadAngle,gReloadAmmo,gReloadTime,gRampAmount,gRampTime,gBurnoutTime,gChargeTime,gBurstAmount,gAoeDamage,gAoeSize,gDotDamage,gDotDuration,
-            bSpeed, bAcceleration, bRange, bLifetime, bMagentPower,bPenetrationAmount,bRicochetAmount,bSize,bFalloff,
-            mAttack,mAmmo,mBurst,mProjectileAmount,mSpreadAngle,mAoeDamage,mAoeSize,mDotDamage,mDotDuration,
-            mSpeed,mAcceleration,mRange,mLifetime,mMagnetPower,mSize
-        };
-        //  Recalculate stat max & values from values set in editor
-        RecalculateStats();
+        //required to use inspector values
+        block.RecalculateStats();
+
+        //set current values from each respective max
+        Health = block.sHealth.Get();
+        Shield = block.sShield.Get();
+        Fuel = block.sFuel.Get();
     }
 
     private void Start()
@@ -103,19 +47,6 @@ public class Stats : MonoBehaviour
 
     }
 
-    /// <summary>
-    /// Causes all stats to calculate max, then assigns value to new max.
-    /// best used for initialisation.
-    /// </summary>
-    public void RecalculateStats()
-    {
-        foreach (Stat stat in statList)
-        {
-            stat.Recalculate();
-            stat.InitialiseValue();
-        }
-        
-    }
 
     //  Functions
     //  Health
@@ -126,12 +57,12 @@ public class Stats : MonoBehaviour
         {
             //inCombat = true;
             if (ShipShield > 0) //if we have shields
-                if (sShield.Value - val > 0)   //and the damage taken is lower than sheild health
+                if (Shield - val > 0)   //and the damage taken is lower than sheild health
                     ShipShield = -val;   //do damage to shield
                 else
                 {//otherwise split damage between shield and health
-                    ShipHealth = (sShield.Value - val);   //remaining damage is delt to health; (shield-val) here will always be negative
-                    ShipShield = -sShield.Value;        //and shield is set to 0
+                    ShipHealth = (Shield - val);   //remaining damage is delt to health; (shield-val) here will always be negative
+                    ShipShield = -Shield;        //and shield is set to 0
                 }
             else
                 ShipHealth = -val;   //shield is at 0, so deal damage directly to health
@@ -140,52 +71,52 @@ public class Stats : MonoBehaviour
 
     public float ShipHealth
     {
-        get { return sHealth.Value; }
+        get { return Health; }
         set //can be set using powerups
         {
             if (value > 0)
             {
-                sHealth.Value = (sHealth.Value + value > sHealth.Max) ? sHealth.Max : sHealth.Value + value;
+                Health = (Health + value > block.sHealth.Get()) ? block.sHealth.Get() : Health + value;
             }
             else if (value < 0)
             {
-                sHealth.Value = (sHealth.Value + value < 0) ? 0 : sHealth.Value + value;
+                Health = (Health + value < 0) ? 0 : Health + value;
             }
         }
     }
 
     public float ShipShield
     {
-        get { return sShield.Value; }
+        get { return Shield; }
         set //can be set using powerups
         {
             if (value > 0)
             {
-                sShield.Value = (sShield.Value + value > sShield.Max) ? sShield.Max : sShield.Value + value;
+                Shield = (Shield + value > block.sShield.Get()) ? block.sShield.Get() : Shield + value;
             }
             else if (value < 0)
             {
-                sShield.Value = (sShield.Value + value < 0) ? 0 : sShield.Value + value;
+                Shield = (Shield + value < 0) ? 0 : Shield + value;
             }
         }
     }
 
     public bool IsAlive()
     {
-        return (sHealth.Value > 0);
+        return (Health > 0);
     }
 
     public float GetHealth()
     {
-        return sHealth.Value;
+        return Health;
     }
     public void SetHealth()
     {
-        ShipHealth = sHealth.Max;
+        ShipHealth = block.sHealth.Get();
     }
     public float GetShieldMax()
     {
-        return sShield.Max;
+        return block.sShield.Get();
     }
 
 
@@ -193,32 +124,32 @@ public class Stats : MonoBehaviour
     //-----------------------------------------------------------------------------------------
     public float ShipFuel
     {
-        get { return sFuel.Value; }
+        get { return Fuel; }
         set
         {
             if (value > 0)
             {
-                sFuel.Value = (sFuel.Value + value > 100.0f) ? sFuel.Max : sFuel.Value + value;
+                Fuel = (Fuel + value > 100.0f) ? block.sFuel.Get() : Fuel + value;
             }
             else if (value < 0)
             {
-                sFuel.Value = (sFuel.Value + value < 0.0f) ? 0 : sFuel.Value + value;
+                Fuel = (Fuel + value < 0.0f) ? 0 : Fuel + value;
             }
         }
     }
     public float GetMainThrust()
     {
-        return sSpeed.Value;
+        return block.sSpeed.Get();
     }
     public float GetRotSpeed()
     {
-        return sTurnrate.Value;
+        return block.sTurnrate.Get();
     }
 
     //  Abillity / boost power
     public float GetSpecial()
     {
-        return sSpecial.Value;
+        return block.sSpecial.Get();
     }
 
 
@@ -256,7 +187,7 @@ public class Stats : MonoBehaviour
     //-----------------------------------------------------------------------------------------
     public void SetShieldPU()
     {
-        sShield.Value = sShield.Max;
+        Shield = block.sShield.Get();
     }
     //OBSELETE
     public bool GetShieldPUState()
@@ -265,22 +196,16 @@ public class Stats : MonoBehaviour
     }
     public void SetFuel()
     {
-        sFuel.Value = sFuel.Max;
+        Fuel = block.sFuel.Get();
     }
 
 
 
     // Editor Utility
     //------------------------------------------------------------------------------------------
-    public List<Stat> EditorGetStatList()
-    {
-        List<Stat> tempStatList = new List<Stat>(){
-            sHealth, sShield, sSpecial, sSpeed, sFuel, sTurnrate, sHealthRegen, sShieldRegen,
-            gAttack,gAttackspeed,gProjectileAmount,gSpreadAngle,gReloadAmmo,gReloadTime,gRampAmount,gRampTime,gBurnoutTime,gChargeTime,gBurstAmount,gAoeDamage,gAoeSize,gDotDamage,gDotDuration,
-            bSpeed, bAcceleration, bRange, bLifetime, bMagentPower,bPenetrationAmount,bRicochetAmount,bSize,bFalloff,
-            mAttack,mAmmo,mBurst,mProjectileAmount,mSpreadAngle,mAoeDamage,mAoeSize,mDotDamage,mDotDuration,
-            mSpeed,mAcceleration,mRange,mLifetime,mMagnetPower,mSize
-        };
-        return tempStatList;
-    }
+    //public List<Stat> EditorGetStatList()
+    //{
+        
+    //    return block.statList;
+    //}
 }

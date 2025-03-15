@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
 
     //public static event GameEvent OnExitGame;
 
-    public enum Screens { TitleMenu, ShipSelectionScreen, LevelSelect, LoadingScreen, GameScreen, PauseScreen, OptionsScreen, UpgradesScreen, NumScreens }
+    public enum Screens { TitleMenu, ShipSelectionScreen, LevelSelect, LoadingScreen, GameScreen, PauseScreen, OptionsScreen, NumScreens }
 
     private ScreenElement[] mScreens;
     private Screens mCurrentScreen;
@@ -110,7 +110,6 @@ public class UIManager : MonoBehaviour
     public void EndLevel()
     {
         SceneLoader.LoadTitleScene();
-        ((UI_Upgrade)mScreens[(int)Screens.UpgradesScreen]).ResetStats();
         SceneTransitionTo(Screens.TitleMenu);
         OnScreenChanged();
 
@@ -120,7 +119,6 @@ public class UIManager : MonoBehaviour
         SceneLoader.RestartCurrentLevel();
         TransitionTo(Screens.GameScreen);
         OnScreenChanged();
-        ((UI_Upgrade)mScreens[(int)Screens.UpgradesScreen]).ResetStats();
     }
 
 
@@ -175,11 +173,6 @@ public class UIManager : MonoBehaviour
     public void ShipSelectionButton()
     {
         TransitionTo(Screens.ShipSelectionScreen);
-        OnScreenChanged();
-    }
-    public void UpgradesButton()
-    {
-        TransitionTo(Screens.UpgradesScreen);
         OnScreenChanged();
     }
     //Static Functions for script-UI interaction from other scenes

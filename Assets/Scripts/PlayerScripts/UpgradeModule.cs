@@ -12,7 +12,7 @@ public class UpgradeModule
 
 
     //Stat modifiers;
-    
+    Stats Stats;
 
     /// <summary>
     /// Called Once on apply. or once on recalc

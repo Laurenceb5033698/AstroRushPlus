@@ -296,14 +296,12 @@ abstract public class PlayerController : MonoBehaviour {
 
     public void UpdateStats(float bHp, float bSh, float bAt, float bSp, float bSd, float bFl)
     {   //used by UI_Upgrade
-        stats.sHealth.SetBonusMod(bHp);
-        stats.sShield.SetBonusMod(bSh);
-        stats.gAttack.SetBonusMod(bAt);
-        stats.sSpecial.SetBonusMod(bSp);
-        stats.sSpeed.SetBonusMod(bSd);
-        stats.sFuel.SetBonusMod(bFl);
-        //now recalculate
-        stats.RecalculateStats();
+        stats.block.sHealth.SetBonusMod(bHp);
+        stats.block.sShield.SetBonusMod(bSh);
+        stats.block.gAttack.SetBonusMod(bAt);
+        stats.block.sSpecial.SetBonusMod(bSp);
+        stats.block.sSpeed.SetBonusMod(bSd);
+        stats.block .sFuel.SetBonusMod(bFl);
 
         //now propagate to arsenal
         arsenal.UpdateDamageFromAttackStat();

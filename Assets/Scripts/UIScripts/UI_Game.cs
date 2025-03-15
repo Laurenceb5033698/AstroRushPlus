@@ -8,9 +8,7 @@ public class UI_Game : ScreenElement
     [SerializeField] private Text missileCounter;
 
     [SerializeField] private Text[] gameStats = new Text[3];                // score, enemy left, wave counter
-    [SerializeField] private GameObject[] HUDs = new GameObject[3];
     [SerializeField] private GameObject[] statBars = new GameObject[3];     // helth, boost
-    [SerializeField] private GameObject[] indicators = new GameObject[2];   // shield on, shield off, single, tri, missile
 
     private float helthFlashingTimer = 0;
     private bool hpActive = true;
@@ -62,34 +60,35 @@ public class UI_Game : ScreenElement
         gameStats[1].text = NoEnemy.ToString();
         gameStats[2].text = Wave.ToString();
     }
-    public void UpdateShipStats(float boost, bool shield, float health, int missile )
+    public void UpdateShipStats(Stats _stats, int missile )
     {
         missileCounter.text = "X " + missile;
 
+
         Vector3 temp;
-        float maxHp = GameManager.instance.GetShipRef().GetComponent<Stats>().sHealth.Max;
+        float maxHp = _stats.block.sHealth.Get();
         temp = statBars[0].transform.localScale;
-        temp.x = (2.5f / maxHp) * health;
+        temp.x = (2.5f / maxHp) * _stats.ShipHealth;
         statBars[0].transform.localScale = temp;
 
-        float maxboost = GameManager.instance.GetShipRef().GetComponent<Stats>().sFuel.Max;
+        float maxFuel = _stats.block.sFuel.Get();
         temp = statBars[1].transform.localScale;
-        temp.x = (2.5f / maxboost) * boost;
+        temp.x = (2.5f / maxFuel) * _stats.ShipFuel;
         statBars[1].transform.localScale = temp;
 
-        Stat statShield = GameManager.instance.GetShipRef().GetComponent<Stats>().sShield;
+        float maxShield = _stats.block.sShield.Get();
         temp = statBars[2].transform.localScale;
-        temp.x = (2.5f / statShield.Max) * statShield.Value;
+        temp.x = (2.5f / maxShield) * _stats.ShipShield;
         statBars[2].transform.localScale = temp;
 
-        indicators[0].SetActive(shield);
-        indicators[1].SetActive(!shield);
+        //indicators[0].SetActive(shield);
+        //indicators[1].SetActive(!shield);
 
 
-        if (health < (maxHp / 2))
+        if (_stats.ShipHealth < (maxHp / 2))
         {
             Color tempCol = healthVignette.GetComponent<RawImage>().color;
-            tempCol.a = 0.7f - ((health / (maxHp / 2)) * 0.7f);
+            tempCol.a = 0.7f - ((_stats.ShipHealth / (maxHp / 2)) * 0.7f);
             healthVignette.GetComponent<RawImage>().color = tempCol;
 
 
