@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5467275512521697404}
   - component: {fileID: 2645917066273118448}
   m_Layer: 0
-  m_Name: VFX_Weapon_Indicator_1
+  m_Name: VFX_Weapon_Indicator_2_Tri
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,7 +42,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1204968628566435477}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: 02de8d2de9572ce4f8e2c9cfece125a2, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: 362ace2a0cd64284695cb8e7ad3ff974, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
@@ -58,7 +58,7 @@ VisualEffect:
       m_Array: []
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 1, y: 0.14288326, z: 0, w: 1}
+      - m_Value: {x: 0, y: 1, z: 0.0022239685, w: 1}
         m_Name: BaseColor
         m_Overridden: 1
     m_Uint:
@@ -198,7 +198,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3342672225656376533}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: f138e77f8a2739948b9f4ea45e13af46, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: 79ccc1124407b2c48ac9c3c1b8491a06, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
