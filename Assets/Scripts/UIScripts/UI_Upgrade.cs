@@ -150,10 +150,10 @@ public class UI_Upgrade : ScreenElement
         System.Array.Copy(tempstats, prevstats, tempstats.Length);
         PlayerController pCntrllr = GameManager.instance.GetShipRef().GetComponent<PlayerController>();
         //save new stats to ship
-        pCntrllr.UpdateStats(
-            StatUpgradeValues[tempstats[0]], StatUpgradeValues[tempstats[1]], StatUpgradeValues[tempstats[2]],
-            StatUpgradeValues[tempstats[3]], StatUpgradeValues[tempstats[4]], StatUpgradeValues[tempstats[5]]
-            );
+        //pCntrllr.UpdateStats(
+        //    StatUpgradeValues[tempstats[0]], StatUpgradeValues[tempstats[1]], StatUpgradeValues[tempstats[2]],
+        //    StatUpgradeValues[tempstats[3]], StatUpgradeValues[tempstats[4]], StatUpgradeValues[tempstats[5]]
+        //    );
         
         //save new stats to playerprefs??
         GameManager.instance.GetComponent<AIManager>().NewWave();

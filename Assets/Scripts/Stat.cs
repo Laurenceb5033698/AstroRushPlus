@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using Microsoft.Unity.VisualStudio.Editor;
+using UnityEngine;
 using UnityEngine.Purchasing;
+
+
 
 [System.Serializable]
 public class Stat
 {
+    [SerializeField] public StatType type;
     //values to re-create max at anytime.
     [SerializeField] private float BaseStatMax;//default value that stat starts on
     [SerializeField] private float flat;         // flat bonus added to base value
@@ -12,8 +16,9 @@ public class Stat
 
     public float Max { get; private set; }
 
-    public Stat()
+    public Stat(StatType type)
     {
+        this.type = type;
         //this does not work with inspector-set values.
         RecalculateMax();
     }
@@ -54,5 +59,23 @@ public class Stat
         scale += _valToSet;
         Recalculate();
 
+    }
+    /// <summary>
+    /// adds to all modifiers, only recalculates once.
+    /// </summary>
+    public void AddModifiers(float _flat, float _scale, float _bonus)
+    {
+        flat += _flat;
+        scale += _scale;
+        mod += _bonus;
+        Recalculate();
+    }
+    /// <summary>
+    /// called by upgrade module. done like this to preserve private of modifiers.
+    /// </summary>
+    /// <param name="_otherStat"> The actual stat that is changed.</param>
+    public void PassModifiers(Stat _otherStat)
+    {
+        _otherStat.AddModifiers(flat,scale,mod);
     }
 }

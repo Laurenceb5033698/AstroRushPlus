@@ -16,9 +16,9 @@ public class ShipStatusDisplay : MonoBehaviour
 
     private void Start()
     {
-        healthBar.maxValue = shipStats.block.sHealth.Get();
+        healthBar.maxValue = shipStats.block.Get(StatType.sHealth).Get();
         healthBar.value = healthBar.maxValue;
-        shieldBar.maxValue = shipStats.block.sShield.Get();
+        shieldBar.maxValue = shipStats.block.Get(StatType.sShield).Get();
         shieldBar.value = shieldBar.maxValue;
         //health and shield bar size scales with container size. number of healthbar hearts scales with container horizontal size
         container.sizeDelta = new Vector2(healthBar.maxValue*2,5);

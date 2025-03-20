@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d406162d2e4bb43ae98089ad5be4f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ship: {fileID: 9203987926432576384}
+  ship: {fileID: 0}
   m_UWeapon: {fileID: 0}
 --- !u!1 &792826508178822112
 GameObject:
@@ -10222,7 +10222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shield_Emitter: {fileID: 4954704819430927395}
-  arsenal: {fileID: 3171371581172305672}
+  arsenal: {fileID: 0}
   equipment: {fileID: 4641127478582008594}
   fuelConsumeRate: 1
   fuelConsumePeriod: 1
@@ -10241,425 +10241,237 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   block:
     statList:
-    - BaseStatMax: 100
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 100
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 90
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 60
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 100
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 1500
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 15
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 2.5
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 1
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 30
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 80
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 500
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 3
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 1
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 30
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 90
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    sHealth:
-      BaseStatMax: 100
-      flat: 0
-      scale: 0
-      mod: 0
-    sShield:
-      BaseStatMax: 100
-      flat: 0
-      scale: 0
-      mod: 0
-    sSpecial:
-      BaseStatMax: 90
-      flat: 0
-      scale: 0
-      mod: 0
-    sSpeed:
-      BaseStatMax: 60
-      flat: 0
-      scale: 0
-      mod: 0
-    sFuel:
-      BaseStatMax: 100
-      flat: 0
-      scale: 0
-      mod: 0
-    sTurnrate:
-      BaseStatMax: 1500
-      flat: 0
-      scale: 0
-      mod: 0
-    sHealthRegen:
+    - type: 0
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    sShieldRegen:
+    - type: 1
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gAttack:
-      BaseStatMax: 15
-      flat: 0
-      scale: 0
-      mod: 0
-    gAttackspeed:
-      BaseStatMax: 2.5
-      flat: 0
-      scale: 0
-      mod: 0
-    gProjectileAmount:
-      BaseStatMax: 1
-      flat: 0
-      scale: 0
-      mod: 0
-    gSpreadAngle:
-      BaseStatMax: 30
-      flat: 0
-      scale: 0
-      mod: 0
-    gReloadTime:
+    - type: 2
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gReloadAmmo:
+    - type: 3
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gRampAmount:
+    - type: 4
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gRampTime:
+    - type: 5
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gBurnoutTime:
+    - type: 6
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gChargeTime:
+    - type: 7
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gBurstAmount:
+    - type: 8
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gAoeDamage:
+    - type: 9
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gAoeSize:
+    - type: 10
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gDotDamage:
+    - type: 11
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gDotDuration:
+    - type: 12
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    bSpeed:
-      BaseStatMax: 80
-      flat: 0
-      scale: 0
-      mod: 0
-    bAcceleration:
+    - type: 13
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    bRange:
+    - type: 14
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    bLifetime:
+    - type: 15
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    bMagentPower:
+    - type: 16
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    bPenetrationAmount:
+    - type: 17
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    bRicochetAmount:
+    - type: 18
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    bSize:
+    - type: 19
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    bFalloff:
+    - type: 20
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mAttack:
-      BaseStatMax: 500
-      flat: 0
-      scale: 0
-      mod: 0
-    mAmmo:
-      BaseStatMax: 3
-      flat: 0
-      scale: 0
-      mod: 0
-    mBurst:
+    - type: 21
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mProjectileAmount:
-      BaseStatMax: 1
-      flat: 0
-      scale: 0
-      mod: 0
-    mSpreadAngle:
-      BaseStatMax: 30
-      flat: 0
-      scale: 0
-      mod: 0
-    mAoeDamage:
+    - type: 22
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mAoeSize:
+    - type: 23
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mDotDamage:
+    - type: 24
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mDotDuration:
+    - type: 25
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mSpeed:
-      BaseStatMax: 90
-      flat: 0
-      scale: 0
-      mod: 0
-    mAcceleration:
+    - type: 26
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mRange:
+    - type: 27
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mLifetime:
+    - type: 28
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mMagnetPower:
+    - type: 29
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mSize:
+    - type: 30
+      BaseStatMax: 0
+      flat: 0
+      scale: 0
+      mod: 0
+    - type: 31
+      BaseStatMax: 0
+      flat: 0
+      scale: 0
+      mod: 0
+    - type: 32
+      BaseStatMax: 0
+      flat: 0
+      scale: 0
+      mod: 0
+    - type: 33
+      BaseStatMax: 0
+      flat: 0
+      scale: 0
+      mod: 0
+    - type: 34
+      BaseStatMax: 0
+      flat: 0
+      scale: 0
+      mod: 0
+    - type: 35
+      BaseStatMax: 0
+      flat: 0
+      scale: 0
+      mod: 0
+    - type: 36
+      BaseStatMax: 0
+      flat: 0
+      scale: 0
+      mod: 0
+    - type: 37
+      BaseStatMax: 0
+      flat: 0
+      scale: 0
+      mod: 0
+    - type: 38
+      BaseStatMax: 0
+      flat: 0
+      scale: 0
+      mod: 0
+    - type: 39
+      BaseStatMax: 0
+      flat: 0
+      scale: 0
+      mod: 0
+    - type: 40
+      BaseStatMax: 0
+      flat: 0
+      scale: 0
+      mod: 0
+    - type: 41
+      BaseStatMax: 0
+      flat: 0
+      scale: 0
+      mod: 0
+    - type: 42
+      BaseStatMax: 0
+      flat: 0
+      scale: 0
+      mod: 0
+    - type: 43
+      BaseStatMax: 0
+      flat: 0
+      scale: 0
+      mod: 0
+    - type: 44
+      BaseStatMax: 0
+      flat: 0
+      scale: 0
+      mod: 0
+    - type: 45
+      BaseStatMax: 0
+      flat: 0
+      scale: 0
+      mod: 0
+    - type: 46
       BaseStatMax: 0
       flat: 0
       scale: 0

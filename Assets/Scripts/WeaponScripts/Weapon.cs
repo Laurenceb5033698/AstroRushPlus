@@ -41,7 +41,7 @@ abstract public class Weapon : MonoBehaviour{
 
     public void CalculateFinalDamage()
     {
-        float newModifier = ship.GetComponent<Stats>().block.gAttack.Get();
+        float newModifier = ship.GetComponent<Stats>().Get(StatType.gAttack);
         finalBulletDamage = baseBulletDamage;// * newModifier;
     }
     

@@ -24,10 +24,10 @@ public class UModule_WeaponType : UpgradeModule
         shipArsenal.ChangeGun(m_WeaponPrefab);
     }
 
-    protected override void ProcessImpl(Stats _shipStats)
+    protected override void ProcessImpl(ref Stats _shipStats)
     {
         ReplaceWeaponType(_shipStats.gameObject);
         //apply new stats after weapon object swapped.
-        base.ProcessImpl(_shipStats);
+        base.ProcessImpl(ref _shipStats);
     }
 }

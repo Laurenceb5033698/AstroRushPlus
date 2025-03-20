@@ -41,7 +41,7 @@ public class UpgradeManager : MonoBehaviour
     {
         //validation? does module already exist?
         m_modules.Add(module);
-        module.ProcessModule(shipStats);
+        module.ProcessModule(ref shipStats);
     }
     //recalculate all upgrades (for spawning with modules already existing)
 }

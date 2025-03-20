@@ -25,8 +25,8 @@ public class UWeapon_Standard : Universal_Weapon_Base
     protected override void SpawnProjectilesImpl(Vector3 _shootPosition, Quaternion _aimDirection)
     {
         //number of projectiles
-        int numProjectiles = Mathf.CeilToInt(ShipStats.block.gProjectileAmount.Get());
-        float spreadAngle = ShipStats.block.gSpreadAngle.Get();
+        int numProjectiles = Mathf.CeilToInt(ShipStats.Get(StatType.gProjectileAmount));
+        float spreadAngle = ShipStats.Get(StatType.gSpreadAngle);
 
         //angle between each bullet. S = A/N-1, where N>1
         float separation = 0.0f;
@@ -54,7 +54,7 @@ public class UWeapon_Standard : Universal_Weapon_Base
             Quaternion bulletDirection = unitRotation * StartRotation;
             bullet = Instantiate<GameObject>(m_BulletPrefab, _shootPosition, bulletDirection);
             //bullet.setupBullet
-            bullet.GetComponent<Projectile>().SetupValues((int)ShipStats.block.gAttack.Get(),ShipStats.block.bSpeed.Get(), m_Ship.tag);
+            bullet.GetComponent<Projectile>().SetupValues((int)ShipStats.Get(StatType.gAttack),ShipStats.Get(StatType.bSpeed), m_Ship.tag);
         }
     }
 

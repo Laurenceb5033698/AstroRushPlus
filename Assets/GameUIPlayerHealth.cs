@@ -57,9 +57,9 @@ public class GameUIPlayerHealth : MonoBehaviour
     void UpdateUI()
     {
         Stats playerstats = playerShip.gameObject.GetComponent<Stats>();
-        updateHealthPips(playerstats.block.sHealth.Get(), playerstats.ShipHealth);
-        updateShieldBar(playerstats.block.sShield.Get(), playerstats.ShipShield);
-        updateAbilityBar(playerstats.block.sFuel.Get(), playerstats.ShipFuel);
+        updateHealthPips(playerstats.block.Get(StatType.sHealth).Get(), playerstats.ShipHealth);
+        updateShieldBar(playerstats.block.Get(StatType.sShield).Get(), playerstats.ShipShield);
+        updateAbilityBar(playerstats.block.Get(StatType.sFuel).Get(), playerstats.ShipFuel);
     }
 
     //health can increase or decrease during gameplay.
@@ -111,7 +111,7 @@ public class GameUIPlayerHealth : MonoBehaviour
         if (playerShip != null)
         {
             Stats playerStats = playerShip.gameObject.GetComponent<Stats>();
-            SetHealthPips(playerStats.block.sHealth.Get(), playerStats.ShipHealth);
+            SetHealthPips(playerStats.block.Get(StatType.sHealth).Get(), playerStats.ShipHealth);
         }
 
         UpdateUI();

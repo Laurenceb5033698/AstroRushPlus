@@ -1,3 +1,6 @@
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 //base module for upgrades
@@ -12,17 +15,18 @@ public class UpgradeModule
 
 
     //Stat modifiers;
-    Stats Stats;
+    //set via scriptable object in editor.
+    StatBlock m_upgradeBlock;
 
     /// <summary>
     /// Called Once on apply. or once on recalc
     /// Core function for applying module effects to ship.
     /// needs to know what it's applying its effects to, eg if given a playership or ai ship.
     /// </summary>
-    public void ProcessModule(Stats _shipStats)
+    public void ProcessModule(ref Stats _shipStats)
     {
         //preProcess();
-        ProcessImpl(_shipStats);
+        ProcessImpl(ref _shipStats);
         //postProcess();
     }
 
@@ -30,9 +34,9 @@ public class UpgradeModule
     /// Implementation of process. this gets overriden.
     /// by default it applies simple stat changes.
     /// </summary>
-    virtual protected void ProcessImpl(Stats _shipStats)
+    virtual protected void ProcessImpl(ref Stats _shipStats)
     {
-        ApplyStats();
+        ApplyStats(ref _shipStats.block);
         AttachCallbacks();
     }
 
@@ -58,9 +62,20 @@ public class UpgradeModule
     /// <summary>
     /// if any stats changes are set, this applies them to given ship.
     /// </summary>
-    public void ApplyStats()
+    public void ApplyStats(ref StatBlock _shipBlock)
+    {
+        //for each stat, add upgrade to ship
+        RemoteApplyStatChanges(_shipBlock.statList, m_upgradeBlock.statList);
+    }
+
+    public void RemoteApplyStatChanges(List<Stat> _shipStatsList, List<Stat> _upgradeList)
     {
 
+        for (int i=0; i<_shipStatsList.Count;i++)
+        {
+            _upgradeList[i].PassModifiers(_shipStatsList[i]);
+        }
+        
     }
 
     /// <summary>

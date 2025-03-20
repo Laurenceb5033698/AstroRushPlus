@@ -238,12 +238,12 @@ public class AICore : MonoBehaviour {
 
     public void UpdateStats(float statbonus)
     {   //used by UI_Upgrade
-        stats.block.sHealth.SetBonusMod(statbonus);
-        stats.block.sShield.SetBonusMod(statbonus);
-        stats.block.gAttack.SetBonusMod(statbonus);
-        stats.block.sSpecial.SetBonusMod(statbonus);
-        stats.block.sSpeed.SetBonusMod(statbonus);
-        stats.block.sFuel.SetBonusMod(statbonus);
+        stats.block.Get(StatType.sHealth).SetBonusMod(statbonus);
+        stats.block.Get(StatType.sShield).SetBonusMod(statbonus);
+        stats.block.Get(StatType.gAttack).SetBonusMod(statbonus);
+        stats.block.Get(StatType.sSpecial).SetBonusMod(statbonus);
+        stats.block.Get(StatType.sSpeed).SetBonusMod(statbonus);
+        stats.block.Get(StatType.sFuel).SetBonusMod(statbonus);
 
         //now propagate to arsenal
         arsenal.UpdateDamageFromAttackStat();

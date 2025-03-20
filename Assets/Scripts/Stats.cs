@@ -8,7 +8,6 @@ using UnityEngine;
 /// </summary>
 public class Stats : MonoBehaviour
 {
-    [SerializeField]
     public StatBlock block = new StatBlock();
 
     //Internal Current values for stats that have current and max. Get using properties ShipHealth, ShipShield, ShipFuel
@@ -32,9 +31,9 @@ public class Stats : MonoBehaviour
         block.RecalculateStats();
 
         //set current values from each respective max
-        Health = block.sHealth.Get();
-        Shield = block.sShield.Get();
-        Fuel = block.sFuel.Get();
+        Health = Get(StatType.sHealth);
+        Shield = Get(StatType.sShield);
+        Fuel = Get(StatType.sFuel);
     }
 
     private void Start()
@@ -47,6 +46,10 @@ public class Stats : MonoBehaviour
 
     }
 
+    public float Get(StatType _type)
+    {
+        return block.Get(_type).Get();
+    }
 
     //  Functions
     //  Health
@@ -76,7 +79,7 @@ public class Stats : MonoBehaviour
         {
             if (value > 0)
             {
-                Health = (Health + value > block.sHealth.Get()) ? block.sHealth.Get() : Health + value;
+                Health = (Health + value > Get(StatType.sHealth)) ? Get(StatType.sHealth) : Health + value;
             }
             else if (value < 0)
             {
@@ -92,7 +95,7 @@ public class Stats : MonoBehaviour
         {
             if (value > 0)
             {
-                Shield = (Shield + value > block.sShield.Get()) ? block.sShield.Get() : Shield + value;
+                Shield = (Shield + value > Get(StatType.sShield)) ? Get(StatType.sShield) : Shield + value;
             }
             else if (value < 0)
             {
@@ -112,11 +115,11 @@ public class Stats : MonoBehaviour
     }
     public void SetHealth()
     {
-        ShipHealth = block.sHealth.Get();
+        ShipHealth = Get(StatType.sHealth);
     }
     public float GetShieldMax()
     {
-        return block.sShield.Get();
+        return Get(StatType.sShield);
     }
 
 
@@ -129,7 +132,7 @@ public class Stats : MonoBehaviour
         {
             if (value > 0)
             {
-                Fuel = (Fuel + value > 100.0f) ? block.sFuel.Get() : Fuel + value;
+                Fuel = (Fuel + value > 100.0f) ? Get(StatType.sFuel) : Fuel + value;
             }
             else if (value < 0)
             {
@@ -139,17 +142,17 @@ public class Stats : MonoBehaviour
     }
     public float GetMainThrust()
     {
-        return block.sSpeed.Get();
+        return Get(StatType.sSpeed);
     }
     public float GetRotSpeed()
     {
-        return block.sTurnrate.Get();
+        return Get(StatType.sTurnrate);
     }
 
     //  Abillity / boost power
     public float GetSpecial()
     {
-        return block.sSpecial.Get();
+        return Get(StatType.sSpecial);
     }
 
 
@@ -187,7 +190,7 @@ public class Stats : MonoBehaviour
     //-----------------------------------------------------------------------------------------
     public void SetShieldPU()
     {
-        Shield = block.sShield.Get();
+        Shield = Get(StatType.sShield);
     }
     //OBSELETE
     public bool GetShieldPUState()
@@ -196,7 +199,7 @@ public class Stats : MonoBehaviour
     }
     public void SetFuel()
     {
-        Fuel = block.sFuel.Get();
+        Fuel = Get(StatType.sFuel);
     }
 
 

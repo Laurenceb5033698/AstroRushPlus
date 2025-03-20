@@ -87,7 +87,7 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
         if (m_DidShoot)
         {
             //sanitise attackspeed. minimum attackspeed = 1 shot every 10s lol
-            float attackInterval = ShipStats.block.gAttackspeed.Get() < 0.1f ? 0.1f : ShipStats.block.gAttackspeed.Get();
+            float attackInterval = ShipStats.Get(StatType.gAttackspeed) < 0.1f ? 0.1f : ShipStats.Get(StatType.gAttackspeed);
             m_AttackInterval = Time.time + (1 / attackInterval);
         }
     }
@@ -136,7 +136,7 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     protected float CalcAttackspeed()
     {
         //attackspeed can change per shot each frame.
-        float initialAttackspeed = ShipStats.block.gAttackspeed.Get();
+        float initialAttackspeed = ShipStats.Get(StatType.gAttackspeed);
         //conditional or temp increases
         float ramp = (m_RampCurrent * 0.05f);    //each stack adds 5%
         float reloadBuff = (m_ReloadBuff ? 0.5f : 0.0f);    //if applied adds 50%
@@ -191,7 +191,7 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
         //adds to current ramp. is maxed when equal to stat maxRamp
         //modifies attackspeed by % per ramp stack.
         //trying to fire when fully ramped adds to burnout time.
-        if(m_RampCurrent < ShipStats.block.gRampAmount.Get())
+        if(m_RampCurrent < ShipStats.Get(StatType.gRampAmount))
         {
             m_RampCurrent += 1;
         }

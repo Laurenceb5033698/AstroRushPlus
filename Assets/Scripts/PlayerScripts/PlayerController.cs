@@ -294,20 +294,6 @@ abstract public class PlayerController : MonoBehaviour {
         OnMaxStatsChanged?.Invoke();
     }
 
-    public void UpdateStats(float bHp, float bSh, float bAt, float bSp, float bSd, float bFl)
-    {   //used by UI_Upgrade
-        stats.block.sHealth.SetBonusMod(bHp);
-        stats.block.sShield.SetBonusMod(bSh);
-        stats.block.gAttack.SetBonusMod(bAt);
-        stats.block.sSpecial.SetBonusMod(bSp);
-        stats.block.sSpeed.SetBonusMod(bSd);
-        stats.block .sFuel.SetBonusMod(bFl);
-
-        //now propagate to arsenal
-        arsenal.UpdateDamageFromAttackStat();
-
-        //StatsChanged();
-    }
 
     virtual protected void SpendShipFuel()
     {

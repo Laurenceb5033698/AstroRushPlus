@@ -66,17 +66,17 @@ public class UI_Game : ScreenElement
 
 
         Vector3 temp;
-        float maxHp = _stats.block.sHealth.Get();
+        float maxHp = _stats.block.Get(StatType.sHealth).Get();
         temp = statBars[0].transform.localScale;
         temp.x = (2.5f / maxHp) * _stats.ShipHealth;
         statBars[0].transform.localScale = temp;
 
-        float maxFuel = _stats.block.sFuel.Get();
+        float maxFuel = _stats.block.Get(StatType.sFuel).Get();
         temp = statBars[1].transform.localScale;
         temp.x = (2.5f / maxFuel) * _stats.ShipFuel;
         statBars[1].transform.localScale = temp;
 
-        float maxShield = _stats.block.sShield.Get();
+        float maxShield = _stats.block.Get(StatType.sShield).Get();
         temp = statBars[2].transform.localScale;
         temp.x = (2.5f / maxShield) * _stats.ShipShield;
         statBars[2].transform.localScale = temp;
