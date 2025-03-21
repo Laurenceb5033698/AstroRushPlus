@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -7,7 +8,8 @@ public class UModule_WeaponType : UpgradeModule
     [SerializeField] GameObject m_WeaponPrefab;
 
     //ctor from scriptable object data
-    public UModule_WeaponType(GameObject _prefab)
+    public UModule_WeaponType(List<Stat> _list, GameObject _prefab) 
+        : base(_list)
     {
         m_WeaponPrefab = _prefab;
     }

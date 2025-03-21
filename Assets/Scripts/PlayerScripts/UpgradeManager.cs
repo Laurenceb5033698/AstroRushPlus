@@ -15,7 +15,7 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] List<UpgradeModule> m_modules;
 
     //use this to test applying a module to a ship.
-    [SerializeField] UWeaponTypeScriptable m_TestModule;
+    [SerializeField] UModuleScriptable m_TestModule;
 
     void Start()
     {

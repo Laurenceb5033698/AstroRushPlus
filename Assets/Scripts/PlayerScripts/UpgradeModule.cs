@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 //base module for upgrades
 //each module represents a unique upgrade that can be picked ingame
@@ -16,7 +17,29 @@ public class UpgradeModule
 
     //Stat modifiers;
     //set via scriptable object in editor.
-    StatBlock m_upgradeBlock;
+    [SerializeField] List<Stat> m_upgradeList;
+
+
+    public UpgradeModule(List<Stat> _list)
+    {
+        m_upgradeList = _list;
+    }
+
+    /// <summary>
+    /// Validate ship stats before processing upgrade.
+    /// </summary>
+    public bool PreProcess(Stats _shipStats)
+    {
+        //verify ship stats list has allstat types assigned.
+        if(_shipStats.block.statList.Count() != (int)StatType.NUM)
+        {
+            Debug.Log("Error UpgradeModule Preprocess: Ship stats list does not have all stat types.");
+            return false;
+        }
+        //an upgrade can have no stats to apply and only have behaviour change.
+        //in this case we still need to proceed with processImpl.
+        return true;
+    }
 
     /// <summary>
     /// Called Once on apply. or once on recalc
@@ -25,7 +48,8 @@ public class UpgradeModule
     /// </summary>
     public void ProcessModule(ref Stats _shipStats)
     {
-        //preProcess();
+        if (!PreProcess(_shipStats))
+            return;
         ProcessImpl(ref _shipStats);
         //postProcess();
     }
@@ -65,17 +89,23 @@ public class UpgradeModule
     public void ApplyStats(ref StatBlock _shipBlock)
     {
         //for each stat, add upgrade to ship
-        RemoteApplyStatChanges(_shipBlock.statList, m_upgradeBlock.statList);
+        RemoteApplyStatChanges(_shipBlock.statList, m_upgradeList);
     }
 
     public void RemoteApplyStatChanges(List<Stat> _shipStatsList, List<Stat> _upgradeList)
     {
-
-        for (int i=0; i<_shipStatsList.Count;i++)
+        foreach (Stat UStat in m_upgradeList)
         {
-            _upgradeList[i].PassModifiers(_shipStatsList[i]);
+            if (UStat.type == StatType.NUM)
+            {
+                Debug.Log("Error UpgradeModule: Upgrade Stat type incorrect.");
+                continue;
+            }
+            //get enum of type, cast to int for index.
+            int typeToUpgrade = (int)UStat.type;
+            //upgrade process adds all modifiers from Ustat to target stat in shiplist.
+            UStat.PassModifiers(_shipStatsList[typeToUpgrade]);
         }
-        
     }
 
     /// <summary>
