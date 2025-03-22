@@ -50,7 +50,10 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 2
+        m_Name: Trail_Lifetime
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -204,7 +207,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3272551946722975651}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a73eefa333dedca45968bc4e9baa173d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4350969257909205934}
   m_SourcePrefab: {fileID: 100100000, guid: a73eefa333dedca45968bc4e9baa173d, type: 3}
 --- !u!4 &1366911123848154644 stripped
 Transform:
@@ -212,3 +219,23 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1545446132291906047}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1852086381569873070 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a73eefa333dedca45968bc4e9baa173d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1545446132291906047}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4350969257909205934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852086381569873070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e8b4dee5abc9a5419d535ae14fea0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotation: {x: 0, y: 1, z: 0}
+  _speed: 250
