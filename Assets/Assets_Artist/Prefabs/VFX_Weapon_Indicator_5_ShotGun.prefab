@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1204968628566435477
+--- !u!1 &1273695471424734185
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2811321256261190999}
-  - component: {fileID: 5467275512521697404}
-  - component: {fileID: 2645917066273118448}
+  - component: {fileID: 5121628816858781494}
+  - component: {fileID: 363644391424615206}
+  - component: {fileID: 7914673961394914467}
   m_Layer: 0
-  m_Name: VFX_Weapon_Indicator_2_Tri
+  m_Name: VFX_Weapon_Indicator_5_ShotGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2811321256261190999
+--- !u!4 &5121628816858781494
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1204968628566435477}
+  m_GameObject: {fileID: 1273695471424734185}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -33,15 +33,15 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!2083052967 &5467275512521697404
+--- !u!2083052967 &363644391424615206
 VisualEffect:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1204968628566435477}
+  m_GameObject: {fileID: 1273695471424734185}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: 362ace2a0cd64284695cb8e7ad3ff974, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: 9f5d07b09e60a904093f86a81ffd8fcd, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
@@ -53,16 +53,13 @@ VisualEffect:
       m_Array: []
     m_Vector2f:
       m_Array:
-      - m_Value: {x: 0, y: -4}
+      - m_Value: {x: 0, y: -0.5}
         m_Name: GradientPanningSpeed
-        m_Overridden: 0
+        m_Overridden: 1
     m_Vector3f:
       m_Array: []
     m_Vector4f:
-      m_Array:
-      - m_Value: {x: 0, y: 1, z: 0.0022239685, w: 1}
-        m_Name: BaseColor
-        m_Overridden: 1
+      m_Array: []
     m_Uint:
       m_Array: []
     m_Int:
@@ -70,60 +67,24 @@ VisualEffect:
     m_Matrix4x4f:
       m_Array: []
     m_AnimationCurve:
-      m_Array:
-      - m_Value:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        m_Name: Emissive Flash Curve
-        m_Overridden: 1
+      m_Array: []
     m_Gradient:
       m_Array: []
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: -6610262681737884586, guid: 9ed0329d7d5726a4f9252fbfc5a466ca,
-          type: 3}
-        m_Name: ActiveMesh
-        m_Overridden: 1
       - m_Value: {fileID: 2800000, guid: 097a7415d73274c45befa665d2f54808, type: 3}
         m_Name: Texture_Gradient
         m_Overridden: 1
     m_Bool:
-      m_Array:
-      - m_Value: 0
-        m_Name: IsFiring?
-        m_Overridden: 1
-      - m_Value: 1
-        m_Name: IndicatorSpawned
-        m_Overridden: 1
---- !u!73398921 &2645917066273118448
+      m_Array: []
+--- !u!73398921 &7914673961394914467
 VFXRenderer:
   serializedVersion: 1
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1204968628566435477}
+  m_GameObject: {fileID: 1273695471424734185}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 0
