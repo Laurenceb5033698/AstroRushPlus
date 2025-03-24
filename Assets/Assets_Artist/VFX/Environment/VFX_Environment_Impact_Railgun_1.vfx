@@ -67,43 +67,13 @@ MonoBehaviour:
     - model: {fileID: 8926484042661614756}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661614929}
-      id: 0
-      isStickyNote: 0
     - model: {fileID: 8926484042661614775}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614779}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661615527}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661615071}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614952}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614792}
       id: 0
       isStickyNote: 0
     - model: {fileID: 8926484042661615093}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661615095}
-      id: 0
-      isStickyNote: 0
     - model: {fileID: 8926484042661614707}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614722}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614956}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614912}
       id: 0
       isStickyNote: 0
   stickyNoteInfos: []
@@ -201,8 +171,8 @@ MonoBehaviour:
     max: Infinity
     enumValues: []
     descendantCount: 0
-  - name: DuoShot_Weapon_Level
-    path: DuoShot_Weapon_Level
+  - name: Railgun_Weapon_Level
+    path: Railgun_Weapon_Level
     tooltip: Weapon Level
     space: -1
     spaceable: 0
@@ -217,8 +187,8 @@ MonoBehaviour:
     max: Infinity
     enumValues: []
     descendantCount: 0
-  - name: DuoShot_Weapon_Scale_Multiplier
-    path: DuoShot_Weapon_Scale_Multiplier
+  - name: Railgun_Weapon_Scale_Multiplier
+    path: Railgun_Weapon_Scale_Multiplier
     tooltip: How much the weapon level multiplies by
     space: -1
     spaceable: 0
@@ -8948,7 +8918,7 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661615330}
-  m_ExposedName: DuoShot_Weapon_Level
+  m_ExposedName: Railgun_Weapon_Level
   m_Exposed: 1
   m_Order: 2
   m_Category: 
@@ -9331,7 +9301,7 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661615456}
-  m_ExposedName: DuoShot_Weapon_Scale_Multiplier
+  m_ExposedName: Railgun_Weapon_Scale_Multiplier
   m_Exposed: 1
   m_Order: 3
   m_Category: 

@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d4c867f6b72b714dbb5fd1780afe208, type: 3}
-  m_Name: VFX_Weapon_Indicator_1_Duo_Flash
+  m_Name: VFX_Weapon_Indicator_3_Minigun_Flash
   m_EditorClassIdentifier: 
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 0}
@@ -105,7 +105,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"obj":{"fileID":6837898972636803163,"guid":"17e2314031a10c6498929b4eb2864d68","type":3}}'
+      m_SerializableObject: '{"obj":{"fileID":3811104547346160029,"guid":"e46eff7bb27d8994e8895fc99f429f6b","type":3}}'
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -121,7 +121,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.0,"inTangent":0.07403312623500824,"outTangent":0.07403312623500824,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":1.0,"value":1.0,"inTangent":1.5133635997772217,"outTangent":1.5133635997772217,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
+      m_SerializableObject: '{"frames":[{"time":-0.012493602000176907,"value":0.5928627848625183,"inTangent":0.07403312623500824,"outTangent":0.07403312623500824,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":1.0044450759887696,"value":1.162882924079895,"inTangent":1.0313278436660767,"outTangent":1.0313278436660767,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -137,13 +137,13 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 8
+      m_SerializableObject: 6
     min: -Infinity
     max: Infinity
     enumValues: []
     descendantCount: 0
-  - name: DuoShot_Weapon_Level
-    path: DuoShot_Weapon_Level
+  - name: Minigun_Weapon_Level
+    path: Minigun_Weapon_Level
     tooltip: Weapon Level
     space: -1
     spaceable: 0
@@ -158,8 +158,8 @@ MonoBehaviour:
     max: Infinity
     enumValues: []
     descendantCount: 0
-  - name: DuoShot_Weapon_Scale_Multiplier
-    path: DuoShot_Weapon_Scale_Multiplier
+  - name: Minigun_Weapon_Scale_Multiplier
+    path: Minigun_Weapon_Scale_Multiplier
     tooltip: How much the weapon level multiplies by
     space: -1
     spaceable: 0
@@ -169,7 +169,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 4
+      m_SerializableObject: 3
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -185,7 +185,7 @@ VisualEffectResource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: VFX_Weapon_Indicator_1_Duo_Flash
+  m_Name: VFX_Weapon_Indicator_3_Minigun_Flash
   m_Graph: {fileID: 114350483966674976}
   m_Infos:
     m_RendererSettings:
@@ -1152,7 +1152,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":-90.0,"y":0.0,"z":180.0}'
+      m_SerializableObject: '{"x":0.0,"y":0.0,"z":0.0}'
     m_Space: -1
   m_Property:
     name: _Angle
@@ -1365,7 +1365,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"obj":{"fileID":6837898972636803163,"guid":"17e2314031a10c6498929b4eb2864d68","type":3}}'
+      m_SerializableObject: '{"obj":{"fileID":3811104547346160029,"guid":"e46eff7bb27d8994e8895fc99f429f6b","type":3}}'
     m_Space: -1
   m_Property:
     name: o
@@ -1850,7 +1850,7 @@ MonoBehaviour:
     position: {x: 662, y: 413}
     expandedSlots: []
     expanded: 1
-    supecollapsed: 0
+    supecollapsed: 1
 --- !u!114 &8926484042661615072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1876,7 +1876,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.0,"inTangent":0.07403312623500824,"outTangent":0.07403312623500824,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":1.0,"value":1.0,"inTangent":1.5133635997772217,"outTangent":1.5133635997772217,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
+      m_SerializableObject: '{"frames":[{"time":-0.012493602000176907,"value":0.5928627848625183,"inTangent":0.07403312623500824,"outTangent":0.07403312623500824,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":1.0044450759887696,"value":1.162882924079895,"inTangent":1.0313278436660767,"outTangent":1.0313278436660767,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
     m_Space: -1
   m_Property:
     name: o
@@ -1939,7 +1939,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.25
+      m_SerializableObject: 0.15
     m_Space: -1
   m_Property:
     name: _Lifetime
@@ -2202,7 +2202,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"obj":{"fileID":6837898972636803163,"guid":"17e2314031a10c6498929b4eb2864d68","type":3}}'
+      m_SerializableObject: '{"obj":{"fileID":3811104547346160029,"guid":"e46eff7bb27d8994e8895fc99f429f6b","type":3}}'
     m_Space: -1
   m_Property:
     name: mesh
@@ -2490,7 +2490,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"frames":[{"time":0.001190185546875,"value":1.0,"inTangent":0.0,"outTangent":0.0,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":1.0,"value":1.2999999523162842,"inTangent":0.5304561853408814,"outTangent":0.5304561853408814,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
+      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.0,"inTangent":3.2572743892669679,"outTangent":3.2572743892669679,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":1.0,"value":1.0,"inTangent":0.13043589890003205,"outTangent":0.13043589890003205,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
     m_Space: -1
   m_Property:
     name: Scale_x
@@ -2524,7 +2524,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"frames":[{"time":0.001190185546875,"value":1.0,"inTangent":0.0,"outTangent":0.0,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":1.0,"value":0.75,"inTangent":-0.4086291491985321,"outTangent":-0.4086291491985321,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
+      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.0,"inTangent":3.2572743892669679,"outTangent":3.2572743892669679,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":1.0,"value":1.0,"inTangent":0.13043589890003205,"outTangent":0.13043589890003205,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
     m_Space: -1
   m_Property:
     name: Scale_y
@@ -2558,7 +2558,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.0,"inTangent":1.0,"outTangent":1.0,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false},{"time":1.0,"value":1.0,"inTangent":1.0,"outTangent":1.0,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
+      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.5,"inTangent":0.5,"outTangent":0.5,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false},{"time":1.0,"value":1.0,"inTangent":0.5,"outTangent":0.5,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
     m_Space: -1
   m_Property:
     name: Scale_z
@@ -3197,7 +3197,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.15
+      m_SerializableObject: 0.1
     m_Space: -1
   m_Property:
     name: A
@@ -3231,7 +3231,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.25
+      m_SerializableObject: 0.15
     m_Space: -1
   m_Property:
     name: B
@@ -3564,7 +3564,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 10
+      m_SerializableObject: 14
     m_Space: -1
   m_Property:
     name: MinSpeed
@@ -3598,7 +3598,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 16
+      m_SerializableObject: 20
     m_Space: -1
   m_Property:
     name: MaxSpeed
@@ -3632,7 +3632,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.7
+      m_SerializableObject: 0.8
     m_Space: -1
   m_Property:
     name: DirectionBlend
@@ -3805,7 +3805,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"8aafaa78fe944854997fef757ff4ba72","type":3}}'
+      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"6d6af5c8ab321784fa621fc6ceaf54bf","type":3}}'
     m_Space: -1
   m_Property:
     name: mainTexture
@@ -4099,7 +4099,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.6988601684570313,"g":0.1007256731390953,"b":0.0,"a":1.0},"time":0.0},{"color":{"r":10.432950973510743,"g":1.503685712814331,"b":0.0,"a":1.0},"time":0.4470588266849518},{"color":{"r":1.0,"g":0.14412850141525269,"b":0.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":0.0,"time":0.0},{"alpha":1.0,"time":0.10000763088464737},{"alpha":1.0,"time":0.5000076293945313},{"alpha":0.0,"time":0.9000076055526733}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.0,"g":0.22568432986736298,"b":0.6980392336845398,"a":1.0},"time":0.0},{"color":{"r":0.0,"g":10.432950973510743,"b":9.79108715057373,"a":1.0},"time":0.4470588266849518},{"color":{"r":0.0,"g":0.03999733924865723,"b":1.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":0.0,"time":0.0},{"alpha":1.0,"time":0.10000763088464737},{"alpha":1.0,"time":0.5000076293945313},{"alpha":0.0,"time":0.9000076055526733}],"gradientMode":0}'
     m_Space: -1
   m_Property:
     name: Color
@@ -4197,7 +4197,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.6988601684570313,"g":0.1007256731390953,"b":0.0,"a":1.0},"time":0.0},{"color":{"r":10.432950973510743,"g":1.503685712814331,"b":0.0,"a":1.0},"time":0.4470588266849518},{"color":{"r":1.0,"g":0.14412850141525269,"b":0.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":0.0,"time":0.0},{"alpha":0.501960813999176,"time":0.10000763088464737},{"alpha":0.501960813999176,"time":0.5000076293945313},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.036869242787361148,"g":0.0,"b":0.6980392336845398,"a":1.0},"time":0.0},{"color":{"r":0.0,"g":6.877131938934326,"b":10.432950973510743,"a":1.0},"time":0.4470588266849518},{"color":{"r":0.0,"g":0.018480300903320314,"b":1.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":0.0,"time":0.0},{"alpha":0.501960813999176,"time":0.10000763088464737},{"alpha":0.501960813999176,"time":0.5000076293945313},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
     m_Space: -1
   m_Property:
     name: Color
@@ -4267,7 +4267,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.TArcSphere, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"sphere":{"transform":{"position":{"x":0.0,"y":0.0,"z":0.0},"angles":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},"radius":0.15000000596046449},"arc":6.28000020980835}'
+      m_SerializableObject: '{"sphere":{"transform":{"position":{"x":0.0,"y":0.0,"z":0.4000000059604645},"angles":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},"radius":0.25},"arc":6.28000020980835}'
     m_Space: 0
   m_Property:
     name: arcSphere
@@ -4330,7 +4330,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615269}
   - {fileID: 8926484042661615273}
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
+  m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_MasterSlot: {fileID: 8926484042661615262}
   m_MasterData:
@@ -4889,7 +4889,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 8
+      m_SerializableObject: 6
     m_Space: -1
   m_Property:
     name: o
@@ -5324,7 +5324,7 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661615314}
-  m_ExposedName: DuoShot_Weapon_Level
+  m_ExposedName: Minigun_Weapon_Level
   m_Exposed: 1
   m_Order: 3
   m_Category: 
@@ -5405,7 +5405,7 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661615319}
-  m_ExposedName: DuoShot_Weapon_Scale_Multiplier
+  m_ExposedName: Minigun_Weapon_Scale_Multiplier
   m_Exposed: 1
   m_Order: 4
   m_Category: 
@@ -5455,7 +5455,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 4
+      m_SerializableObject: 3
     m_Space: -1
   m_Property:
     name: o
@@ -5650,7 +5650,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":0.5,"y":3.0,"z":0.5}'
+      m_SerializableObject: '{"x":0.800000011920929,"y":3.0,"z":0.800000011920929}'
     m_Space: -1
   m_Property:
     name: _Scale
