@@ -12,5 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3457f00684444e82fa604afb06754, type: 3}
   m_Name: UWeaponType_Trishot
   m_EditorClassIdentifier: 
-  m_UpgradeList: []
-  m_WeaponPrefab: {fileID: 0}
+  m_UpgradeList:
+  - type: 10
+    BaseStatMax: 0
+    flat: 2
+    scale: 0
+    mod: 0
+  - type: 11
+    BaseStatMax: 0
+    flat: 0
+    scale: 0.25
+    mod: 0
+  - type: 9
+    BaseStatMax: 0
+    flat: 0
+    scale: 0.25
+    mod: 0
+  - type: 8
+    BaseStatMax: 0
+    flat: -2
+    scale: 0
+    mod: 0
+  m_WeaponPrefab: {fileID: 1951176684053832767, guid: d334ce1dbafb4f24292e0e77e6a9fe9f,
+    type: 3}

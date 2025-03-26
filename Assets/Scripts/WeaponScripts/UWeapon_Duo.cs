@@ -2,23 +2,6 @@ using UnityEngine;
 
 public class UWeapon_Duo : Universal_Weapon_Base
 {
-
-    void Start()
-    {
-        
-    }
-
-    // for visual updates.
-    void Update()
-    {
-        
-    }
-
-    private void FixedUpdate()
-    {
-        
-    }
-
     //Shoot(); //use base method.
 
 

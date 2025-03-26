@@ -7,6 +7,7 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
 {
     //system variables
     public AudioSource m_AudioSource;
+    public IndicatorVFXController m_IndicatorVFXController;
 
     public GameObject m_Ship;
     public Stats ShipStats;
@@ -17,6 +18,7 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
 
     //local flags
     bool m_DidShoot = false;
+    bool m_PreviousDidShoot = false;
     bool m_CoolingOff = false;
     bool m_Reloading = false;
     bool m_Charging = false;
@@ -32,20 +34,27 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
 
     private void Awake()
     {
-        //GetComponentInParent<Arsenal>().SetWeaponOnLoad(this);
     }
 
     void Start()
     {
-        //spawn indicator, but not a child.
-
+        //try get indicator vfx controller.
+        m_IndicatorVFXController = m_AimingIndicatorHolder.GetComponent<IndicatorVFXController>();
     }
+
     //for visual or audio updating
     void Update()
     {
-        //move indicator to copy this position.
-        //rotate indicator towards aimdir.
+        if(m_PreviousDidShoot != m_DidShoot)
+        {
+            //weapon shot, or stopped shooting last frame.
+            m_PreviousDidShoot = m_DidShoot;
+            //update vfx state.
+            if(m_IndicatorVFXController)
+                m_IndicatorVFXController.ShootVFX(m_DidShoot);
+        }
     }
+
     //for gameplay updating
     private void FixedUpdate()
     {

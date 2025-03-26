@@ -5,19 +5,6 @@ public class UWeapon_Standard : Universal_Weapon_Base
     //reads values straight from ship's stats
     //is set from owner controller
 
-    
-
-    private void Awake()
-    {
-        
-    }
-
-
-    void Start()
-    {
-        
-    }
-    
     /// <summary>
     /// Standard Shoots one projectile in direction of aim.
     /// loadout upgrades still affect it though, so still reads from stats.

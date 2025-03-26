@@ -12,5 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3457f00684444e82fa604afb06754, type: 3}
   m_Name: UWeaponType_Duo
   m_EditorClassIdentifier: 
+  m_UpgradeList:
+  - type: 10
+    BaseStatMax: 0
+    flat: 0
+    scale: 0
+    mod: 1
+  - type: 8
+    BaseStatMax: 0
+    flat: 1
+    scale: -0.5
+    mod: 0
   m_WeaponPrefab: {fileID: 5731631272654497266, guid: bc4f87023c4ce1c4baa61e9cf6307c38,
     type: 3}
