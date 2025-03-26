@@ -17,20 +17,21 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     public GameObject m_BulletPrefab;
 
     //local flags
-    bool m_DidShoot = false;
-    bool m_PreviousDidShoot = false;
-    bool m_CoolingOff = false;
-    bool m_Reloading = false;
-    bool m_Charging = false;
-    bool m_ReloadBuff = false;
+    protected bool m_Firing = false;
+    protected bool m_DidShoot = false;
+    protected bool m_PreviousDidShoot = false;
+    protected bool m_CoolingOff = false;
+    protected bool m_Reloading = false;
+    protected bool m_Charging = false;
+    protected bool m_ReloadBuff = false;
 
     //local variables
-    float m_AttackInterval = 0; //internal cooldown for attackspeed
-    float m_BurnoutCurrent = 0;
-    float m_ReloadCurrent = 0;
-    float m_ChargeCurrent = 0;
-    const float m_MaxCharge = 100;
-    float m_RampCurrent = 0;
+    protected float m_AttackInterval = 0; //internal cooldown for attackspeed
+    protected float m_BurnoutCurrent = 0;
+    protected float m_ReloadCurrent = 0;
+    protected float m_ChargeCurrent = 0;
+    protected const float m_MaxCharge = 100;
+    protected float m_RampCurrent = 0;
 
     private void Awake()
     {
@@ -43,7 +44,7 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     }
 
     //for visual or audio updating
-    void Update()
+    virtual public void Update()
     {
         if(m_PreviousDidShoot != m_DidShoot)
         {
@@ -53,16 +54,27 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
             if(m_IndicatorVFXController)
                 m_IndicatorVFXController.ShootVFX(m_DidShoot);
         }
+
+        //becuase FireWeapon is called from update, we reset didshoot in update too.
+        //didshoot only true on frames where a bullet was sucessfully shot.
+        m_DidShoot = false;
+
+        //while attempting to fire, is set true in Preshoot(), then unset here, after work has been done.
+        //can use last frames' state of isFiring for visuals.
+        m_Firing = false;
     }
 
     //for gameplay updating
-    private void FixedUpdate()
+    virtual public void FixedUpdate()
     {
         //most of these handled by their respective weapons
         //reduce attack interval
         //cooldown
         //reload
         //charge
+
+
+        
     }
 
     /// <summary>
@@ -81,7 +93,8 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
         //turn indicator
         m_AimingIndicatorHolder.transform.rotation = Quaternion.LookRotation(_aimDir, Vector3.up);
 
-        m_DidShoot = false;
+        m_Firing = true;
+        //m_DidShoot = false;
     }
     virtual protected void ShootImpl()
     {
