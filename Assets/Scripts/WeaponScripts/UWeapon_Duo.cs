@@ -43,7 +43,8 @@ public class UWeapon_Duo : Universal_Weapon_Base
         {
             Vector3 bulletSpawn = horizontalSpreadStart + (separationUnit * i);
             bullet = Instantiate<GameObject>(m_BulletPrefab, bulletSpawn, direction);
-            bullet.GetComponent<Projectile>().SetupValues((int)ShipStats.Get(StatType.gAttack), ShipStats.Get(StatType.bSpeed), m_Ship.tag);
+
+            SetupBullet(bullet);
         }
     }
 }

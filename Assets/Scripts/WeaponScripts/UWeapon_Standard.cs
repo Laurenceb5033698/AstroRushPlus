@@ -40,8 +40,8 @@ public class UWeapon_Standard : Universal_Weapon_Base
             //quaternions rotate by multiplying. Rotates startdirection by step amount.
             Quaternion bulletDirection = unitRotation * StartRotation;
             bullet = Instantiate<GameObject>(m_BulletPrefab, _shootPosition, bulletDirection);
-            //bullet.setupBullet
-            bullet.GetComponent<Projectile>().SetupValues((int)ShipStats.Get(StatType.gAttack),ShipStats.Get(StatType.bSpeed), m_Ship.tag);
+            
+            SetupBullet(bullet);
         }
     }
 

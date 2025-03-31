@@ -1,3 +1,5 @@
+using Unity.Collections;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 /// <summary>
@@ -77,6 +79,9 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
         
     }
 
+    //#######################
+    //Shooting mechanics
+
     /// <summary>
     /// Runs when controller is trying to fire in a direction.
     /// Try every frame to shoot weapon.
@@ -119,7 +124,7 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     virtual protected void SpawnProjectiles()
     {
         Vector3 shootPosition = m_AimingIndicator.transform.position;
-        Vector3 toIndicator = m_AimingIndicatorHolder.transform.position - m_AimingIndicator.transform.position;
+        Vector3 toIndicator = shootPosition - m_AimingIndicatorHolder.transform.position;
         toIndicator.Normalize();
         Quaternion aimDirection = Quaternion.LookRotation(toIndicator, Vector3.up);
         SpawnProjectilesImpl(shootPosition, aimDirection);
@@ -138,7 +143,19 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
 
 
 
-    //weapon mechanics
+    //#######################
+    //Weapon mechanics
+
+    virtual protected void SetupBullet(GameObject _bullet)
+    {
+        string tag = ShipStats.gameObject.tag;
+        float dmg = ShipStats.Get(StatType.gAttack);
+        float spd = ShipStats.Get(StatType.bSpeed);
+        //float dmg = ShipStats.Get(StatType.gAttack);
+
+        _bullet.GetComponent<Projectile>().SetupValues((int)dmg,spd,tag);
+    }
+
 
     /// <summary>
     /// test if weapon can fire.
@@ -199,12 +216,26 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
 
     protected void ChargeUp()
     {
-        //increase m_ChargeCurrent by 20* attackspeed_modifier (where attackspeed_modifier = 1+x%)
-        //charge amount causes damage, size, proj-speed to increase by %
-        //charge of 0 = -50% modifier
-        //charge of 100 = +50% modifier
+        if (m_ChargeCurrent < GetChargeMax())
+            m_ChargeCurrent += Time.deltaTime;
+    }
 
+    protected float GetChargeMax()
+    {
         //+100% attackspeed modifier reduces time to charge by 50% (ie twice as fast)
+
+        //attackspeed = shots per sec
+        //attackspeed = 1
+        //default charge = 2s
+
+        //charge max = dcharge/attack
+        //eg
+        //  attspd = 5 : chrgmx = 2/5 = 0.4s
+        //  attspd = 0.2 : chrgmx = 2/0.2 = 2*5 = 10s
+        float attackspeed = Mathf.Max(0.01f, ShipStats.Get(StatType.gAttackspeed)); //do not allow <= 0 
+        float defaultChargeMax = ShipStats.Get(StatType.gChargeTime);
+
+        return defaultChargeMax / attackspeed;
     }
 
     protected void RampUp()

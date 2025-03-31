@@ -124,7 +124,7 @@ public class UWeapon_Minigun : Universal_Weapon_Base
 
 
             bullet = Instantiate<GameObject>(m_BulletPrefab, _shootPosition, bulletDirection);
-            bullet.GetComponent<Projectile>().SetupValues((int)ShipStats.Get(StatType.gAttack), ShipStats.Get(StatType.bSpeed), m_Ship.tag);
+            SetupBullet(bullet);
         }
 
     }
