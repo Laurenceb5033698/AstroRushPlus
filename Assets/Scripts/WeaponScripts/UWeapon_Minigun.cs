@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class UWeapon_Minigun : Universal_Weapon_Base
 {
-    const float m_CooldownPeriod = 2.0f;
+    [SerializeField] float m_CooldownPeriod = 2.0f;
 
     public override void Update()
     {
@@ -27,8 +27,8 @@ public class UWeapon_Minigun : Universal_Weapon_Base
                  //burnout and ramp reduce
                  if(m_BurnoutCurrent > 0)
                     m_BurnoutCurrent -= Time.deltaTime;
-                 if (m_RampCurrent > 0)
-                     m_RampCurrent -= Time.deltaTime;
+                 if (m_RampCurrent > 0) //reduce ramp to 0 over 5 seconds(ramp time)
+                     m_RampCurrent -= (Time.deltaTime *(ShipStats.Get(StatType.gRampAmount)/ ShipStats.Get(StatType.gRampTime)));
             }
         }
         
