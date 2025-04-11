@@ -75,8 +75,10 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
         //reload
         //charge
 
+        if(m_IndicatorVFXController)
+            m_IndicatorVFXController.ChargeSpeed(GetChargeMax());
 
-        
+
     }
 
     //#######################

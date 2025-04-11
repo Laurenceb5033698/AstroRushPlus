@@ -196,6 +196,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d79006acb5b3c45863b8e4d89da4e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vfxFiring: []
+  vfxCharge: []
+  vfxRamping: []
+  vfxReloading: []
+  vfxBurnout: []
 --- !u!1001 &2524150899112840316
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -370,6 +375,101 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: VFX_Weapon_Railgun_Charge
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898550872740646940, guid: a0f7442c44548374d8669ddffe51a253,
+        type: 3}
+      propertyPath: m_InitialEventName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898550872740646940, guid: a0f7442c44548374d8669ddffe51a253,
+        type: 3}
+      propertyPath: m_InitialEventNameOverriden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898550872740646940, guid: a0f7442c44548374d8669ddffe51a253,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898550872740646940, guid: a0f7442c44548374d8669ddffe51a253,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898550872740646940, guid: a0f7442c44548374d8669ddffe51a253,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[0].m_Name
+      value: SetAlive
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898550872740646940, guid: a0f7442c44548374d8669ddffe51a253,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[0].m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898550872740646940, guid: a0f7442c44548374d8669ddffe51a253,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Name
+      value: Railgun_Weapon_Level
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898550872740646940, guid: a0f7442c44548374d8669ddffe51a253,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Name
+      value: Railgun_Weapon_Scale_Multiplier
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898550872740646940, guid: a0f7442c44548374d8669ddffe51a253,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Name
+      value: Particle_Amount_Minimum
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898550872740646940, guid: a0f7442c44548374d8669ddffe51a253,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[3].m_Name
+      value: Charge_Speed
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898550872740646940, guid: a0f7442c44548374d8669ddffe51a253,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898550872740646940, guid: a0f7442c44548374d8669ddffe51a253,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Value
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898550872740646940, guid: a0f7442c44548374d8669ddffe51a253,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Value
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898550872740646940, guid: a0f7442c44548374d8669ddffe51a253,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[3].m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898550872740646940, guid: a0f7442c44548374d8669ddffe51a253,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[0].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898550872740646940, guid: a0f7442c44548374d8669ddffe51a253,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898550872740646940, guid: a0f7442c44548374d8669ddffe51a253,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898550872740646940, guid: a0f7442c44548374d8669ddffe51a253,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898550872740646940, guid: a0f7442c44548374d8669ddffe51a253,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[3].m_Overridden
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7230837298958083188, guid: a0f7442c44548374d8669ddffe51a253,
         type: 3}

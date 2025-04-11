@@ -13,7 +13,13 @@ public class UWeapon_Railgun : Universal_Weapon_Base
         {
             if (m_PreviousFiring)
             {
+                m_IndicatorVFXController.PlayChargeVFX(false);
                 LowPowerShoot();
+                m_ChargeCurrent = 0;
+            }
+            if(m_Firing)
+            {
+
             }
             m_PreviousFiring = m_Firing;
         }
@@ -29,7 +35,7 @@ public class UWeapon_Railgun : Universal_Weapon_Base
         //weapon was previously firing, but stopped
         m_chargePower = m_ChargeCurrent / GetChargeMax();
         //if within attackspeed
-        if (Time.time > m_AttackInterval)
+        if (m_chargePower > 0.5f && Time.time > m_AttackInterval)
         {
             SpawnProjectiles();
             m_DidShoot = true;
@@ -40,6 +46,10 @@ public class UWeapon_Railgun : Universal_Weapon_Base
 
     protected override void preShoot(Vector3 _aimDir)
     {
+        if(m_ChargeCurrent == 0)
+        {
+            m_IndicatorVFXController.PlayChargeVFX(true);
+        }
         ChargeUp();
 
         base.preShoot(_aimDir);
@@ -49,6 +59,7 @@ public class UWeapon_Railgun : Universal_Weapon_Base
     {
         if(m_DidShoot)
         {
+            m_IndicatorVFXController.PlayChargeVFX(false);
             //reset charge amount.
             m_ChargeCurrent = 0;
         }
@@ -115,7 +126,7 @@ public class UWeapon_Railgun : Universal_Weapon_Base
 
     protected override bool ShootConditions()
     {
-        if (m_ChargeCurrent >= ShipStats.Get(StatType.gChargeTime))
+        if (m_ChargeCurrent >= GetChargeMax())
         {
             //if fully charged
             return true;
