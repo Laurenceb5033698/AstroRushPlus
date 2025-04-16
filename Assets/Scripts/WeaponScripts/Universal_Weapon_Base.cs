@@ -1,15 +1,19 @@
+using NUnit.Framework;
 using Unity.Collections;
+using System.Collections.Generic;
 using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 /// <summary>
 /// Handles system settings and structural methods for Universal_Weapon.
 /// </summary>
+[RequireComponent(typeof(ProjectileSpawner))]
 public abstract class Universal_Weapon_Base : MonoBehaviour
 {
     //system variables
     public AudioSource m_AudioSource;
     public IndicatorVFXController m_IndicatorVFXController;
+    public ProjectileSpawner m_ProjectileSpawner;
 
     public GameObject m_Ship;
     public Stats ShipStats;
@@ -37,12 +41,22 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
 
     private void Awake()
     {
+        Startup();
     }
 
     void Start()
     {
         //try get indicator vfx controller.
         m_IndicatorVFXController = m_AimingIndicatorHolder.GetComponent<IndicatorVFXController>();
+    }
+    /// <summary>
+    /// Adds required components in start. Override to add specific components
+    /// </summary>
+    protected virtual void Startup()
+    {   //adds required spawner component
+        m_ProjectileSpawner = GetComponent<ProjectileSpawner>();
+        if(m_ProjectileSpawner == null)
+            m_ProjectileSpawner = this.gameObject.AddComponent<ProjectileSpawner>();
     }
 
     //for visual or audio updating
@@ -129,7 +143,14 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
         Vector3 toIndicator = shootPosition - m_AimingIndicatorHolder.transform.position;
         toIndicator.Normalize();
         Quaternion aimDirection = Quaternion.LookRotation(toIndicator, Vector3.up);
-        SpawnProjectilesImpl(shootPosition, aimDirection);
+        //SpawnProjectilesImpl(shootPosition, aimDirection);
+        List<GameObject> bullets;
+        m_ProjectileSpawner.Spawn(shootPosition, aimDirection, out bullets);
+
+        foreach (GameObject bullet in bullets)
+        {
+            SetupBullet(bullet);
+        }
         DoneSpawning();
     }
     protected void DoneSpawning()
@@ -276,5 +297,6 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     {
         m_Ship = _Ship;
         ShipStats = m_Ship.GetComponent<Stats>();
+        m_ProjectileSpawner.Setup(m_Ship, m_BulletPrefab);
     }
 }

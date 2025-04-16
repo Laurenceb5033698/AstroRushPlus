@@ -4,6 +4,29 @@ public class UWeapon_Minigun : Universal_Weapon_Base
 {
     [SerializeField] float m_CooldownPeriod = 2.0f;
 
+    protected override void Startup()
+    {
+        m_ProjectileSpawner = GetComponent<ProjectileSpawner>();
+        if (m_ProjectileSpawner == null)
+        {
+            //no spawner found, add ours.
+            m_ProjectileSpawner = this.gameObject.AddComponent<ProjectileSpawner_Minigun>();
+        }
+        else
+        {   //spawner found, but what type?
+            //do not want base type. i want derived type
+            if (m_ProjectileSpawner is ProjectileSpawner_Minigun)
+            {
+                //happy
+            }
+            else
+            {
+                //not happy
+                Destroy(m_ProjectileSpawner);
+                m_ProjectileSpawner = this.gameObject.AddComponent<ProjectileSpawner_Minigun>();
+            }
+        }
+    }
     public override void Update()
     {
         //handle minigun cooling
@@ -42,6 +65,12 @@ public class UWeapon_Minigun : Universal_Weapon_Base
 
         //call base update for visuals
         base.Update();
+    }
+
+    protected override void ShootImpl()
+    {
+        (m_ProjectileSpawner as ProjectileSpawner_Minigun).SetValues(m_BurnoutCurrent);
+        base.ShootImpl();
     }
 
     protected override void postShoot()

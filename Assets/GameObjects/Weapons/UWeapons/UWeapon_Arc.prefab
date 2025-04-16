@@ -60,6 +60,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2396226983331483954}
   - component: {fileID: 1779150306764475811}
+  - component: {fileID: 2332425952464138502}
   - component: {fileID: 1425514835998863807}
   m_Layer: 0
   m_Name: UWeapon_Arc
@@ -98,12 +99,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AudioSource: {fileID: 1425514835998863807}
   m_IndicatorVFXController: {fileID: 0}
+  m_ProjectileSpawner: {fileID: 0}
   m_Ship: {fileID: 0}
   ShipStats: {fileID: 0}
   m_AimingIndicator: {fileID: 638081933054110906}
   m_AimingIndicatorHolder: {fileID: 1247804233622981133}
   m_BulletPrefab: {fileID: 1144681277887354, guid: 56716397f19989646a135ea5dfdef938,
     type: 3}
+--- !u!114 &2332425952464138502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2858711532427162870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f99d0abc7aef7414fafb21c88aeafe83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &1425514835998863807
 AudioSource:
   m_ObjectHideFlags: 0
