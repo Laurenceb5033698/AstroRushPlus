@@ -45,6 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d79006acb5b3c45863b8e4d89da4e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vfxFiring: []
+  vfxCharge: []
+  vfxRamping: []
+  vfxReloading: []
+  vfxBurnout: []
 --- !u!1 &8584045655060247283
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,6 +104,7 @@ MonoBehaviour:
   m_AimingIndicatorHolder: {fileID: 7078527169268587207}
   m_BulletPrefab: {fileID: 1791828775739272, guid: 1aee3d1ac2c033442a7021477256d266,
     type: 3}
+  m_CooldownPeriod: 2
 --- !u!82 &334687676301217169
 AudioSource:
   m_ObjectHideFlags: 0
@@ -112,8 +118,8 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 18d6ef603efd18f458657dda2c88a771, type: 3}
   m_Resource: {fileID: 8300000, guid: 18d6ef603efd18f458657dda2c88a771, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.04
-  m_Pitch: 0
+  m_Volume: 0.2
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0

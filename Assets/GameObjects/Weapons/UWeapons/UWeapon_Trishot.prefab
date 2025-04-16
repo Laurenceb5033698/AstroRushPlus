@@ -64,11 +64,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2c2c964829cfd354c9fe75d5e0c82397, type: 3}
-  m_Resource: {fileID: 8300000, guid: 2c2c964829cfd354c9fe75d5e0c82397, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 6e011606e1a2d454cb881aba381cc6b6, type: 3}
+  m_Resource: {fileID: 8300000, guid: 6e011606e1a2d454cb881aba381cc6b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.04
-  m_Pitch: 2.5
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -196,6 +196,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d79006acb5b3c45863b8e4d89da4e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vfxFiring: []
+  vfxCharge: []
+  vfxRamping: []
+  vfxReloading: []
+  vfxBurnout: []
 --- !u!1001 &5383527290987265688
 PrefabInstance:
   m_ObjectHideFlags: 0
