@@ -9,8 +9,8 @@ public class ProjectileSpawner_Scatter : ProjectileSpawner
     public override List<GameObject> SpawnImpl(Vector3 _shootPosition, Quaternion _aimDirection)
     {
         //number of projectiles
-        int numProjectiles = Mathf.CeilToInt(ShipStats.Get(StatType.gProjectileAmount));
-        float spreadAngle = ShipStats.Get(StatType.gSpreadAngle)/2;
+        int numProjectiles = Mathf.CeilToInt(GetStat(StatType.gProjectileAmount));
+        float spreadAngle = GetStat(StatType.gSpreadAngle)/2;
 
         if (numProjectiles < 1)
             numProjectiles = 1;

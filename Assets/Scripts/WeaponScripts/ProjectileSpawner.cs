@@ -5,12 +5,11 @@ using System.Collections.Generic;
 public class ProjectileSpawner : MonoBehaviour
 {
     //behaviour compenent that spawns projectiles in target direction at specified position
-    protected Stats ShipStats;
+    
     protected GameObject m_spawnPrefab;
 
-    public void Setup(GameObject _ship, GameObject _bulletPrefab)
+    public void Setup( GameObject _bulletPrefab)
     {
-        ShipStats = _ship.GetComponent<Stats>();
         m_spawnPrefab = _bulletPrefab;
     }
 
@@ -33,6 +32,13 @@ public class ProjectileSpawner : MonoBehaviour
         bullets.Add( Instantiate<GameObject>(m_spawnPrefab, _shootPosition, _aimDirection));
         
         return bullets;
+    }
+
+    //UTILS
+    protected float GetStat(StatType _type)
+    {
+        float val = GetComponent<Universal_Weapon_Base>().GetStat( _type );
+        return val;
     }
 
 }

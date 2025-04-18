@@ -138,15 +138,14 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
         }
     }
 
-    //when shoot is successful, does all spawning of projectiles
-    abstract protected void SpawnProjectilesImpl(Vector3 _shootPosition, Quaternion _aimDirection);
     virtual protected void SpawnProjectiles()
     {
         Vector3 shootPosition = m_AimingIndicator.transform.position;
         Vector3 toIndicator = shootPosition - m_AimingIndicatorHolder.transform.position;
         toIndicator.Normalize();
         Quaternion aimDirection = Quaternion.LookRotation(toIndicator, Vector3.up);
-        //SpawnProjectilesImpl(shootPosition, aimDirection);
+
+        //Spawn Projectiles
         List<GameObject> bullets;
         m_ProjectileSpawner.Spawn(shootPosition, aimDirection, out bullets);
 
@@ -305,6 +304,17 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     {
         m_Ship = _Ship;
         ShipStats = m_Ship.GetComponent<Stats>();
-        m_ProjectileSpawner.Setup(m_Ship, m_BulletPrefab);
+        m_ProjectileSpawner.Setup( m_BulletPrefab);
     }
+
+    //UTILs for composites
+    /// <summary>
+    /// returns stat value for given stat.
+    /// </summary>
+    /// <param name="_type"></param>
+    public float GetStat(StatType _type)
+    {
+        return ShipStats.Get(_type);
+    }
+
 }

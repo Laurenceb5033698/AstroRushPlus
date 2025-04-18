@@ -53,24 +53,6 @@ public class UWeapon_Arc : Universal_Weapon_Base
         base.postShoot();
     }
 
-
-    /// <summary>
-    /// Arc Cannot spreadshot. num projectiles should add into size
-    /// </summary>
-    protected override void SpawnProjectilesImpl(Vector3 _shootPosition, Quaternion _aimDirection)
-    {
-        //number of projectiles
-        //int numProjectiles = Mathf.CeilToInt(ShipStats.Get(StatType.gProjectileAmount));
-        
-        //if (numProjectiles < 1)
-        //    numProjectiles = 1;
-
-
-        GameObject bullet = Instantiate<GameObject>(m_BulletPrefab, _shootPosition, _aimDirection);
-        SetupBullet(bullet);
-    }
-
-
     //#######################
     //Weapon mechanics
 

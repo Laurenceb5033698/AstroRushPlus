@@ -11,8 +11,8 @@ public class ProjectileSpawner_Duo : ProjectileSpawner
     public override List<GameObject> SpawnImpl(Vector3 _shootPosition, Quaternion _aimDirection)        
     {
         //number of projectiles
-        int numProjectiles = Mathf.CeilToInt(ShipStats.Get(StatType.gProjectileAmount));
-        float spreadAngle = ShipStats.Get(StatType.gSpreadAngle) / 10;
+        int numProjectiles = Mathf.CeilToInt(GetStat(StatType.gProjectileAmount));
+        float spreadAngle = GetStat(StatType.gSpreadAngle) / 10;
 
         //angle between each bullet. S = A/N-1, where N>1
         float separation = 0.0f;

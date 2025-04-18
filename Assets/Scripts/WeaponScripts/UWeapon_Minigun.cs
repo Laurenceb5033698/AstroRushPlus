@@ -115,47 +115,4 @@ public class UWeapon_Minigun : Universal_Weapon_Base
         return false;
     }
 
-    protected override void SpawnProjectilesImpl(Vector3 _shootPosition, Quaternion _aimDirection)
-    {
-        //number of projectiles
-        int numProjectiles = Mathf.CeilToInt(ShipStats.Get(StatType.gProjectileAmount));
-        float spreadAngle = ShipStats.Get(StatType.gSpreadAngle) / 10;
-
-        //unknown if minigun can have multiple projectiles
-
-        //angle between each bullet. S = A/N-1, where N>1
-        float separation = 0.0f;
-
-        if (numProjectiles < 1)
-            numProjectiles = 1;
-
-        if (numProjectiles == 1)
-            spreadAngle = 0;
-        else
-            separation = spreadAngle / (numProjectiles - 1);
-
-        //create rotation about up vector for start direction.
-        Quaternion direction = Quaternion.LookRotation(_shootPosition - transform.position, Vector3.up);
-        Quaternion StartRotation = direction * Quaternion.AngleAxis(spreadAngle / -2, Vector3.up);
-
-        //minigun ramps up, then begins to get innacurate as it overheats.
-        GameObject bullet;
-        for ( int i = 0; i< numProjectiles; i++)
-        {
-            //if firing multiple projectiles, each projectile gets its own inaccuracy.
-            Quaternion QuatInaccuracy = Quaternion.AngleAxis(Random.Range(-m_BurnoutCurrent, m_BurnoutCurrent), Vector3.up);
-
-            //if spread shot, unit rotation splits projectiles into streams
-            Quaternion unitRotation = Quaternion.AngleAxis(separation * i, Vector3.up);
-            //quaternions rotate by multiplying. Rotates startdirection by step amount.
-            Quaternion bulletDirection = unitRotation * StartRotation * QuatInaccuracy;
-
-
-
-            bullet = Instantiate<GameObject>(m_BulletPrefab, _shootPosition, bulletDirection);
-            SetupBullet(bullet);
-        }
-
-    }
-
 }

@@ -13,8 +13,8 @@ public class ProjectileSpawner_Minigun : ProjectileSpawner
     public override List<GameObject> SpawnImpl(Vector3 _shootPosition, Quaternion _aimDirection)
     {
         //number of projectiles
-        int numProjectiles = Mathf.CeilToInt(ShipStats.Get(StatType.gProjectileAmount));
-        float spreadAngle = ShipStats.Get(StatType.gSpreadAngle) / 10;
+        int numProjectiles = Mathf.CeilToInt(GetStat(StatType.gProjectileAmount));
+        float spreadAngle = GetStat(StatType.gSpreadAngle) / 10;
 
         //unknown if minigun can have multiple projectiles
 
