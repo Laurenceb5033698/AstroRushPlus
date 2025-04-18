@@ -12,9 +12,8 @@ public class ProjectileSpawner_Duo : ProjectileSpawner
     {
         //number of projectiles
         int numProjectiles = Mathf.CeilToInt(GetStat(StatType.gProjectileAmount));
-        float spreadAngle = GetStat(StatType.gSpreadAngle) / 10;
+        float spreadAngle = GetStat(StatType.gSpreadAngle);
 
-        //angle between each bullet. S = A/N-1, where N>1
         float separation = 0.0f;
 
         if (numProjectiles < 1)
@@ -23,25 +22,38 @@ public class ProjectileSpawner_Duo : ProjectileSpawner
         if (numProjectiles == 1)
             spreadAngle = 0;
         else
-            separation = spreadAngle / (numProjectiles - 1);
+            separation = spreadAngle;
 
-        //TODO:
-        //figure out sensible horizontal separation that is adjusted by spread...
-        //for now: uses spread as horizontal distance.
+        //duo spawns two bullets per shot, so halving numproj here to account.
+        numProjectiles /= 2;
 
-        Vector3 AimDir = (_shootPosition - transform.position).normalized;
-        Quaternion direction = Quaternion.LookRotation(_shootPosition - transform.position, Vector3.up);
+        Vector3 AimDir = (_shootPosition - transform.position);
         //perpendicular to aimDir and Up, where aimdir is always horizontal.
-        Vector3 spreadDirection = Vector3.Cross(AimDir, Vector3.up);
+        Vector3 spreadDirection = Vector3.Cross(AimDir, Vector3.up).normalized;
 
-        Vector3 horizontalSpreadStart = _shootPosition - (spreadDirection * spreadAngle / 2);
-        Vector3 separationUnit = spreadDirection * separation;
+        //slightly larger gap in the middle
+        Vector3 CenterSpawn = _shootPosition;
+        Vector3 CenterOffset = spreadDirection * separation;//horizontal from spawncenter * separation
 
+        //want a chevron-style spawn for bullets
+        Vector3 M = transform.position + (AimDir + spreadDirection) * 0.9f;
+        Vector3 N = transform.position + (AimDir - spreadDirection) * 0.9f;
+
+        //new spreadirection in slightly backward sweeping chevron
+        //projectiles either side spawn close together than in center gap.
+        Vector3 separationUnitA = (M - _shootPosition) * separation;
+        Vector3 separationUnitB = (N - _shootPosition) * separation;
+
+        //spawn two bullets per loop, one either side of center. increasing numProjectiles adds more pairs of bullets
         List<GameObject> bullets = new List<GameObject>();
         for (int i = 0; i < numProjectiles; i++)
         {
-            Vector3 bulletSpawn = horizontalSpreadStart + (separationUnit * i);
-            bullets.Add(Instantiate<GameObject>(m_spawnPrefab, bulletSpawn, direction));
+            Vector3 bulletSpawn = CenterSpawn+CenterOffset + (separationUnitA * i);
+            bullets.Add(Instantiate<GameObject>(m_spawnPrefab, bulletSpawn, _aimDirection));
+
+            bulletSpawn = CenterSpawn-CenterOffset + (separationUnitB * i);
+            bullets.Add(Instantiate<GameObject>(m_spawnPrefab, bulletSpawn, _aimDirection));
+
         }
 
         return bullets;
