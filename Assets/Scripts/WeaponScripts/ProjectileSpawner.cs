@@ -22,6 +22,9 @@ public class ProjectileSpawner : MonoBehaviour
     /// <summary>
     /// Standard one-bullet method. nothing fancy.
     /// </summary>
+    /// <param name="_shootPosition"> World position of the objects when spawned.</param>
+    /// <param name="_aimDirection"> Facing rotation of the object when spawned.</param>
+    /// <returns> List of all bullets that were spawned.</returns>
     public virtual List<GameObject> SpawnImpl( Vector3 _shootPosition, Quaternion _aimDirection)
     {
         //shoots 1 projectile, regardless of stats.

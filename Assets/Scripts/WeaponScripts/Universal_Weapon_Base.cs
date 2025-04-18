@@ -31,6 +31,9 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     protected bool m_Charging = false;
     protected bool m_ReloadBuff = false;
 
+    //local amounts
+    protected int m_Ammo = 0;
+
     //local variables
     protected float m_AttackInterval = 0; //internal cooldown for attackspeed
     protected float m_BurnoutCurrent = 0;
@@ -210,16 +213,21 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
 
         return finalAttackspeed;
     }
+    /// <summary>
+    /// processes reload. use isReloading for state.
+    /// </summary>
     protected void ReloadAmmo()
     {
-        if (m_ReloadCurrent > 0)
+        if (m_Ammo <= 0)
         {
             m_Reloading = true;
             m_ReloadCurrent -= Time.deltaTime;
-        }
-        else
-        {
-            m_Reloading = false;
+            if (m_ReloadCurrent <= 0)
+            {
+                m_Ammo = (int)ShipStats.Get(StatType.gReloadAmmo);
+                m_ReloadCurrent = ShipStats.Get(StatType.gReloadTime);
+                m_Reloading = false;
+            }
         }
     }
 

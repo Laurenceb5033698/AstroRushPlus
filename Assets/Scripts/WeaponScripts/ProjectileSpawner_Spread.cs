@@ -28,8 +28,7 @@ public class ProjectileSpawner_Spread : ProjectileSpawner
 
 
         //create rotation about up vector for start direction.
-        Quaternion direction = Quaternion.LookRotation(_shootPosition - transform.position, Vector3.up);
-        Quaternion StartRotation = direction * Quaternion.AngleAxis(spreadAngle / -2, Vector3.up);
+        Quaternion StartRotation = _aimDirection * Quaternion.AngleAxis(spreadAngle / -2, Vector3.up);
 
         List<GameObject> bullets = new List<GameObject>();
         for (int i = 0; i < numProjectiles; i++)
