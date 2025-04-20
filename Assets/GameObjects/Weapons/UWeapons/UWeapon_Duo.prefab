@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2822157432882467699}
   - component: {fileID: 6713267457355173794}
+  - component: {fileID: -554344661969971755}
   - component: {fileID: 2652087839481555216}
   m_Layer: 0
   m_Name: UWeapon_Duo
@@ -80,12 +81,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AudioSource: {fileID: 2652087839481555216}
   m_IndicatorVFXController: {fileID: 0}
+  m_ProjectileSpawner: {fileID: 0}
   m_Ship: {fileID: 0}
   ShipStats: {fileID: 0}
   m_AimingIndicator: {fileID: 9149555442597350038}
   m_AimingIndicatorHolder: {fileID: 3454719342709364166}
   m_BulletPrefab: {fileID: 1791828775739272, guid: 1aee3d1ac2c033442a7021477256d266,
     type: 3}
+--- !u!114 &-554344661969971755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5731631272654497266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4546c7db83305ec4b99712f01a16ff53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &2652087839481555216
 AudioSource:
   m_ObjectHideFlags: 0
@@ -96,8 +110,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: aaede2df3148a1746b7358faa09ccacc, type: 3}
-  m_Resource: {fileID: 8300000, guid: aaede2df3148a1746b7358faa09ccacc, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f7e7576d9c16c4c48a5e573145ccc626, type: 3}
+  m_Resource: {fileID: 8300000, guid: f7e7576d9c16c4c48a5e573145ccc626, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.04
   m_Pitch: 1

@@ -128,6 +128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 202443916615795802}
   - component: {fileID: 4577757345433076056}
+  - component: {fileID: -7511844455366186844}
   - component: {fileID: 84287763839237689}
   m_Layer: 0
   m_Name: Stealth_UWeapon_Standard
@@ -165,12 +166,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AudioSource: {fileID: 84287763839237689}
+  m_IndicatorVFXController: {fileID: 0}
+  m_ProjectileSpawner: {fileID: 0}
   m_Ship: {fileID: 0}
   ShipStats: {fileID: 0}
   m_AimingIndicator: {fileID: 2833123850570053962}
   m_AimingIndicatorHolder: {fileID: 726425757965746927}
   m_BulletPrefab: {fileID: 1791828775739272, guid: 1aee3d1ac2c033442a7021477256d266,
     type: 3}
+--- !u!114 &-7511844455366186844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7669543126187750107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f99d0abc7aef7414fafb21c88aeafe83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &84287763839237689
 AudioSource:
   m_ObjectHideFlags: 0

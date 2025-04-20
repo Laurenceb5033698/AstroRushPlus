@@ -2,8 +2,31 @@ using UnityEngine;
 
 public class UWeapon_Minigun : Universal_Weapon_Base
 {
-    const float m_CooldownPeriod = 2.0f;
+    [SerializeField] float m_CooldownPeriod = 2.0f;
 
+    protected override void Startup()
+    {
+        m_ProjectileSpawner = GetComponent<ProjectileSpawner>();
+        if (m_ProjectileSpawner == null)
+        {
+            //no spawner found, add ours.
+            m_ProjectileSpawner = this.gameObject.AddComponent<ProjectileSpawner_Minigun>();
+        }
+        else
+        {   //spawner found, but what type?
+            //do not want base type. i want derived type
+            if (m_ProjectileSpawner is ProjectileSpawner_Minigun)
+            {
+                //happy
+            }
+            else
+            {
+                //not happy
+                Destroy(m_ProjectileSpawner);
+                m_ProjectileSpawner = this.gameObject.AddComponent<ProjectileSpawner_Minigun>();
+            }
+        }
+    }
     public override void Update()
     {
         //handle minigun cooling
@@ -27,8 +50,8 @@ public class UWeapon_Minigun : Universal_Weapon_Base
                  //burnout and ramp reduce
                  if(m_BurnoutCurrent > 0)
                     m_BurnoutCurrent -= Time.deltaTime;
-                 if (m_RampCurrent > 0)
-                     m_RampCurrent -= Time.deltaTime;
+                 if (m_RampCurrent > 0) //reduce ramp to 0 over 5 seconds(ramp time)
+                     m_RampCurrent -= (Time.deltaTime *(ShipStats.Get(StatType.gRampAmount)/ ShipStats.Get(StatType.gRampTime)));
             }
         }
         
@@ -42,6 +65,12 @@ public class UWeapon_Minigun : Universal_Weapon_Base
 
         //call base update for visuals
         base.Update();
+    }
+
+    protected override void ShootImpl()
+    {
+        (m_ProjectileSpawner as ProjectileSpawner_Minigun).SetValues(m_BurnoutCurrent);
+        base.ShootImpl();
     }
 
     protected override void postShoot()
@@ -124,7 +153,7 @@ public class UWeapon_Minigun : Universal_Weapon_Base
 
 
             bullet = Instantiate<GameObject>(m_BulletPrefab, _shootPosition, bulletDirection);
-            bullet.GetComponent<Projectile>().SetupValues((int)ShipStats.Get(StatType.gAttack), ShipStats.Get(StatType.bSpeed), m_Ship.tag);
+            SetupBullet(bullet);
         }
 
     }

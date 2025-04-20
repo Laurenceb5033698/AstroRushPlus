@@ -10297,7 +10297,7 @@ MonoBehaviour:
       scale: 0
       mod: 0
     - type: 11
-      BaseStatMax: 60
+      BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
@@ -10530,7 +10530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipStats: {fileID: 5520616335482222358}
   m_modules: []
-  m_TestModule: {fileID: 11400000, guid: db032680032d11245b0c6d067bdb8dec, type: 2}
+  m_TestModule: {fileID: 11400000, guid: 2bda94b06c216b04d86fd37787499bfe, type: 2}
 --- !u!1001 &4000593321505110198
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10642,6 +10642,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d79006acb5b3c45863b8e4d89da4e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vfxFiring: []
+  vfxCharge: []
+  vfxRamping: []
+  vfxReloading: []
+  vfxBurnout: []
 --- !u!1001 &8617054324075751596
 PrefabInstance:
   m_ObjectHideFlags: 0

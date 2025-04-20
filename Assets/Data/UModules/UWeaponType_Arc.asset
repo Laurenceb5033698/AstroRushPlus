@@ -10,38 +10,43 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2eb3457f00684444e82fa604afb06754, type: 3}
-  m_Name: UWeaponType_Minigun
+  m_Name: UWeaponType_Arc
   m_EditorClassIdentifier: 
   m_UpgradeList:
   - type: 8
     BaseStatMax: 0
-    flat: -10
+    flat: 40
     scale: 0
-    mod: 0.25
+    mod: 0
   - type: 9
     BaseStatMax: 0
-    flat: -1
+    flat: -0.5
     scale: 0
     mod: 0
-  - type: 14
+  - type: 17
     BaseStatMax: 0
-    flat: 20
-    scale: 0
-    mod: 0
-  - type: 15
-    BaseStatMax: 0
-    flat: 5
-    scale: 0
-    mod: 0
-  - type: 16
-    BaseStatMax: 0
-    flat: 5
+    flat: 1
     scale: 0
     mod: 0
   - type: 23
     BaseStatMax: 0
-    flat: 50
+    flat: -20
     scale: 0
     mod: 0
-  m_WeaponPrefab: {fileID: 8584045655060247283, guid: fba103f3248eb184cbbecc6c61103f51,
+  - type: 24
+    BaseStatMax: 0
+    flat: 1
+    scale: 0
+    mod: 0
+  - type: 25
+    BaseStatMax: 0
+    flat: -20
+    scale: 0
+    mod: 0
+  - type: 26
+    BaseStatMax: 0
+    flat: -3
+    scale: 0
+    mod: 0
+  m_WeaponPrefab: {fileID: 2858711532427162870, guid: c25c463d4edee23488ca1aca547165b7,
     type: 3}

@@ -41,13 +41,13 @@ public class Arsenal : MonoBehaviour
     /// </summary>
     public void ChangeGun( GameObject _newPrefab )
     {
-        float getvolume = m_UWeapon.gameObject.GetComponent<AudioSource>().volume;
+        //float getvolume = m_UWeapon.gameObject.GetComponent<AudioSource>().volume;
         m_UWeapon.transform.parent = null;
         Destroy(m_UWeapon.gameObject);
         //create
         GameObject newWeapon = Instantiate<GameObject>(_newPrefab, this.transform);
         //set volume.
-        newWeapon.GetComponent<AudioSource>().volume = getvolume;
+        //newWeapon.GetComponent<AudioSource>().volume = getvolume;
 
         m_UWeapon = newWeapon.GetComponent<Universal_Weapon_Base>();
         m_UWeapon.Setup(ship);

@@ -1,13 +1,19 @@
+using NUnit.Framework;
+using Unity.Collections;
+using System.Collections.Generic;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 /// <summary>
 /// Handles system settings and structural methods for Universal_Weapon.
 /// </summary>
+[RequireComponent(typeof(ProjectileSpawner))]
 public abstract class Universal_Weapon_Base : MonoBehaviour
 {
     //system variables
     public AudioSource m_AudioSource;
     public IndicatorVFXController m_IndicatorVFXController;
+    public ProjectileSpawner m_ProjectileSpawner;
 
     public GameObject m_Ship;
     public Stats ShipStats;
@@ -25,6 +31,9 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     protected bool m_Charging = false;
     protected bool m_ReloadBuff = false;
 
+    //local amounts
+    protected int m_Ammo = 0;
+
     //local variables
     protected float m_AttackInterval = 0; //internal cooldown for attackspeed
     protected float m_BurnoutCurrent = 0;
@@ -35,12 +44,22 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
 
     private void Awake()
     {
+        Startup();
     }
 
     void Start()
     {
         //try get indicator vfx controller.
         m_IndicatorVFXController = m_AimingIndicatorHolder.GetComponent<IndicatorVFXController>();
+    }
+    /// <summary>
+    /// Adds required components in start. Override to add specific components
+    /// </summary>
+    protected virtual void Startup()
+    {   //adds required spawner component
+        m_ProjectileSpawner = GetComponent<ProjectileSpawner>();
+        if(m_ProjectileSpawner == null)
+            m_ProjectileSpawner = this.gameObject.AddComponent<ProjectileSpawner>();
     }
 
     //for visual or audio updating
@@ -73,9 +92,14 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
         //reload
         //charge
 
+        if(m_IndicatorVFXController)
+            m_IndicatorVFXController.ChargeSpeed(GetChargeMax());
 
-        
+
     }
+
+    //#######################
+    //Shooting mechanics
 
     /// <summary>
     /// Runs when controller is trying to fire in a direction.
@@ -119,10 +143,17 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     virtual protected void SpawnProjectiles()
     {
         Vector3 shootPosition = m_AimingIndicator.transform.position;
-        Vector3 toIndicator = m_AimingIndicatorHolder.transform.position - m_AimingIndicator.transform.position;
+        Vector3 toIndicator = shootPosition - m_AimingIndicatorHolder.transform.position;
         toIndicator.Normalize();
         Quaternion aimDirection = Quaternion.LookRotation(toIndicator, Vector3.up);
-        SpawnProjectilesImpl(shootPosition, aimDirection);
+        //SpawnProjectilesImpl(shootPosition, aimDirection);
+        List<GameObject> bullets;
+        m_ProjectileSpawner.Spawn(shootPosition, aimDirection, out bullets);
+
+        foreach (GameObject bullet in bullets)
+        {
+            SetupBullet(bullet);
+        }
         DoneSpawning();
     }
     protected void DoneSpawning()
@@ -138,7 +169,19 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
 
 
 
-    //weapon mechanics
+    //#######################
+    //Weapon mechanics
+
+    virtual protected void SetupBullet(GameObject _bullet)
+    {
+        string tag = ShipStats.gameObject.tag;
+        float dmg = ShipStats.Get(StatType.gAttack);
+        float spd = ShipStats.Get(StatType.bSpeed);
+        //float dmg = ShipStats.Get(StatType.gAttack);
+
+        _bullet.GetComponent<Projectile>().SetupValues((int)dmg,spd,tag);
+    }
+
 
     /// <summary>
     /// test if weapon can fire.
@@ -170,16 +213,21 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
 
         return finalAttackspeed;
     }
+    /// <summary>
+    /// processes reload. use isReloading for state.
+    /// </summary>
     protected void ReloadAmmo()
     {
-        if (m_ReloadCurrent > 0)
+        if (m_Ammo <= 0)
         {
             m_Reloading = true;
             m_ReloadCurrent -= Time.deltaTime;
-        }
-        else
-        {
-            m_Reloading = false;
+            if (m_ReloadCurrent <= 0)
+            {
+                m_Ammo = (int)ShipStats.Get(StatType.gReloadAmmo);
+                m_ReloadCurrent = ShipStats.Get(StatType.gReloadTime);
+                m_Reloading = false;
+            }
         }
     }
 
@@ -199,12 +247,26 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
 
     protected void ChargeUp()
     {
-        //increase m_ChargeCurrent by 20* attackspeed_modifier (where attackspeed_modifier = 1+x%)
-        //charge amount causes damage, size, proj-speed to increase by %
-        //charge of 0 = -50% modifier
-        //charge of 100 = +50% modifier
+        if (m_ChargeCurrent < GetChargeMax())
+            m_ChargeCurrent += Time.deltaTime;
+    }
 
+    protected float GetChargeMax()
+    {
         //+100% attackspeed modifier reduces time to charge by 50% (ie twice as fast)
+
+        //attackspeed = shots per sec
+        //attackspeed = 1
+        //default charge = 2s
+
+        //charge max = dcharge/attack
+        //eg
+        //  attspd = 5 : chrgmx = 2/5 = 0.4s
+        //  attspd = 0.2 : chrgmx = 2/0.2 = 2*5 = 10s
+        float attackspeed = Mathf.Max(0.01f, ShipStats.Get(StatType.gAttackspeed)); //do not allow <= 0 
+        float defaultChargeMax = ShipStats.Get(StatType.gChargeTime);
+
+        return defaultChargeMax / attackspeed;
     }
 
     protected void RampUp()
@@ -243,5 +305,6 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     {
         m_Ship = _Ship;
         ShipStats = m_Ship.GetComponent<Stats>();
+        m_ProjectileSpawner.Setup(m_Ship, m_BulletPrefab);
     }
 }
