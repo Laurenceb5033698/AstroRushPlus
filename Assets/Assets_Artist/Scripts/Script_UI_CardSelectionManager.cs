@@ -28,14 +28,12 @@ public class Script_UI_CardSelectionManager : MonoBehaviour
 
     void Update()
     {
-        //If we move right
         if (Script_UI_InputManager.instance.NavigationInput.x > 0)
         {
             //Select the next card
             HandleNextCardSelection(1);
         }
 
-        //If we move left
         if (Script_UI_InputManager.instance.NavigationInput.x < 0)
         {
             //Select the previous card
