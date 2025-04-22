@@ -53,13 +53,13 @@ public class Script_UI_CardSelectionHandler : MonoBehaviour, IPointerEnterHandle
         }
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public void OnPointerEnter(PointerEventData eventData)
     {
        //Select the card
        eventData.selectedObject = gameObject;
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerExit(PointerEventData eventData)
     {
         //Deselect the card
         eventData.selectedObject = null;
