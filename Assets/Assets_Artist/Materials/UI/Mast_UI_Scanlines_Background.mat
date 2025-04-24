@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6336396155431231048
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 9
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -20,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat_UI_Scanlines_Upgrade
-  m_Shader: {fileID: -6465566751694194690, guid: 37876ebfc3b7f494d9f397b2960ed64f,
+  m_Name: Mast_UI_Scanlines_Background
+  m_Shader: {fileID: -6465566751694194690, guid: 21d262a8f60bd2146bb917830f99d899,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -32,8 +19,7 @@ Material:
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses:
-  - MOTIONVECTORS
+  disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -61,10 +47,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
-    - _Colour_Intensity: 1
-    - _NoiseScale: 64
-    - _QueueControl: 0
-    - _QueueOffset: 0
+    - _Colour_Intensity: 8
+    - _NoiseScale: 128
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
@@ -74,12 +58,10 @@ Material:
     - _UIMaskSoftnessY: 1
     m_Colors:
     - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0, g: 1, b: 0.9725938, a: 0}
+    - _Color: {r: 0, g: 0.647032, b: 1, a: 0}
     - _Noise_PanningSpeed: {r: 0, g: 0.1, b: 0, a: 0}
-    - _Scanline_Remap: {r: 0.5, g: 1, b: 0, a: 0}
-    - _Scanlines_PaningSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _Scanline_Remap: {r: 0.3, g: 0.5, b: 0, a: 0}
     - _Scanlines_PanningSpeed: {r: 0, g: 0.1, b: 0, a: 0}
-    - _Scanlines_Tiling: {r: 1, g: 8, b: 0, a: 0}
-    - _Vector2: {r: 0, g: 0.05, b: 0, a: 0}
+    - _Scanlines_Tiling: {r: 1, g: 12, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
