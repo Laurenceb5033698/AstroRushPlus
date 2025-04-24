@@ -2,6 +2,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// Handles actual mechanics of what happens when a card is hovered or selected by the player.
+/// </summary>
 public class Script_UI_CardSelectionHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler
 {
     [SerializeField] private float _verticalMoveAmount = 30f;
@@ -69,17 +72,7 @@ public class Script_UI_CardSelectionHandler : MonoBehaviour, IPointerEnterHandle
     {
         StartCoroutine(MoveCard(true));
 
-        Script_UI_CardSelectionManager.instance.LastSelected = gameObject;
-
-        // Find the index
-        for (int i = 0; i < Script_UI_CardSelectionManager.instance.Cards.Length; i++)
-        {
-            if (Script_UI_CardSelectionManager.instance.Cards[i] == gameObject)
-            {
-                Script_UI_CardSelectionManager.instance.LastSelectedIndex = i;
-                return;
-            }
-        }
+        Script_UI_CardSelectionManager.instance.SetLastSelected(gameObject);
     }
 
     public void OnDeselect(BaseEventData eventData)

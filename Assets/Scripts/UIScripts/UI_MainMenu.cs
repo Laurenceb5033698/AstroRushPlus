@@ -10,6 +10,16 @@ public class UI_MainMenu : ScreenElement
     //public void AttachMainMenuManager() { mm = MainMenu.instance; }
     //public void RemoveMainMenuManager() { mm = null; }
 
+    // nav controls/player inputs each frame
+    override public void Update()
+    {
+        HandleSubmit();
+        HandleCancel();
+        //menu set out in vertical style.
+        HandleNavigateUp();
+        HandleNavigateDown();
+    }
+
     public void Button_StartGamePressed()
     {
         UIManager.instance.ShipSelectionButton();

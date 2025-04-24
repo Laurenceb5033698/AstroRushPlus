@@ -101,9 +101,9 @@ public class MainMenu : MonoBehaviour {
         {
             case "OptionsScreen":
                 //return from options menu
-                ((UI_Options)ui).ProcessInputs();
-                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) { ((UI_Options)ui).Button_OptionsReturnPressed(); UI_OnOptionsCall(false); }
-                    break;
+                //((UI_Options)ui).ProcessInputs();
+                //if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) { ((UI_Options)ui).Button_OptionsReturnPressed(); UI_OnOptionsCall(false); }
+                break;
             case "ShipSelectionScreen":
                 //on enter shipSelect: moves camera to ShipSelCamPos
                 //left/right change ship && change shipTray

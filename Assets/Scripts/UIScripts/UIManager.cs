@@ -54,6 +54,7 @@ public class UIManager : MonoBehaviour
             }
         }
 
+        //all screens except first (title) make all disabled to hide them.
         for (int screen = 1; screen < mScreens.Length; ++screen)
         {
             //mScreens[screen].SetActive(false);
@@ -68,6 +69,15 @@ public class UIManager : MonoBehaviour
         mCurrentScreen = Screens.TitleMenu;
         mScreens[(int)mCurrentScreen].OnScreenOpen();
     }
+
+    
+    private void Update()
+    {
+        
+    }
+
+
+
 
     public void LoadingComplete()
     {
@@ -204,6 +214,16 @@ public class UIManager : MonoBehaviour
     {
         //get playerhud ui component and set playership object
         //mScreens[(int)Screens.GameScreen].gameObject.GetComponent<GameUIPlayerHealth>().onGameSceneLoaded(playerShip);
+    }
+
+    //new object selected, pass to screens
+    public void passNewSelectedObject(GameObject _newSelected)
+    {
+        ScreenElement currentScreen = GetCurrentElement();
+        if(currentScreen !=null)
+        {
+            currentScreen.SetNewSelectedObject(_newSelected);
+        }
     }
 
 }

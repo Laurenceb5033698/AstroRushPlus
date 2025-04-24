@@ -18,6 +18,8 @@ public class Script_UI_CardSelectionManager : MonoBehaviour
         {
             instance = this;
         }
+        else if (instance != this)
+            Destroy(this);
     }
 
 
@@ -54,6 +56,24 @@ public class Script_UI_CardSelectionManager : MonoBehaviour
             int newIndex = LastSelectedIndex + addition;
             newIndex = Mathf.Clamp(newIndex, 0, Cards.Length - 1);
             EventSystem.current.SetSelectedGameObject(Cards[newIndex]);
+        }
+    }
+
+    /// <summary>
+    /// called from card when it's selected by either input or mouse event.
+    /// </summary>
+    public void SetLastSelected(GameObject _cardObject)
+    {
+        LastSelected = gameObject;
+
+        // Find the index
+        for (int i = 0; i < Cards.Length; i++)
+        {
+            if (Cards[i] == gameObject)
+            {
+                LastSelectedIndex = i;
+                return;
+            }
         }
     }
 }

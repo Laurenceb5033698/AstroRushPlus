@@ -27,6 +27,21 @@ public class UI_Options : ScreenElement {
         }
         PlayerPrefs.Save();
     }
+
+    public override void Update()
+    {
+        HandleSubmit();
+        HandleCancel();
+        //up/down nav
+        HandleNavigateUp();
+        HandleNavigateDown();
+    }
+
+    protected override void Cancel()
+    {
+        Button_OptionsReturnPressed();
+    }
+
     public void Button_OptionsReturnPressed()
     {//WARNING: returning to previous screen requires some changes
         if (GameManager.instance != null)//if there is a game active
@@ -38,30 +53,30 @@ public class UI_Options : ScreenElement {
             }
     }
 
-    public void ProcessInputs()
-    {
-        if (controls.LAnalogueYDown || (controls.DpadYPressed && controls.DpadDown)) AdvanceSelector();
-        if (controls.LAnalogueYUp || (controls.DpadYPressed && controls.DpadUp)) RetreatSelector();
+    //public void ProcessInputs()
+    //{
+    //    if (controls.LAnalogueYDown || (controls.DpadYPressed && controls.DpadDown)) AdvanceSelector();
+    //    if (controls.LAnalogueYUp || (controls.DpadYPressed && controls.DpadUp)) RetreatSelector();
 
-        if (ButtonList[selector].gameObject.GetComponent<Slider>() != null)
-        {//if obj is a slider: Dont do .submit
-            //do lefty-righty on slider bar
-            if (controls.LAnalogueXLeft || (controls.DpadXPressed && controls.DpadLeft))
-                IncreaseSliderValue(ButtonList[selector].gameObject.GetComponent<Slider>()); //decrease slider value
-            if (controls.LAnalogueXRight || (controls.DpadXPressed && controls.DpadRight))
-                DecreaseSliderValue(ButtonList[selector].gameObject.GetComponent<Slider>()); //increase slider value
-        }
-        else
-        {
-            if (ButtonList[selector].gameObject.GetComponent<Toggle>() != null)
-            {   //toggle button
-                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space))// if A controller button or Y keyboard button
-                    ButtonList[selector].gameObject.GetComponent<Toggle>().isOn = !ButtonList[selector].gameObject.GetComponent<Toggle>().isOn;
-            }
-        }
-        //test if object is a button slider or toggle
-        //TestSelectable();
-    }
+    //    if (SelectableList[selector].GetComponent<Slider>() != null)
+    //    {//if obj is a slider: Dont do .submit
+    //        //do lefty-righty on slider bar
+    //        if (controls.LAnalogueXLeft || (controls.DpadXPressed && controls.DpadLeft))
+    //            IncreaseSliderValue(SelectableList[selector].GetComponent<Slider>()); //decrease slider value
+    //        if (controls.LAnalogueXRight || (controls.DpadXPressed && controls.DpadRight))
+    //            DecreaseSliderValue(SelectableList[selector].GetComponent<Slider>()); //increase slider value
+    //    }
+    //    else
+    //    {
+    //        if (SelectableList[selector].GetComponent<Toggle>() != null)
+    //        {   //toggle button
+    //            if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space))// if A controller button or Y keyboard button
+    //                SelectableList[selector].GetComponent<Toggle>().isOn = !SelectableList[selector].GetComponent<Toggle>().isOn;
+    //        }
+    //    }
+    //    //test if object is a button slider or toggle
+    //    //TestSelectable();
+    //}
 
     private void IncreaseSliderValue(Slider sl)
     {   //increase + 5% of max
@@ -80,7 +95,7 @@ public class UI_Options : ScreenElement {
     public void TestSelectable()
     {
         Selectable ButtonItem = null;
-        ButtonItem = ButtonList[selector].gameObject.GetComponent<Slider>();
+        ButtonItem = SelectableList[selector].GetComponent<Slider>();
         if ( ButtonItem != null)
         {   //true if object is a slider type selectable
             //deal with slider inputs
@@ -90,7 +105,7 @@ public class UI_Options : ScreenElement {
         }
         else
         {   //else could be a toggle button
-            ButtonItem = ButtonList[selector].gameObject.GetComponent<Toggle>();
+            ButtonItem = SelectableList[selector].GetComponent<Toggle>();
             if( ButtonItem != null)
             {   //item is a Toggle;
                 //deal with toggle inputs

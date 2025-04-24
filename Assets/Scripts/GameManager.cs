@@ -113,17 +113,17 @@ public class GameManager : MonoBehaviour {
                 //do upgrades
                 Time.timeScale = 0;
 
-                ((UI_Upgrade)ui).ProcessInputs();
-                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) {  ((UI_Upgrade)ui).Button_ConfirmUpgrades();}
-                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space))// if A controller button or Y keyboard button
-                {
-                    ui.SubmitSelection();
-                }
+                //((UI_Upgrade)ui).ProcessInputs();
+                //if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) {  ((UI_Upgrade)ui).Button_ConfirmUpgrades();}
+                //if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space))// if A controller button or Y keyboard button
+                //{
+                //    ui.SubmitSelection();
+                //}
                 break;
             case "OptionsScreen":
                 //return from options menu
-                ((UI_Options)ui).ProcessInputs();
-                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) { ((UI_Options)ui).Button_OptionsReturnPressed(); }
+                //((UI_Options)ui).ProcessInputs();
+                //if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) { ((UI_Options)ui).Button_OptionsReturnPressed(); }
                 break;
             case "PauseScreen":
             default:

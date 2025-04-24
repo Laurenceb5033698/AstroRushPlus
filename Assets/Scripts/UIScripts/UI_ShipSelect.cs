@@ -28,6 +28,24 @@ public class UI_ShipSelect : ScreenElement {
         MainMenu.instance.UI_SwappedToShipSelectScreen(false);
     }
 
+    public override void Update()
+    {
+        HandleSubmit();
+        HandleCancel();
+        //left/right nav
+        HandleNavigateLeft();
+        HandleNavigateRight();
+
+        HandleInworldSelector(selector);
+    }
+
+    //ship select communicates with main menu to move ship tray around for ship selection
+    private void HandleInworldSelector(int _selector)
+    {   
+        //do this after normal navigation
+        MainMenu.instance.setTrayMoveTo(_selector);
+    }
+
     override public void AdvanceSelector()
     {
         base.AdvanceSelector();
