@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
 
     //public static event GameEvent OnExitGame;
 
-    public enum Screens { TitleMenu, ShipSelectionScreen, LevelSelect, LoadingScreen, GameScreen, PauseScreen, OptionsScreen, NumScreens }
+    public enum Screens { TitleMenu, ShipSelectionScreen, LevelSelect, LoadingScreen, GameScreen, UpgradeScreen, PauseScreen, OptionsScreen, NumScreens }
 
     private ScreenElement[] mScreens;
     private Screens mCurrentScreen;
@@ -152,9 +152,7 @@ public class UIManager : MonoBehaviour
     }
     public void Resume()
     {
-        TransitionTo(Screens.GameScreen);
-        OnScreenChanged();
-
+        ScreenTransition(Screens.GameScreen);
     }
 
     public void MenuQuit()
@@ -167,22 +165,29 @@ public class UIManager : MonoBehaviour
     }
     public void OptionsButton()
     {
-        TransitionTo(Screens.OptionsScreen);
-        OnScreenChanged();
+        ScreenTransition(Screens.OptionsScreen);
     }
     public void ReturnToMenu()
     {
-        TransitionTo(Screens.TitleMenu);
-        OnScreenChanged();
+        ScreenTransition(Screens.TitleMenu);
     } 
     public void LevelSelectButton()
     {
-        TransitionTo(Screens.LevelSelect);
-        OnScreenChanged();
+        ScreenTransition(Screens.LevelSelect);
     }
     public void ShipSelectionButton()
     {
-        TransitionTo(Screens.ShipSelectionScreen);
+        ScreenTransition(Screens.ShipSelectionScreen);
+    }
+
+    public void Test_UpgradeScreen()
+    {
+        ScreenTransition(Screens.UpgradeScreen);
+    }
+
+    public void ScreenTransition(Screens _target)
+    {
+        TransitionTo(_target);
         OnScreenChanged();
     }
     //Static Functions for script-UI interaction from other scenes

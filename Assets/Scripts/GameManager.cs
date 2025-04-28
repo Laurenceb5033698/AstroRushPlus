@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour {
                     aiMngr.NewWave();
                 }
                 break;
-            case "UpgradesScreen":
+            case "UpgradeScreen":
                 //do upgrades
                 Time.timeScale = 0;
 

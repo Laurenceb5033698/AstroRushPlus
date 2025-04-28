@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Device;
 using UnityEngine.EventSystems;
 
 /// <summary>
@@ -71,8 +72,9 @@ public class Script_UI_CardSelectionHandler : MonoBehaviour, IPointerEnterHandle
     public void OnSelect(BaseEventData eventData)
     {
         StartCoroutine(MoveCard(true));
+        UIManager.instance.GetCurrentElement().SetLastSelected(gameObject);
 
-        Script_UI_CardSelectionManager.instance.SetLastSelected(gameObject);
+        //Script_UI_CardSelectionManager.instance.SetLastSelected(gameObject);
     }
 
     public void OnDeselect(BaseEventData eventData)

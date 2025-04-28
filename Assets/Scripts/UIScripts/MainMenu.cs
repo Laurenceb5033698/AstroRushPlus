@@ -107,47 +107,47 @@ public class MainMenu : MonoBehaviour {
             case "ShipSelectionScreen":
                 //on enter shipSelect: moves camera to ShipSelCamPos
                 //left/right change ship && change shipTray
-                if (Input.GetKeyDown(KeyCode.D) || GlobalInputs.ScrollUp || GlobalInputs.LAnalogueXLeft || (GlobalInputs.DpadXPressed && GlobalInputs.DpadLeft)) ((UI_ShipSelect)ui).AdvanceSelector();//override moves ship tray +1
-                if (Input.GetKeyDown(KeyCode.A) ||GlobalInputs.ScrollDown || GlobalInputs.LAnalogueXRight || (GlobalInputs.DpadXPressed && GlobalInputs.DpadRight)) ((UI_ShipSelect)ui).RetreatSelector();//override mores ship tray -1
-                //A/enter submit && goto levelSelect
-                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return))// if A controller button or Y keyboard button
-                {
-                    ui.SubmitSelection();
-                    trayindex = 0;
-                }
-                //back button
-                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1))
-                {
-                    ((UI_ShipSelect)ui).Button_ShipSelectReturnPressed();
-                    trayindex = 0;
-                }
-                MoveTray();
+                //if (Input.GetKeyDown(KeyCode.D) || GlobalInputs.ScrollUp || GlobalInputs.LAnalogueXLeft || (GlobalInputs.DpadXPressed && GlobalInputs.DpadLeft)) ((UI_ShipSelect)ui).AdvanceSelector();//override moves ship tray +1
+                //if (Input.GetKeyDown(KeyCode.A) ||GlobalInputs.ScrollDown || GlobalInputs.LAnalogueXRight || (GlobalInputs.DpadXPressed && GlobalInputs.DpadRight)) ((UI_ShipSelect)ui).RetreatSelector();//override mores ship tray -1
+                ////A/enter submit && goto levelSelect
+                //if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return))// if A controller button or Y keyboard button
+                //{
+                //    ui.SubmitSelection();
+                //    trayindex = 0;
+                //}
+                ////back button
+                //if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1))
+                //{
+                //    ((UI_ShipSelect)ui).Button_ShipSelectReturnPressed();
+                //    trayindex = 0;
+                //}
+                //MoveTray();
 
 
                 break;
             case "LevelSelect":
-                if (GlobalInputs.LAnalogueYDown || (GlobalInputs.DpadYPressed && GlobalInputs.DpadDown )) ui.AdvanceSelector();
-                if ( GlobalInputs.LAnalogueYUp || (GlobalInputs.DpadYPressed && GlobalInputs.DpadUp)) ui.RetreatSelector();
+                //if (GlobalInputs.LAnalogueYDown || (GlobalInputs.DpadYPressed && GlobalInputs.DpadDown )) ui.AdvanceSelector();
+                //if ( GlobalInputs.LAnalogueYUp || (GlobalInputs.DpadYPressed && GlobalInputs.DpadUp)) ui.RetreatSelector();
 
-                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return))// if A controller button or Y keyboard button
-                {
-                    ui.SubmitSelection();
-                }
-                //back button
-                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) ((UI_LevelSelect)ui).Button_LevelSelectReturnPressed();
+                //if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return))// if A controller button or Y keyboard button
+                //{
+                //    ui.SubmitSelection();
+                //}
+                ////back button
+                //if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) ((UI_LevelSelect)ui).Button_LevelSelectReturnPressed();
                 //else if (Input.GetKeyDown(KeyCode.JoystickButton0)) ((UI_LevelSelect)ui).Button_AlphaLevelPressed(); //A button
                 //else if (Input.GetKeyDown(KeyCode.JoystickButton2)) ((UI_LevelSelect)ui).Button_BetaLevelPressed(); //X button
                 //else if (Input.GetKeyDown(KeyCode.JoystickButton3)) ((UI_LevelSelect)ui).Button_GammaLevelPressed(); //Y button
                 break;
             case "TitleScreen":
             default:
-                if (GlobalInputs.LAnalogueYDown || (GlobalInputs.DpadYPressed && GlobalInputs.DpadDown)) ui.AdvanceSelector();
-                if (GlobalInputs.LAnalogueYUp || (GlobalInputs.DpadYPressed && GlobalInputs.DpadUp)) ui.RetreatSelector();
+                //if (GlobalInputs.LAnalogueYDown || (GlobalInputs.DpadYPressed && GlobalInputs.DpadDown)) ui.AdvanceSelector();
+                //if (GlobalInputs.LAnalogueYUp || (GlobalInputs.DpadYPressed && GlobalInputs.DpadUp)) ui.RetreatSelector();
 
-                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return))// if A controller button or Y keyboard button
-                {
-                    ui.SubmitSelection();
-                }
+                //if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return))// if A controller button or Y keyboard button
+                //{
+                //    ui.SubmitSelection();
+                //}
 
                 //if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return)) ((UI_MainMenu)ui).Button_StartGamePressed();  // if A controller button or Enter keyboard button
                 //else if (Input.GetKeyDown(KeyCode.JoystickButton3)) ((UI_MainMenu)ui).Button_OptionsPressed(); 
@@ -243,7 +243,7 @@ public class MainMenu : MonoBehaviour {
     {   //called once by ship select advance/retreat selector
         trayindex = posIndex;
     }
-    private void MoveTray()
+    public void MoveTray()
     {//call every update
         selectTray.transform.position = Vector3.MoveTowards(selectTray.transform.position, trayStartPos - new Vector3(0,0,trayindex*5), 100 * Time.deltaTime);
 

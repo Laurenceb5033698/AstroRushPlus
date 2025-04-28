@@ -39,11 +39,18 @@ public class UI_ShipSelect : ScreenElement {
         HandleInworldSelector(selector);
     }
 
+    protected override void Cancel()
+    {
+        Button_ShipSelectReturnPressed();
+    }
+
+
     //ship select communicates with main menu to move ship tray around for ship selection
     private void HandleInworldSelector(int _selector)
     {   
         //do this after normal navigation
         MainMenu.instance.setTrayMoveTo(_selector);
+        MainMenu.instance.MoveTray();
     }
 
     override public void AdvanceSelector()
@@ -61,8 +68,10 @@ public class UI_ShipSelect : ScreenElement {
     public void Button_ShipSelectReturnPressed()
     {
         UIManager.instance.ReturnToMenu();
+        MainMenu.instance.setTrayMoveTo(0);
     }
     
+    //Selected ship is chosen.
     public void Button_ShipGenericPressed(int shipVal)
     {
         Func_GotoLevelSelect(shipVal);
@@ -74,6 +83,7 @@ public class UI_ShipSelect : ScreenElement {
     {
         UIManager.instance.ShipSelectValue = shipval;
         UIManager.instance.LevelSelectButton();
+        MainMenu.instance.setTrayMoveTo(0);
     }
 
 }

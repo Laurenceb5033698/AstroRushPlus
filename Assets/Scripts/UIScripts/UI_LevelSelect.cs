@@ -2,7 +2,22 @@
 
 public class UI_LevelSelect : ScreenElement {
 
-	public void Button_AlphaLevelPressed()
+
+    private void Update()
+    {
+        HandleSubmit();
+        HandleCancel();
+        //up/down nav
+        HandleNavigateUp();
+        HandleNavigateDown();
+    }
+
+    protected override void Cancel()
+    {
+        Button_LevelSelectReturnPressed();
+    }
+
+    public void Button_AlphaLevelPressed()
     {
         UIManager.instance.StartGame(0);
     }

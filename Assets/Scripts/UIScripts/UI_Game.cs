@@ -29,7 +29,8 @@ public class UI_Game : ScreenElement
 
     private void Update()
     {
-        
+        //testing mode for upgrade screen
+
     }
 
     //hide base class function for derived func.
@@ -52,7 +53,10 @@ public class UI_Game : ScreenElement
         UIManager.instance.Pause(isPlayerDead);
     }
 
-    
+    public void Button_TestUpgrade()
+    {
+        UIManager.instance.Test_UpgradeScreen();
+    }
 
     public void UpdateGameStats(int score, int NoEnemy, int Wave)
     {

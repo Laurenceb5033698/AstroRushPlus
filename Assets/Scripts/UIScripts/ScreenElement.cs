@@ -31,6 +31,7 @@ abstract public class ScreenElement : MonoBehaviour {
 
     protected void OnEnable()
     {
+        FixScreenspaceCamera();
         cv.enabled = true;
         StartCoroutine(SetSelectedAfterOneFrame());
     }
@@ -45,6 +46,13 @@ abstract public class ScreenElement : MonoBehaviour {
         yield return null;
         if(SelectableList.Length > 0)
             EventSystem.current.SetSelectedGameObject(SelectableList[0]);
+    }
+
+    //sets canvas render camerea to world camera if its using screenspace ui
+    private void FixScreenspaceCamera()
+    {
+        cv.worldCamera = Camera.main;
+        cv.planeDistance = 30.0f;
     }
 
     /// <summary>
