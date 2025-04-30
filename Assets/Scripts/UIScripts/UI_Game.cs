@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.LowLevel;
 using UnityEngine.UI;
 
 public class UI_Game : ScreenElement
@@ -27,10 +28,19 @@ public class UI_Game : ScreenElement
     //public void AttachGameManager(){ gm = GameManager.instance; }
     //public void RemoveGameManager() { gm = null; }
 
-    private void Update()
+    public override void Update()
     {
-        //testing mode for upgrade screen
+        HandleSubmit();
+        HandleCancel();
 
+        //UpdateShipStats();
+        //UpdateGameStats();
+    }
+
+    protected override void Cancel()
+    {   //open pause menu
+        bool PlayerAlive = GameManager.instance.GetShipRef().GetComponent<Stats>().IsAlive();
+        Button_PausePressed(PlayerAlive);
     }
 
     //hide base class function for derived func.

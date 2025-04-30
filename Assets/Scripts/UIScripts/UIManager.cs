@@ -67,7 +67,7 @@ public class UIManager : MonoBehaviour
     {
         //set screen and once other game objects have initialized
         mCurrentScreen = Screens.TitleMenu;
-        mScreens[(int)mCurrentScreen].OnScreenOpen();
+        //mScreens[(int)mCurrentScreen].OnScreenOpen();
     }
 
     
@@ -141,7 +141,7 @@ public class UIManager : MonoBehaviour
                 ScreenChanged(mScreens[(int)targetScreen]);
             else
                 ScreenChanged(mScreens[(int)mCurrentScreen]);
-            mScreens[(int)mCurrentScreen].OnScreenOpen();
+            //mScreens[(int)mCurrentScreen].OnScreenOpen();
         }
     }
     public void Pause(bool isPlayerDead)

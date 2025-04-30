@@ -44,8 +44,8 @@ abstract public class ScreenElement : MonoBehaviour {
     private IEnumerator SetSelectedAfterOneFrame()
     {
         yield return null;
-        if(SelectableList.Length > 0)
-            EventSystem.current.SetSelectedGameObject(SelectableList[0]);
+        selector = 0;
+        SelectButton();
     }
 
     //sets canvas render camerea to world camera if its using screenspace ui
@@ -144,14 +144,14 @@ abstract public class ScreenElement : MonoBehaviour {
         SetLastSelected(_newSelected);
     }
 
-    public void SetLastSelected(GameObject _cardObject)
+    public void SetLastSelected(GameObject _SelectedObject)
     {
-        LastSelected = gameObject;
+        LastSelected = _SelectedObject;
 
         // Find the index
         for (int i = 0; i < SelectableList.Length; i++)
         {
-            if (SelectableList[i] == gameObject)
+            if (SelectableList[i] == _SelectedObject)
             {
                 selector = i;
                 return;

@@ -10,6 +10,20 @@ public class UI_Pause : ScreenElement
     [SerializeField]
     private GameObject MsgPaused;
 
+    public override void Update()
+    {
+        HandleSubmit();
+        HandleCancel();
+        //up/down nav
+        HandleNavigateUp();
+        HandleNavigateDown();
+    }
+
+    protected override void Cancel()
+    {
+        Button_ContinuePressed();
+    }
+
     public void Button_RestartPressed()
     {
         UIManager.instance.RestartLevel();
@@ -31,17 +45,17 @@ public class UI_Pause : ScreenElement
     {
         UIManager.instance.OptionsButton();
     }
-    public void setMessage(bool isPlayerDead)
+    public void setMessage(bool _isPlayerAlive)
     {
-        if (isPlayerDead)
-        {
-            MsgGameOver.SetActive(true);
-            MsgPaused.SetActive(false);
-        }
-        else
+        if (_isPlayerAlive)
         {
             MsgGameOver.SetActive(false);
             MsgPaused.SetActive(true);
+        }
+        else
+        {
+            MsgGameOver.SetActive(true);
+            MsgPaused.SetActive(false);
         }
     }
 }

@@ -9,7 +9,7 @@ using TMPro;
 /// </summary>
 public class UI_Upgrade : ScreenElement
 {
-    private void Update()
+    public override void Update()
     {
         HandleSubmit();
         HandleCancel();
@@ -48,7 +48,6 @@ public class UI_Upgrade : ScreenElement
 
     private void CardPressedGeneric(int _card)
     {
-        Debug.Log("Upgrade card pressed: " + _card.ToString() + ". Selector value: " + selector.ToString());
         UIManager.instance.Resume();
     }
 

@@ -102,8 +102,8 @@ public class GameManager : MonoBehaviour {
                 if (!s.IsAlive())
                     ((UI_Game)ui).Button_PausePressed(true);
                 else
-                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1))// B controller button or Escape button
-                    ((UI_Game)ui).Button_PausePressed(false);
+                //if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1))// B controller button or Escape button
+                //    ((UI_Game)ui).Button_PausePressed(false);
                 if (aiMngr.EndOfWave == true)
                 {   //UIManager.instance.UpgradesButton();
                     aiMngr.NewWave();
@@ -130,15 +130,15 @@ public class GameManager : MonoBehaviour {
                 //PauseScreen ui controls / updates
                 Time.timeScale = 0;
                 //UI_Pause mUIp = (UI_Pause)ui;
-                if (GlobalInputs.LAnalogueYDown || (GlobalInputs.DpadYPressed && GlobalInputs.DpadDown)) ui.AdvanceSelector();
-                if (GlobalInputs.LAnalogueYUp || (GlobalInputs.DpadYPressed && GlobalInputs.DpadUp)) ui.RetreatSelector();
+                //if (GlobalInputs.LAnalogueYDown || (GlobalInputs.DpadYPressed && GlobalInputs.DpadDown)) ui.AdvanceSelector();
+                //if (GlobalInputs.LAnalogueYUp || (GlobalInputs.DpadYPressed && GlobalInputs.DpadUp)) ui.RetreatSelector();
 
-                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space))// if A controller button or Y keyboard button
-                {
-                    ui.SubmitSelection();
-                }
-                else if (s.IsAlive() && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)))// B controller button or Escape button
-                    ((UI_Pause)ui).Button_ContinuePressed();
+                //if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space))// if A controller button or Y keyboard button
+                //{
+                //    ui.SubmitSelection();
+                //}
+                //else if (s.IsAlive() && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)))// B controller button or Escape button
+                //    ((UI_Pause)ui).Button_ContinuePressed();
                 
                 break;
         }

@@ -3,7 +3,7 @@
 public class UI_LevelSelect : ScreenElement {
 
 
-    private void Update()
+    public override void Update()
     {
         HandleSubmit();
         HandleCancel();

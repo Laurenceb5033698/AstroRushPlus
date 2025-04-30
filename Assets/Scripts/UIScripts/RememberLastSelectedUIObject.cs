@@ -42,12 +42,13 @@ public class RememberLastSelectedUIObject : MonoBehaviour
             lastSelectedElement != eventSystem.currentSelectedGameObject)
         {
             lastSelectedElement = eventSystem.currentSelectedGameObject;
+            UIManager.instance.passNewSelectedObject(lastSelectedElement);
         }
 
         //auto select last object if current gets unset.
         if(!eventSystem.currentSelectedGameObject && lastSelectedElement)
         {
-            eventSystem.SetSelectedGameObject(lastSelectedElement);
+            //eventSystem.SetSelectedGameObject(lastSelectedElement);
             //propagate new selected object to uimanager and screens
             UIManager.instance.passNewSelectedObject(lastSelectedElement);
         }
