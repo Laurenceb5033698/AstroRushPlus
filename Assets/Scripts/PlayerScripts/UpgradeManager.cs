@@ -9,7 +9,7 @@ using UnityEngine;
 public class UpgradeManager : MonoBehaviour
 {
     //one upgrade manager per ship. Stats of ship related to manager.
-    [SerializeField] Stats shipStats;
+    [SerializeField] public Stats shipStats;
 
     //list of upgrade modules
     [SerializeField] List<UpgradeModule> m_modules;
@@ -30,6 +30,15 @@ public class UpgradeManager : MonoBehaviour
     public void TestAddModule()
     {
         AddNewUpgrade(m_TestModule.Parse());
+    }
+
+    /// <summary>
+    /// Called from Upgrade Pool Manager.
+    /// adds a selected module.
+    /// </summary>
+    public void AddNewModule(UModuleScriptable _UModuleScriptable)
+    {
+        AddNewUpgrade(_UModuleScriptable.Parse());
     }
 
     //add new upgrade

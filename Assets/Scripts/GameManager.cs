@@ -44,10 +44,12 @@ public class GameManager : MonoBehaviour {
     
     void Start()
     {
-        
+        //playerfactory type stuff
         playerShip = (GameObject)Instantiate(playerShipPref[UIManager.instance.ShipSelectValue], Vector3.zero, Quaternion.identity);
         playerShip.GetComponent<PlayerController>().SetInputs(GlobalInputs);
-        
+        //restarting should get correct object to upgrade module.
+        UpgradePoolManager.instance.AssignPlayerStatsToUpgradeManager(playerShip);
+
         pointer = (GameObject)Instantiate(pointerPref, Vector3.zero, Quaternion.identity);
         pointer.GetComponent<Pointer>().SetFollowTarget(playerShip);
         cam.SetTarget(playerShip); // give the player ship reference to the camera

@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3457f00684444e82fa604afb06754, type: 3}
   m_Name: UWeaponType_Scatter
   m_EditorClassIdentifier: 
+  DisplayDetails:
+    Txt_name: Flak Cannon
+    Txt_description: Short range weapon that fires a lethal cluster of shells. Reloads
+      between firing
+    Txt_stat: Attack -12, Rate +1, Amount +11, Ammo +2, Spread +40, Reload 1s
+    Type: 8
+    Fill_Icon: {fileID: 2800000, guid: a0429711df714714cb46b0de9f299a59, type: 3}
   m_UpgradeList:
   - type: 8
     BaseStatMax: 0

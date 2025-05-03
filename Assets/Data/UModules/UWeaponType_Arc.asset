@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3457f00684444e82fa604afb06754, type: 3}
   m_Name: UWeaponType_Arc
   m_EditorClassIdentifier: 
+  DisplayDetails:
+    Txt_name: Proton Wave
+    Txt_description: Mid range weapon that charges an overwhelming level of energy
+      before firing it in an arc
+    Txt_stat: Charge +1, Rate -50%, Attack +40, Range -40, Pen +100%, Range -40
+    Type: 9
+    Fill_Icon: {fileID: 2800000, guid: 9bf136b2862790f4297cf9df70686125, type: 3}
   m_UpgradeList:
   - type: 8
     BaseStatMax: 0

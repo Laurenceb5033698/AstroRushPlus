@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3457f00684444e82fa604afb06754, type: 3}
   m_Name: UWeaponType_Minigun
   m_EditorClassIdentifier: 
+  DisplayDetails:
+    Txt_name: Ionic Onslaught
+    Txt_description: Fires fast energy blasts, the fire rate increases with continuous
+      firing but will overheat if held for too long
+    Txt_stat: Attack -10 +25%, Rate -1, Rate Ramp +20, Ramp Time 5s
+    Type: 10
+    Fill_Icon: {fileID: 2800000, guid: 4dd556b542ab0d442934969ae6d32788, type: 3}
   m_UpgradeList:
   - type: 8
     BaseStatMax: 0

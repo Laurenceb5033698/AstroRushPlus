@@ -52,6 +52,14 @@ public class UI_Upgrade : ScreenElement
     }
 
     //when enabled, rolls 3 cards to pick from.
+    private void GetRandomCardsFromPool()
+    {
+        List<UModuleScriptable> randomCards = UpgradePoolManager.instance.SelectThreeUpgrade();
+        foreach(UModuleScriptable card in randomCards)
+        {
+
+        }
+    }
     //must load card data for desc, title, img, stats and set them on ui elements.
     //first time enabled picks from weapon types pool.
     //second time loading picks from missile types pool.
