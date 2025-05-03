@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff8e3173fc3c8994cbce873aaf0baa77, type: 3}
+  m_Name: CardClassDetails
+  m_EditorClassIdentifier: 
+  CardClassDisplay:
+  - Type: 1
+    DisplayClass: Weapon
+    BackgoundTexture: {fileID: 2800000, guid: e0dd4e1f928ba7e488bba4c20ea0e2e8, type: 3}
+  - Type: 2
+    DisplayClass: Equipment
+    BackgoundTexture: {fileID: 2800000, guid: e0dd4e1f928ba7e488bba4c20ea0e2e8, type: 3}
+  - Type: 3
+    DisplayClass: Systems
+    BackgoundTexture: {fileID: 2800000, guid: 5d0c76a0a7f432c43acad172244a4661, type: 3}
+  - Type: 4
+    DisplayClass: Upgrade
+    BackgoundTexture: {fileID: 2800000, guid: 49d61065dceea7245959a647b652ccc7, type: 3}
+  - Type: 5
+    DisplayClass: Twin Shredder
+    BackgoundTexture: {fileID: 2800000, guid: e0dd4e1f928ba7e488bba4c20ea0e2e8, type: 3}
+  - Type: 6
+    DisplayClass: Trinity
+    BackgoundTexture: {fileID: 2800000, guid: e0dd4e1f928ba7e488bba4c20ea0e2e8, type: 3}
+  - Type: 7
+    DisplayClass: Photon Reaper
+    BackgoundTexture: {fileID: 2800000, guid: e0dd4e1f928ba7e488bba4c20ea0e2e8, type: 3}
+  - Type: 8
+    DisplayClass: Flak Cannon
+    BackgoundTexture: {fileID: 2800000, guid: e0dd4e1f928ba7e488bba4c20ea0e2e8, type: 3}
+  - Type: 9
+    DisplayClass: Proton Wave
+    BackgoundTexture: {fileID: 2800000, guid: e0dd4e1f928ba7e488bba4c20ea0e2e8, type: 3}
+  - Type: 10
+    DisplayClass: Ionic
+    BackgoundTexture: {fileID: 2800000, guid: e0dd4e1f928ba7e488bba4c20ea0e2e8, type: 3}
+  - Type: 11
+    DisplayClass: Num Error
+    BackgoundTexture: {fileID: 2800000, guid: 4966274c0f1b7044db7e672f36e89a8b, type: 3}

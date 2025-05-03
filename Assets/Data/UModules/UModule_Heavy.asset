@@ -16,7 +16,7 @@ MonoBehaviour:
     Txt_name: Reinforced Casing
     Txt_description: Greatly Increases the damage of the weapon while reducing the
       projectile speed
-    Txt_stat: Attack +50%, Bullet Speed -25%
+    Txt_stat: Attack +30%, Bullet Speed -25%
     Type: 1
     Fill_Icon: {fileID: 2800000, guid: 08ffc4957af747e448c889a6556823c1, type: 3}
   m_UpgradeList:
@@ -24,9 +24,9 @@ MonoBehaviour:
     BaseStatMax: 0
     flat: 0
     scale: 0
-    mod: 0.5
+    mod: 0.3
   - type: 23
     BaseStatMax: 0
     flat: 0
     scale: 0
-    mod: -0.3
+    mod: -0.25

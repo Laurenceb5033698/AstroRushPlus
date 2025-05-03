@@ -144,8 +144,8 @@ public class UpgradePoolManager : MonoBehaviour
     public void PickUpgrade(int _SelectedCardIndex)
     {
         //get player upgrademanager
-        GameObject playerShip = GameManager.instance.GetShipRef();
-        UpgradeManager PlayerUpgradeManager = playerShip.GetComponent<UpgradeManager>();
+        //GameObject playerShip = GameManager.instance.GetShipRef();
+        UpgradeManager PlayerUpgradeManager = GetComponent<UpgradeManager>();
         //hand add upgrade from selectedUpgrades at selected index
         PlayerUpgradeManager.AddNewModule(SelectedUpgrades[_SelectedCardIndex]);
 

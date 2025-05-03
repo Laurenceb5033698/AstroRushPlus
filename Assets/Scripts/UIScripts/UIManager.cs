@@ -182,7 +182,9 @@ public class UIManager : MonoBehaviour
 
     public void Test_UpgradeScreen()
     {
+        //new upgrade selection everytime upgrade screen is opened.
         ScreenTransition(Screens.UpgradeScreen);
+        (GetCurrentElement() as UI_Upgrade).GetRandomCardsFromPool();
     }
 
     public void ScreenTransition(Screens _target)

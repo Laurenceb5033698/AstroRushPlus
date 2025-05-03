@@ -9,6 +9,8 @@ using TMPro;
 /// </summary>
 public class UI_Upgrade : ScreenElement
 {
+
+    [SerializeField] private UpgradeCardDetailsHandler[] CardDetailsHandlers = new UpgradeCardDetailsHandler[3];
     public override void Update()
     {
         HandleSubmit();
@@ -33,31 +35,38 @@ public class UI_Upgrade : ScreenElement
     public void Button_CardPressedA()
     {
         //testing - return to game ui
-        CardPressedGeneric(1);
+        CardPressedGeneric(0);
     }
     public void Button_CardPressedB()
     {
         //testing - return to game ui
-        CardPressedGeneric(2);
+        CardPressedGeneric(1);
     }
     public void Button_CardPressedC()
     {
         //testing - return to game ui
-        CardPressedGeneric(3);
+        CardPressedGeneric(2);
     }
 
     private void CardPressedGeneric(int _card)
     {
+        if (_card < 0)
+            _card = 0;
+        if (_card > 2)
+            _card = 2;
+        UpgradePoolManager.instance.PickUpgrade(_card);
         UIManager.instance.Resume();
     }
 
     //when enabled, rolls 3 cards to pick from.
-    private void GetRandomCardsFromPool()
+    public void GetRandomCardsFromPool()
     {
+        //get cards
         List<UModuleScriptable> randomCards = UpgradePoolManager.instance.SelectThreeUpgrade();
-        foreach(UModuleScriptable card in randomCards)
+        //set display visuals and text
+        for (int i = 0; i < 3; i++)
         {
-
+            CardDetailsHandlers[i].SetDisplay(randomCards[i].DisplayDetails);
         }
     }
     //must load card data for desc, title, img, stats and set them on ui elements.

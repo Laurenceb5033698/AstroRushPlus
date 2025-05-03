@@ -10180,7 +10180,6 @@ GameObject:
   - component: {fileID: 5520616335482222358}
   - component: {fileID: 1632157384311678071}
   - component: {fileID: 8074728522188550559}
-  - component: {fileID: 4499205243470417877}
   m_Layer: 0
   m_Name: PlayerBoost
   m_TagString: PlayerShip
@@ -10516,21 +10515,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9203987926432576384}
   m_Enabled: 1
---- !u!114 &4499205243470417877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9203987926432576384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0065e7515353cc744922d9537aebcfe9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shipStats: {fileID: 5520616335482222358}
-  m_modules: []
-  m_TestModule: {fileID: 11400000, guid: db032680032d11245b0c6d067bdb8dec, type: 2}
 --- !u!1001 &4000593321505110198
 PrefabInstance:
   m_ObjectHideFlags: 0
