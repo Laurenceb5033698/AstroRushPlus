@@ -5043,12 +5043,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcdb893ba70365f479efa9e9954c7982, type: 3}
---- !u!4 &682713965 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4178770965573496, guid: c667f4ddef008164787351dd967eb139,
-    type: 3}
-  m_PrefabInstance: {fileID: 981994193}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &748754375
 GameObject:
   m_ObjectHideFlags: 0
@@ -5219,66 +5213,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1001 &981994193
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1611571840}
-    m_Modifications:
-    - target: {fileID: 4178770965573496, guid: c667f4ddef008164787351dd967eb139, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4178770965573496, guid: c667f4ddef008164787351dd967eb139, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -34.477585
-      objectReference: {fileID: 0}
-    - target: {fileID: 4178770965573496, guid: c667f4ddef008164787351dd967eb139, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1971.8555
-      objectReference: {fileID: 0}
-    - target: {fileID: 4178770965573496, guid: c667f4ddef008164787351dd967eb139, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 478.59
-      objectReference: {fileID: 0}
-    - target: {fileID: 4178770965573496, guid: c667f4ddef008164787351dd967eb139, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99320376
-      objectReference: {fileID: 0}
-    - target: {fileID: 4178770965573496, guid: c667f4ddef008164787351dd967eb139, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.04078726
-      objectReference: {fileID: 0}
-    - target: {fileID: 4178770965573496, guid: c667f4ddef008164787351dd967eb139, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.004472807
-      objectReference: {fileID: 0}
-    - target: {fileID: 4178770965573496, guid: c667f4ddef008164787351dd967eb139, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.10891655
-      objectReference: {fileID: 0}
-    - target: {fileID: 123126094142202472, guid: c667f4ddef008164787351dd967eb139,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 123126094142202472, guid: c667f4ddef008164787351dd967eb139,
-        type: 3}
-      propertyPath: m_FadeSpeed
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 123126094142202472, guid: c667f4ddef008164787351dd967eb139,
-        type: 3}
-      propertyPath: m_Brightness
-      value: 0.06
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c667f4ddef008164787351dd967eb139, type: 3}
 --- !u!1001 &1411972163
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5371,7 +5305,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1943961593}
-  - {fileID: 682713965}
   - {fileID: 783968443}
   - {fileID: 2014892668}
   - {fileID: 130584404}

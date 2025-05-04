@@ -108,7 +108,7 @@ abstract public class ScreenElement : MonoBehaviour {
     }
     protected void HandleNavigateRight()
     {
-        if (Script_UI_InputManager.instance.NavigationInput.x < 0)
+        if (Script_UI_InputManager.instance.NavigationInput.x > 0)
         {   //move selector right
             HandleNextSelection(1);
         }

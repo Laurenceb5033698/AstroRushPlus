@@ -120,7 +120,7 @@ public class UpgradePoolManager : MonoBehaviour
             }
             //lots of list adding, could be optimised.
             RefreshPool();
-            for (int i = SelectedUpgrades.Count-1; i < 3; i++)
+            for (int i = SelectedUpgrades.Count; i < 3; i++)
             {
                 int cardindex = Random.Range(0, WorkingPool.Count);
                 SelectedUpgrades.Add(WorkingPool[cardindex]);

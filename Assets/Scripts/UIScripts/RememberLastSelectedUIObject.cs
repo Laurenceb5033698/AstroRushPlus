@@ -46,7 +46,7 @@ public class RememberLastSelectedUIObject : MonoBehaviour
         }
 
         //auto select last object if current gets unset.
-        if(!eventSystem.currentSelectedGameObject && lastSelectedElement)
+        if (!eventSystem.currentSelectedGameObject && lastSelectedElement)
         {
             //eventSystem.SetSelectedGameObject(lastSelectedElement);
             //propagate new selected object to uimanager and screens

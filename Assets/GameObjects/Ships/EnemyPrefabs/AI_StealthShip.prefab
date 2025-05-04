@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2790777525657224881}
   - component: {fileID: 114908258343461838}
   m_Layer: 0
-  m_Name: StealthShip
+  m_Name: AI_StealthShip
   m_TagString: EnemyShip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,425 +80,237 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   block:
     statList:
-    - BaseStatMax: 80
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 100
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 60
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 100
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 1900
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 10
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 2
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 1
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 30
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 55
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 500
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 3
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 1
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 90
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    - BaseStatMax: 0
-      flat: 0
-      scale: 0
-      mod: 0
-    sHealth:
+    - type: 0
       BaseStatMax: 80
       flat: 0
       scale: 0
       mod: 0
-    sShield:
+    - type: 1
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    sSpecial:
+    - type: 2
       BaseStatMax: 100
       flat: 0
       scale: 0
       mod: 0
-    sSpeed:
+    - type: 3
       BaseStatMax: 60
       flat: 0
       scale: 0
       mod: 0
-    sFuel:
+    - type: 4
       BaseStatMax: 100
       flat: 0
       scale: 0
       mod: 0
-    sTurnrate:
+    - type: 5
       BaseStatMax: 1900
       flat: 0
       scale: 0
       mod: 0
-    sHealthRegen:
+    - type: 6
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    sShieldRegen:
+    - type: 7
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gAttack:
+    - type: 8
       BaseStatMax: 10
       flat: 0
       scale: 0
       mod: 0
-    gAttackspeed:
+    - type: 9
       BaseStatMax: 2
       flat: 0
       scale: 0
       mod: 0
-    gProjectileAmount:
+    - type: 10
       BaseStatMax: 1
       flat: 0
       scale: 0
       mod: 0
-    gSpreadAngle:
+    - type: 11
       BaseStatMax: 30
       flat: 0
       scale: 0
       mod: 0
-    gReloadTime:
+    - type: 12
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gReloadAmmo:
+    - type: 13
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gRampAmount:
+    - type: 14
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gRampTime:
+    - type: 15
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gBurnoutTime:
+    - type: 16
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gChargeTime:
+    - type: 17
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gBurstAmount:
+    - type: 18
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gAoeDamage:
+    - type: 19
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gAoeSize:
+    - type: 20
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gDotDamage:
+    - type: 21
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    gDotDuration:
+    - type: 22
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    bSpeed:
+    - type: 23
       BaseStatMax: 55
       flat: 0
       scale: 0
       mod: 0
-    bAcceleration:
+    - type: 24
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    bRange:
+    - type: 25
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    bLifetime:
+    - type: 26
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    bMagentPower:
+    - type: 27
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    bPenetrationAmount:
+    - type: 28
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    bRicochetAmount:
+    - type: 29
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    bSize:
+    - type: 30
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    bFalloff:
+    - type: 31
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mAttack:
+    - type: 32
       BaseStatMax: 500
       flat: 0
       scale: 0
       mod: 0
-    mAmmo:
+    - type: 33
       BaseStatMax: 3
       flat: 0
       scale: 0
       mod: 0
-    mBurst:
+    - type: 34
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mProjectileAmount:
+    - type: 35
       BaseStatMax: 1
       flat: 0
       scale: 0
       mod: 0
-    mSpreadAngle:
+    - type: 36
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mAoeDamage:
+    - type: 37
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mAoeSize:
+    - type: 38
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mDotDamage:
+    - type: 39
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mDotDuration:
+    - type: 40
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mSpeed:
+    - type: 41
       BaseStatMax: 90
       flat: 0
       scale: 0
       mod: 0
-    mAcceleration:
+    - type: 42
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mRange:
+    - type: 43
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mLifetime:
+    - type: 44
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mMagnetPower:
+    - type: 45
       BaseStatMax: 0
       flat: 0
       scale: 0
       mod: 0
-    mSize:
+    - type: 46
       BaseStatMax: 0
       flat: 0
       scale: 0
@@ -10660,7 +10472,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4434846950843978}
   - {fileID: 1026614010544723301}
   m_Father: {fileID: 4000014027102902}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15551,155 +15362,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!1 &1965963817834698
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4434846950843978}
-  - component: {fileID: 114212665146182666}
-  - component: {fileID: 82815901002119204}
-  m_Layer: 0
-  m_Name: Weapon1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &4434846950843978
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1965963817834698}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4768745784300466}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114212665146182666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1965963817834698}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 148762c594004e64998a63931a038252, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet1: {fileID: 1791828775739272, guid: 1aee3d1ac2c033442a7021477256d266, type: 3}
-  TurretPref: {fileID: 1897680203412384, guid: 4fe44cd76d1b6874fba38940060141d5, type: 3}
-  ship: {fileID: 0}
-  shootSpeed: 0.5
-  baseBulletDamage: 8
-  bulletSpeed: 50
-  shootSound: {fileID: 0}
---- !u!82 &82815901002119204
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1965963817834698}
-  m_Enabled: 0
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2c2c964829cfd354c9fe75d5e0c82397, type: 3}
-  m_Resource: {fileID: 8300000, guid: 2c2c964829cfd354c9fe75d5e0c82397, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 0.478
-  m_Pitch: 2.5
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 27
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1001 &932383299264303423
 PrefabInstance:
   m_ObjectHideFlags: 0

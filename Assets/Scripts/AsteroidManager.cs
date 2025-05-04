@@ -68,7 +68,7 @@ public class AsteroidManager : MonoBehaviour
         //temp.transform.parent = transform;
         temp.transform.parent = groups[0].transform;
         temp.GetComponent<Asteroid>().SetAsteroidManager(gameObject);
-
+        temp.GetComponent<Rigidbody>().angularVelocity = Random.insideUnitSphere;
         //temp.AddComponent<ID>();
         //temp.AddComponent<Health>();
         //temp.GetComponent<ID>().Initalise(id, transform.gameObject);
@@ -96,6 +96,7 @@ public class AsteroidManager : MonoBehaviour
         for (int i = 0; i < shards; i++)
         {
             GameObject temp = (GameObject)Instantiate(chunks[Random.Range(0, 2)], pos, Quaternion.identity);
+            temp.GetComponent<Rigidbody>().angularVelocity = Random.insideUnitSphere;
             //temp.transform.parent = transform;
             temp.transform.parent = groups[1].transform;
         }

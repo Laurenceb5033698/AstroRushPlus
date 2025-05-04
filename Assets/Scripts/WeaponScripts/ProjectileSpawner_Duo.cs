@@ -19,13 +19,12 @@ public class ProjectileSpawner_Duo : ProjectileSpawner
         if (numProjectiles < 1)
             numProjectiles = 1;
 
-        if (numProjectiles == 1)
-            spreadAngle = 0;
-        else
+        //if (numProjectiles == 1)
+        //    spreadAngle = 0;
+        //else
             separation = spreadAngle;
 
-        //duo spawns two bullets per shot, so halving numproj here to account.
-        numProjectiles /= 2;
+        //duo spawns two bullets per shot
 
         Vector3 AimDir = (_shootPosition - transform.position);
         //perpendicular to aimDir and Up, where aimdir is always horizontal.
