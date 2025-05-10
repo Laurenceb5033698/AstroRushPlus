@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 1, g: 1, b: 1, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.662
@@ -272,9 +272,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c0ec3c94e068e4e9e58c4f968f244c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _verticalMoveAmount: 0
-  _moveTime: 0.1
-  _scaleAmount: 1.1
+  m_moveTime: 0.1
+  m_scaleAmount: 1.1
+  m_startPosition: {x: 0, y: 0, z: 0}
+  m_startScale: {x: 0, y: 0, z: 0}
 --- !u!114 &28422282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1680,9 +1681,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c0ec3c94e068e4e9e58c4f968f244c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _verticalMoveAmount: 0
-  _moveTime: 0.1
-  _scaleAmount: 1.1
+  m_moveTime: 0.1
+  m_scaleAmount: 1.1
+  m_startPosition: {x: 0, y: 0, z: 0}
+  m_startScale: {x: 0, y: 0, z: 0}
 --- !u!1 &175324937
 GameObject:
   m_ObjectHideFlags: 0
@@ -5141,7 +5143,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 0.853
+  m_FillAmount: 0.902
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -6949,9 +6951,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c0ec3c94e068e4e9e58c4f968f244c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _verticalMoveAmount: 0
-  _moveTime: 0.1
-  _scaleAmount: 1.1
+  m_moveTime: 0.1
+  m_scaleAmount: 1.1
+  m_startPosition: {x: 0, y: 0, z: 0}
+  m_startScale: {x: 0, y: 0, z: 0}
 --- !u!114 &895915039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11751,9 +11754,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c0ec3c94e068e4e9e58c4f968f244c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _verticalMoveAmount: 0
-  _moveTime: 0.1
-  _scaleAmount: 1.1
+  m_moveTime: 0.1
+  m_scaleAmount: 1.1
+  m_startPosition: {x: 0, y: 0, z: 0}
+  m_startScale: {x: 0, y: 0, z: 0}
 --- !u!114 &1537097548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14479,9 +14483,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c0ec3c94e068e4e9e58c4f968f244c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _verticalMoveAmount: 0
-  _moveTime: 0.1
-  _scaleAmount: 1.1
+  m_moveTime: 0.1
+  m_scaleAmount: 1.1
+  m_startPosition: {x: 0, y: 0, z: 0}
+  m_startScale: {x: 0, y: 0, z: 0}
 --- !u!114 &1974791374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15638,9 +15643,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c0ec3c94e068e4e9e58c4f968f244c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _verticalMoveAmount: 0
-  _moveTime: 0.1
-  _scaleAmount: 1.1
+  m_moveTime: 0.1
+  m_scaleAmount: 1.1
+  m_startPosition: {x: 0, y: 0, z: 0}
+  m_startScale: {x: 0, y: 0, z: 0}
 --- !u!114 &2069166352
 MonoBehaviour:
   m_ObjectHideFlags: 0
