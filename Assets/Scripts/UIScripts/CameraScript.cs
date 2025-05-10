@@ -34,14 +34,12 @@ public class CameraScript : MonoBehaviour {
 
     //multiple events can be called to add intensity
 
-
-
-    void Update ()
+    private void LateUpdate()
     {
         if (followTarget != null)
         {
             transform.position = followTarget.transform.position + positionOffset;
-            transform.LookAt(followTarget.transform.position+ focusOffset);
+            transform.LookAt(followTarget.transform.position + focusOffset);
         }
 
         if (shakeObject != null && shakeProgress > Time.time)
@@ -55,6 +53,11 @@ public class CameraScript : MonoBehaviour {
             shakeProgress = Time.time + duration;
         }
     }
+
+    //void Update ()
+    //{
+        
+    //}
 
     public void SetTarget(GameObject ps)
     {  

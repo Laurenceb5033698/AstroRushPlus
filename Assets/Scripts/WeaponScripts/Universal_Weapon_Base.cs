@@ -178,7 +178,7 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
         float spd = ShipStats.Get(StatType.bSpeed);
         //float dmg = ShipStats.Get(StatType.gAttack);
 
-        _bullet.GetComponent<Projectile>().SetupValues((int)dmg,spd,tag);
+        _bullet.GetComponent<Projectile>().SetupValues(tag, ShipStats);
     }
 
 

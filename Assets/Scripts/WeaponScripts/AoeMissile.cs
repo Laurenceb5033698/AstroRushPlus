@@ -12,15 +12,15 @@ class AoeMissile : Missile
         radius = 10f;
         rb = transform.GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * 50f, ForceMode.Impulse);
-        lifetime = 10f;
+        //lifetime = 10f;
         target = findTarget();
     }
 
     // Update is called once per frame
     protected override void Update()
     {
-        lifetime -= Time.deltaTime;
-        if (lifetime <= 0.0f)
+        m_Stats.lifetime -= Time.deltaTime;
+        if (m_Stats.lifetime < 0)
         {
             DestroySelf();
         }
@@ -44,9 +44,9 @@ class AoeMissile : Missile
 
     }
 
-    protected override void OnTriggerEnter(Collider collision)
+    protected override void OnTriggerEnter(Collider _collision)
     {
-        if ((collision.gameObject.GetComponent<Projectile>() == null) && (collision.gameObject.GetComponent<PickupItem>() == null))
+        if ((_collision.gameObject.GetComponent<Projectile>() == null) && (_collision.gameObject.GetComponent<PickupItem>() == null))
         {           
             DestroySelf();
         }
@@ -57,38 +57,37 @@ class AoeMissile : Missile
 
         foreach (Collider victim in inRange)
         {
-            float dist = Vector3.Distance(victim.transform.position, transform.position);
-
-
-            if (victim.gameObject.tag == "Asteroid")
+            if (victim.CompareTag(ownertag))
             {
-                int damageOverDistance = Mathf.FloorToInt( damage - 2 * dist);
-                victim.gameObject.GetComponent<Asteroid>().TakeDamage(damageOverDistance);
+                //do not damage owner.
+                continue;
+            }
+
+            float dist = Vector3.Distance(victim.transform.position, transform.position);
+            Damageable otherDamageable = victim.GetComponent<Damageable>();
+            if (otherDamageable)
+            {
+                float damageOverDistance = (m_Stats.damage - 2 * dist);
+                otherDamageable.TakeDamage(transform.position, damageOverDistance);
                 applyImpulse(victim.GetComponent<Rigidbody>());
             }
-            else
-            {
-                if (victim.gameObject.tag == "EnemyShip")
-                {
-                    int damageOverDistance = Mathf.FloorToInt(damage - 2 * dist);
-                    victim.GetComponentInParent<AICore>().TakeDamage(transform.position, damageOverDistance);
-                    applyImpulse(victim.GetComponentInParent<Rigidbody>());
-                }
-            }
+
             //deal lower damage to player ship
             //destroy shards
             //also destroy projectiles? ->maybe save that effect for emp
 
 
         }
-        Instantiate(psImpactPrefab, transform.position, transform.rotation);
+        SpawnHitVisuals();
         Destroy(transform.gameObject);
     }
-    protected override void applyImpulse(Rigidbody body)
+    protected override void applyImpulse(Rigidbody _body)
     {
-        Vector3 direction = body.transform.position - transform.position;
+        Vector3 direction = _body.transform.position - transform.position;
         direction.Normalize();
-        body.AddForce(direction * ((damage / 2) + (speed / (2 + body.mass))), ForceMode.Impulse);
+        _body.AddForce(direction * ((m_Stats.damage / 2) + (m_Stats.speed / (2 + _body.mass))), ForceMode.Impulse);
     }
+
+
 }
 

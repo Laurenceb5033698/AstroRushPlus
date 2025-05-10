@@ -268,7 +268,7 @@ abstract public class PlayerController : MonoBehaviour {
 
     }
 
-    virtual public void TakeDamage(Vector3 otherpos, int amount)
+    virtual public void TakeDamage(Vector3 otherpos, float amount)
     {
         if (damageTimer <= 0)
         {   //set combat flags

@@ -40,10 +40,14 @@ public class Ordinance : MonoBehaviour {
     }
     public void spawnProjectile(Vector3 aimDir)
     {//spawn pattern for missile ordianance
+
+        //VERY TEMPORARY
+        Stats shipstats = ship.GetComponent<Stats>();
+
         GameObject mBullet;
 
         mBullet = (GameObject)Instantiate(ProjectilePrefab, ship.transform.position + aimDir * 8f, Quaternion.LookRotation(aimDir, Vector3.up));
-        mBullet.GetComponent<Projectile>().SetupValues(Damage, Speed, ship.tag);
+        mBullet.GetComponent<Projectile>().SetupValues(ship.tag, shipstats);
 
     }
 

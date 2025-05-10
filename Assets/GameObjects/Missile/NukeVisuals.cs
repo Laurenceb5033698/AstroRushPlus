@@ -16,7 +16,7 @@ public class NukeVisuals : MonoBehaviour {
     }
 	
 	void Update () {
-        if (!animator.GetBool("Red") && projectile.lifetime < 2)
+        if (!animator.GetBool("Red") && projectile.m_Stats.lifetime < 2)
         {
             animator.SetBool("Red", true);   
         }

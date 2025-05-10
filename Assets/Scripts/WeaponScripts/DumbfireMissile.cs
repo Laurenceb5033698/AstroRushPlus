@@ -1,19 +1,20 @@
 ﻿using UnityEngine;
 
-public class DumbfireMissile : Projectile
+public class DumbfireMissile : Missile
 {
-    protected Rigidbody rb;
+    //protected Rigidbody rb;
 
     void Start()
     {
         rb = transform.GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * 50f, ForceMode.Impulse);
-        lifetime = Time.time + 5f;
+        //lifetime = Time.time + 5f;
     }
 
     protected override void Update()
     {
-        if (Time.time > lifetime)
+        m_Stats.lifetime -= Time.deltaTime;
+        if (m_Stats.lifetime < 0)
         {
             DestroySelf();
         }
@@ -23,19 +24,15 @@ public class DumbfireMissile : Projectile
         }
     }
 
-    protected override void OnTriggerEnter(Collider collision)
+    protected override void OnTriggerEnter(Collider _c)
     {
-        if ((collision.gameObject.GetComponent<Projectile>() == null) && (collision.gameObject.GetComponent<PickupItem>() == null))
+        if ((_c.gameObject.GetComponent<Projectile>() == null) && (_c.gameObject.GetComponent<PickupItem>() == null) && !(_c.CompareTag(ownertag)))
         {
-            if (collision.gameObject.tag == "Asteroid")
+            Damageable otherDamageable = _c.GetComponent<Damageable>();
+            if (otherDamageable)
             {
-                collision.gameObject.GetComponent<Asteroid>().TakeDamage(damage);
-                applyImpulse(collision.GetComponent<Rigidbody>());
-            }
-            else if (collision.gameObject.tag == "EnemyShip")
-            {
-                collision.gameObject.GetComponentInParent<AICore>().TakeDamage(transform.position, damage);
-                applyImpulse(collision.GetComponentInParent<Rigidbody>());
+                otherDamageable.TakeDamage(transform.position, CalcDamage());
+                applyImpulse(_c.GetComponent<Rigidbody>());
             }
 
             DestroySelf();
@@ -44,7 +41,7 @@ public class DumbfireMissile : Projectile
 
     protected override void DestroySelf()
     {
-        Instantiate(psImpactPrefab, transform.position, transform.rotation);
+        SpawnHitVisuals();
         Destroy(transform.gameObject);
     }
 }

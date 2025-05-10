@@ -25,4 +25,10 @@ public class AsteroidShard : MonoBehaviour {
             Destroy(gameObject);
         }
 	}
+
+    public void TakeDamage(Vector3 _otherpos, float _Damage)
+    {
+        //immediately die to damage
+        Destroy(gameObject);
+    }
 }

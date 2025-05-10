@@ -5,16 +5,16 @@ using System;
 
 public class Health : MonoBehaviour {
 
-    [SerializeField] protected int health = 100;
+    [SerializeField] protected float health = 100;
 
     //void OnCollisionEnter(Collision c)
     //{
     //    if (c.relativeVelocity.magnitude > 5f) TakeDamage(c.relativeVelocity.magnitude);
     //}
 
-    public virtual void TakeDamage(int amount)
+    public virtual void TakeDamage(float amount)
     {
-        health -= math.abs(amount);
+        health -= Mathf.Abs(amount);
 
         if (health <= 0)
         {

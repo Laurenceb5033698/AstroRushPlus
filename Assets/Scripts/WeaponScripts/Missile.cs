@@ -9,22 +9,26 @@ public class Missile : Projectile
     protected GameObject target;
     protected Vector3 direction;
 
-    // Use this for initialization
     void Start () 
 	{
         rb = transform.GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * 50f, ForceMode.Impulse);
-        lifetime = Time.time + 5f;
         target = findTarget();
     }
-	
-	// Update is called once per frame
-	protected override void Update () 
+    override public void SetupValues(string _ownerTag, Stats _setupStats)
+    {
+        ownertag = _ownerTag;
+        m_Stats = new BulletStats(_setupStats, rb);
+    }
+
+    protected override void Update () 
 	{
-		if (Time.time > lifetime) 
+        m_Stats.lifetime -= Time.deltaTime;
+		if (m_Stats.lifetime < 0) 
 		{
 			DestroySelf ();
 		}
+
         if (target)
         {
             direction = (target.transform.position - transform.position).normalized;
@@ -44,27 +48,24 @@ public class Missile : Projectile
         }
 
 	}
-    protected override void OnTriggerEnter(Collider collision)
+    protected override void OnTriggerEnter(Collider _collision)
     {
-        if ((collision.gameObject.GetComponent<Projectile>() == null) &&(collision.gameObject.GetComponent<PickupItem>() == null))
+        if ((_collision.gameObject.GetComponent<Projectile>() == null) &&(_collision.gameObject.GetComponent<PickupItem>() == null))
         {
-            if (collision.gameObject.tag == "Asteroid") {
-                collision.gameObject.GetComponent<Asteroid>().TakeDamage(damage);
-                applyImpulse(collision.GetComponent<Rigidbody>());
-            }
-            else if (collision.gameObject.tag == "EnemyShip") {
-                collision.gameObject.GetComponentInParent<AICore>().TakeDamage(transform.position, damage);
-                applyImpulse(collision.GetComponentInParent<Rigidbody>());
+            bool hit = false;
+            Damageable otherDamageable = _collision.GetComponent<Damageable>();
+            if (otherDamageable)
+            {
+                otherDamageable.TakeDamage(transform.position, CalcDamage());
+                applyImpulse(_collision.GetComponent<Rigidbody>());
+                hit = (otherDamageable is not Shard_Damageable);//shards are damaged, but does not count to a hit
             }
             
-            DestroySelf();
+            if(hit)
+                DestroySelf();
         }
     }
 
-    void OnCollisionEnter(Collision collision)
-	{
-        
-    }
     protected GameObject findTarget() //Looks for certain objects nearby 
      {
         GameObject bestTarget = null;
@@ -85,13 +86,18 @@ public class Missile : Projectile
             }
         }
         return bestTarget;
-     } 
+     }
+
+    override protected float CalcDamage()
+    {
+        return m_Stats.damage;
+    }
 
 
-	protected override void DestroySelf()
+    protected override void DestroySelf()
 	{
-        
-        Instantiate (psImpactPrefab, transform.position,transform.rotation);
+        SpawnHitVisuals();
+        //Instantiate (psImpactPrefab, transform.position,transform.rotation);
         Destroy (transform.gameObject);
 	}
 }

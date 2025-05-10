@@ -14,6 +14,15 @@ public class EmpProjectile : Projectile {
         {//successful collision that wasnt with shooter
             //Debug.Log("other Entity: " + other.gameObject.tag);
             bool hit = false;
+
+            Damageable otherDamageable = other.GetComponent<Damageable>();
+            if (otherDamageable)
+            {
+                otherDamageable.TakeDamage(transform.position, CalcDamage());
+                applyImpulse(other.GetComponent<Rigidbody>());
+
+            }
+
             switch (other.gameObject.tag)
             {
                 case "PlayerShip":

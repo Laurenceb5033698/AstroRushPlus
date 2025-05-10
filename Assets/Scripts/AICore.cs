@@ -188,7 +188,7 @@ public class AICore : MonoBehaviour {
         GetComponentInChildren<Animation>().Play();
     }
 
-    virtual public void TakeDamage(Vector3 otherpos, int amount)
+    virtual public void TakeDamage(Vector3 otherpos, float amount)
     {   //Default method for Taking Damage
         if (shield_Emitter != null && stats.ShipShield > 0)
             Shield_effect(otherpos);

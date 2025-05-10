@@ -54,7 +54,7 @@ public class Stats : MonoBehaviour
     //  Functions
     //  Health
     //-----------------------------------------------------------------------------------------
-    public void TakeDamage(int val)
+    public void TakeDamage(float val)
     {
         if (!GodMode)
         {

@@ -218,7 +218,7 @@ public class PlayerRamShip : PlayerController
         }
     }
 
-    override public void TakeDamage(Vector3 otherpos, int amount)
+    override public void TakeDamage(Vector3 otherpos, float amount)
     {
         //if (stats.ShipShield > 0)
         //    Shield_effect(otherpos);
