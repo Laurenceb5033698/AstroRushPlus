@@ -57,7 +57,7 @@ public class Missile : Projectile
             if (otherDamageable)
             {
                 otherDamageable.TakeDamage(transform.position, CalcDamage());
-                applyImpulse(_collision.GetComponent<Rigidbody>());
+                applyImpulse(otherDamageable.GetRigidbody());
                 hit = (otherDamageable is not Shard_Damageable);//shards are damaged, but does not count to a hit
             }
             

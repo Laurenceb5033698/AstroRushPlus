@@ -14,7 +14,7 @@ public class AoeEffect : MonoBehaviour {
     [SerializeField] public enum Effect { DAMAGE, EMP, REPULSION, ATTRACTION };
     public Effect mEffect = Effect.DAMAGE;
 
-    [SerializeField] int effectAmount = 1;
+    [SerializeField] float effectAmount = 1;
 
     public float PeriodicEffectCooldown = 1.0f;
     private float LastPeriodicEffect = 0;
@@ -29,7 +29,7 @@ public class AoeEffect : MonoBehaviour {
             DestroySelf();
     }
 
-    public void SetupValues(int dmg, string str)
+    public void SetupValues(float dmg, string str)
     {
         ownertag = str;
         effectAmount = dmg;
@@ -116,7 +116,7 @@ public class AoeEffect : MonoBehaviour {
                 {
                     if (Time.time - LastPeriodicEffect < PeriodicEffectCooldown)
                         break;
-                    other.gameObject.GetComponent<Asteroid>().TakeDamage(effectAmount);
+                    other.gameObject.GetComponent<Asteroid>().TakeDamage(transform.position, effectAmount);
                 }
                     break;
                 case Effect.EMP:

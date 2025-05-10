@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEditor;
 
-
+[System.Serializable]
 public struct BulletStats
 {
     public float damage;
@@ -29,7 +29,7 @@ public struct BulletStats
         penetration = (int)_stats.Get(StatType.bPenetrationAmount);
         riccochet = (int)_stats.Get(StatType.bRicochetAmount);
         size = _stats.Get(StatType.bSize);
-        falloff = _stats.Get(StatType.bFalloff);
+        falloff = _stats.Get(StatType.bFalloff) * _stats.Get(StatType.bFalloff);
     }
     public BulletStats(Stats _stats, Rigidbody _rb)
     {   //missile type projectile
@@ -79,7 +79,7 @@ public class Projectile : MonoBehaviour {
             if (otherDamagable)
             {
                 otherDamagable.TakeDamage(transform.position, CalcDamage());
-                applyImpulse(other.GetComponent<Rigidbody>());
+                applyImpulse(otherDamagable.GetRigidbody());
                 hit = true;
             }
 
@@ -152,7 +152,7 @@ public class Projectile : MonoBehaviour {
         //range can be reached independantly from lifetime.
         float segmentSqrMag = (transform.position - m_PreviousPos).sqrMagnitude;
         m_sqrCumulativePath += segmentSqrMag;
-        if(m_sqrCumulativePath > m_Stats.range)
+        if(m_sqrCumulativePath > (m_Stats.range * m_Stats.range))
         {
             //add current overshoot to falloff
             m_falloffCurrent += segmentSqrMag;
@@ -172,7 +172,7 @@ public class Projectile : MonoBehaviour {
 
     virtual protected float CalcDamage()
     {
-        float damagePercent = (m_Stats.falloff - m_falloffCurrent) / m_Stats.falloff;
+        float damagePercent = (m_Stats.falloff  - m_falloffCurrent) / m_Stats.falloff;
         return (m_falloffCurrent > 0 ? (m_Stats.damage*damagePercent) : m_Stats.damage);
     }
 }

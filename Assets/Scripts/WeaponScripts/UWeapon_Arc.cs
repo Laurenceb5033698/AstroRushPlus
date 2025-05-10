@@ -64,7 +64,7 @@ public class UWeapon_Arc : Universal_Weapon_Base
         float spd = ShipStats.Get(StatType.bSpeed);
         //float size = ShipStats.Get(StatType.bSize);
 
-        _bullet.GetComponent<Projectile>().SetupValues((int)dmg, spd, tag);
+        _bullet.GetComponent<Projectile>().SetupValues(tag, ShipStats);
     }
 
 

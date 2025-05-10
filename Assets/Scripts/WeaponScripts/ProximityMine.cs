@@ -18,7 +18,7 @@ public class ProximityMine : Projectile {
     {
         rb = transform.GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * 50f, ForceMode.Impulse);
-        lifetime = 20f;
+        //lifetime = 20f;
 
         //collision size stuff
         indicator.localScale.Set(DetonationDistance, 0, DetonationDistance);
@@ -28,8 +28,8 @@ public class ProximityMine : Projectile {
     
     protected override void Update()
     {
-        lifetime -= Time.deltaTime;
-        if (lifetime <= 0.0f)
+        m_Stats.lifetime -= Time.deltaTime;
+        if (m_Stats.lifetime <= 0.0f)
         {
             Triggered = true;
         }
@@ -63,14 +63,14 @@ public class ProximityMine : Projectile {
 
                 if (victim.gameObject.tag == "Asteroid")
                 {
-                    victim.gameObject.GetComponent<Asteroid>().TakeDamage(damage);
+                    victim.gameObject.GetComponent<Asteroid>().TakeDamage(transform.position, m_Stats.damage);
                     applyImpulse(victim.GetComponent<Rigidbody>());
                 }
                 else
                 {
                     if (victim.gameObject.tag == "EnemyShip")
                     {
-                        victim.GetComponentInParent<AICore>().TakeDamage(transform.position, damage);
+                        victim.GetComponentInParent<AICore>().TakeDamage(transform.position, m_Stats.damage);
                         applyImpulse(victim.GetComponentInParent<Rigidbody>());
                     }
                 }
@@ -84,7 +84,7 @@ public class ProximityMine : Projectile {
         else
         {
             GameObject instance = Instantiate(AoeEffectPrefab, transform.position, transform.rotation);
-            instance.GetComponent<AoeEffect>().SetupValues(damage, ownertag);
+            instance.GetComponent<AoeEffect>().SetupValues(m_Stats.damage, ownertag);
         }
 
         Instantiate(psImpactPrefab, transform.position, transform.rotation);
@@ -95,6 +95,6 @@ public class ProximityMine : Projectile {
     {
         Vector3 direction = body.transform.position - transform.position;
         direction.Normalize();
-        body.AddForce(direction * ((damage / 2) + (speed / (2 + body.mass))), ForceMode.Impulse);
+        body.AddForce(direction * ((m_Stats.damage / 2) + (m_Stats.speed / (2 + body.mass))), ForceMode.Impulse);
     }
 }

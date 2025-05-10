@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 54294923521572704}
   - component: {fileID: 64259674616735688}
   - component: {fileID: 114121488997115360}
+  - component: {fileID: -3548794942609672381}
   m_Layer: 0
   m_Name: rockLP201
   m_TagString: Asteroid
@@ -153,3 +154,15 @@ MonoBehaviour:
   psDestructPrefab: {fileID: 1677998945195564, guid: 6fdb943dbc6adaa40911372652725266,
     type: 3}
   CollisionImpulse: 18
+--- !u!114 &-3548794942609672381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780915349606060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b00e2de4ced1745b98e120d9b17132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -32,7 +32,7 @@ public class DumbfireMissile : Missile
             if (otherDamageable)
             {
                 otherDamageable.TakeDamage(transform.position, CalcDamage());
-                applyImpulse(_c.GetComponent<Rigidbody>());
+                applyImpulse(otherDamageable.GetRigidbody());
             }
 
             DestroySelf();

@@ -69,7 +69,7 @@ class AoeMissile : Missile
             {
                 float damageOverDistance = (m_Stats.damage - 2 * dist);
                 otherDamageable.TakeDamage(transform.position, damageOverDistance);
-                applyImpulse(victim.GetComponent<Rigidbody>());
+                applyImpulse(otherDamageable.GetRigidbody());
             }
 
             //deal lower damage to player ship

@@ -22,8 +22,8 @@ public class RadialBurstProjectile : Projectile
             //spawn bullet at each angle
             //Vector3 spreader = Vector3.Cross(transform.forward, Vector3.up) * angle*index;
             Quaternion lookAngle = Quaternion.Euler(0, angle*index, 0);
-            GameObject secBullet = Instantiate(PrefSecondaryBullet, transform.position + lookAngle.eulerAngles.normalized*3, lookAngle);
-            secBullet.GetComponent<Projectile>().SetupValues(SecondDmg, SecondSpd, ownertag);
+            //GameObject secBullet = Instantiate(PrefSecondaryBullet, transform.position + lookAngle.eulerAngles.normalized*3, lookAngle);
+            //secBullet.GetComponent<Projectile>().SetupValues(SecondDmg, SecondSpd, ownertag);
         }
 
         

@@ -99,7 +99,7 @@ public class UWeapon_Railgun : Universal_Weapon_Base
         float spd = ShipStats.Get(StatType.bSpeed) * m_chargePower;
         //float dmg = ShipStats.Get(StatType.gAttack);
 
-        _bullet.GetComponent<Projectile>().SetupValues((int)dmg, spd, tag);
+        _bullet.GetComponent<Projectile>().SetupValues(tag, ShipStats);
     }
 
 

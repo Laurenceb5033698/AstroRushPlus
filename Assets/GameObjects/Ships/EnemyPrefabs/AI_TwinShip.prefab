@@ -4916,6 +4916,7 @@ GameObject:
   - component: {fileID: 33124781767196052}
   - component: {fileID: 23760909125897798}
   - component: {fileID: 64698572537273314}
+  - component: {fileID: 7463430324861540618}
   m_Layer: 0
   m_Name: Enemy3
   m_TagString: EnemyShip
@@ -5013,6 +5014,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: c86c70139c0ff634592f16d9c32a02e2, type: 3}
+--- !u!114 &7463430324861540618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274205641405334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a96b914867807c49af51ffcbba57a0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1335527040644832
 GameObject:
   m_ObjectHideFlags: 0
@@ -5382,12 +5395,12 @@ MonoBehaviour:
       scale: 0
       mod: 0
     - type: 25
-      BaseStatMax: 0
+      BaseStatMax: 150
       flat: 0
       scale: 0
       mod: 0
     - type: 26
-      BaseStatMax: 0
+      BaseStatMax: 3
       flat: 0
       scale: 0
       mod: 0
@@ -5407,12 +5420,12 @@ MonoBehaviour:
       scale: 0
       mod: 0
     - type: 30
-      BaseStatMax: 0
+      BaseStatMax: 1
       flat: 0
       scale: 0
       mod: 0
     - type: 31
-      BaseStatMax: 0
+      BaseStatMax: 20
       flat: 0
       scale: 0
       mod: 0

@@ -7,4 +7,5 @@ using UnityEngine;
 abstract public class Damageable : MonoBehaviour
 {
     abstract public void TakeDamage(Vector3 _OtherPos, float _Amount);
+    abstract public Rigidbody GetRigidbody();
 }

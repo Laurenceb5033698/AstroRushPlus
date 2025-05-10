@@ -6,4 +6,8 @@ public class Asteroid_Damageable : Damageable
     {
         GetComponent<Asteroid>().TakeDamage(_OtherPos, _Amount);
     }
+    public override Rigidbody GetRigidbody()
+    {
+        return GetComponent<Rigidbody>();
+    }
 }

@@ -98,7 +98,7 @@ public class BeamSingle : Weapon_Cannon
                     applyImpulse(other.GetComponentInParent<Rigidbody>());
                     break;
                 case "Asteroid":
-                    other.gameObject.GetComponent<Asteroid>().TakeDamage(finalBulletDamage);
+                    other.gameObject.GetComponent<Asteroid>().TakeDamage(transform.position, finalBulletDamage);
                     applyImpulse(other.GetComponent<Rigidbody>());
                     break;
                 case "shard":

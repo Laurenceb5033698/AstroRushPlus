@@ -34,8 +34,8 @@ public class Weapon_Cannon : Weapon {
     override public void spawnProjectile(Vector3 aimDir)
     {//spawn pattern for weapon type
         GameObject mBullet;
-        mBullet = (GameObject)Instantiate(bullet1, ship.transform.position + aimDir * 6f, Quaternion.LookRotation(aimDir, Vector3.up));
-        mBullet.GetComponent<Projectile>().SetupValues(finalBulletDamage, bulletSpeed, ship.tag);
+        //mBullet = (GameObject)Instantiate(bullet1, ship.transform.position + aimDir * 6f, Quaternion.LookRotation(aimDir, Vector3.up));
+        //mBullet.GetComponent<Projectile>().SetupValues(finalBulletDamage, bulletSpeed, ship.tag);
 
     }
 

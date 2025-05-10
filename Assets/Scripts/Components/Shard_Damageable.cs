@@ -6,4 +6,8 @@ public class Shard_Damageable : Damageable
     {
         GetComponent<AsteroidShard>().TakeDamage(_OtherPos, _Amount);
     }
+    public override Rigidbody GetRigidbody()
+    {
+        return GetComponent<Rigidbody>();
+    }
 }

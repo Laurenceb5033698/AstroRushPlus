@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 54000012849647270}
   - component: {fileID: 64000010121064036}
   - component: {fileID: 114000011611610574}
+  - component: {fileID: -2632444222179429121}
   m_Layer: 0
   m_Name: Rock5
   m_TagString: Untagged
@@ -153,3 +154,15 @@ MonoBehaviour:
   psDestructPrefab: {fileID: 1677998945195564, guid: 6fdb943dbc6adaa40911372652725266,
     type: 3}
   CollisionImpulse: 18
+--- !u!114 &-2632444222179429121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000014284708416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b00e2de4ced1745b98e120d9b17132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

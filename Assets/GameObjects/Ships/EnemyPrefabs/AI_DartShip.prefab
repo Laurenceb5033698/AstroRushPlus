@@ -204,12 +204,12 @@ MonoBehaviour:
       scale: 0
       mod: 0
     - type: 25
-      BaseStatMax: 0
+      BaseStatMax: 200
       flat: 0
       scale: 0
       mod: 0
     - type: 26
-      BaseStatMax: 0
+      BaseStatMax: 5
       flat: 0
       scale: 0
       mod: 0
@@ -229,12 +229,12 @@ MonoBehaviour:
       scale: 0
       mod: 0
     - type: 30
-      BaseStatMax: 0
+      BaseStatMax: 1
       flat: 0
       scale: 0
       mod: 0
     - type: 31
-      BaseStatMax: 0
+      BaseStatMax: 20
       flat: 0
       scale: 0
       mod: 0
@@ -406,6 +406,7 @@ GameObject:
   - component: {fileID: 33642481057266916}
   - component: {fileID: 23592961410432216}
   - component: {fileID: 64317838887853754}
+  - component: {fileID: 1783755519431228297}
   m_Layer: 0
   m_Name: ShipMesh
   m_TagString: EnemyShip
@@ -503,6 +504,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: e5195c8eb8c462140b7089c80b8b756b, type: 3}
+--- !u!114 &1783755519431228297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308833221011958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a96b914867807c49af51ffcbba57a0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1704048239008902
 GameObject:
   m_ObjectHideFlags: 0
