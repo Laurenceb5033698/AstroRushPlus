@@ -10,7 +10,7 @@ public class ProjectileSpawner_Scatter : ProjectileSpawner
     {
         //number of projectiles
         int numProjectiles = Mathf.CeilToInt(GetStat(StatType.gProjectileAmount));
-        float spreadAngle = GetStat(StatType.gSpreadAngle)/2;
+        float spreadAngle = GetStat(StatType.gSpreadAngle);
 
         if (numProjectiles < 1)
             numProjectiles = 1;

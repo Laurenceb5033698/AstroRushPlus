@@ -14,7 +14,7 @@ public class ProjectileSpawner_Minigun : ProjectileSpawner
     {
         //number of projectiles
         int numProjectiles = Mathf.CeilToInt(GetStat(StatType.gProjectileAmount));
-        float spreadAngle = GetStat(StatType.gSpreadAngle) / 10;
+        float spreadAngle = GetStat(StatType.gSpreadAngle);
 
         //unknown if minigun can have multiple projectiles
 

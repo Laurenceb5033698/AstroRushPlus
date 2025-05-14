@@ -29,7 +29,7 @@ public struct BulletStats
         penetration = (int)_stats.Get(StatType.bPenetrationAmount);
         riccochet = (int)_stats.Get(StatType.bRicochetAmount);
         size = _stats.Get(StatType.bSize);
-        falloff = _stats.Get(StatType.bFalloff) * _stats.Get(StatType.bFalloff);
+        falloff = Mathf.Max(1,(_stats.Get(StatType.bFalloff) * _stats.Get(StatType.bFalloff)));
     }
     public BulletStats(Stats _stats, Rigidbody _rb)
     {   //missile type projectile
@@ -57,7 +57,8 @@ public class Projectile : MonoBehaviour {
     Vector3 m_PreviousPos;
     float m_sqrCumulativePath = 0.0f;
     float m_falloffCurrent = 0.0f;
-    
+    float m_falloffPercent = 1.0f;
+    float m_sizeModifier = 1.0f;
 
     void Start () {
         //begin recording path for range.
@@ -68,14 +69,14 @@ public class Projectile : MonoBehaviour {
         ownertag = _ownerTag;
         m_Stats = new BulletStats(_setupStats);
     }
-    protected virtual void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider _other)
     {
 
-        if ((other != null) && (other.gameObject.tag != ownertag) && (!other.gameObject.CompareTag("bullet")))
+        if ((_other != null) && (_other.gameObject.tag != ownertag) && (!_other.gameObject.CompareTag("bullet")))
         {//successful collision that wasnt with shooter
             //Debug.Log("other Entity: " + other.gameObject.tag);
             bool hit = false;
-            Damageable otherDamagable = other.GetComponent<Damageable>();
+            Damageable otherDamagable = _other.GetComponent<Damageable>();
             if (otherDamagable)
             {
                 otherDamagable.TakeDamage(transform.position, CalcDamage());
@@ -93,6 +94,7 @@ public class Projectile : MonoBehaviour {
                 { 
                     m_Stats.riccochet--;
                     SpawnHitVisuals();  //hit visuals for each rccochet
+                    
                 }
                 else
                 {
@@ -120,7 +122,7 @@ public class Projectile : MonoBehaviour {
     // Update is called once per frame
     protected virtual void Update () {
 
-        transform.position += transform.forward * m_Stats.speed * Time.deltaTime;
+        transform.position += transform.forward * CalcSpeed()* Time.deltaTime;
         m_Stats.lifetime -= Time.deltaTime;
         if (m_Stats.lifetime < 0)
             DestroySelf();
@@ -156,23 +158,37 @@ public class Projectile : MonoBehaviour {
         {
             //add current overshoot to falloff
             m_falloffCurrent += segmentSqrMag;
+            //percent scales from 1 -> 0 as falloffcurrent increases.
+            m_falloffPercent = Mathf.Clamp((1 - ( m_falloffCurrent / m_Stats.falloff)),0,1);
         }
         
     }
     private void BulletFalloff()
     {
-        //when bullet falloff increases, it reduces bullet size, speed and damage
-
         if (m_falloffCurrent > m_Stats.falloff)
         {
             //current falloff is over max falloff. queue deletion.
             m_Stats.lifetime = -1;
+            return;
         }
+        //when bullet falloff increases, it reduces bullet size, speed and damage
+        float uniformScale = m_Stats.size* m_falloffPercent;
+        transform.localScale = new Vector3(uniformScale, uniformScale, uniformScale);
+
     }
 
     virtual protected float CalcDamage()
     {
-        float damagePercent = (m_Stats.falloff  - m_falloffCurrent) / m_Stats.falloff;
-        return (m_falloffCurrent > 0 ? (m_Stats.damage*damagePercent) : m_Stats.damage);
+        //falloff percent = 1 when falloffcurrent = 0
+        float damageModified = m_Stats.damage * m_falloffPercent;
+        return damageModified;
     }
+
+    virtual protected float CalcSpeed()
+    {
+        //falloff percent = 1 when falloffcurrent = 0
+        float speedModified = m_Stats.speed * m_falloffPercent;
+        return speedModified;
+    }
+
 }

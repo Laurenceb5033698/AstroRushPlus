@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4940596350520306}
   - component: {fileID: 135728665571385492}
-  - component: {fileID: 8477423051349925605}
+  - component: {fileID: 8120454651941496355}
   - component: {fileID: 8268653067357698215}
   - component: {fileID: 5553566667770732252}
   m_Layer: 9
@@ -56,7 +56,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5000001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8477423051349925605
+--- !u!114 &8120454651941496355
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,15 +65,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1144681277887354}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 369e34880c76b1f4db4b0f1b3d6a5907, type: 3}
+  m_Script: {fileID: 11500000, guid: 02c042e829aff5c4ea10553468284705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
-  lifetime: 1
   ownertag: 
-  speed: 100
   psImpactPrefab: {fileID: 1601477976887962, guid: 053fa22b342258d4ba4937010b60f134,
     type: 3}
+  m_Stats:
+    damage: 0
+    speed: 0
+    acceleration: 0
+    range: 0
+    lifetime: 0
+    magnet: 0
+    penetration: 0
+    riccochet: 0
+    size: 0
+    falloff: 0
 --- !u!2083052967 &8268653067357698215
 VisualEffect:
   m_ObjectHideFlags: 0
