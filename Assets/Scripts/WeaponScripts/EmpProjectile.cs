@@ -6,7 +6,7 @@ public class EmpProjectile : Projectile {
 
     public float EMPDuration = 1.0f;
 
-    protected override void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
         if ((other != null) && (!other.CompareTag(ownertag)) && (other.gameObject.GetComponent<Projectile>() == null))
         {

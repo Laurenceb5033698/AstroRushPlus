@@ -42,7 +42,7 @@ public class ProximityMine : Projectile {
 
     }
 
-    protected override void OnTriggerEnter(Collider collision)
+    protected void OnTriggerEnter(Collider collision)
     {
         if ((collision.gameObject.tag != ownertag) && (collision.gameObject.GetComponent<Projectile>() == null)&& (collision.gameObject.GetComponent<PickupItem>() == null))
         {

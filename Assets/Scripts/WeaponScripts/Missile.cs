@@ -48,7 +48,7 @@ public class Missile : Projectile
         }
 
 	}
-    protected override void OnTriggerEnter(Collider _collision)
+    protected virtual void OnTriggerEnter(Collider _collision)
     {
         if ((_collision.gameObject.GetComponent<Projectile>() == null) &&(_collision.gameObject.GetComponent<PickupItem>() == null))
         {

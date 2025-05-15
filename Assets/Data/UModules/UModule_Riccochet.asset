@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26c8fa40451601e4a8640576a47957e6, type: 3}
+  m_Name: UModule_Riccochet
+  m_EditorClassIdentifier: 
+  DisplayDetails:
+    Txt_name: Riccochet
+    Txt_description: Bounces on hit
+    Txt_stat: +1 Riccochet, +10% range, +5 Falloff
+    Type: 1
+    Fill_Icon: {fileID: 2800000, guid: 008c34522495013429deae672d98d1c3, type: 3}
+  m_UpgradeList:
+  - type: 29
+    BaseStatMax: 0
+    flat: 1
+    scale: 0
+    mod: 0
+  - type: 25
+    BaseStatMax: 0
+    flat: 0
+    scale: 0.1
+    mod: 0
+  - type: 31
+    BaseStatMax: 0
+    flat: 5
+    scale: 0
+    mod: 0
