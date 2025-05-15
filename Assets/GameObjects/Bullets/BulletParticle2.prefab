@@ -71,7 +71,7 @@ MonoBehaviour:
   lifetime: 4
   ownertag: 
   speed: 50
-  psImpactPrefab: {fileID: 1601477976887962, guid: 053fa22b342258d4ba4937010b60f134,
+  psImpactPrefab: {fileID: 6578305484605554280, guid: f1b5245427d2cdf44a1ff72fa0031960,
     type: 3}
 --- !u!1 &5227254273175321083
 GameObject:
@@ -102,7 +102,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 205237467727309415}
   - {fileID: 4024258015683686510}
@@ -387,26 +387,17 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 1.6
+  m_Time: 0.5
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 2.5
+    widthMultiplier: 2
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.008449554
-        value: 0.4113922
-        inSlope: 19.096815
-        outSlope: 19.096815
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.20001087
-      - serializedVersion: 3
-        time: 0.03661642
-        value: 1
+        time: 0.09994039
+        value: 0.99411774
         inSlope: -0.76230305
         outSlope: -0.76230305
         tangentMode: 0
@@ -462,7 +453,7 @@ TrailRenderer:
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.1
+  m_MinVertexDistance: 0.01
   m_MaskInteraction: 0
   m_Autodestruct: 0
   m_Emitting: 1
