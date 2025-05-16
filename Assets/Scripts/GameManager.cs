@@ -107,7 +107,8 @@ public class GameManager : MonoBehaviour {
                 //if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1))// B controller button or Escape button
                 //    ((UI_Game)ui).Button_PausePressed(false);
                 if (aiMngr.EndOfWave == true)
-                {   //UIManager.instance.UpgradesButton();
+                {
+                    UIManager.instance.UpgradeScreen();
                     aiMngr.NewWave();
                 }
                 break;

@@ -180,7 +180,7 @@ public class UIManager : MonoBehaviour
         ScreenTransition(Screens.ShipSelectionScreen);
     }
 
-    public void Test_UpgradeScreen()
+    public void UpgradeScreen()
     {
         //new upgrade selection everytime upgrade screen is opened.
         ScreenTransition(Screens.UpgradeScreen);

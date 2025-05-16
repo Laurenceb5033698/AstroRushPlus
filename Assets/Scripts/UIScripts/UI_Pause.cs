@@ -26,6 +26,7 @@ public class UI_Pause : ScreenElement
 
     public void Button_RestartPressed()
     {
+        UpgradePoolManager.instance.RestartingGame();
         UIManager.instance.RestartLevel();
 
     }

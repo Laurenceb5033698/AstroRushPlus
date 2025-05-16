@@ -10,27 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26c8fa40451601e4a8640576a47957e6, type: 3}
-  m_Name: UModule_Riccochet
+  m_Name: UModule_PiercingShot
   m_EditorClassIdentifier: 
   DisplayDetails:
-    Txt_name: Ricochet
-    Txt_description: Projectiles rebound off the first target they hit
-    Txt_stat: Ricochet +1, Range +10%, Falloff +5m
+    Txt_name: Piercing Shot
+    Txt_description: Projectiles will pierce through enemies
+    Txt_stat: Penetration +1, Range +5m +10%, Falloff +5m +10%, Lifetime +2s
     Type: 1
-    Fill_Icon: {fileID: 2800000, guid: 008c34522495013429deae672d98d1c3, type: 3}
+    Fill_Icon: {fileID: 2800000, guid: f74847ef49b17f14c944ba4297d63a7b, type: 3}
   m_UpgradeList:
-  - type: 29
+  - type: 28
     BaseStatMax: 0
     flat: 1
     scale: 0
     mod: 0
   - type: 25
     BaseStatMax: 0
-    flat: 0
-    scale: 0.1
-    mod: 0
+    flat: 5
+    scale: 0
+    mod: 0.1
   - type: 31
     BaseStatMax: 0
     flat: 5
+    scale: 0
+    mod: 0.1
+  - type: 26
+    BaseStatMax: 0
+    flat: 2
     scale: 0
     mod: 0

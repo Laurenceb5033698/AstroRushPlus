@@ -53,4 +53,10 @@ public class UpgradeManager : MonoBehaviour
         module.ProcessModule(ref shipStats);
     }
     //recalculate all upgrades (for spawning with modules already existing)
+
+
+    public void RestartingGame()
+    {
+        m_modules.Clear();
+    }
 }

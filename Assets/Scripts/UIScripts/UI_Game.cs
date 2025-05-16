@@ -65,7 +65,7 @@ public class UI_Game : ScreenElement
 
     public void Button_TestUpgrade()
     {
-        UIManager.instance.Test_UpgradeScreen();
+        UIManager.instance.UpgradeScreen();
     }
 
     public void UpdateGameStats(int score, int NoEnemy, int Wave)

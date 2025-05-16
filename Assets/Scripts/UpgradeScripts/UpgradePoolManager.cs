@@ -161,4 +161,11 @@ public class UpgradePoolManager : MonoBehaviour
         RefreshPool();
     }
 
+    public void RestartingGame()
+    {
+        WorkingPool.Clear();
+        InitialiseWorkingPools();
+
+        GetComponent<UpgradeManager>().RestartingGame();
+    }
 }
