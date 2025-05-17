@@ -85,6 +85,7 @@ public class UpgradePoolManager : MonoBehaviour
                 if (Data_GenericWeaponPool) WorkingPool.AddRange(Data_GenericWeaponPool.Pool);
                 if (Data_GenericShipPool) WorkingPool.AddRange(Data_GenericShipPool.Pool);
                 if (Data_GenericMissilePool) WorkingPool.AddRange(Data_GenericMissilePool.Pool);
+                if (Data_SpecificPool) WorkingPool.AddRange(Data_SpecificPool.Pool);
                 break;
 
         }
@@ -149,6 +150,13 @@ public class UpgradePoolManager : MonoBehaviour
         //hand add upgrade from selectedUpgrades at selected index
         PlayerUpgradeManager.AddNewModule(SelectedUpgrades[_SelectedCardIndex]);
 
+        //chosen upgrade is removed.
+        SelectedUpgrades.RemoveAt(_SelectedCardIndex);
+
+        //unchosen upgrades go back into pool.
+        WorkingPool.AddRange(SelectedUpgrades);
+
+        //clear selection and try advance pickstate
         SelectedUpgrades.Clear();
         ChangePickState();
     }
@@ -157,8 +165,11 @@ public class UpgradePoolManager : MonoBehaviour
     {
         //once weapon picked, change to next pool.
         if (CurrentPick == PickState.WeaponType)
+        {
             CurrentPick = PickState.Standard;
-        RefreshPool();
+            //only refresh if pickState changed.
+            RefreshPool();
+        }
     }
 
     public void RestartingGame()
@@ -167,5 +178,11 @@ public class UpgradePoolManager : MonoBehaviour
         InitialiseWorkingPools();
 
         GetComponent<UpgradeManager>().RestartingGame();
+    }
+
+    //replaces specific pool when a new weapon type is chosen.
+    public void SetSpecificWeaponPool(ModulePoolScriptable _specificPoolScriptable)
+    {
+        Data_SpecificPool = _specificPoolScriptable;
     }
 }
