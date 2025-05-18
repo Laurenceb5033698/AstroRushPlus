@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26c8fa40451601e4a8640576a47957e6, type: 3}
+  m_Name: UModule_Shotgun_Sawnoff
+  m_EditorClassIdentifier: 
+  DisplayDetails:
+    Txt_name: Energy Intensifier
+    Txt_description: Your cannon is overcharged and capable of a vastly increased
+      damage output, as long as the enemy is within spitting distance.
+    Txt_stat: Damage +5, Range -40%
+    Type: 8
+    Fill_Icon: {fileID: 2800000, guid: a0429711df714714cb46b0de9f299a59, type: 3}
+  m_UpgradeList:
+  - type: 8
+    BaseStatMax: 0
+    flat: 5
+    scale: 0
+    mod: 0
+  - type: 25
+    BaseStatMax: 0
+    flat: 0
+    scale: 0
+    mod: -0.4

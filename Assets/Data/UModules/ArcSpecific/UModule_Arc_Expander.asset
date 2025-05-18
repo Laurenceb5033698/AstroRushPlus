@@ -9,8 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 917828e07df75224196c6f05a64ae57b, type: 3}
-  m_Name: UPool_RailgunSpecific
+  m_Script: {fileID: 11500000, guid: 26c8fa40451601e4a8640576a47957e6, type: 3}
+  m_Name: UModule_Arc_Expander
   m_EditorClassIdentifier: 
-  Pool:
-  - {fileID: 11400000, guid: c1c3223d09194c044a8528268272e174, type: 2}
+  DisplayDetails:
+    Txt_name: 
+    Txt_description: 
+    Txt_stat: 
+    Type: 0
+    Fill_Icon: {fileID: 0}
+  m_UpgradeList: []

@@ -1,10 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEditor;
-using UnityEngine.Rendering;
-using System.Security.Cryptography;
-using UnityEngine.Analytics;
-using UnityEditor.PackageManager;
+using System.Collections.Generic;
 
 [System.Serializable]
 public struct BulletStats
@@ -72,6 +67,7 @@ public class Projectile : MonoBehaviour
     }
 
     private Collider lastHitCollider = null;
+    private List<Collider> m_PiercedTargets;
 
     public string ownertag;
     public GameObject psImpactPrefab;
@@ -90,7 +86,9 @@ public class Projectile : MonoBehaviour
     void Start () {
         //begin recording path for range.
         m_PreviousPos = transform.position;
-	}
+        m_PiercedTargets = new List<Collider>();
+
+    }
     virtual public void SetupValues(string _ownerTag, Stats _setupStats)
     {
         ownertag = _ownerTag;
@@ -195,9 +193,11 @@ public class Projectile : MonoBehaviour
         Destroy(transform.gameObject);
     }
 
-    protected virtual void SpawnHitVisuals()
+    protected virtual void SpawnHitVisuals(Vector3 _spawnPos = new Vector3())
     {
-        Instantiate(psImpactPrefab, transform.position, transform.rotation);
+        if (_spawnPos == Vector3.zero)
+            _spawnPos = transform.position;
+        Instantiate(psImpactPrefab, _spawnPos, transform.rotation);
 
     }
 
@@ -222,10 +222,11 @@ public class Projectile : MonoBehaviour
         foreach (RaycastHit hitInfo in hitInfoArray)
         {
             Collider c = hitInfo.collider;
-            if (c.CompareTag(ownertag) || c == lastHitCollider)
+            if (c.CompareTag(ownertag) || c == lastHitCollider || m_PiercedTargets.Contains(c))
             {
                 //donot allow self-hits
                 //donot allow multi-hits
+                //donot allow pierce targets to be hit more than once (issue with fast moving targets, or when many targets inside large projectile)
                 continue;
             }
                 
@@ -250,7 +251,7 @@ public class Projectile : MonoBehaviour
             //try riccochet
             if (m_Stats.riccochet > 0)
             {
-                BulletBounced(c);
+                BulletBounced(c, hitInfo.point);
                 //stop considering further hits.
                 _collideData.type = CollisionMode.BOUNCE;
                 _collideData.hitNormal = hitInfo.normal;
@@ -264,7 +265,7 @@ public class Projectile : MonoBehaviour
                 if(m_Stats.penetration > 0)
                 {
                     //we hit an object
-                    BulletPierced(c);
+                    BulletPierced(c, hitInfo.point);
                     _collideData.type = CollisionMode.BOUNCE;
                     //can potentially pierce multiple objects in one step.
                     continue;
@@ -318,20 +319,21 @@ public class Projectile : MonoBehaviour
     /// <summary>
     /// bullet hit a solid object and needs to bounce.
     /// </summary>
-    private void BulletBounced(Collider _c)
+    private void BulletBounced(Collider _c, Vector3 _hitPos)
     {
         m_Stats.riccochet--;
-        SpawnHitVisuals();
+        SpawnHitVisuals(_hitPos);
         lastHitCollider = _c;
     }
 
     /// <summary>
     /// bullet hit a solid object and penetrates
     /// </summary>
-    private void BulletPierced(Collider _c)
+    private void BulletPierced(Collider _c, Vector3 _hitPos)
     {
         m_Stats.penetration--;
-        SpawnHitVisuals();
+        m_PiercedTargets.Add(_c);
+        SpawnHitVisuals(_hitPos);
         lastHitCollider = _c;
     }
 

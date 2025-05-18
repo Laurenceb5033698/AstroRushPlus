@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26c8fa40451601e4a8640576a47957e6, type: 3}
+  m_Name: UModule_Railgun_KillerInstinct
+  m_EditorClassIdentifier: 
+  DisplayDetails:
+    Txt_name: Killer Instinct
+    Txt_description: Reduces the charge time before firing
+    Txt_stat: Charge -50%
+    Type: 7
+    Fill_Icon: {fileID: 2800000, guid: 74a11a144abc80041b150f91873af9c2, type: 3}
+  m_UpgradeList:
+  - type: 17
+    BaseStatMax: 0
+    flat: 0
+    scale: 0
+    mod: -0.5
