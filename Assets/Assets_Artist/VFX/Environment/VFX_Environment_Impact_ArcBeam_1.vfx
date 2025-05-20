@@ -80,7 +80,7 @@ MonoBehaviour:
     x: -2440
     y: 298
     width: 3679
-    height: 2613
+    height: 2610
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -168,8 +168,8 @@ MonoBehaviour:
     max: Infinity
     enumValues: []
     descendantCount: 0
-  - name: ArcBeam_Weapon_Level
-    path: ArcBeam_Weapon_Level
+  - name: Weapon_Level
+    path: Weapon_Level
     tooltip: Weapon Level
     space: -1
     spaceable: 0
@@ -184,8 +184,8 @@ MonoBehaviour:
     max: Infinity
     enumValues: []
     descendantCount: 0
-  - name: ArcBeam_Weapon_Scale_Multiplier
-    path: ArcBeam_Weapon_Scale_Multiplier
+  - name: Weapon_Scale_Multiplier
+    path: Weapon_Scale_Multiplier
     tooltip: How much the weapon level multiplies by
     space: -1
     spaceable: 0
@@ -8339,7 +8339,7 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661615330}
-  m_ExposedName: ArcBeam_Weapon_Level
+  m_ExposedName: Weapon_Level
   m_Exposed: 1
   m_Order: 2
   m_Category: 
@@ -8722,7 +8722,7 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661615456}
-  m_ExposedName: ArcBeam_Weapon_Scale_Multiplier
+  m_ExposedName: Weapon_Scale_Multiplier
   m_Exposed: 1
   m_Order: 3
   m_Category: 

@@ -126,8 +126,8 @@ MonoBehaviour:
     max: Infinity
     enumValues: []
     descendantCount: 0
-  - name: TriShot_Weapon_Level
-    path: TriShot_Weapon_Level
+  - name: Weapon_Level
+    path: Weapon_Level
     tooltip: Weapon Level
     space: -1
     spaceable: 0
@@ -142,8 +142,8 @@ MonoBehaviour:
     max: Infinity
     enumValues: []
     descendantCount: 0
-  - name: TriShot_Weapon_Scale_Multiplier
-    path: TriShot_Weapon_Scale_Multiplier
+  - name: Weapon_Scale_Multiplier
+    path: Weapon_Scale_Multiplier
     tooltip: How much the weapon level multiplies by
     space: -1
     spaceable: 0
@@ -5569,7 +5569,7 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661615305}
-  m_ExposedName: TriShot_Weapon_Level
+  m_ExposedName: Weapon_Level
   m_Exposed: 1
   m_Order: 2
   m_Category: 
@@ -5650,7 +5650,7 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661615310}
-  m_ExposedName: TriShot_Weapon_Scale_Multiplier
+  m_ExposedName: Weapon_Scale_Multiplier
   m_Exposed: 1
   m_Order: 3
   m_Category: 
