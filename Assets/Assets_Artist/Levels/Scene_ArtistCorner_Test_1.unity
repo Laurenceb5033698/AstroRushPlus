@@ -6560,6 +6560,46 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8130226381119296193, guid: 618e669f4eb860441b09ef6ff221f3ac,
+        type: 3}
+      propertyPath: m_InitialEventNameOverriden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8130226381119296193, guid: 618e669f4eb860441b09ef6ff221f3ac,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8130226381119296193, guid: 618e669f4eb860441b09ef6ff221f3ac,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[1].m_Name
+      value: Upgrade_Explosive
+      objectReference: {fileID: 0}
+    - target: {fileID: 8130226381119296193, guid: 618e669f4eb860441b09ef6ff221f3ac,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[2].m_Name
+      value: Upgrade_Heavy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8130226381119296193, guid: 618e669f4eb860441b09ef6ff221f3ac,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[1].m_Value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8130226381119296193, guid: 618e669f4eb860441b09ef6ff221f3ac,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[2].m_Value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8130226381119296193, guid: 618e669f4eb860441b09ef6ff221f3ac,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[1].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8130226381119296193, guid: 618e669f4eb860441b09ef6ff221f3ac,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[2].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6898,7 +6938,7 @@ PrefabInstance:
     - target: {fileID: 1977898314789750535, guid: f8446fa71f88683469b8bf3d5c9eea5e,
         type: 3}
       propertyPath: m_PropertySheet.m_Bool.m_Array.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1977898314789750535, guid: f8446fa71f88683469b8bf3d5c9eea5e,
         type: 3}
@@ -6907,13 +6947,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1977898314789750535, guid: f8446fa71f88683469b8bf3d5c9eea5e,
         type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[2].m_Name
+      value: Upgrade_Heavy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1977898314789750535, guid: f8446fa71f88683469b8bf3d5c9eea5e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[3].m_Name
+      value: Upgrade_Unstoppable_Force
+      objectReference: {fileID: 0}
+    - target: {fileID: 1977898314789750535, guid: f8446fa71f88683469b8bf3d5c9eea5e,
+        type: 3}
       propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[1].m_Value
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1977898314789750535, guid: f8446fa71f88683469b8bf3d5c9eea5e,
         type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[2].m_Value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1977898314789750535, guid: f8446fa71f88683469b8bf3d5c9eea5e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[3].m_Value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1977898314789750535, guid: f8446fa71f88683469b8bf3d5c9eea5e,
+        type: 3}
       propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[1].m_Overridden
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1977898314789750535, guid: f8446fa71f88683469b8bf3d5c9eea5e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[2].m_Overridden
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1977898314789750535, guid: f8446fa71f88683469b8bf3d5c9eea5e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[3].m_Overridden
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7965010171981982078, guid: f8446fa71f88683469b8bf3d5c9eea5e,
         type: 3}
@@ -7265,6 +7335,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5668444251999822117, guid: 5b88020a21e77fe42880d42c06ed539c,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668444251999822117, guid: 5b88020a21e77fe42880d42c06ed539c,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Name
+      value: Weapon_Level
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668444251999822117, guid: 5b88020a21e77fe42880d42c06ed539c,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668444251999822117, guid: 5b88020a21e77fe42880d42c06ed539c,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Overridden
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7782580698171879579, guid: 5b88020a21e77fe42880d42c06ed539c,
         type: 3}
       propertyPath: m_Name
@@ -7333,6 +7423,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3875216698733242464, guid: f1b5245427d2cdf44a1ff72fa0031960,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3875216698733242464, guid: f1b5245427d2cdf44a1ff72fa0031960,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[1].m_Name
+      value: Upgrade_Heavy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3875216698733242464, guid: f1b5245427d2cdf44a1ff72fa0031960,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[1].m_Overridden
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6578305484605554280, guid: f1b5245427d2cdf44a1ff72fa0031960,
         type: 3}
       propertyPath: m_Name
