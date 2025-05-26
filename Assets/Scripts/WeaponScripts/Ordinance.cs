@@ -38,7 +38,7 @@ public class Ordinance : MonoBehaviour {
     {
         ship = obj;
     }
-    public void spawnProjectile(Vector3 aimDir)
+    public void spawnProjectile(Vector3 aimDir, out List<GameObject> _list)
     {//spawn pattern for missile ordianance
 
         //VERY TEMPORARY
@@ -49,12 +49,19 @@ public class Ordinance : MonoBehaviour {
         mBullet = (GameObject)Instantiate(ProjectilePrefab, ship.transform.position + aimDir * 8f, Quaternion.LookRotation(aimDir, Vector3.up));
         mBullet.GetComponent<Projectile>().SetupValues(ship.tag, shipstats);
 
+        _list = new List<GameObject>();
+        _list.Add(mBullet);
+        
     }
 
-    public void Shoot(Vector3 direction)
+    public List<GameObject> Shoot(Vector3 direction)
     {
-        spawnProjectile(direction);
+        List<GameObject> list;
+        spawnProjectile(direction, out list);
 
         //shootSound.Play();
+        return list;
     }
+
+
 }

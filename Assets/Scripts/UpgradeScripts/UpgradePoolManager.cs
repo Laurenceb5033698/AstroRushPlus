@@ -42,7 +42,7 @@ public class UpgradePoolManager : MonoBehaviour
     enum PickState
     {
         WeaponType,
-        //Missile,
+        Missile,
         Standard
     };
     private PickState CurrentPick;
@@ -80,6 +80,9 @@ public class UpgradePoolManager : MonoBehaviour
         switch (CurrentPick) {
             case PickState.WeaponType:
                 WorkingPool = new List<UModuleScriptable>(Data_WeaponPool.Pool);
+                break;
+            case PickState.Missile:
+                if (Data_MissilePool) WorkingPool.AddRange(Data_MissilePool.Pool);
                 break;
             case PickState.Standard:
                 if (Data_GenericWeaponPool) WorkingPool.AddRange(Data_GenericWeaponPool.Pool);
@@ -166,9 +169,17 @@ public class UpgradePoolManager : MonoBehaviour
         //once weapon picked, change to next pool.
         if (CurrentPick == PickState.WeaponType)
         {
-            CurrentPick = PickState.Standard;
+            CurrentPick = PickState.Missile;
             //only refresh if pickState changed.
             RefreshPool();
+        }
+        else
+        {
+            if(CurrentPick == PickState.Missile)
+            {
+                CurrentPick = PickState.Standard;
+                RefreshPool();
+            }
         }
     }
 

@@ -7,14 +7,17 @@ public class Equipment : MonoBehaviour {
 
     private int NoOrdinances = 3;
     [SerializeField] private List<Ordinance> ordini;//weapon prefabs
-    
+
     private Ordinance Gun = null;
     private int currentGun = 0;
+
+    public delegate void MissileUpgrader(GameObject _missile);
+    public MissileUpgrader UpgraderAction;
 
     //all Ordini use from Ammo
     [SerializeField] private int AmmoCommon = 20;
 
-    void Start () {
+    void Start() {
         GetComponentsInChildren<Ordinance>(ordini);
         NoOrdinances = ordini.Count;
         foreach (Ordinance item in ordini)
@@ -65,7 +68,10 @@ public class Equipment : MonoBehaviour {
             if (AmmoCommon > 0)
             {
                 --AmmoCommon;
-                Gun.Shoot(Aimdir);
+                foreach( GameObject projectile in Gun.Shoot(Aimdir))
+                {
+                    MissileInitialise(projectile);
+                }
                 //    Quaternion temp = new Quaternion();
                 //    temp.SetLookRotation(Aimdir, transform.up);
                 //    turret.transform.rotation = temp;
@@ -84,5 +90,34 @@ public class Equipment : MonoBehaviour {
     public int GetAmmoCount()
     {
         return AmmoCommon;
+    }
+
+
+    //###############
+    //Event Callbacks
+
+    /// <summary>
+    /// Called by missile weapon when a projectile is spawned.
+    /// used to add components from upgrades.
+    /// </summary>
+    public void MissileInitialise(GameObject _missileObject)
+    {
+        //pass missile to event delegates so thay can do their upgrade things
+        if (UpgraderAction != null)
+            UpgraderAction.Invoke(_missileObject);
+    }
+
+    /// <summary>
+    /// When a missile upgrade is picked, it will register itself here 
+    /// </summary>
+    /// <param name="_upgradeFunc"></param>
+    public void RegisterToMissileUpgrader(MissileUpgrader _upgradeFunc)
+    {
+        UpgraderAction += _upgradeFunc;
+    }
+
+    public void DeRegisterFromMissileUpgrader(MissileUpgrader _upgradeFunc)
+    {
+        UpgraderAction -= _upgradeFunc;
     }
 }

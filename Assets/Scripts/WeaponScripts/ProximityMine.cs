@@ -91,7 +91,7 @@ public class ProximityMine : Projectile {
         Destroy(transform.gameObject);
     }
 
-    protected override void applyImpulse(Rigidbody body)
+    public override void applyImpulse(Rigidbody body)
     {
         Vector3 direction = body.transform.position - transform.position;
         direction.Normalize();

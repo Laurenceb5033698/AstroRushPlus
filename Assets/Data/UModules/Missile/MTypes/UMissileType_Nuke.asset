@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1acdf137703aef146b47f1cb85f18b33, type: 3}
+  m_Name: UMissileType_Nuke
+  m_EditorClassIdentifier: 
+  DisplayDetails:
+    Txt_name: Nuke
+    Txt_description: Big Bang
+    Txt_stat: Area +200, Area Dmg +200
+    Type: 2
+    Fill_Icon: {fileID: 2800000, guid: 7534899eb65e0804a89849a697488fb9, type: 3}
+  m_UpgradeList:
+  - type: 38
+    BaseStatMax: 0
+    flat: 200
+    scale: 0
+    mod: 0
+  - type: 37
+    BaseStatMax: 0
+    flat: 200
+    scale: 0
+    mod: 0
+  m_MissileComponent: {fileID: 5964862401912977147, guid: 6369770efc32cf44f8de87be1ae78590,
+    type: 3}

@@ -61,7 +61,7 @@ public class UpgradeModule
     virtual protected void ProcessImpl(ref Stats _shipStats)
     {
         ApplyStats(ref _shipStats.block);
-        AttachCallbacks();
+        AttachCallbacks(_shipStats.gameObject);
     }
 
     /// <summary>
@@ -111,8 +111,8 @@ public class UpgradeModule
     /// <summary>
     /// for any callbacks that need to be attached to ship event caller.
     /// </summary>
-    public void AttachCallbacks()
+    protected virtual void AttachCallbacks(GameObject _shipObject)
     {
-
+        
     }
 }

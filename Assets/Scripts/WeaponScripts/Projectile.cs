@@ -1,73 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-
-[System.Serializable]
-public struct BulletStats
-{
-    public float damage;
-    public float speed;
-    public float acceleration;
-    public float range;
-    public float lifetime;
-    public float magnet;
-    public int   penetration;
-    public int   riccochet;
-    public float size;
-    public float falloff;
-    //other bools might be needed here.
-
-    //ctor from stats.
-    public BulletStats(Stats _stats)
-    {
-        damage = _stats.Get(StatType.gAttack);
-        speed = _stats.Get(StatType.bSpeed);
-        acceleration = _stats.Get(StatType.bAcceleration);
-        range = _stats.Get(StatType.bRange);
-        lifetime = _stats.Get(StatType.bLifetime);
-        magnet = _stats.Get(StatType.bMagentPower);
-        penetration = (int)_stats.Get(StatType.bPenetrationAmount);
-        riccochet = (int)_stats.Get(StatType.bRicochetAmount);
-        size = _stats.Get(StatType.bSize);
-        falloff = Mathf.Max(1,_stats.Get(StatType.bFalloff));
-    }
-    public BulletStats(Stats _stats, Rigidbody _rb)
-    {   //missile type projectile
-        damage = _stats.Get(StatType.mAttack);
-        speed = _stats.Get(StatType.mSpeed);
-        acceleration = _stats.Get(StatType.mAcceleration);
-        range = _stats.Get(StatType.mRange);
-        lifetime = _stats.Get(StatType.mLifetime);
-        magnet = _stats.Get(StatType.mMagnetPower);
-        penetration = 0;
-        riccochet = 0;
-        size = _stats.Get(StatType.mSize);
-        falloff = 1;
-    }
-}
+using Projectiles;
+using TMPro;
 
 public class Projectile : MonoBehaviour
 {
-
-    enum CollisionMode {
-        NONE,
-        PIERCE,
-        NORMAL,
-        BOUNCE
-    }
-    struct CollisionData {
-        public CollisionMode type;
-        public Vector3 hitNormal;
-        public float hitDistance;
-        public CollisionData (CollisionMode _m, Vector3 _n, float _d)
-        {
-            type = _m;
-            hitNormal = _n;
-            hitDistance = _d;
-        }
-    }
-
-    private Collider lastHitCollider = null;
-    private List<Collider> m_PiercedTargets;
+    protected ProjectileMotor motor;
+    //private Collider lastHitCollider = null;
+    //private List<Collider> m_PiercedTargets;
 
     public string ownertag;
     public GameObject psImpactPrefab;
@@ -75,24 +15,29 @@ public class Projectile : MonoBehaviour
     public BulletStats m_Stats;
 
     //values for range and falloff
-    Vector3 m_PreviousPos;
     float m_cumulativePath = 0.0f;
     float m_falloffCurrent = 0.0f;
     float m_falloffPercent = 1.0f;
     float m_sizeModifier = 1.0f;
 
     bool m_ProjectileInteraction = false;
-
-    void Start () {
-        //begin recording path for range.
-        m_PreviousPos = transform.position;
-        m_PiercedTargets = new List<Collider>();
+    protected virtual void Awake()
+    {
+        motor = GetComponent<ProjectileMotor>();
+        if (!motor)
+            motor = gameObject.AddComponent<ProjectileMotor>();
+    }
+    void Start () 
+    {
+        //m_PiercedTargets = new List<Collider>();
 
     }
     virtual public void SetupValues(string _ownerTag, Stats _setupStats)
     {
         ownertag = _ownerTag;
-        m_Stats = new BulletStats(_setupStats);
+        m_Stats = new BulletStats();
+        m_Stats.SetupValues(_setupStats, false);
+        motor.Setup(_ownerTag, m_Stats);
     }
 
     //protected virtual void OnTriggerEnter(Collider _other)
@@ -139,57 +84,77 @@ public class Projectile : MonoBehaviour
     //    }
     //}
 
-    protected virtual void applyImpulse(Rigidbody body)
+    public virtual void applyImpulse(Rigidbody body)
     {
         //Vector3 direction = transform.position - body.transform.position;
         body.AddForce(transform.forward * ((m_Stats.damage / 2)+(m_Stats.speed / (2+body.mass))), ForceMode.Impulse);
     }
 
-    // Update is called once per frame
-    protected virtual void Update () {
-
-        
-        
+    protected virtual void Update () 
+    {
 	}
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         m_Stats.lifetime -= Time.deltaTime;
         if (m_Stats.lifetime < 0)
             DestroySelf();
 
-        //max travel distance is regular speed*time
-        float travelDistance = CalcSpeed() * Time.deltaTime;
-        //do collision check, return type of collision and set travel distance if reduced.
+        if(!motor)
+        {
+            Debug.Log("Error! Projectile: Motor is null.");
+            return;
+        }
+
         CollisionData collideData;
-        DoSphereCast(travelDistance, out collideData);
+        motor.Motor(out collideData);
 
-        //resolve movement
-        if (collideData.type == CollisionMode.BOUNCE)
-        {
-            //set bullet position to correct position at point of hit.
-            transform.position += transform.forward * collideData.hitDistance;
-            //transform.position = _hitInfo.point + _hitInfo.normal * m_Stats.size;
+        HandleHits(collideData);
 
-            //new forward direction is reflected based on hit normal. only refelcts in the plane of the playfield.
-            Vector3 horizontalReflection = Vector3.Reflect(transform.forward, collideData.hitNormal);
-            horizontalReflection.y = 0;
-            transform.rotation = Quaternion.LookRotation(horizontalReflection, Vector3.up);
-        }
-        else
-        {
-            //simple movement for others
-            transform.position += transform.forward * collideData.hitDistance;
-        }
+        //moved to ProjectileMotor Component
+
+        ////max travel distance is regular speed*time
+        //float travelDistance = CalcSpeed() * Time.deltaTime;
+        ////do collision check, return type of collision and set travel distance if reduced.
+        //CollisionData collideData;
+        //DoSphereCast(travelDistance, out collideData);
+
+        ////resolve movement
+        //if (collideData.type == CollisionMode.BOUNCE)
+        //{
+        //    //set bullet position to correct position at point of hit.
+        //    transform.position += transform.forward * collideData.hitDistance;
+        //    //transform.position = _hitInfo.point + _hitInfo.normal * m_Stats.size;
+
+        //    //new forward direction is reflected based on hit normal. only refelcts in the plane of the playfield.
+        //    Vector3 horizontalReflection = Vector3.Reflect(transform.forward, collideData.hitNormal);
+        //    horizontalReflection.y = 0;
+        //    transform.rotation = Quaternion.LookRotation(horizontalReflection, Vector3.up);
+        //}
+        //else
+        //{
+        //    //simple movement for others
+        //    transform.position += transform.forward * collideData.hitDistance;
+        //}
 
         //check these in fixed update to reduce lag on higher framerates.
         CheckRange(collideData.hitDistance);
         BulletFalloff();
     }
 
+    private void HandleHits(CollisionData _data)
+    {
+        foreach (HitData hit in _data.hitObjects)
+        {
+            hit.damageable.TakeDamage(transform.position, CalcDamage());
+            SpawnHitVisuals(hit.hitPos);
+            applyImpulse(hit.damageable.GetRigidbody());
+        }
+    }
+
     protected virtual void DestroySelf()
     {
-        SpawnHitVisuals();
+        //SpawnHitVisuals();
         Destroy(transform.gameObject);
     }
 
@@ -206,83 +171,86 @@ public class Projectile : MonoBehaviour
     /// Instead of using collider component for bullet hitting things. use sphere cast along path travelled.
     /// </summary>
     /// <param name="_maxDistance">The length of the raycast for this step.</param>
-    private void DoSphereCast(float _maxDistance, out CollisionData _collideData)
-    {
-        //player, enemies, and asteroids all on default layer
-        int layerMask = LayerMask.GetMask("Default");
+    //private void DoSphereCast(float _maxDistance, out CollisionData _collideData)
+    //{
+    //    //player, enemies, and asteroids all on default layer
+    //    int layerMask = LayerMask.GetMask("Default");
 
-        //if a bullet needs to detect a bullet, allow trigger on other projectiles.
-        if (m_ProjectileInteraction)
-            layerMask += LayerMask.GetMask("Projectiles");
+    //    //if a bullet needs to detect a bullet, allow trigger on other projectiles.
+    //    if (m_ProjectileInteraction)
+    //        layerMask += LayerMask.GetMask("Projectiles");
 
-        //return value starts as none. it is changed if any other collision type happens
-        _collideData = new CollisionData(CollisionMode.NONE, Vector3.zero, _maxDistance);
+    //    //return value starts as none. it is changed if any other collision type happens
+    //    _collideData = new CollisionData(CollisionMode.NONE, Vector3.zero, _maxDistance);
         
-        RaycastHit[] hitInfoArray = Physics.SphereCastAll(transform.position, m_Stats.size/2, transform.forward, _maxDistance, layerMask, QueryTriggerInteraction.Collide);
-        foreach (RaycastHit hitInfo in hitInfoArray)
-        {
-            Collider c = hitInfo.collider;
-            if (c.CompareTag(ownertag) || c == lastHitCollider || m_PiercedTargets.Contains(c))
-            {
-                //donot allow self-hits
-                //donot allow multi-hits
-                //donot allow pierce targets to be hit more than once (issue with fast moving targets, or when many targets inside large projectile)
-                continue;
-            }
+    //    RaycastHit[] hitInfoArray = Physics.SphereCastAll(transform.position, m_Stats.size/2, transform.forward, _maxDistance, layerMask, QueryTriggerInteraction.Collide);
+    //    foreach (RaycastHit hitInfo in hitInfoArray)
+    //    {
+    //        Collider c = hitInfo.collider;
+    //        if (c == this.GetComponent<Collider>())
+    //            continue;
+
+    //        if (c.CompareTag(ownertag) || c == lastHitCollider || m_PiercedTargets.Contains(c))
+    //        {
+    //            //donot allow self-hits
+    //            //donot allow multi-hits
+    //            //donot allow pierce targets to be hit more than once (issue with fast moving targets, or when many targets inside large projectile)
+    //            continue;
+    //        }
                 
-            if (m_ProjectileInteraction)
-            {
-                if (c.CompareTag("bullet"))
-                {
-                    //was a bullet
-                    //trigger bullet interaction
-                }
-                //donot riccochet, donot reduce pen count.
-                //other interaction handled in bullet trigger
-                continue;
-            }
-            //now try regular hit interaction
-            Damageable damageable = c.GetComponent<Damageable>();
-            if (!damageable)
-                continue;
+    //        if (m_ProjectileInteraction)
+    //        {
+    //            if (c.CompareTag("bullet"))
+    //            {
+    //                //was a bullet
+    //                //trigger bullet interaction
+    //            }
+    //            //donot riccochet, donot reduce pen count.
+    //            //other interaction handled in bullet trigger
+    //            continue;
+    //        }
+    //        //now try regular hit interaction
+    //        Damageable damageable = c.GetComponent<Damageable>();
+    //        if (!damageable)
+    //            continue;
 
-            damageable.TakeDamage(transform.position, CalcDamage());
-            applyImpulse(damageable.GetRigidbody());
-            //try riccochet
-            if (m_Stats.riccochet > 0)
-            {
-                BulletBounced(c, hitInfo.point);
-                //stop considering further hits.
-                _collideData.type = CollisionMode.BOUNCE;
-                _collideData.hitNormal = hitInfo.normal;
-                _collideData.hitDistance = hitInfo.distance;
+    //        damageable.TakeDamage(transform.position, CalcDamage());
+    //        applyImpulse(damageable.GetRigidbody());
+    //        //try riccochet
+    //        if (m_Stats.riccochet > 0)
+    //        {
+    //            BulletBounced(c, hitInfo.point);
+    //            //stop considering further hits.
+    //            _collideData.type = CollisionMode.BOUNCE;
+    //            _collideData.hitNormal = hitInfo.normal;
+    //            _collideData.hitDistance = hitInfo.distance;
 
-                break;
-            }
-            else
-            {
-                //no riccochets left, try piercing
-                if(m_Stats.penetration > 0)
-                {
-                    //we hit an object
-                    BulletPierced(c, hitInfo.point);
-                    _collideData.type = CollisionMode.BOUNCE;
-                    //can potentially pierce multiple objects in one step.
-                    continue;
-                }
-                else
-                {
-                    //regular hit, queue projectile dying
-                    m_Stats.lifetime = -1;
-                    _collideData.type = CollisionMode.BOUNCE;
-                    _collideData.hitNormal = hitInfo.normal;
-                    _collideData.hitDistance = hitInfo.distance;
+    //            break;
+    //        }
+    //        else
+    //        {
+    //            //no riccochets left, try piercing
+    //            if(m_Stats.penetration > 0)
+    //            {
+    //                //we hit an object
+    //                BulletPierced(c, hitInfo.point);
+    //                _collideData.type = CollisionMode.PIERCE;
+    //                //can potentially pierce multiple objects in one step.
+    //                continue;
+    //            }
+    //            else
+    //            {
+    //                //regular hit, queue projectile dying
+    //                m_Stats.lifetime = -1;
+    //                _collideData.type = CollisionMode.NORMAL;
+    //                _collideData.hitNormal = hitInfo.normal;
+    //                _collideData.hitDistance = hitInfo.distance;
 
-                    break;
-                }
-            }
-        }
-    }
+    //                break;
+    //            }
+    //        }
+    //    }
+    //}
 
     /// <summary>
     /// Bullets have an effective range.
@@ -319,23 +287,23 @@ public class Projectile : MonoBehaviour
     /// <summary>
     /// bullet hit a solid object and needs to bounce.
     /// </summary>
-    private void BulletBounced(Collider _c, Vector3 _hitPos)
-    {
-        m_Stats.riccochet--;
-        SpawnHitVisuals(_hitPos);
-        lastHitCollider = _c;
-    }
+    //private void BulletBounced(Collider _c, Vector3 _hitPos)
+    //{
+    //    m_Stats.riccochet--;
+    //    SpawnHitVisuals(_hitPos);
+    //    lastHitCollider = _c;
+    //}
 
     /// <summary>
     /// bullet hit a solid object and penetrates
     /// </summary>
-    private void BulletPierced(Collider _c, Vector3 _hitPos)
-    {
-        m_Stats.penetration--;
-        m_PiercedTargets.Add(_c);
-        SpawnHitVisuals(_hitPos);
-        lastHitCollider = _c;
-    }
+    //private void BulletPierced(Collider _c, Vector3 _hitPos)
+    //{
+    //    m_Stats.penetration--;
+    //    m_PiercedTargets.Add(_c);
+    //    SpawnHitVisuals(_hitPos);
+    //    lastHitCollider = _c;
+    //}
 
     virtual protected float CalcDamage()
     {

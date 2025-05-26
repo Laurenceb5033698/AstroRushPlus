@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1acdf137703aef146b47f1cb85f18b33, type: 3}
+  m_Name: UMissileType_Homing
+  m_EditorClassIdentifier: 
+  DisplayDetails:
+    Txt_name: Homing Missile
+    Txt_description: Seek and Destroy
+    Txt_stat: 
+    Type: 2
+    Fill_Icon: {fileID: 2800000, guid: ddc9c0b78a18f9b44b21e7a6f0055cda, type: 3}
+  m_UpgradeList:
+  - type: 41
+    BaseStatMax: 0
+    flat: 0
+    scale: 0
+    mod: 0.2
+  m_MissileComponent: {fileID: 609298342534533137, guid: 3f1e803c0736f264ab68c8171194e385,
+    type: 3}

@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 54000012790717164}
   - component: {fileID: 65000011361516742}
   - component: {fileID: 82590912242672888}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rocket
-  m_TagString: Untagged
+  m_TagString: bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,17 +52,7 @@ MonoBehaviour:
   ownertag: 
   psImpactPrefab: {fileID: 1226382822747598, guid: 3700763d6b9d11f419bd71e1dc30182e,
     type: 3}
-  m_Stats:
-    damage: 0
-    speed: 0
-    acceleration: 0
-    range: 0
-    lifetime: 0
-    magnet: 0
-    penetration: 0
-    riccochet: 0
-    size: 0
-    falloff: 0
+  m_Stats: {fileID: 0}
 --- !u!54 &54000012790717164
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -219,7 +209,7 @@ GameObject:
   - component: {fileID: 4000013409619468}
   - component: {fileID: 7004361785726562625}
   - component: {fileID: 6915721737534057554}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Mesh_Missile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,7 +295,7 @@ GameObject:
   - component: {fileID: 4126496873096694863}
   - component: {fileID: 4530920599993072556}
   - component: {fileID: 4006513016450305912}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: VFX_Thruster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
