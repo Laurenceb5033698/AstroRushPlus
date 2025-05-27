@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2226862248361332133}
   - component: {fileID: 6889903755082701596}
   - component: {fileID: 2858783059415822974}
+  - component: {fileID: 843835368666127195}
   m_Layer: 0
   m_Name: VFX_Explosion_Stylized_5_Missile
   m_TagString: Untagged
@@ -114,3 +115,16 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &843835368666127195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538370572894859206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd3ddc36e425c04aafad4cc8d1a8b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vfxLifetime: 5
