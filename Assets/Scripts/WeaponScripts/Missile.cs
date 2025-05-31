@@ -57,6 +57,7 @@ public class Missile : Projectile
 
     override public void SetupValues(string _ownerTag, Stats _setupStats)
     {
+        ownertag = _ownerTag;
         m_Stats = new BulletStats();
         m_Stats.SetupValues(_setupStats, true);
         motor.Setup(_ownerTag, m_Stats);
@@ -76,15 +77,12 @@ public class Missile : Projectile
         //if (target)
         //{
         //    direction = (target.transform.position - transform.position).normalized;
-
         //    //rb.AddForce(direction * 3000 * Time.deltaTime, ForceMode.Force);
         //    //if (Vector3.Dot(transform.forward, direction) < 0.2f)
         //    //    rb.AddForce(direction * 100 * Time.deltaTime, ForceMode.VelocityChange);
         //    //if (rb.linearVelocity.magnitude > 100)
         //    //    rb.linearVelocity = rb.linearVelocity.normalized * 100;
-
         //    transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.FromToRotation(Vector3.forward, direction), 300 * Time.deltaTime);
-
         //}
         //else
         //{

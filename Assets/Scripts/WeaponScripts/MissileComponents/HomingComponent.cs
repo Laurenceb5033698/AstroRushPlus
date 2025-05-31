@@ -28,7 +28,7 @@ public class HomingComponent : BaseMissileComponent
                 }
             }
         }
-        return bestTarget.transform;
+        return bestTarget ? bestTarget.transform : null;
     }
 
     public override void PerFixed()

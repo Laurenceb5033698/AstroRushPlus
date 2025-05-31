@@ -30,7 +30,7 @@ public class MissileMovementComponent : ProjectileMotor
         if (_collideData.type == CollisionMode.BOUNCE)
         {
             //set bullet position to correct position at point of hit.
-            transform.position += transform.forward * _collideData.hitDistance;
+            transform.position += m_Velocity.normalized * _collideData.hitDistance;
             //transform.position = _hitInfo.point + _hitInfo.normal * m_Stats.size;
 
             //new forward direction is reflected based on hit normal. only refelcts in the plane of the playfield.
@@ -41,7 +41,7 @@ public class MissileMovementComponent : ProjectileMotor
         else
         {
             //simple movement for others
-            transform.position += transform.forward * _collideData.hitDistance;
+            transform.position += m_Velocity.normalized * _collideData.hitDistance;
         }
 
         //if hits, return with objects set.
