@@ -23,6 +23,7 @@ abstract public class PlayerController : MonoBehaviour {
     //compoent vars
     protected Rigidbody rb; 	// ship's rigid body
     protected Stats stats;
+    protected ShipMovementComponent motor;
     [SerializeField] protected ParticleSystem shield_Emitter;
     [SerializeField] public Arsenal arsenal;
     [SerializeField] protected Equipment equipment;
@@ -51,6 +52,7 @@ abstract public class PlayerController : MonoBehaviour {
         rb = ship.GetComponent<Rigidbody>();
         stats = ship.GetComponent<Stats>();
         arsenal = ship.GetComponentInChildren<Arsenal>();
+        motor = ship.GetComponent<ShipMovementComponent>();
 
         //single weapon "Equipment" is a collection for Ordinance
         equipment = ship.GetComponentInChildren<Equipment>();
@@ -112,6 +114,11 @@ abstract public class PlayerController : MonoBehaviour {
         {
             fuelConsumetimer -= Time.deltaTime;
         }
+        bool isDrifting = true;
+        if (controls.LeftAnalogueInUse)
+            isDrifting = false;
+        if (motor)
+            motor.Motor(new Vector3(controls.LeftStick.x, 0, controls.LeftStick.y), isDrifting);
     }
 
     

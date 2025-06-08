@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor.Search;
 
 /// <summary>
 /// Tracking Camera and Camera Shake.
@@ -8,10 +9,14 @@ public class CameraScript : MonoBehaviour {
 
     //track player
 	private GameObject followTarget;
+
     [SerializeField] private Vector3 positionOffset = new Vector3(0,70,-40);
     //focus offset adjusts camera lookat, so target object is not directly centred onscreen
     [SerializeField] private Vector3 focusOffset = new Vector3(0, 0, 0);
-
+    //camera smooth follow speed.
+    [SerializeField] private float smoothTime = 0.1f;
+    [SerializeField] private float smoothMaxSpeed = 10.0f;
+    [SerializeField] private float MaxDistance = 10.0f;
 
     //screen shake
     [SerializeField] private GameObject shakeObject;
@@ -22,7 +27,6 @@ public class CameraScript : MonoBehaviour {
 
     //testing
     public bool testShake = false;
-
 
 
     //camera object follows player per update.
@@ -36,11 +40,7 @@ public class CameraScript : MonoBehaviour {
 
     private void LateUpdate()
     {
-        if (followTarget != null)
-        {
-            transform.position = followTarget.transform.position + positionOffset;
-            transform.LookAt(followTarget.transform.position + focusOffset);
-        }
+        FollowTarget();   
 
         if (shakeObject != null && shakeProgress > Time.time)
         {
@@ -54,15 +54,39 @@ public class CameraScript : MonoBehaviour {
         }
     }
 
-    //void Update ()
-    //{
-        
-    //}
+    /// <summary>
+    /// Follow target with offset with smoothing.
+    /// </summary>
+    private void FollowTarget()
+    {
+        //moves transform towards position with max offset.
 
-    public void SetTarget(GameObject ps)
-    {  
-        followTarget = ps;
+        //if camera falls too far behind target, uses maximum distace to keep up.
+
+        if (followTarget != null)
+        {
+            Vector3 targetpos = followTarget.transform.position + positionOffset;
+            //distance from targetpos
+            //float currentDistance = (targetpos - transform.position).magnitude;
+            //float percentDistFromWanted = Mathf.Clamp01(currentDistance / MaxDistance);
+
+            Vector3 smoothFollow = Vector3.Lerp(transform.position, targetpos, smoothTime);
+
+            Vector3 focusPoint = followTarget.transform.position + focusOffset;
+            Quaternion LookRotation = Quaternion.LookRotation(focusPoint - transform.position, Vector3.up);
+
+            
+
+            transform.position = smoothFollow;
+            //transform.rotation = Quaternion.Slerp(transform.rotation, LookRotation, smoothTime);
+
+            //does not look at target, rather looks at a point in that sort of direction but is actually relative to camera.
+            Vector3 focusPosition = transform.position - positionOffset + focusOffset;
+            transform.LookAt(focusPosition);
+        }
     }
+
+
 
     IEnumerator Shaking()
     {
@@ -76,5 +100,12 @@ public class CameraScript : MonoBehaviour {
             yield return null;
         }
         shakeObject.transform.localPosition = Vector3.zero;
+    }
+
+
+    //Util
+    public void SetTarget(GameObject ps)
+    {
+        followTarget = ps;
     }
 }
