@@ -215,3 +215,41 @@ MonoBehaviour:
   dirtIntensity:
     m_OverrideState: 0
     m_Value: 0
+--- !u!114 &7012391225990119415
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f019255bcd1cb489b193b5e8443a27, type: 3}
+  m_Name: Streak
+  m_EditorClassIdentifier: 
+  active: 1
+  <displayName>k__BackingField: 
+  m_IsInitialized: 0
+  typeName: 
+  <passName>k__BackingField: 
+  threshold:
+    <debugId>k__BackingField: threshold
+    m_OverrideState: 0
+    m_Value: 1
+  stretch:
+    <debugId>k__BackingField: stretch
+    m_OverrideState: 0
+    m_Value: 0.75
+  intensity:
+    <debugId>k__BackingField: intensity
+    m_OverrideState: 0
+    m_Value: 0
+  tint:
+    <debugId>k__BackingField: tint
+    m_OverrideState: 0
+    m_Value:
+      r: 0.55
+      g: 0.55
+      b: 1
+      a: 1
+  _material: {fileID: 0}
