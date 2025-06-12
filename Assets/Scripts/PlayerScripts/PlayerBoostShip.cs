@@ -31,20 +31,21 @@ public class PlayerBoostShip : PlayerController {
         float currentSpeed = 0.0f;
         currentSpeed = stats.GetMainThrust();
 
+        bool isDrifting = true;
         if (controls.LeftAnalogueInUse)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(controls.LeftStick.x, 0, controls.LeftStick.y)) * Quaternion.Euler(new Vector3(0, -90, 0)), 10);
+            //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(controls.LeftStick.x, 0, controls.LeftStick.y)) * Quaternion.Euler(new Vector3(0, -90, 0)), 10);
 
             if (UsingAbility && stats.ShipFuel > 0.01f)
             {
                 currentSpeed = stats.GetSpecial();
                 SpendShipFuel();
             }
+            isDrifting = false;
+            if (motor)
+                motor.Motor(new Vector3(controls.LeftStick.x, 0, controls.LeftStick.y), isDrifting);
         }
-        
-        //rb.linearVelocity = new Vector3(controls.LeftStick.x * currentSpeed, 0, controls.LeftStick.y * currentSpeed);
-        rb.angularVelocity = new Vector3(0, 0, 0);
-        
+
     }
 
     //Event Handlers

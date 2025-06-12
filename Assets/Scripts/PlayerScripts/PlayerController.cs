@@ -74,7 +74,7 @@ abstract public class PlayerController : MonoBehaviour {
         UpdateController();
 
         decreaseDamageTimer();
-        direction = transform.right;
+        direction = transform.forward;
 
         if (!stats.GetDisabled())   //can only be controlled if not disabled/emp'd
         {
@@ -105,7 +105,7 @@ abstract public class PlayerController : MonoBehaviour {
     protected void FixedUpdate()
     {
         if (rumbleTimer > Time.time)
-            GamePad.SetVibration(playerIndex, 0.5f, 0.5f);
+            GamePad.SetVibration(playerIndex, 0.4f, 0.4f);
         else
             GamePad.SetVibration(playerIndex, 0, 0);
 
@@ -114,11 +114,7 @@ abstract public class PlayerController : MonoBehaviour {
         {
             fuelConsumetimer -= Time.deltaTime;
         }
-        bool isDrifting = true;
-        if (controls.LeftAnalogueInUse)
-            isDrifting = false;
-        if (motor)
-            motor.Motor(new Vector3(controls.LeftStick.x, 0, controls.LeftStick.y), isDrifting);
+        
     }
 
     

@@ -49,7 +49,7 @@ public class Inputs : MonoBehaviour
     public bool ScrollUp = false;
     public bool ScrollDown = false;
 
-    void Update()
+    private void FixedUpdate()
     {
         DpadXPressed = false;
         DpadYPressed = false;
