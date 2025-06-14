@@ -16,8 +16,8 @@ MonoBehaviour:
   - title: CYLINDEER CORE
     position:
       serializedVersion: 2
-      x: 852
-      y: -1433
+      x: 881
+      y: -1446
       width: 478
       height: 1880
     contents:
@@ -97,10 +97,10 @@ MonoBehaviour:
   categories: []
   uiBounds:
     serializedVersion: 2
-    x: 610
+    x: 649
     y: -1447
-    width: 2382
-    height: 2038
+    width: 2343
+    height: 1982
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d4c867f6b72b714dbb5fd1780afe208, type: 3}
-  m_Name: VFX_Weapon_Beam_1
+  m_Name: VFX_Ultimate_LaserBeam_1
   m_EditorClassIdentifier: 
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 0}
@@ -166,7 +166,7 @@ VisualEffectResource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: VFX_Weapon_Beam_1
+  m_Name: VFX_Ultimate_LaserBeam_1
   m_Graph: {fileID: 114350483966674976}
   m_Infos:
     m_RendererSettings:
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children:
   - {fileID: 8926484042661614853}
-  m_UIPosition: {x: 877, y: -1374}
+  m_UIPosition: {x: 906, y: -1387}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -256,7 +256,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614628}
   - {fileID: 8926484042661614884}
   - {fileID: 8926484042661614872}
-  m_UIPosition: {x: 877, y: -1086}
+  m_UIPosition: {x: 906, y: -1099}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -318,7 +318,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 8926484042661614613}
   m_Children: []
-  m_UIPosition: {x: 357.33423, y: 1214.2454}
+  m_UIPosition: {x: 0, y: 2}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -380,7 +380,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 877, y: -516}
+  m_UIPosition: {x: 906, y: -529}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -857,7 +857,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 8926484042661614608}
   m_Children: []
-  m_UIPosition: {x: 0, y: 0}
+  m_UIPosition: {x: 0, y: 2}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -1024,7 +1024,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614866}
   - {fileID: 8926484042661614887}
   - {fileID: 8926484042661614893}
-  m_UIPosition: {x: 881, y: -349}
+  m_UIPosition: {x: 910, y: -362}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -1195,7 +1195,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 8926484042661614858}
   m_Children: []
-  m_UIPosition: {x: 0, y: 0}
+  m_UIPosition: {x: 0, y: 2}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -1291,7 +1291,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 8926484042661614858}
   m_Children: []
-  m_UIPosition: {x: 0, y: 0}
+  m_UIPosition: {x: 0, y: 75}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -1332,7 +1332,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":1.0,"y":1.0,"z":15.0}'
+      m_SerializableObject: '{"x":1.0,"y":1.0,"z":45.0}'
     m_Space: -1
   m_Property:
     name: _Scale
@@ -1489,7 +1489,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 8926484042661614613}
   m_Children: []
-  m_UIPosition: {x: 0, y: 0}
+  m_UIPosition: {x: 0, y: 149}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -1687,7 +1687,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 8926484042661614613}
   m_Children: []
-  m_UIPosition: {x: 0, y: 0}
+  m_UIPosition: {x: 0, y: 75}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -1783,7 +1783,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 8926484042661614858}
   m_Children: []
-  m_UIPosition: {x: 0, y: 0}
+  m_UIPosition: {x: 0, y: 185}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -1981,7 +1981,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 8926484042661614858}
   m_Children: []
-  m_UIPosition: {x: 0, y: 0}
+  m_UIPosition: {x: 0, y: 284}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -3849,7 +3849,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":2.0999999046325685,"y":2.0999999046325685,"z":15.0}'
+      m_SerializableObject: '{"x":2.0999999046325685,"y":2.0999999046325685,"z":45.0}'
     m_Space: -1
   m_Property:
     name: _Scale
@@ -6007,7 +6007,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":2.299999952316284,"y":2.299999952316284,"z":15.0}'
+      m_SerializableObject: '{"x":2.299999952316284,"y":2.299999952316284,"z":45.0}'
     m_Space: -1
   m_Property:
     name: _Scale
@@ -6748,7 +6748,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":2.0,"y":0.5}'
+      m_SerializableObject: '{"x":1.5,"y":2.0}'
     m_Space: -1
   m_Property:
     name: _VoronoiTiling
@@ -6850,7 +6850,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":0.0,"y":-1.0}'
+      m_SerializableObject: '{"x":0.0,"y":-2.5}'
     m_Space: -1
   m_Property:
     name: _VoronoiSpeed
@@ -8464,7 +8464,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":2.0,"y":0.5}'
+      m_SerializableObject: '{"x":2.0,"y":1.5}'
     m_Space: -1
   m_Property:
     name: _VoronoiTiling
@@ -8566,7 +8566,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":0.0,"y":-1.100000023841858}'
+      m_SerializableObject: '{"x":0.0,"y":-2.200000047683716}'
     m_Space: -1
   m_Property:
     name: _VoronoiSpeed
@@ -8845,7 +8845,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":2.3499999046325685,"y":2.3499999046325685,"z":15.0}'
+      m_SerializableObject: '{"x":2.3499999046325685,"y":2.3499999046325685,"z":45.0}'
     m_Space: -1
   m_Property:
     name: _Scale
@@ -9399,7 +9399,7 @@ MonoBehaviour:
       inputSlot: {fileID: 8926484042661614894}
     - outputSlot: {fileID: 8926484042661615323}
       inputSlot: {fileID: 8926484042661614895}
-    position: {x: 610, y: 250}
+    position: {x: 649, y: 286}
     expandedSlots: []
     expanded: 1
     supecollapsed: 0
@@ -9409,7 +9409,7 @@ MonoBehaviour:
       inputSlot: {fileID: 8926484042661615154}
     - outputSlot: {fileID: 8926484042661615323}
       inputSlot: {fileID: 8926484042661615155}
-    position: {x: 1235, y: 256}
+    position: {x: 1173, y: 441}
     expandedSlots: []
     expanded: 1
     supecollapsed: 0
@@ -9419,7 +9419,7 @@ MonoBehaviour:
       inputSlot: {fileID: 8926484042661615227}
     - outputSlot: {fileID: 8926484042661615323}
       inputSlot: {fileID: 8926484042661615228}
-    position: {x: 1759, y: 432}
+    position: {x: 1716, y: 409}
     expandedSlots: []
     expanded: 1
     supecollapsed: 0
@@ -9429,7 +9429,7 @@ MonoBehaviour:
       inputSlot: {fileID: 8926484042661615315}
     - outputSlot: {fileID: 8926484042661615323}
       inputSlot: {fileID: 8926484042661615316}
-    position: {x: 2407.545, y: 523.181}
+    position: {x: 2260, y: 467}
     expandedSlots: []
     expanded: 1
     supecollapsed: 0
