@@ -1,4 +1,5 @@
 using Unity.Burst.Intrinsics;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -20,6 +21,8 @@ public class ShipMovementComponent : MonoBehaviour
     [SerializeField] private float rotatefactor = 1.0f;
     [SerializeField] private float rotateMaxMag = 0.1f;
     [SerializeField] private float maxTurnrate = 1.0f;
+
+    public float SpeedModifier = 1.0f;
 
     private void Start()
     {
@@ -50,15 +53,15 @@ public class ShipMovementComponent : MonoBehaviour
 
         Quaternion facingVelocityRotation = Quaternion.LookRotation(m_velocity.normalized, Vector3.up);
         Quaternion newFacingRotation = Quaternion.RotateTowards(transform.rotation, facingVelocityRotation, maxTurnrate);
-
+       
         rb.linearVelocity = m_velocity;
         rb.MoveRotation(newFacingRotation);
-
+        
         float newSpeed = m_velocity.magnitude;
 
         //calculate tilt amount
         //if speed > amount then tilt more
-        float tiltModifier = 0f;
+        float tiltModifier = 0.5f;
         if (newSpeed > maxSpeed / 2)
         {
             tiltModifier = newSpeed / maxSpeed;
@@ -83,8 +86,8 @@ public class ShipMovementComponent : MonoBehaviour
     {
         //get ship values, for speed/accel/mass
         Stats shipStats = GetComponent<Stats>();
-        float maxSpeed = shipStats.Get(StatType.sSpeed);
-        float acceleration = shipStats.Get(StatType.sSpeed)/ accelRatio;
+        float maxSpeed = shipStats.Get(StatType.sSpeed) * SpeedModifier;
+        float acceleration = (maxSpeed)/ accelRatio;
 
         float oldSpeed = m_velocity.magnitude;
         float targetSpeed = maxSpeed * _speedPercent;

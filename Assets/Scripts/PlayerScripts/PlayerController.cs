@@ -37,9 +37,7 @@ abstract public class PlayerController : MonoBehaviour {
     protected bool UsingAbility = false;
 
     //fuel usage 
-    [SerializeField] private int fuelConsumeRate = 1;
-    [SerializeField] private float fuelConsumePeriod = 1.0f;
-    private float fuelConsumetimer = 0.0f;
+    [SerializeField] private int fuelConsumeRate = 10;
 
     //time between damage instances
     [SerializeField] private float damageIframeCooldown = 0.5f;
@@ -107,14 +105,7 @@ abstract public class PlayerController : MonoBehaviour {
         if (rumbleTimer > Time.time)
             GamePad.SetVibration(playerIndex, 0.4f, 0.4f);
         else
-            GamePad.SetVibration(playerIndex, 0, 0);
-
-        //process fuel timer
-        if(fuelConsumetimer > 0.0f)
-        {
-            fuelConsumetimer -= Time.deltaTime;
-        }
-        
+            GamePad.SetVibration(playerIndex, 0, 0);        
     }
 
     
@@ -300,12 +291,9 @@ abstract public class PlayerController : MonoBehaviour {
 
     virtual protected void SpendShipFuel()
     {
-        //remove fuel each period (defualt 1s)
-        if (fuelConsumetimer <= 0.0f)
-        {
-            fuelConsumetimer = fuelConsumePeriod;
-            stats.ShipFuel = -fuelConsumeRate;
-        }
+        //default fuel spend rate 10/s
+        stats.ShipFuel =  -fuelConsumeRate * Time.deltaTime;
+        
     }
 
     private void decreaseDamageTimer()

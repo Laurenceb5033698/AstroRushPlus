@@ -39,12 +39,17 @@ public class PlayerBoostShip : PlayerController {
             if (UsingAbility && stats.ShipFuel > 0.01f)
             {
                 currentSpeed = stats.GetSpecial();
+                motor.SpeedModifier = currentSpeed;
                 SpendShipFuel();
             }
+            else
+            {
+                motor.SpeedModifier = 1.0f;
+            }
             isDrifting = false;
-            if (motor)
-                motor.Motor(new Vector3(controls.LeftStick.x, 0, controls.LeftStick.y), isDrifting);
         }
+        if (motor)
+            motor.Motor(new Vector3(controls.LeftStick.x, 0, controls.LeftStick.y), isDrifting);
 
     }
 
