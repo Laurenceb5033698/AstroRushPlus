@@ -3,6 +3,9 @@ using Unity.Collections;
 using System.Collections.Generic;
 using UnityEditor.Timeline.Actions;
 using UnityEngine;
+using System.Collections;
+using UnityEngine.UIElements;
+using static UnityEngine.ParticleSystem;
 
 /// <summary>
 /// Handles system settings and structural methods for Universal_Weapon.
@@ -41,6 +44,8 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     protected float m_ChargeCurrent = 0;
     protected const float m_MaxCharge = 100;
     protected float m_RampCurrent = 0;
+
+    [SerializeField] protected float m_BurstDelay = 0.2f;
 
     private void Awake()
     {
@@ -133,25 +138,25 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
         if (m_DidShoot)
         {
             //sanitise attackspeed. minimum attackspeed = 1 shot every 10s lol
-            float attackInterval = ShipStats.Get(StatType.gAttackspeed) < 0.1f ? 0.1f : ShipStats.Get(StatType.gAttackspeed);
-            m_AttackInterval = Time.time + (1 / attackInterval);
+            float attackInterval = 1 / (ShipStats.Get(StatType.gAttackspeed) < 0.1f ? 0.1f : ShipStats.Get(StatType.gAttackspeed));
+            m_AttackInterval = Time.time + attackInterval + CalcBurstInterval();
         }
     }
 
     virtual protected void SpawnProjectiles()
     {
-        Vector3 shootPosition = m_AimingIndicator.transform.position;
-        Vector3 toIndicator = shootPosition - m_AimingIndicatorHolder.transform.position;
-        toIndicator.Normalize();
-        Quaternion aimDirection = Quaternion.LookRotation(toIndicator, Vector3.up);
-
-        //Spawn Projectiles
-        List<GameObject> bullets;
-        m_ProjectileSpawner.Spawn(shootPosition, aimDirection, out bullets);
-
-        foreach (GameObject bullet in bullets)
+        //handle burst
+        int burst = Mathf.FloorToInt( ShipStats.Get(StatType.gBurstAmount));
+        if (burst > 0)
         {
-            SetupBullet(bullet);
+            //burst stat >0; start burst
+            float timeBetween = m_BurstDelay / ShipStats.Get(StatType.gAttackspeed);
+            StartCoroutine( BurstAsync(timeBetween, burst+1));
+        }
+        else
+        {
+            //single burst, same as normal shooting
+            Burst(ref m_ProjectileSpawner);
         }
         DoneSpawning();
     }
@@ -284,6 +289,34 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
         }
     }
 
+    protected void Burst(ref ProjectileSpawner _spawner)
+    {
+        Vector3 shootPosition = m_AimingIndicator.transform.position;
+        Vector3 toIndicator = (shootPosition - m_AimingIndicatorHolder.transform.position).normalized;
+        Quaternion aimDirection = Quaternion.LookRotation(toIndicator, Vector3.up);
+
+        //Spawn Projectiles
+        List<GameObject> bullets;
+        _spawner.Spawn(shootPosition, aimDirection, out bullets);
+
+        foreach (GameObject bullet in bullets)
+        {
+            SetupBullet(bullet);
+        }
+    }
+
+    protected IEnumerator BurstAsync(float _betweenBurstTime, int _numBursts)
+    {
+
+        for ( int i = 0; i < _numBursts; i++)
+        {
+            Burst(ref m_ProjectileSpawner);
+
+            yield return new WaitForSeconds( _betweenBurstTime);
+        }
+
+    }
+
     //check flags
     protected bool isReloading()
     {
@@ -317,4 +350,18 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
         return ShipStats.Get(_type);
     }
 
+    protected float CalcBurstInterval()
+    {
+        float interval = 0;
+        int amount = Mathf.FloorToInt(ShipStats.Get(StatType.gBurstAmount));
+
+        if(amount > 0)
+        {
+            float attacksPerSec = amount/ ShipStats.Get(StatType.gAttackspeed);
+            interval = amount * attacksPerSec * m_BurstDelay;
+
+        }
+
+        return interval;
+    }
 }
