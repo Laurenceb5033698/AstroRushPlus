@@ -7,14 +7,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat_Ship_Shield_1
-  m_Shader: {fileID: -6465566751694194690, guid: da1ba5188f6c4064e9967635b2c959b7,
+  m_Name: Mat_Ship_Shield_2_6_Compiled
+  m_Shader: {fileID: -6465566751694194690, guid: b2dc370368c4ecf4484a54555dd229ca,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 2
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -25,10 +25,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Texture_Shield:
-        m_Texture: {fileID: 2800000, guid: 220cade6cf3a60a4f936ee041376878b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -43,22 +39,27 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Depth_Offset: 0.4
+    - _Displacement_Strength: 0.2
+    - _Dissolve: 0
+    - _Dissolve_Edge_Thickness: 0.023
+    - _Dissolve_Scale: 7
+    - _Distortion_Strength: 3
     - _Float: 0
-    - _Frensel_Power: 2
-    - _Noise_Scale: 1
-    - _QueueControl: 0
+    - _Fresnel_Power: 2
+    - _QueueControl: 1
     - _QueueOffset: 0
-    - _Vertex_Frequency: 1
+    - _SphereMaskHardness: 0.5
+    - _SphereMaskRadius: 0.17
     m_Colors:
-    - _Color_Back: {r: 5.992157, g: 0.7410304, b: 0, a: 1}
-    - _Color_Frensel: {r: 0, g: 0.5055122, b: 15.999998, a: 0.56078434}
-    - _Color_Front: {r: 0, g: 1.3208339, b: 9.08241, a: 1}
-    - _LerpAmount: {r: 0, g: 0, b: 0, a: 0}
-    - _Noise_Offset: {r: 0.001, g: 0.001, b: 0, a: 0}
-    - _Vertex_Offset_Amount: {r: 0.1, g: 0.1, b: 0.1, a: 0}
+    - _Color_Fresnel: {r: 0, g: 2.7889042, b: 2.9960787, a: 1}
+    - _Dissolve_Edge_Color: {r: 41.731827, g: 0.8433688, b: 0, a: 1}
+    - _HitPosition: {r: 0, g: 0, b: 0, a: 0}
+    - _Mask_SmoothStep: {r: 0.4, g: 4.3, b: 0, a: 0}
+    - _ObjScreenPosition: {r: 0.5, g: 0.5, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &5655945965482112068
+--- !u!114 &3145945466069387464
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
