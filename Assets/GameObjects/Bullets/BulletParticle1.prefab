@@ -71,17 +71,6 @@ MonoBehaviour:
   ownertag: 
   psImpactPrefab: {fileID: 1657368520523600048, guid: f8446fa71f88683469b8bf3d5c9eea5e,
     type: 3}
-  m_Stats:
-    damage: 0
-    speed: 0
-    acceleration: 0
-    range: 0
-    lifetime: 0
-    magnet: 0
-    penetration: 0
-    riccochet: 0
-    size: 0
-    falloff: 0
 --- !u!1 &708363318980454251
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,7 +301,7 @@ TrailRenderer:
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.9
+    widthMultiplier: 0.45
     widthCurve:
       serializedVersion: 2
       m_Curve:

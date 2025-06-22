@@ -5,9 +5,11 @@ using TMPro;
 
 public class Projectile : MonoBehaviour
 {
+
     protected ProjectileMotor motor;
     //private Collider lastHitCollider = null;
-    //private List<Collider> m_PiercedTargets;
+    private List<TrailRenderer> m_TrailRendererList;
+    private List<float> m_TrailWidthMult;
 
     public string ownertag;
     public GameObject psImpactPrefab;
@@ -26,6 +28,16 @@ public class Projectile : MonoBehaviour
         motor = GetComponent<ProjectileMotor>();
         if (!motor)
             motor = gameObject.AddComponent<ProjectileMotor>();
+
+        //find any trail renderers attached
+        m_TrailRendererList = new List<TrailRenderer>();
+        m_TrailWidthMult = new List<float>();
+        GetComponentsInChildren<TrailRenderer>(true, m_TrailRendererList);
+        //find and save starting width multipliers
+        foreach(TrailRenderer t in m_TrailRendererList)
+        {
+            m_TrailWidthMult.Add(t.widthMultiplier);
+        }
     }
     void Start () 
     {
@@ -86,8 +98,8 @@ public class Projectile : MonoBehaviour
 
     public virtual void applyImpulse(Rigidbody body)
     {
-        //Vector3 direction = transform.position - body.transform.position;
-        body.AddForce(transform.forward * ((m_Stats.damage / 2)+(m_Stats.speed / (2+body.mass))), ForceMode.Impulse);
+        Vector3 direction = (body.transform.position - transform.position).normalized;
+        body.AddForce(direction * ((m_Stats.damage / 2)+(m_Stats.speed / (2+body.mass))), ForceMode.Impulse);
     }
 
     protected virtual void Update () 
@@ -162,8 +174,8 @@ public class Projectile : MonoBehaviour
     {
         if (_spawnPos == Vector3.zero)
             _spawnPos = transform.position;
-        Instantiate(psImpactPrefab, _spawnPos, transform.rotation);
-
+        GameObject p = Instantiate(psImpactPrefab, _spawnPos, transform.rotation);
+        p.transform.localScale = new Vector3(m_Stats.size, m_Stats.size, m_Stats.size);
     }
 
     /// <summary>
@@ -281,6 +293,13 @@ public class Projectile : MonoBehaviour
         //when bullet falloff increases, it reduces bullet size, speed and damage
         float uniformScale = m_Stats.size* (m_falloffPercent);
         transform.localScale = new Vector3(uniformScale, uniformScale, uniformScale);
+        int index = 0;
+        foreach (TrailRenderer trail in m_TrailRendererList)
+        {
+            
+            trail.widthMultiplier = m_TrailWidthMult[index] * uniformScale;
+            index++;
+        }
     }
 
 

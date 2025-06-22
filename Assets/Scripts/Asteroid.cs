@@ -44,15 +44,17 @@ public class Asteroid : MonoBehaviour
             am.GetComponent<AsteroidManager>().SpawnChunks(transform.position);
 
             gameObject.SetActive(false);
+            Instantiate(psDestructPrefab, transform.position, transform.rotation);
+
             Reset();
         }
     }
 
     public void Reset()
     {   //tell asteroidManager that i wish to be reset
-        Instantiate(psDestructPrefab, transform.position, transform.rotation);
         am.GetComponent<AsteroidManager>().Reset(gameObject);
         gameObject.SetActive(true);
+        hp.SetHealth(200);
     }
 
 }
