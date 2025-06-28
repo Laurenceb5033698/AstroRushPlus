@@ -25,10 +25,7 @@ public class Projectile : MonoBehaviour
     bool m_ProjectileInteraction = false;
     protected virtual void Awake()
     {
-        motor = GetComponent<ProjectileMotor>();
-        if (!motor)
-            motor = gameObject.AddComponent<ProjectileMotor>();
-
+       Startup();
         //find any trail renderers attached
         m_TrailRendererList = new List<TrailRenderer>();
         m_TrailWidthMult = new List<float>();
@@ -39,6 +36,14 @@ public class Projectile : MonoBehaviour
             m_TrailWidthMult.Add(t.widthMultiplier);
         }
     }
+
+    virtual protected void Startup()
+    {
+        motor = GetComponent<ProjectileMotor>();
+        if (!motor)
+            motor = gameObject.AddComponent<ProjectileMotor>();
+    }
+
     void Start () 
     {
         //m_PiercedTargets = new List<Collider>();

@@ -21,7 +21,7 @@ public class Missile : Projectile
     private event MissileAction FixedAction;
     private event MissileAction FinalAction;
 
-    protected override void Awake()
+    protected override void Startup()
     {
         motor = GetComponent<ProjectileMotor>();
         if (motor)

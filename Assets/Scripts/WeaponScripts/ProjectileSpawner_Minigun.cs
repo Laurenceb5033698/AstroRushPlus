@@ -6,11 +6,7 @@ public class ProjectileSpawner_Minigun : ProjectileSpawner
 {
     float m_innaccuracy = 0;
 
-    public void Spawn(Vector3 _shootPosition, Quaternion _aimDirection)
-    {
-        SpawnImpl(_shootPosition, _aimDirection);
-    }
-    public override List<GameObject> SpawnImpl(Vector3 _shootPosition, Quaternion _aimDirection)
+    public override List<GameObject> SpawnImpl(GameObject _prefab, Vector3 _shootPosition, Quaternion _aimDirection)
     {
         //number of projectiles
         int numProjectiles = Mathf.CeilToInt(GetStat(StatType.gProjectileAmount));
@@ -45,7 +41,7 @@ public class ProjectileSpawner_Minigun : ProjectileSpawner
             //quaternions rotate by multiplying. Rotates startdirection by step amount.
             Quaternion bulletDirection = unitRotation * StartRotation * QuatInaccuracy;
 
-            bullets.Add( Instantiate<GameObject>(m_spawnPrefab, _shootPosition, bulletDirection));
+            bullets.Add( Instantiate<GameObject>(_prefab, _shootPosition, bulletDirection));
         }
         return bullets;
     }

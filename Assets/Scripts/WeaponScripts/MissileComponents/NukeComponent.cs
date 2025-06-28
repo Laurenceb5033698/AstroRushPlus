@@ -8,7 +8,7 @@ public class NukeComponent : BaseMissileComponent
         string ownertag = GetComponent<Projectile>().ownertag;
 
         //constant for scaling damage with distance.
-        float DamageScalerFactor = (1/(2* bulletStats.aoeRadius));
+        float DamageScalerFactor = (1/(4* bulletStats.aoeRadius));
 
         //do big aoe damage
         Collider[] inRange = Physics.OverlapSphere(transform.position, bulletStats.aoeRadius);

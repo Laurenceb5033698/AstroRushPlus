@@ -23,6 +23,7 @@ public class Equipment : MonoBehaviour {
         foreach (Ordinance item in ordini)
         {
             item.SetShipObject(ship);
+            item.SetupDelegate += MissileInitialise;
             //Debug.Log(item.gameObject.name);
         }
         Gun = ordini[currentGun];
@@ -68,10 +69,7 @@ public class Equipment : MonoBehaviour {
             if (AmmoCommon > 0)
             {
                 --AmmoCommon;
-                foreach( GameObject projectile in Gun.Shoot(Aimdir))
-                {
-                    MissileInitialise(projectile);
-                }
+                Gun.Shoot(Aimdir);
                 //    Quaternion temp = new Quaternion();
                 //    temp.SetLookRotation(Aimdir, transform.up);
                 //    turret.transform.rotation = temp;

@@ -8,7 +8,7 @@ public class ProjectileSpawner_Spread : ProjectileSpawner
     /// Spread method Shoots one projectile in direction of aim.
     /// if ship has more projectiles, will shoot in a fan pattern.
     /// </summary>
-    public override List<GameObject> SpawnImpl(Vector3 _shootPosition, Quaternion _aimDirection)
+    public override List<GameObject> SpawnImpl(GameObject _prefab, Vector3 _shootPosition, Quaternion _aimDirection)
     {
         //number of projectiles
         
@@ -38,7 +38,7 @@ public class ProjectileSpawner_Spread : ProjectileSpawner
             Quaternion unitRotation = Quaternion.AngleAxis(separation * i, Vector3.up);
             //quaternions rotate by multiplying. Rotates startdirection by step amount.
             Quaternion bulletDirection = unitRotation * StartRotation;
-            bullets.Add(Instantiate<GameObject>(m_spawnPrefab, _shootPosition, bulletDirection));
+            bullets.Add(Instantiate<GameObject>(_prefab, _shootPosition, bulletDirection));
 
         }
         return bullets;

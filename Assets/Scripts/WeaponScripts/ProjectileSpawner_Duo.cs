@@ -8,7 +8,7 @@ public class ProjectileSpawner_Duo : ProjectileSpawner
     /// Duo spawns projectiles that fly parallel in the shoot direction.
     /// However they are separated horizontally by some amount.
     /// </summary>
-    public override List<GameObject> SpawnImpl(Vector3 _shootPosition, Quaternion _aimDirection)        
+    public override List<GameObject> SpawnImpl(GameObject _prefab, Vector3 _shootPosition, Quaternion _aimDirection)        
     {
         //number of projectiles
         int numProjectiles = Mathf.CeilToInt(GetStat(StatType.gProjectileAmount));
@@ -48,10 +48,10 @@ public class ProjectileSpawner_Duo : ProjectileSpawner
         for (int i = 0; i < numProjectiles; i++)
         {
             Vector3 bulletSpawn = CenterSpawn+CenterOffset + (separationUnitA * i);
-            bullets.Add(Instantiate<GameObject>(m_spawnPrefab, bulletSpawn, _aimDirection));
+            bullets.Add(Instantiate<GameObject>(_prefab, bulletSpawn, _aimDirection));
 
             bulletSpawn = CenterSpawn-CenterOffset + (separationUnitB * i);
-            bullets.Add(Instantiate<GameObject>(m_spawnPrefab, bulletSpawn, _aimDirection));
+            bullets.Add(Instantiate<GameObject>(_prefab, bulletSpawn, _aimDirection));
 
         }
 

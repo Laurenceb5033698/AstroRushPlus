@@ -18,6 +18,9 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     public IndicatorVFXController m_IndicatorVFXController;
     public ProjectileSpawner m_ProjectileSpawner;
 
+    //public delegate void ProjectileSetupDelegate(GameObject _spawned);
+    public ProjectileSpawner.ProjectileSetupDelegate SetupDelegate;
+
     public GameObject m_Ship;
     public Stats ShipStats;
     public GameObject m_AimingIndicator;
@@ -50,6 +53,7 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     private void Awake()
     {
         Startup();
+        SetupDelegate += SetupBullet;
     }
 
     void Start()
@@ -65,6 +69,7 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
         m_ProjectileSpawner = GetComponent<ProjectileSpawner>();
         if(m_ProjectileSpawner == null)
             m_ProjectileSpawner = this.gameObject.AddComponent<ProjectileSpawner>();
+
     }
 
     //for visual or audio updating
@@ -147,16 +152,16 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     {
         //handle burst
         int burst = Mathf.FloorToInt( ShipStats.Get(StatType.gBurstAmount));
-        if (burst > 0)
+        if (burst == 0)
         {
-            //burst stat >0; start burst
-            float timeBetween = m_BurstDelay / ShipStats.Get(StatType.gAttackspeed);
-            StartCoroutine( BurstAsync(timeBetween, burst+1));
+            //single burst, same as normal shooting
+            Burst();
         }
         else
         {
-            //single burst, same as normal shooting
-            Burst(ref m_ProjectileSpawner);
+            //burst stat >0; start burst
+            float timeBetween = m_BurstDelay / ShipStats.Get(StatType.gAttackspeed);
+            BurstAsync(timeBetween, burst + 1);
         }
         DoneSpawning();
     }
@@ -289,31 +294,29 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
         }
     }
 
-    protected void Burst(ref ProjectileSpawner _spawner)
+    protected void Burst()
     {
         Vector3 shootPosition = m_AimingIndicator.transform.position;
         Vector3 toIndicator = (shootPosition - m_AimingIndicatorHolder.transform.position).normalized;
         Quaternion aimDirection = Quaternion.LookRotation(toIndicator, Vector3.up);
 
         //Spawn Projectiles
-        List<GameObject> bullets;
-        _spawner.Spawn(shootPosition, aimDirection, out bullets);
+        //List<GameObject> bullets;
+        m_ProjectileSpawner.Spawn(m_BulletPrefab, shootPosition, aimDirection, SetupDelegate);
 
-        foreach (GameObject bullet in bullets)
-        {
-            SetupBullet(bullet);
-        }
+        //foreach (GameObject bullet in bullets)
+        //{
+        //    SetupBullet(bullet);
+        //}
     }
 
-    protected IEnumerator BurstAsync(float _betweenBurstTime, int _numBursts)
+    protected void BurstAsync(float _betweenBurstTime, int _numBursts)
     {
+        Vector3 shootPosition = m_AimingIndicator.transform.position;
+        Vector3 toIndicator = (shootPosition - m_AimingIndicatorHolder.transform.position).normalized;
+        Quaternion aimDirection = Quaternion.LookRotation(toIndicator, Vector3.up);
 
-        for ( int i = 0; i < _numBursts; i++)
-        {
-            Burst(ref m_ProjectileSpawner);
-
-            yield return new WaitForSeconds( _betweenBurstTime);
-        }
+        StartCoroutine( m_ProjectileSpawner.SpawnAsync(_betweenBurstTime, _numBursts, m_BulletPrefab, shootPosition, aimDirection, SetupDelegate));
 
     }
 
@@ -337,7 +340,6 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     {
         m_Ship = _Ship;
         ShipStats = m_Ship.GetComponent<Stats>();
-        m_ProjectileSpawner.Setup( m_BulletPrefab);
     }
 
     //UTILs for composites
