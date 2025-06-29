@@ -20,6 +20,7 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
 
     //public delegate void ProjectileSetupDelegate(GameObject _spawned);
     public ProjectileSpawner.ProjectileSetupDelegate SetupDelegate;
+    public IWeaponStats InterfaceStats;
 
     public GameObject m_Ship;
     public Stats ShipStats;
@@ -53,6 +54,7 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     private void Awake()
     {
         Startup();
+        InterfaceStats = new IWeaponStats(ShipStats);
         SetupDelegate += SetupBullet;
     }
 

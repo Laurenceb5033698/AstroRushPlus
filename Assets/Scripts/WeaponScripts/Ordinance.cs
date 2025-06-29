@@ -4,20 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //twin of weapon class
-public class Ordinance : MonoBehaviour {
+public class Ordinance : Universal_Weapon_Base {
 
     //shoots a projectile
     [SerializeField] protected GameObject m_ProjectilePrefab;//bullet prefab
     [SerializeField] protected GameObject ship; //reference to ship
-    public ProjectileSpawner m_ProjectileSpawner;
+    //public ProjectileSpawner m_ProjectileSpawner;
 
-    public ProjectileSpawner.ProjectileSetupDelegate SetupDelegate;
+    //public ProjectileSpawner.ProjectileSetupDelegate SetupDelegate;
 
-    [SerializeField] protected int Damage = 5;
-    [SerializeField] protected float Speed = 20f;
-    protected float m_attackInterval = 0.0f;
-
-    [SerializeField] protected float m_BurstDelay = 0.2f;
 
     //[SerializeField] protected AudioSource shootSound;
 
@@ -28,6 +23,7 @@ public class Ordinance : MonoBehaviour {
     private void Awake()
     {
         Startup();
+        InterfaceStats = new IMissileStats(ShipStats);
         SetupDelegate += SetupBullet;
     }
     /// <summary>
@@ -50,68 +46,72 @@ public class Ordinance : MonoBehaviour {
     {
         ship = obj;
     }
-    public void spawnProjectile(Vector3 aimDir, out List<GameObject> _list)
-    {//spawn pattern for missile ordianance
 
-        //VERY TEMPORARY
-        Stats shipstats = ship.GetComponent<Stats>();
-
-        GameObject mBullet;
-
-        mBullet = (GameObject)Instantiate(m_ProjectilePrefab, ship.transform.position + aimDir * 8f, Quaternion.LookRotation(aimDir, Vector3.up));
-        mBullet.GetComponent<Projectile>().SetupValues(ship.tag, shipstats);
-
-        _list = new List<GameObject>();
-        _list.Add(mBullet);
+    public void Shoot(Vector3 _aimDir)
+    {
+        preShoot(_aimDir);
+        ShootImpl();
+        postShoot();
         
+        //shootSound.Play();
     }
 
-    public void Shoot(Vector3 direction)
+    virtual protected void ShootImpl()
+    {
+        if (ShootConditions())
+        {
+            SpawnProjectiles();
+            m_DidShoot = true;
+        }
+    }
+    virtual protected void postShoot()
+    {
+
+    }
+
+    override protected void SpawnProjectiles()
     {
         //use burst
         //List<GameObject> list;
-        Stats shipStats = ship.GetComponent<Stats>();
-        Vector3 shootPosition = ship.transform.position + direction * 8f;
-        Vector3 toIndicator = (shootPosition - ship.transform.position).normalized;
+        Stats shipStats = m_Ship.GetComponent<Stats>();
+        Vector3 shootPosition = m_AimingIndicator.transform.position;
+        Vector3 toIndicator = (shootPosition - m_AimingIndicatorHolder.transform.position).normalized;
         Quaternion aimDirection = Quaternion.LookRotation(toIndicator, Vector3.up);
 
-        if (m_attackInterval > Time.time)
+        if (m_AttackInterval > Time.time)
         {
             return;
         }
 
 
-        int numBursts = Mathf.FloorToInt(shipStats.Get(StatType.mBurst));
+        int numBursts = Mathf.FloorToInt(InterfaceStats.BurstAmount);
         if (numBursts == 0)
         {
             m_ProjectileSpawner.Spawn(m_ProjectilePrefab, shootPosition, aimDirection, SetupDelegate);
-            m_attackInterval = Time.time + 2.0f;
+            m_AttackInterval = Time.time + 2.0f;
         }
         else
         {
             float timeBetween = m_BurstDelay / numBursts;
 
-            StartCoroutine( m_ProjectileSpawner.SpawnAsync(timeBetween, numBursts+1, m_ProjectilePrefab, shootPosition, aimDirection, SetupDelegate));
-            m_attackInterval = Time.time + 2.0f + CalcBurstInterval();
+            StartCoroutine(m_ProjectileSpawner.SpawnAsync(timeBetween, numBursts + 1, m_ProjectilePrefab, shootPosition, aimDirection, SetupDelegate));
+            m_AttackInterval = Time.time + 2.0f + CalcBurstInterval();
         }
 
-        //shootSound.Play();
     }
 
-
-
-    public void SetupBullet(GameObject _missile)
+    override protected void SetupBullet(GameObject _missile)
     {
-        Stats shipStats = ship.GetComponent<Stats>();
+        Stats shipStats = m_Ship.GetComponent<Stats>();
 
-        _missile.GetComponent<Projectile>().SetupValues(ship.tag, shipStats);
+        _missile.GetComponent<Projectile>().SetupValues(m_Ship.tag, shipStats);
     }
 
     protected float CalcBurstInterval()
     {
-        Stats shipStats = ship.GetComponent<Stats>();
+        Stats shipStats = m_Ship.GetComponent<Stats>();
         float interval = 0;
-        int amount = Mathf.FloorToInt(shipStats.Get(StatType.mBurst));
+        int amount = Mathf.FloorToInt(InterfaceStats.BurstAmount);
 
         if (amount > 0)
         {
@@ -121,5 +121,11 @@ public class Ordinance : MonoBehaviour {
         }
 
         return interval;
+    }
+
+    protected override bool ShootConditions()
+    {
+
+        return true;
     }
 }
