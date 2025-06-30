@@ -14,12 +14,12 @@ public class Script_UI_TMP_FadeInAndOut : MonoBehaviour
     public float TextLengthDuration;
     public Boolean TriggerSelf;
     private Boolean TextLive = false;
-
-    
+    private AudioSource audioSource;
+    public AudioClip AudioClipText;
     public void Start()
     {
         textDisplay.alpha = 0f;
-
+        audioSource = GetComponent<AudioSource>();
         if (TriggerSelf == true)
         {
             StartTextAnimation();
@@ -29,6 +29,7 @@ public class Script_UI_TMP_FadeInAndOut : MonoBehaviour
     public void StartTextAnimation()
     {
             StartCoroutine(FadeIn());
+            StartCoroutine(PlayAudio());
             textDisplay.alpha = 0f;
             TextLive = true;
     }
@@ -59,6 +60,14 @@ public class Script_UI_TMP_FadeInAndOut : MonoBehaviour
         yield break;
     }
 
+    public IEnumerator PlayAudio()
+    {
+        yield return new WaitForSeconds(0.2f);
+        audioSource.clip = AudioClipText;
+        audioSource.Play();
+    }
+
+
     private void TimerEnded()
     {
         StartCoroutine(FadeOut());
@@ -76,11 +85,19 @@ public class Script_UI_TMP_FadeInAndOut : MonoBehaviour
             currentTime += Time.deltaTime;
             yield return null;
         }
+        StartCoroutine(TriggerNext());
         yield break;
     }
 
-   private void TriggerNext()
+   private IEnumerator TriggerNext()
   {
-    
+        this.gameObject.SetActive(false);
+
+        if (TriggerNextText != null)
+        {
+            TriggerNextText.SetActive(true);
+            TriggerNextText.GetComponent<Script_UI_TMP_FadeInAndOut>().TriggerSelf = true;
+        }
+            yield return null;
   }
 }
