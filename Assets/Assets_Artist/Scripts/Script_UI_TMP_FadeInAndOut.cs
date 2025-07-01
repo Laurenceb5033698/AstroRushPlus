@@ -16,6 +16,7 @@ public class Script_UI_TMP_FadeInAndOut : MonoBehaviour
     private Boolean TextLive = false;
     private AudioSource audioSource;
     public AudioClip AudioClipText;
+    public float AudioDelay;
     public void Start()
     {
         textDisplay.alpha = 0f;
@@ -62,7 +63,7 @@ public class Script_UI_TMP_FadeInAndOut : MonoBehaviour
 
     public IEnumerator PlayAudio()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(AudioDelay);
         audioSource.clip = AudioClipText;
         audioSource.Play();
     }
