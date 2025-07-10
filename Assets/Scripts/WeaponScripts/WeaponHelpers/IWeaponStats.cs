@@ -15,6 +15,7 @@ public class IWeaponStats
         ShipStats = _s;
     }
 
+    virtual public float Attack { get { return ShipStats.Get(StatType.gAttack); } }
     virtual public float AttackSpeed { get { return ShipStats.Get(StatType.gAttackspeed); } }
     virtual public float BurstAmount {  get { return ShipStats.Get(StatType.gBurstAmount); } }
     virtual public float ProjectileAmount { get { return ShipStats.Get(StatType.gProjectileAmount); } }
@@ -25,4 +26,6 @@ public class IWeaponStats
     virtual public float BurnoutTime { get { return ShipStats.Get(StatType.gBurnoutTime); } }
     virtual public float ReloadAmmo { get { return ShipStats.Get(StatType.gReloadAmmo); } }
     virtual public float ReloadTime { get { return ShipStats.Get(StatType.gReloadTime); } }
+    virtual public float AoeDamage { get { return ShipStats.Get(StatType.gAoeDamage); } }
+    virtual public float AoeSize { get { return ShipStats.Get(StatType.gAoeSize); } }
 }

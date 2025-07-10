@@ -54,14 +54,14 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
     private void Awake()
     {
         Startup();
-        InterfaceStats = new IWeaponStats(ShipStats);
         SetupDelegate += SetupBullet;
     }
 
     void Start()
     {
         //try get indicator vfx controller.
-        m_IndicatorVFXController = m_AimingIndicatorHolder.GetComponent<IndicatorVFXController>();
+        if(m_AimingIndicatorHolder)
+            m_IndicatorVFXController = m_AimingIndicatorHolder.GetComponent<IndicatorVFXController>();
     }
     /// <summary>
     /// Adds required components in start. Override to add specific components
@@ -338,10 +338,12 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
 
 
     //SETUP
-    public void Setup(GameObject _Ship)
+    public virtual void Setup(GameObject _Ship)
     {
         m_Ship = _Ship;
         ShipStats = m_Ship.GetComponent<Stats>();
+        InterfaceStats = new IWeaponStats(ShipStats);
+
     }
 
     //UTILs for composites
@@ -354,14 +356,14 @@ public abstract class Universal_Weapon_Base : MonoBehaviour
         return ShipStats.Get(_type);
     }
 
-    protected float CalcBurstInterval()
+    protected virtual float CalcBurstInterval()
     {
         float interval = 0;
-        int amount = Mathf.FloorToInt(ShipStats.Get(StatType.gBurstAmount));
+        int amount = Mathf.FloorToInt(InterfaceStats.BurstAmount);
 
         if(amount > 0)
         {
-            float attacksPerSec = amount/ ShipStats.Get(StatType.gAttackspeed);
+            float attacksPerSec = amount/ InterfaceStats.AttackSpeed;
             interval = amount * attacksPerSec * m_BurstDelay;
 
         }

@@ -53,4 +53,9 @@ public class ProjectileSpawner : MonoBehaviour
         return val;
     }
 
+    protected IWeaponStats IStats() 
+    { 
+        return GetComponent<Universal_Weapon_Base>().InterfaceStats;
+    }
+
 }

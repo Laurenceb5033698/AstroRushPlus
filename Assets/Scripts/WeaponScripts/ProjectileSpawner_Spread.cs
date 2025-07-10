@@ -12,8 +12,8 @@ public class ProjectileSpawner_Spread : ProjectileSpawner
     {
         //number of projectiles
         
-        int numProjectiles = Mathf.CeilToInt(GetStat(StatType.gProjectileAmount));
-        float spreadAngle = GetStat(StatType.gSpreadAngle);
+        int numProjectiles = Mathf.CeilToInt(IStats().ProjectileAmount);
+        float spreadAngle = IStats().SpreadAngle;
 
         //angle between each bullet. S = A/N-1, where N>1
         float separation = 0.0f;

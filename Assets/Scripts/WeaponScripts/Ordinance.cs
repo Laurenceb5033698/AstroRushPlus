@@ -7,29 +7,21 @@ using UnityEngine;
 public class Ordinance : Universal_Weapon_Base {
 
     //shoots a projectile
-    [SerializeField] protected GameObject m_ProjectilePrefab;//bullet prefab
-    [SerializeField] protected GameObject ship; //reference to ship
-    //public ProjectileSpawner m_ProjectileSpawner;
-
-    //public ProjectileSpawner.ProjectileSetupDelegate SetupDelegate;
-
-
-    //[SerializeField] protected AudioSource shootSound;
-
-
-    //get ship stats
+    //[SerializeField] protected GameObject m_ProjectilePrefab;//bullet prefab
+    //[SerializeField] protected GameObject m_Ship; //reference to ship
+    
 
     //startup
     private void Awake()
     {
         Startup();
-        InterfaceStats = new IMissileStats(ShipStats);
         SetupDelegate += SetupBullet;
     }
     /// <summary>
-    /// Adds required components in start. Override to add specific components
+    /// Called on awake, this setups up self-specific references.
+    /// Adds required components in start. Override for derrived classes to add specific components
     /// </summary>
-    protected virtual void Startup()
+    protected override void Startup()
     {   //adds required spawner component
         m_ProjectileSpawner = GetComponent<ProjectileSpawner>();
         if (m_ProjectileSpawner == null)
@@ -40,11 +32,18 @@ public class Ordinance : Universal_Weapon_Base {
 
     //shoot lockout/attackspeed to stop spam
 
-    //allow mulitple types of spawn prefabs/sapwn types
+    //allow mulitple types of spawn prefabs/spawn types
 
-    public void SetShipObject(GameObject obj)
+    /// <summary>
+    /// Different from Startup, this is called from outside to setup Ship specific references.
+    /// </summary>
+    /// <param name="obj"></param>
+    public override void Setup(GameObject obj)
     {
-        ship = obj;
+        m_Ship = obj;
+        ShipStats = m_Ship.GetComponent<Stats>();
+        InterfaceStats = new IMissileStats(ShipStats);
+
     }
 
     public void Shoot(Vector3 _aimDir)
@@ -56,7 +55,12 @@ public class Ordinance : Universal_Weapon_Base {
         //shootSound.Play();
     }
 
-    virtual protected void ShootImpl()
+    //override protected void preShoot(Vector3 _aimDir)
+    //{
+    //    m_Firing = true;
+
+    //}
+    override protected void ShootImpl()
     {
         if (ShootConditions())
         {
@@ -64,10 +68,20 @@ public class Ordinance : Universal_Weapon_Base {
             m_DidShoot = true;
         }
     }
-    virtual protected void postShoot()
+
+    override protected void postShoot() 
     {
+        if (m_DidShoot)
+        {
+            //spend ammo
+            ShipStats.OrdinanceAmmo = -1;
+
+            float attackInterval = 1 / (ShipStats.Get(StatType.gAttackspeed) < 0.1f ? 0.1f : ShipStats.Get(StatType.gAttackspeed));
+            m_AttackInterval = Time.time + attackInterval + CalcBurstInterval();
+        }
 
     }
+    
 
     override protected void SpawnProjectiles()
     {
@@ -87,14 +101,14 @@ public class Ordinance : Universal_Weapon_Base {
         int numBursts = Mathf.FloorToInt(InterfaceStats.BurstAmount);
         if (numBursts == 0)
         {
-            m_ProjectileSpawner.Spawn(m_ProjectilePrefab, shootPosition, aimDirection, SetupDelegate);
+            m_ProjectileSpawner.Spawn(m_BulletPrefab, shootPosition, aimDirection, SetupDelegate);
             m_AttackInterval = Time.time + 2.0f;
         }
         else
         {
             float timeBetween = m_BurstDelay / numBursts;
 
-            StartCoroutine(m_ProjectileSpawner.SpawnAsync(timeBetween, numBursts + 1, m_ProjectilePrefab, shootPosition, aimDirection, SetupDelegate));
+            StartCoroutine(m_ProjectileSpawner.SpawnAsync(timeBetween, numBursts + 1, m_BulletPrefab, shootPosition, aimDirection, SetupDelegate));
             m_AttackInterval = Time.time + 2.0f + CalcBurstInterval();
         }
 
@@ -107,15 +121,14 @@ public class Ordinance : Universal_Weapon_Base {
         _missile.GetComponent<Projectile>().SetupValues(m_Ship.tag, shipStats);
     }
 
-    protected float CalcBurstInterval()
+    protected override float CalcBurstInterval()
     {
-        Stats shipStats = m_Ship.GetComponent<Stats>();
         float interval = 0;
         int amount = Mathf.FloorToInt(InterfaceStats.BurstAmount);
 
         if (amount > 0)
         {
-            float attacksPerSec = amount / 2.0f;
+            float attacksPerSec = amount / 1.0f;
             interval = amount * attacksPerSec * m_BurstDelay;
 
         }
@@ -124,8 +137,11 @@ public class Ordinance : Universal_Weapon_Base {
     }
 
     protected override bool ShootConditions()
-    {
-
-        return true;
+    { 
+        if (Time.time > m_AttackInterval && ShipStats.HasAmmo())
+        {
+            return true;
+        }
+        return false;
     }
 }

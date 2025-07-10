@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngineInternal;
 
 /// <summary>
 /// Holds all the stats relevant to a ship.
@@ -15,6 +17,7 @@ public class Stats : MonoBehaviour
     [SerializeField] private float Health;
     [SerializeField] private float Shield;
     [SerializeField] private float Fuel;
+    [SerializeField] private int Bombs;
 
     //Status effects
     [SerializeField]
@@ -34,6 +37,7 @@ public class Stats : MonoBehaviour
         Health = Get(StatType.sHealth);
         Shield = Get(StatType.sShield);
         Fuel = Get(StatType.sFuel);
+        Bombs = Mathf.FloorToInt( Get(StatType.mAmmo));
     }
 
     private void Start()
@@ -52,8 +56,6 @@ public class Stats : MonoBehaviour
     }
 
     //  Functions
-    //  Health
-    //-----------------------------------------------------------------------------------------
     public void TakeDamage(float val)
     {
         if (!GodMode)
@@ -72,6 +74,10 @@ public class Stats : MonoBehaviour
         }
     }
 
+    //Properties
+    //-----------------------------------------------------------------------------------------
+    //  Health
+
     public float ShipHealth
     {
         get { return Health; }
@@ -87,7 +93,6 @@ public class Stats : MonoBehaviour
             }
         }
     }
-
     public float ShipShield
     {
         get { return Shield; }
@@ -154,8 +159,21 @@ public class Stats : MonoBehaviour
     {
         return Get(StatType.sSpecial);
     }
-
-
+    //  Missile
+    //-----------------------------------------------------------------------------------------
+    public int OrdinanceAmmo 
+    { 
+        get { return Bombs; }
+        set 
+        {
+            int maxBombs = Mathf.FloorToInt(Get(StatType.mAmmo));
+            Bombs = Mathf.Clamp( Bombs + value, 0, maxBombs);
+        }
+    }
+    public bool HasAmmo()
+    {
+        return Bombs > 0;
+    }
     //  Emp
     //-----------------------------------------------------------------------------------------
     public void SetDisable(float value)

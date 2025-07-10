@@ -11,8 +11,8 @@ public class ProjectileSpawner_Duo : ProjectileSpawner
     public override List<GameObject> SpawnImpl(GameObject _prefab, Vector3 _shootPosition, Quaternion _aimDirection)        
     {
         //number of projectiles
-        int numProjectiles = Mathf.CeilToInt(GetStat(StatType.gProjectileAmount));
-        float spreadAngle = GetStat(StatType.gSpreadAngle);
+        int numProjectiles = Mathf.CeilToInt(IStats().ProjectileAmount);
+        float spreadAngle = IStats().SpreadAngle;
 
         float separation = 0.0f;
 

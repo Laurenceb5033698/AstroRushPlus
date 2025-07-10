@@ -74,23 +74,23 @@ public class UI_Game : ScreenElement
         gameStats[1].text = NoEnemy.ToString();
         gameStats[2].text = Wave.ToString();
     }
-    public void UpdateShipStats(Stats _stats, int missile )
+    public void UpdateShipStats(Stats _stats)
     {
-        missileCounter.text = "X " + missile;
-
+        missileCounter.text = "X " + _stats.OrdinanceAmmo;
+        
 
         Vector3 temp;
-        float maxHp = _stats.block.Get(StatType.sHealth).Get();
+        float maxHp = _stats.Get(StatType.sHealth);
         temp = statBars[0].transform.localScale;
         temp.x = (2.5f / maxHp) * _stats.ShipHealth;
         statBars[0].transform.localScale = temp;
 
-        float maxFuel = _stats.block.Get(StatType.sFuel).Get();
+        float maxFuel = _stats.Get(StatType.sFuel);
         temp = statBars[1].transform.localScale;
         temp.x = (2.5f / maxFuel) * _stats.ShipFuel;
         statBars[1].transform.localScale = temp;
 
-        float maxShield = _stats.block.Get(StatType.sShield).Get();
+        float maxShield = _stats.Get(StatType.sShield);
         temp = statBars[2].transform.localScale;
         temp.x = (2.5f / maxShield) * _stats.ShipShield;
         statBars[2].transform.localScale = temp;

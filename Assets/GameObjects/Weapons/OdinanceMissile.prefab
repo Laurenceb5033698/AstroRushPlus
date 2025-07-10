@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4267742024518814}
   - component: {fileID: 114208529561689096}
+  - component: {fileID: 7441597783637074254}
   m_Layer: 0
   m_Name: OdinanceMissile
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1704855380913058}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -126.35335, y: 2.1425, z: -515.24896}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -44,10 +45,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bfca3492ee83e64f881f8e48b0e070a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ProjectilePrefab: {fileID: 1000011011204806, guid: 22ca76d6bef13aa40a80baef94fadb8f,
-    type: 3}
-  ship: {fileID: 0}
+  m_AudioSource: {fileID: 0}
+  m_IndicatorVFXController: {fileID: 0}
   m_ProjectileSpawner: {fileID: 0}
-  Damage: 500
-  Speed: 3000
+  m_Ship: {fileID: 0}
+  ShipStats: {fileID: 0}
+  m_AimingIndicator: {fileID: 0}
+  m_AimingIndicatorHolder: {fileID: 0}
+  m_BulletPrefab: {fileID: 1000011011204806, guid: 22ca76d6bef13aa40a80baef94fadb8f,
+    type: 3}
   m_BurstDelay: 0.2
+--- !u!114 &7441597783637074254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704855380913058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f99d0abc7aef7414fafb21c88aeafe83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
