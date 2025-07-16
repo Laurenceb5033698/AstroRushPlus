@@ -3009,10 +3009,12 @@ MonoBehaviour:
   Data_GenericShipPool: {fileID: 0}
   Data_GenericWeaponPool: {fileID: 11400000, guid: 309584e1b1bd3e6408f22b48a53ee93d,
     type: 2}
-  Data_GenericMissilePool: {fileID: 0}
+  Data_GenericMissilePool: {fileID: 11400000, guid: 428be6679db70cb43b3c1414966eb518,
+    type: 2}
   Data_SpecificPool: {fileID: 0}
   WorkingPool: []
   SelectedUpgrades: []
+  UnselectedMissileTypes: []
 --- !u!4 &797784998
 Transform:
   m_ObjectHideFlags: 0
@@ -6942,6 +6944,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1789849867}
   - component: {fileID: 1789849866}
+  - component: {fileID: 1789849868}
   m_Layer: 0
   m_Name: SceneLoader
   m_TagString: Untagged
@@ -6981,6 +6984,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1789849868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789849865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc92b5f3bb8e88645846bcfb232ec511, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1812215296
 GameObject:
   m_ObjectHideFlags: 0

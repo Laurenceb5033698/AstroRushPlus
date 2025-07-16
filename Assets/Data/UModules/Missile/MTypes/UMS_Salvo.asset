@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1acdf137703aef146b47f1cb85f18b33, type: 3}
-  m_Name: UMissileType_Salvo
+  m_Script: {fileID: 11500000, guid: b90f4a66c84ecea4f811f88a48367137, type: 3}
+  m_Name: UMS_Salvo
   m_EditorClassIdentifier: 
   DisplayDetails:
     Txt_name: Salvo
-    Txt_description: Many many more Missiles
-    Txt_stat: Amount +20
+    Txt_description: Many many more Missiles, but half the size and damage.
+    Txt_stat: Burst +3 & x3, Amount +1, Spread +20 deg, size -50%, dmg -50%
     Type: 2
     Fill_Icon: {fileID: 2800000, guid: 0a131bcc97a047142b91e424d2daf8a9, type: 3}
   m_UpgradeList:
@@ -39,5 +39,18 @@ MonoBehaviour:
     flat: 3
     scale: 2
     mod: 0
-  m_MissileComponent: {fileID: 6463545631409434879, guid: 99d507b08c93d6b4284f3731d43d9d82,
-    type: 3}
+  - type: 32
+    BaseStatMax: 0
+    flat: 0
+    scale: 0
+    mod: -0.5
+  - type: 38
+    BaseStatMax: 0
+    flat: 0
+    scale: 0
+    mod: -0.5
+  - type: 38
+    BaseStatMax: 0
+    flat: 0
+    scale: 0
+    mod: -0.5

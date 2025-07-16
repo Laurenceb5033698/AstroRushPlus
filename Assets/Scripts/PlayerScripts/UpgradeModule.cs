@@ -61,6 +61,7 @@ public class UpgradeModule
     virtual protected void ProcessImpl(ref Stats _shipStats)
     {
         ApplyStats(ref _shipStats.block);
+        DoOnce();
         AttachCallbacks(_shipStats.gameObject);
     }
 
@@ -114,5 +115,10 @@ public class UpgradeModule
     protected virtual void AttachCallbacks(GameObject _shipObject)
     {
         
+    }
+
+    protected virtual void DoOnce()
+    {
+
     }
 }

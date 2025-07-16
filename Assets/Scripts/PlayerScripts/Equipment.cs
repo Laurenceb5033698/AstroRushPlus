@@ -65,4 +65,14 @@ public class Equipment : MonoBehaviour {
     {
         UpgraderAction -= _upgradeFunc;
     }
+
+    public void ChangeOrdinanceProjectileSpawner()
+    {
+        ProjectileSpawner spawner = Gun.GetComponent<ProjectileSpawner>();
+        if (spawner)
+        {
+            Destroy(spawner);
+            Gun.m_ProjectileSpawner = Gun.gameObject.AddComponent<ProjectileSpawner_Scatter>();
+        }
+    }
 }

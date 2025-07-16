@@ -1,7 +1,5 @@
-using System.Collections.Generic;
-using Unity.Multiplayer.Center.Common;
 using UnityEngine;
-using UnityEngine.UI;
+using System.Collections.Generic;
 
 
 /// <summary>
@@ -26,6 +24,8 @@ public class UpgradePoolManager : MonoBehaviour
 
     public List<UModuleScriptable> SelectedUpgrades;
 
+    //need to store which missile types are already picked, so we can pick from them later.
+    public List<UModuleScriptable> UnselectedMissileTypes;
 
     private void Awake()
     {
@@ -67,6 +67,9 @@ public class UpgradePoolManager : MonoBehaviour
     private void InitialiseWorkingPools()
     {
         WorkingPool = new List<UModuleScriptable>();
+        if(Data_MissilePool)
+            UnselectedMissileTypes = new List<UModuleScriptable>(Data_MissilePool.Pool);
+
         //clear working pool, reset with weapon types selesction
         CurrentPick = PickState.WeaponType;
         RefreshPool();
@@ -82,11 +85,12 @@ public class UpgradePoolManager : MonoBehaviour
                 WorkingPool = new List<UModuleScriptable>(Data_WeaponPool.Pool);
                 break;
             case PickState.Missile:
-                if (Data_MissilePool) WorkingPool.AddRange(Data_MissilePool.Pool);
+                if (UnselectedMissileTypes.Count > 0) WorkingPool.AddRange(UnselectedMissileTypes);
                 break;
             case PickState.Standard:
                 if (Data_GenericWeaponPool) WorkingPool.AddRange(Data_GenericWeaponPool.Pool);
                 if (Data_GenericShipPool) WorkingPool.AddRange(Data_GenericShipPool.Pool);
+                if (UnselectedMissileTypes.Count > 0) WorkingPool.AddRange(UnselectedMissileTypes);
                 if (Data_GenericMissilePool) WorkingPool.AddRange(Data_GenericMissilePool.Pool);
                 if (Data_SpecificPool) WorkingPool.AddRange(Data_SpecificPool.Pool);
                 break;
@@ -108,7 +112,7 @@ public class UpgradePoolManager : MonoBehaviour
         {
             for (int i = 0; i < 3; i++)
             {
-                int cardindex = Random.Range(0, WorkingPool.Count);
+                int cardindex = UnityEngine.Random.Range(0, WorkingPool.Count);
                 SelectedUpgrades.Add(WorkingPool[cardindex]);
                 //slow, but necessary to remove now to prevent repeat pulls.
                 WorkingPool.RemoveAt(cardindex);
@@ -126,7 +130,7 @@ public class UpgradePoolManager : MonoBehaviour
             RefreshPool();
             for (int i = SelectedUpgrades.Count; i < 3; i++)
             {
-                int cardindex = Random.Range(0, WorkingPool.Count);
+                int cardindex = UnityEngine.Random.Range(0, WorkingPool.Count);
                 SelectedUpgrades.Add(WorkingPool[cardindex]);
                 //slow, but necessary to remove now to prevent repeat pulls.
                 WorkingPool.RemoveAt(cardindex);
@@ -152,6 +156,9 @@ public class UpgradePoolManager : MonoBehaviour
         UpgradeManager PlayerUpgradeManager = GetComponent<UpgradeManager>();
         //hand add upgrade from selectedUpgrades at selected index
         PlayerUpgradeManager.AddNewModule(SelectedUpgrades[_SelectedCardIndex]);
+
+        //if we pick a missile type upgrade (eg homing, nuke, salvo) we must remove it from the missile types list.
+        RemoveMissileTypeFromPool(_SelectedCardIndex);
 
         //chosen upgrade is removed.
         SelectedUpgrades.RemoveAt(_SelectedCardIndex);
@@ -179,6 +186,22 @@ public class UpgradePoolManager : MonoBehaviour
             {
                 CurrentPick = PickState.Standard;
                 RefreshPool();
+            }
+        }
+    }
+
+    /// <summary>
+    /// If missile Type is picked, remove missile types from its own pool.
+    /// </summary>
+    /// <param name="_SelectedCardIndex"></param>
+    private void RemoveMissileTypeFromPool(int _SelectedCardIndex)
+    {
+        if (SelectedUpgrades[_SelectedCardIndex].DisplayDetails.Type == CardType.Missile)
+        {
+            int upgradeIndex = UnselectedMissileTypes.IndexOf(SelectedUpgrades[_SelectedCardIndex]);
+            if (upgradeIndex >= 0)
+            {
+                UnselectedMissileTypes.RemoveAt(upgradeIndex);
             }
         }
     }

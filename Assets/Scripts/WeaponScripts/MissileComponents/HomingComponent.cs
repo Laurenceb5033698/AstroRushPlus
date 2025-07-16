@@ -1,12 +1,11 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class HomingComponent : BaseMissileComponent
 {
     Transform m_target;
     public override void OnInit()
     {
-        m_target = FindTarget();
+        m_target = ServicesManager.Instance.HomingService.FindTarget(this.transform);
     }
 
     private Transform FindTarget()
@@ -37,7 +36,13 @@ public class HomingComponent : BaseMissileComponent
         {
             //turn towards target.
             Vector3 direction = (m_target.transform.position - transform.position).normalized;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.FromToRotation(Vector3.forward, direction), 300 * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.FromToRotation(Vector3.forward, direction), 240 * Time.deltaTime);
         }
+    }
+
+    public override void OnCollide()
+    {
+        if(m_target)
+            ServicesManager.Instance.HomingService.ReleaseTarget(m_target);
     }
 }

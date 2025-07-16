@@ -149,7 +149,7 @@ public class Missile : Projectile
         if (FinalAction != null)
             FinalAction.Invoke();
 
-        SpawnHitVisuals();
+        //SpawnHitVisuals();
         //Instantiate (psImpactPrefab, transform.position,transform.rotation);
         Destroy (transform.gameObject);
 	}

@@ -6,11 +6,6 @@ using UnityEngine;
 //twin of weapon class
 public class Ordinance : Universal_Weapon_Base {
 
-    //shoots a projectile
-    //[SerializeField] protected GameObject m_ProjectilePrefab;//bullet prefab
-    //[SerializeField] protected GameObject m_Ship; //reference to ship
-    
-
     //startup
     private void Awake()
     {
@@ -46,7 +41,7 @@ public class Ordinance : Universal_Weapon_Base {
 
     }
 
-    public void Shoot(Vector3 _aimDir)
+    override public void Shoot(Vector3 _aimDir)
     {
         preShoot(_aimDir);
         ShootImpl();
@@ -92,24 +87,18 @@ public class Ordinance : Universal_Weapon_Base {
         Vector3 toIndicator = (shootPosition - m_AimingIndicatorHolder.transform.position).normalized;
         Quaternion aimDirection = Quaternion.LookRotation(toIndicator, Vector3.up);
 
-        if (m_AttackInterval > Time.time)
-        {
-            return;
-        }
-
-
         int numBursts = Mathf.FloorToInt(InterfaceStats.BurstAmount);
         if (numBursts == 0)
         {
             m_ProjectileSpawner.Spawn(m_BulletPrefab, shootPosition, aimDirection, SetupDelegate);
-            m_AttackInterval = Time.time + 2.0f;
+            m_AttackInterval = Time.time + 1.0f;
         }
         else
         {
             float timeBetween = m_BurstDelay / numBursts;
 
             StartCoroutine(m_ProjectileSpawner.SpawnAsync(timeBetween, numBursts + 1, m_BulletPrefab, shootPosition, aimDirection, SetupDelegate));
-            m_AttackInterval = Time.time + 2.0f + CalcBurstInterval();
+            m_AttackInterval = Time.time + 1.0f + CalcBurstInterval();
         }
 
     }
@@ -129,7 +118,7 @@ public class Ordinance : Universal_Weapon_Base {
         if (amount > 0)
         {
             float attacksPerSec = amount / 1.0f;
-            interval = amount * attacksPerSec * m_BurstDelay;
+            interval = attacksPerSec * m_BurstDelay;
 
         }
 
