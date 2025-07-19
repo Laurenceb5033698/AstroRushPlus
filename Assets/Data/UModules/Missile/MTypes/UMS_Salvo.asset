@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b90f4a66c84ecea4f811f88a48367137, type: 3}
+  m_Name: UMS_Salvo
+  m_EditorClassIdentifier: 
+  DisplayDetails:
+    Txt_name: Salvo
+    Txt_description: Many many more Missiles, but half the size and damage.
+    Txt_stat: Burst +3 & x3, Amount +1, Spread +20 deg, size -50%, dmg -50%
+    Type: 2
+    Fill_Icon: {fileID: 2800000, guid: 0a131bcc97a047142b91e424d2daf8a9, type: 3}
+  m_UpgradeList:
+  - type: 46
+    BaseStatMax: 0
+    flat: 0
+    scale: 0
+    mod: -0.5
+  - type: 35
+    BaseStatMax: 0
+    flat: 1
+    scale: 0
+    mod: 0
+  - type: 36
+    BaseStatMax: 0
+    flat: 20
+    scale: 0
+    mod: 0
+  - type: 34
+    BaseStatMax: 0
+    flat: 3
+    scale: 2
+    mod: 0
+  - type: 32
+    BaseStatMax: 0
+    flat: 0
+    scale: 0
+    mod: -0.5
+  - type: 38
+    BaseStatMax: 0
+    flat: 0
+    scale: 0
+    mod: -0.5
+  - type: 38
+    BaseStatMax: 0
+    flat: 0
+    scale: 0
+    mod: -0.5

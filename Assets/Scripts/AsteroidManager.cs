@@ -86,7 +86,6 @@ public class AsteroidManager : MonoBehaviour
         float distance = Random.Range(100, 250);
         Vector3 dir = new Vector3(Mathf.Cos(angle),0, Mathf.Sin(angle));
         go.transform.position = ship.transform.position + dir * distance;
-        
     }
 
     public void SpawnChunks(Vector3 pos)

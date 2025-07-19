@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: UMissileType_Homing
   m_EditorClassIdentifier: 
   DisplayDetails:
-    Txt_name: Homing Missile
-    Txt_description: Seek and Destroy
-    Txt_stat: 
+    Txt_name: Guided Hellfire
+    Txt_description: The missile will lock onto an enemy on launch and fly after
+      them till impact
+    Txt_stat: Missle speed +20%, Lifetime +50%
     Type: 2
     Fill_Icon: {fileID: 2800000, guid: ddc9c0b78a18f9b44b21e7a6f0055cda, type: 3}
   m_UpgradeList:
@@ -24,5 +25,10 @@ MonoBehaviour:
     flat: 0
     scale: 0
     mod: 0.2
+  - type: 44
+    BaseStatMax: 0
+    flat: 0
+    scale: 0
+    mod: 0.5
   m_MissileComponent: {fileID: 609298342534533137, guid: 3f1e803c0736f264ab68c8171194e385,
     type: 3}

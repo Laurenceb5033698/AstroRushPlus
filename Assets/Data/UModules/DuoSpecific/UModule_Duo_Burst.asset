@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26c8fa40451601e4a8640576a47957e6, type: 3}
+  m_Name: UModule_Duo_Burst
+  m_EditorClassIdentifier: 
+  DisplayDetails:
+    Txt_name: Burst Fire
+    Txt_description: Each shot now fires a rapid burst, with a short delay after.
+    Txt_stat: Burst +1
+    Type: 5
+    Fill_Icon: {fileID: 2800000, guid: 69638b399dbb7d144a814c28b98b7aea, type: 3}
+  m_UpgradeList:
+  - type: 18
+    BaseStatMax: 0
+    flat: 1
+    scale: 0
+    mod: 0
+  - type: 25
+    BaseStatMax: 0
+    flat: 0
+    scale: 0.5
+    mod: 0

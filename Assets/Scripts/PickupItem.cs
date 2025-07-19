@@ -87,7 +87,7 @@ public class PickupItem : MonoBehaviour {
                     break;
 				case 4: //c.transform.gameObject.GetComponentInParent<ShipStats>().SetMissiles(); //Debug.Log("Missile Reloaded"); 
                     //c.gameObject.GetComponentInParent<Equipment>().AddAmmo(refillval);
-                    c.gameObject.GetComponentInParent<PlayerController>().gameObject.GetComponentInChildren<Equipment>().AddAmmo(refillval);
+                    c.gameObject.GetComponentInParent<Stats>().OrdinanceAmmo = 1;
                     break;
                 default: //Debug.Log("WARNING! Wrong pickup type"); 
                     break;

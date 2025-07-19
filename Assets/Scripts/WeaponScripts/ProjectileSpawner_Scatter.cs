@@ -6,11 +6,11 @@ public class ProjectileSpawner_Scatter : ProjectileSpawner
     /// <summary>
     /// Scatter will randomly send projectiles within the spread angle.
     /// </summary>
-    public override List<GameObject> SpawnImpl(Vector3 _shootPosition, Quaternion _aimDirection)
+    public override List<GameObject> SpawnImpl(GameObject _prefab, Vector3 _shootPosition, Quaternion _aimDirection)
     {
         //number of projectiles
-        int numProjectiles = Mathf.CeilToInt(GetStat(StatType.gProjectileAmount));
-        float spreadAngle = GetStat(StatType.gSpreadAngle);
+        int numProjectiles = Mathf.CeilToInt(IStats().ProjectileAmount  );
+        float spreadAngle = IStats().SpreadAngle;
 
         if (numProjectiles < 1)
             numProjectiles = 1;
@@ -27,7 +27,7 @@ public class ProjectileSpawner_Scatter : ProjectileSpawner
 
             Quaternion bulletDirection =  StartRotation * QuatInaccuracy;
 
-            bullets.Add(Instantiate<GameObject>(m_spawnPrefab, _shootPosition, bulletDirection));
+            bullets.Add(Instantiate<GameObject>(_prefab, _shootPosition, bulletDirection));
         }
         return bullets;
     }

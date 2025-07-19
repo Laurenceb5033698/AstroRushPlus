@@ -137,17 +137,7 @@ abstract public class PlayerController : MonoBehaviour {
     //#### DPAD ####
     virtual protected void InputDpadYAxis()
     {
-        if (controls.DpadYPressed)
-        {
-            if (controls.DpadUp || Input.GetKeyDown(KeyCode.Q)) // DPad up
-            {
-                equipment.ChangeGun(1);
-            }
-            if (controls.DpadDown) // DPad down
-            {//perhaps else for optimization
-                equipment.ChangeGun(-1);
-            }
-        }
+        //removed multiple equipment.
     }
 
     //####  TRIGGERS    ####
@@ -163,7 +153,7 @@ abstract public class PlayerController : MonoBehaviour {
     {
         if (controls.RTriggerPressed || Input.GetKeyDown(KeyCode.Space))
         { //depends on direction being resolved by aiming||LMB
-            if (!usedEquipment && equipment.HasAmmo())
+            if (!usedEquipment && stats.HasAmmo())
             {
                 usedEquipment = true;
                 equipment.UseOrdinance(direction);

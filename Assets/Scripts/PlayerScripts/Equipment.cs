@@ -5,28 +5,24 @@ public class Equipment : MonoBehaviour {
 
     [SerializeField] private GameObject ship;
 
-    private int NoOrdinances = 3;
-    [SerializeField] private List<Ordinance> ordini;//weapon prefabs
-
-    private Ordinance Gun = null;
-    private int currentGun = 0;
+    private Ordinance Gun;
 
     public delegate void MissileUpgrader(GameObject _missile);
     public MissileUpgrader UpgraderAction;
 
-    //all Ordini use from Ammo
-    [SerializeField] private int AmmoCommon = 20;
+    private void Awake()
+    {
+        Gun = GetComponentInChildren<Ordinance>();
+        if (Gun == null)
+            Debug.Log("ERROR: Equipment: Ordinance not found in children.");
+    }
 
     void Start() {
-        GetComponentsInChildren<Ordinance>(ordini);
-        NoOrdinances = ordini.Count;
-        foreach (Ordinance item in ordini)
+        if (Gun)
         {
-            item.SetShipObject(ship);
-            //Debug.Log(item.gameObject.name);
+            Gun.Setup(ship);
+            Gun.SetupDelegate += MissileInitialise;
         }
-        Gun = ordini[currentGun];
-        Gun.enabled = true;
     }
 
     public void SetShipObject(GameObject obj)
@@ -34,64 +30,13 @@ public class Equipment : MonoBehaviour {
         ship = obj;
     }
 
-    public void RegisterUI()
-    {//need UI elements for this (i guess we have 2 already, misslie + bfom)
-        //deffo need UI system to house them though
-
-        //UI_Game GameUI = (UI_Game)UIManager.GetGameUiObject();
-        //GameUI.RegisterWeaponIcons(Weapons);
-    }
-
-    public int ChangeGun(int a)
-    {
-        Gun.enabled = false;
-        if (a > 0)
-        {
-            currentGun += 1;
-            if (currentGun >= NoOrdinances)
-                currentGun = 0;
-        }
-        else if (a < 0)
-        {
-            currentGun -= 1;
-            if (currentGun < 0)
-                currentGun = NoOrdinances - 1;
-        }
-        Gun = ordini[currentGun];
-        Gun.enabled = true;
-        return currentGun;
-    }
-
     public void UseOrdinance(Vector3 Aimdir)
     {
-        if (Gun) {
-            if (AmmoCommon > 0)
-            {
-                --AmmoCommon;
-                foreach( GameObject projectile in Gun.Shoot(Aimdir))
-                {
-                    MissileInitialise(projectile);
-                }
-                //    Quaternion temp = new Quaternion();
-                //    temp.SetLookRotation(Aimdir, transform.up);
-                //    turret.transform.rotation = temp;
-            }
+        if (Gun) 
+        {
+            Gun.Shoot(Aimdir);            
         }
     }
-
-    public void AddAmmo(int val)
-    {
-        AmmoCommon = (AmmoCommon + val > 20) ? 20 : AmmoCommon + val;
-    }
-    public bool HasAmmo()
-    {
-        return AmmoCommon > 0;
-    }
-    public int GetAmmoCount()
-    {
-        return AmmoCommon;
-    }
-
 
     //###############
     //Event Callbacks
@@ -119,5 +64,15 @@ public class Equipment : MonoBehaviour {
     public void DeRegisterFromMissileUpgrader(MissileUpgrader _upgradeFunc)
     {
         UpgraderAction -= _upgradeFunc;
+    }
+
+    public void ChangeOrdinanceProjectileSpawner()
+    {
+        ProjectileSpawner spawner = Gun.GetComponent<ProjectileSpawner>();
+        if (spawner)
+        {
+            Destroy(spawner);
+            Gun.m_ProjectileSpawner = Gun.gameObject.AddComponent<ProjectileSpawner_Scatter>();
+        }
     }
 }

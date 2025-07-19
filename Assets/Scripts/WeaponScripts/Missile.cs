@@ -21,7 +21,7 @@ public class Missile : Projectile
     private event MissileAction FixedAction;
     private event MissileAction FinalAction;
 
-    protected override void Awake()
+    protected override void Startup()
     {
         motor = GetComponent<ProjectileMotor>();
         if (motor)
@@ -149,7 +149,7 @@ public class Missile : Projectile
         if (FinalAction != null)
             FinalAction.Invoke();
 
-        SpawnHitVisuals();
+        //SpawnHitVisuals();
         //Instantiate (psImpactPrefab, transform.position,transform.rotation);
         Destroy (transform.gameObject);
 	}
