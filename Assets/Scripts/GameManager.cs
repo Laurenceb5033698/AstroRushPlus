@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour {
                 //GameScreen ui controls/ updates
                 Time.timeScale = 1;
                 //UI_Game mUIg = ((UI_Game)ui);
-                ((UI_Game)ui).UpdateGameStats(currentScore, aiMngr.GetTotalShipLeft(), aiMngr.GetWaveNumber());
+                //((UI_Game)ui).UpdateGameStats(currentScore, aiMngr.GetTotalShipLeft(), aiMngr.GetWaveNumber());
                 ((UI_Game)ui).UpdateShipStats(s);
                 if (!s.IsAlive())
                     ((UI_Game)ui).Button_PausePressed(true);

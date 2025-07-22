@@ -13,6 +13,7 @@ using static UnityEngine.Rendering.GPUSort;
 /// </summary>
 abstract public class ScreenElement : MonoBehaviour {
 
+    [SerializeField] public UIManager.Screens ScreenType = UIManager.Screens.NumScreens;
     private Canvas cv = null;
     [SerializeField] protected GameObject[] SelectableList;
     GameObject LastSelected;

@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
 
     //public static event GameEvent OnExitGame;
 
-    public enum Screens { TitleMenu, ShipSelectionScreen, LevelSelect, LoadingScreen, GameScreen, UpgradeScreen, PauseScreen, OptionsScreen, NumScreens }
+    public enum Screens { TitleMenu, ShipSelection, ShipConfig, Shop, Loadout, Launch, Loading, GameScreen, UpgradeScreen, PauseScreen, OptionsScreen, NumScreens }
 
     private ScreenElement[] mScreens;
     private Screens mCurrentScreen;
@@ -46,7 +46,7 @@ public class UIManager : MonoBehaviour
         {
             for (int slot = 0; slot < mScreens.Length; ++slot)
             {
-                if (mScreens[slot] == null && ((Screens)slot).ToString() == screens[count].name)
+                if (mScreens[slot] == null && ((Screens)slot) == screens[count].ScreenType)
                 {
                     mScreens[slot] = screens[count];
                     break;
@@ -81,7 +81,7 @@ public class UIManager : MonoBehaviour
 
     public void LoadingComplete()
     {
-        mScreens[(int)Screens.LoadingScreen].gameObject.SetActive(false);
+        mScreens[(int)Screens.Loading].gameObject.SetActive(false);
         mScreens[(int)mCurrentScreen].gameObject.SetActive(true);
     }
 
@@ -99,7 +99,7 @@ public class UIManager : MonoBehaviour
     {//ONLY used when loading new scenes
         
         mScreens[(int)mCurrentScreen].gameObject.SetActive(false);
-        mScreens[(int)Screens.LoadingScreen].gameObject.SetActive(true);
+        mScreens[(int)Screens.Loading].gameObject.SetActive(true);
         mCurrentScreen = screen;
     }
     private void TransitionTo(Screens screen)
@@ -171,14 +171,14 @@ public class UIManager : MonoBehaviour
     {
         ScreenTransition(Screens.TitleMenu);
     } 
-    public void LevelSelectButton()
-    {
-        ScreenTransition(Screens.LevelSelect);
-    }
-    public void ShipSelectionButton()
-    {
-        ScreenTransition(Screens.ShipSelectionScreen);
-    }
+    //public void LevelSelectButton()
+    //{
+    //    ScreenTransition(Screens.LevelSelect);
+    //}
+    //public void ShipSelectionButton()
+    //{
+    //    ScreenTransition(Screens.ShipSelectionScreen);
+    //}
 
     public void UpgradeScreen()
     {
@@ -186,6 +186,12 @@ public class UIManager : MonoBehaviour
         ScreenTransition(Screens.UpgradeScreen);
         (GetCurrentElement() as UI_Upgrade).GetRandomCardsFromPool();
     }
+
+    public void NavigateMenuHeader(int _HeaderScreenIndex)
+    {
+        //transition to header at given index
+    }
+
 
     public void ScreenTransition(Screens _target)
     {
@@ -201,7 +207,7 @@ public class UIManager : MonoBehaviour
     }
     public ScreenElement GetShipSelectElement()
     {
-        return mScreens[(int)Screens.ShipSelectionScreen];
+        return mScreens[(int)Screens.ShipSelection];
     }
 
     //Events - volume changed

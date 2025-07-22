@@ -1,32 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.LowLevel;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class UI_Game : ScreenElement
 {
-    [SerializeField] private Text missileCounter;
+    // health, boost, special, missile
+    [SerializeField] private Image[] statBars = new Image[4];     
 
-    [SerializeField] private Text[] gameStats = new Text[3];                // score, enemy left, wave counter
-    [SerializeField] private GameObject[] statBars = new GameObject[3];     // helth, boost
-
-    private float helthFlashingTimer = 0;
-    private bool hpActive = true;
+    //private float healthFlashingTimer = 0;
+    //private bool hpActive = true;
     [SerializeField] private GameObject healthIndicator;
     [SerializeField] private GameObject healthVignette;
-
-    //private GameManager gm = null;
-    [SerializeField] private Texture[] Icons = new Texture[8];//this is all available weapons
-    //[SerializeField] private Texture[] Icons80 = new Texture[7];//this is all available transparanet weapons
-
-    private int CurrentWeapon = 0;
-    private bool toFade = false;
-    private float fade = 1.5f;
-    private float fadeTime = 0.0f;
-
-    //public void AttachGameManager(){ gm = GameManager.instance; }
-    //public void RemoveGameManager() { gm = null; }
 
     public override void Update()
     {
@@ -48,13 +31,6 @@ public class UI_Game : ScreenElement
     {
         OnScreenOpenInternal();
     }
-    //protected override void OnScreenOpenInternal()
-    //{ 
-    //    //fix uxml hud
-    //    GetComponent<GameUIPlayerHealth>().StatsChanged();
-
-    //    base.OnScreenOpenInternal();
-    //}
 
 
     //Button callbacks
@@ -68,70 +44,53 @@ public class UI_Game : ScreenElement
         UIManager.instance.UpgradeScreen();
     }
 
-    public void UpdateGameStats(int score, int NoEnemy, int Wave)
-    {
-        gameStats[0].text = score.ToString();
-        gameStats[1].text = NoEnemy.ToString();
-        gameStats[2].text = Wave.ToString();
-    }
+    //public void UpdateGameStats(int score, int NoEnemy, int Wave)
+    //{
+    //    gameStats[0].text = score.ToString();
+    //    gameStats[1].text = NoEnemy.ToString();
+    //    gameStats[2].text = Wave.ToString();
+    //}
+
     public void UpdateShipStats(Stats _stats)
     {
-        missileCounter.text = "X " + _stats.OrdinanceAmmo;
-        
-
-        Vector3 temp;
         float maxHp = _stats.Get(StatType.sHealth);
-        temp = statBars[0].transform.localScale;
-        temp.x = (2.5f / maxHp) * _stats.ShipHealth;
-        statBars[0].transform.localScale = temp;
-
-        float maxFuel = _stats.Get(StatType.sFuel);
-        temp = statBars[1].transform.localScale;
-        temp.x = (2.5f / maxFuel) * _stats.ShipFuel;
-        statBars[1].transform.localScale = temp;
+        statBars[0].fillAmount = _stats.ShipHealth / maxHp;
 
         float maxShield = _stats.Get(StatType.sShield);
-        temp = statBars[2].transform.localScale;
-        temp.x = (2.5f / maxShield) * _stats.ShipShield;
-        statBars[2].transform.localScale = temp;
+        statBars[1].fillAmount = _stats.ShipShield / maxShield;
 
-        //indicators[0].SetActive(shield);
-        //indicators[1].SetActive(!shield);
+        float maxFuel = _stats.Get(StatType.sFuel);
+        statBars[2].fillAmount = _stats.ShipFuel / maxFuel;
 
+        float maxAmmo = _stats.Get(StatType.mAmmo);
+        statBars[3].fillAmount = _stats.OrdinanceAmmo / maxAmmo;
 
-        if (_stats.ShipHealth < (maxHp / 2))
-        {
-            Color tempCol = healthVignette.GetComponent<RawImage>().color;
-            tempCol.a = 0.7f - ((_stats.ShipHealth / (maxHp / 2)) * 0.7f);
-            healthVignette.GetComponent<RawImage>().color = tempCol;
-
-
-            if (helthFlashingTimer < Time.time)
-            {
-                hpActive = !hpActive;
-                healthIndicator.SetActive(hpActive);
-                helthFlashingTimer = Time.time + 0.2f;
-
-            }
-        }
-        else
-        {
-            Color tempCol = healthVignette.GetComponent<RawImage>().color;
-            tempCol.a = 0;
-            healthVignette.GetComponent<RawImage>().color = tempCol;
-
-            hpActive = true;
-            healthIndicator.SetActive(hpActive);
-        }
+        //VIGNETTE
+        //if (_stats.ShipHealth < (maxHp / 2))
+        //{
+        //    Color tempCol = healthVignette.GetComponent<RawImage>().color;
+        //    tempCol.a = 0.7f - ((_stats.ShipHealth / (maxHp / 2)) * 0.7f);
+        //    healthVignette.GetComponent<RawImage>().color = tempCol;
 
 
+        //    if (healthFlashingTimer < Time.time)
+        //    {
+        //        hpActive = !hpActive;
+        //        healthIndicator.SetActive(hpActive);
+        //        healthFlashingTimer = Time.time + 0.2f;
 
+        //    }
+        //}
+        //else
+        //{
+        //    Color tempCol = healthVignette.GetComponent<RawImage>().color;
+        //    tempCol.a = 0;
+        //    healthVignette.GetComponent<RawImage>().color = tempCol;
+
+        //    hpActive = true;
+        //    healthIndicator.SetActive(hpActive);
+        //}
     }
-
-
-
-
-
 
 }
 

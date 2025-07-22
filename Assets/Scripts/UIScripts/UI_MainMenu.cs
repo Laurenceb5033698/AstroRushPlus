@@ -22,7 +22,7 @@ public class UI_MainMenu : ScreenElement
 
     public void Button_StartGamePressed()
     {
-        UIManager.instance.ShipSelectionButton();
+        UIManager.instance.ScreenTransition(UIManager.Screens.ShipSelection);
     }
     public void Button_OptionsPressed()
     {

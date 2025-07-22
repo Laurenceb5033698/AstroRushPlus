@@ -18,7 +18,7 @@
                     "name": "Submit",
                     "type": "Button",
                     "id": "2053fc1a-0421-4cb0-92d1-5c4c1b608e0d",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -91,6 +91,24 @@
                     "type": "PassThrough",
                     "id": "9e9a417b-6b0f-43bf-a291-c0717bdda070",
                     "expectedControlType": "Quaternion",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "HeaderRightBumper",
+                    "type": "Button",
+                    "id": "7e6b3b38-da5a-468c-b079-28b9160178f1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "HeaderLeftBumper",
+                    "type": "Button",
+                    "id": "3744b27b-74b0-4743-9443-bccf5ce0dbf2",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -512,6 +530,50 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bb7ef8d9-39c6-4d02-bb1d-635beb00815f",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HeaderRightBumper",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ebbc7edb-13c3-4215-8c3a-2bbeb018794c",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HeaderRightBumper",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "84854a9a-99a0-4ada-939e-9a98a01cb1cb",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HeaderLeftBumper",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "01922b40-de0a-4f6f-bdd9-90374d7204b7",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HeaderLeftBumper",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

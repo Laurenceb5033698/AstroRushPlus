@@ -11,11 +11,15 @@ public class Script_UI_InputManager : MonoBehaviour
     public Vector2 NavigationInput {get; set; }
     public bool SubmitInput { get; set; }
     public bool CancelInput { get; set; }
+    public bool RightBumperInput { get; set; }
+    public bool LeftBumperInput { get; set; }
 
 
     private InputAction _navigationAction;
     private InputAction _SubmitAction;
     private InputAction _CancelAction;
+    private InputAction _HeaderNavigateRightAction;
+    private InputAction _HeaderNavigateLeftAction;
 
     public static PlayerInput PlayerInput {get; set; }
 
@@ -33,6 +37,9 @@ public class Script_UI_InputManager : MonoBehaviour
 
         _SubmitAction = PlayerInput.actions["Submit"];
         _CancelAction = PlayerInput.actions["Cancel"];
+
+        _HeaderNavigateRightAction = PlayerInput.actions["HeaderRightBumper"];
+        _HeaderNavigateLeftAction = PlayerInput.actions["HeaderLeftBumper"];
     }
 
     /// <summary>
@@ -44,6 +51,8 @@ public class Script_UI_InputManager : MonoBehaviour
         NavigationInput = _navigationAction.ReadValue<Vector2>();
         SubmitInput = _SubmitAction.triggered;
         CancelInput = _CancelAction.triggered;
+        RightBumperInput = _HeaderNavigateRightAction.triggered;
+        LeftBumperInput = _HeaderNavigateLeftAction.triggered;
 
     }
 
