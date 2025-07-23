@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_ShipSelect : ScreenElement {
     //#################
@@ -13,6 +15,7 @@ public class UI_ShipSelect : ScreenElement {
     //#################
     [SerializeField] private GOEHeaderComponent Header;
 
+    [SerializeField] private Scrollbar SelectionScrollbar;
     new public void OnEnable()
     {
         base.OnEnable();
@@ -46,9 +49,34 @@ public class UI_ShipSelect : ScreenElement {
 
     protected override void Cancel()
     {
-        //Button_ShipSelectReturnPressed();
+        //return to Title Screen
+        UIManager.instance.ScreenTransition(UIManager.Screens.TitleMenu);
     }
 
+    protected override void SelectButton()
+    {
+        //use selector index to more scrollbar
+        //this WILL move cards around under the mouse and could be an issue
+        if (SelectableList.Length > 0)
+        {
+            float scrollPercentage = selector / SelectableList.Length;
+            if (SelectionScrollbar)
+            {
+                SelectionScrollbar.value = scrollPercentage;
+            }
+        }
+        base.SelectButton();
+    }
+
+    public void SubmitSelectedShip()
+    {
+        //so selecting a ship is only possible if the ship is unlocked.
+        //must validate somehow vs an unlock list.
+        //MEANWHILE
+        //  we only have a button for first ship
+        UIManager.instance.ShipSelectValue = 0;
+        UIManager.instance.ScreenTransition(UIManager.Screens.ShipConfig);
+    }
 
     ////ship select communicates with main menu to move ship tray around for ship selection
     //private void HandleInworldSelector(int _selector)
@@ -75,14 +103,14 @@ public class UI_ShipSelect : ScreenElement {
     //    UIManager.instance.ReturnToMenu();
     //    MainMenu.instance.setTrayMoveTo(0);
     //}
-    
+
     ////Selected ship is chosen.
     //public void Button_ShipGenericPressed(int shipVal)
     //{
     //    Func_GotoLevelSelect(shipVal);
 
     //}
-    
+
     ////adding more ships requires adding button with data to UI scene, and adding choose ship index to mainmenu scene
     //public void Func_GotoLevelSelect(int shipval)
     //{

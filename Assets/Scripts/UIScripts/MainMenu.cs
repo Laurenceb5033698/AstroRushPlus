@@ -12,19 +12,19 @@ public class MainMenu : MonoBehaviour {
     public Inputs GlobalInputs;
 
     // option menu
-    private bool mOptionPanelActive = false;
-    private bool shipMoved = false;
-    private bool MoveShipBack = false;
-    private Vector3 shipMovePos = new Vector3(-28,-15,-30);
-    private Vector3 shipMoveBackPos = new Vector3(53,17,35);
+    //private bool mOptionPanelActive = false;
+    //private bool shipMoved = false;
+    //private bool MoveShipBack = false;
+    //private Vector3 shipMovePos = new Vector3(-28,-15,-30);
+    //private Vector3 shipMoveBackPos = new Vector3(53,17,35);
     //[SerializeField] private Toggle fullScreenToggleGO;
 
     // ship
     [SerializeField] private GameObject ship;
     private Vector3 shipStartPos;
-    private float timeToChangeDir;
-    private Vector3 targetDir;
-    private Vector3 targetRot;
+    //private float timeToChangeDir;
+    //private Vector3 targetDir;
+    //private Vector3 targetRot;
 
     //  selectShip
     public GameObject selectTray;
@@ -78,13 +78,13 @@ public class MainMenu : MonoBehaviour {
     }
     // Use this for initialization
     void Start () {
-        shipStartPos = ship.transform.position;
-        trayStartPos = selectTray.transform.position;
-        targetRot = ship.transform.eulerAngles;
+        //shipStartPos = ship.transform.position;
+        //trayStartPos = selectTray.transform.position;
+        //targetRot = ship.transform.eulerAngles;
         Time.timeScale = 1;
-        timeToChangeDir = Time.time + 3f;
-        float temp = 3f;
-        targetDir = new Vector3(shipStartPos.x + Random.Range(-temp, temp), shipStartPos.y + Random.Range(-temp, temp), shipStartPos.z + Random.Range(-temp, temp));
+        //timeToChangeDir = Time.time + 3f;
+        //float temp = 3f;
+        //targetDir = new Vector3(shipStartPos.x + Random.Range(-temp, temp), shipStartPos.y + Random.Range(-temp, temp), shipStartPos.z + Random.Range(-temp, temp));
     }
     private void OnEnable(){
         //UIManager.Options += UI_OnOptionsCall;//subscribe to options toggle event
@@ -154,109 +154,106 @@ public class MainMenu : MonoBehaviour {
                 //else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) ((UI_MainMenu)ui).Button_MenuQuitPressed(); // B controller button or Escape button
                 break;
         }
-        if (!mOptionPanelActive)
-        {
-            if (Vector3.Distance(ship.transform.position, shipStartPos) > 5)
-            {
-                MoveShipBack = true;
-            }
-            else
-            {
-                shipMoved = false;
-                MoveShip();
-            }  
-        }
-        else if (!shipMoved)
-        {
-            ship.transform.position = Vector3.MoveTowards(ship.transform.position, shipMovePos, 20 * Time.deltaTime);
+        //if (!mOptionPanelActive)
+        //{
+        //    if (Vector3.Distance(ship.transform.position, shipStartPos) > 5)
+        //    {
+        //        MoveShipBack = true;
+        //    }
+        //    else
+        //    {
+        //        shipMoved = false;
+        //        MoveShip();
+        //    }  
+        //}
+        //else if (!shipMoved)
+        //{
+        //    ship.transform.position = Vector3.MoveTowards(ship.transform.position, shipMovePos, 20 * Time.deltaTime);
 
-            if (Vector3.Distance(ship.transform.position, shipStartPos) > 40)
-            {
-                shipMoved = true;
-                ship.transform.position = shipMoveBackPos;
-            }
-        }
+        //    if (Vector3.Distance(ship.transform.position, shipStartPos) > 40)
+        //    {
+        //        shipMoved = true;
+        //        ship.transform.position = shipMoveBackPos;
+        //    }
+        //}
 
-        if (MoveShipBack)
-        {
-            ship.transform.position = Vector3.MoveTowards(ship.transform.position,shipStartPos,20 * Time.deltaTime);
-            if (Vector3.Distance(ship.transform.position, shipStartPos) < 0.5f)
-            {
-                ship.transform.position = shipStartPos;
-                MoveShipBack = false;
-            }
-        }
+        //if (MoveShipBack)
+        //{
+        //    ship.transform.position = Vector3.MoveTowards(ship.transform.position,shipStartPos,20 * Time.deltaTime);
+        //    if (Vector3.Distance(ship.transform.position, shipStartPos) < 0.5f)
+        //    {
+        //        ship.transform.position = shipStartPos;
+        //        MoveShipBack = false;
+        //    }
+        //}
 
-        RotatePlanet();
+        //RotatePlanet();
 
-        if (movingCamera)//moving camera is set from UI_ShipSelect screen
-        {   //resets bool to false when anim finished
-            if (!Camera.main.GetComponent<Animation>().isPlaying)
-                movingCamera = false;
-        }
+        //if (movingCamera)//moving camera is set from UI_ShipSelect screen
+        //{   //resets bool to false when anim finished
+        //    if (!Camera.main.GetComponent<Animation>().isPlaying)
+        //        movingCamera = false;
+        //}
 
 
     }
 
-    private void RotatePlanet()
-    {
-        planet.transform.Rotate(Vector3.up * -1*Time.deltaTime);
-    }
+    //private void RotatePlanet()
+    //{
+    //    planet.transform.Rotate(Vector3.up * -1*Time.deltaTime);
+    //}
 
-    private void MoveShip()
-    {
-        if (Time.time > timeToChangeDir)
-        {
-            timeToChangeDir = Time.time + 3f;
-            float temp = 3f;
-            targetDir = new Vector3(shipStartPos.x + Random.Range(-temp, temp), shipStartPos.y + Random.Range(-temp, temp), shipStartPos.z + Random.Range(-temp, temp));
-        }
+    //private void MoveShip()
+    //{
+    //    if (Time.time > timeToChangeDir)
+    //    {
+    //        timeToChangeDir = Time.time + 3f;
+    //        float temp = 3f;
+    //        targetDir = new Vector3(shipStartPos.x + Random.Range(-temp, temp), shipStartPos.y + Random.Range(-temp, temp), shipStartPos.z + Random.Range(-temp, temp));
+    //    }
 
-        ship.transform.position = Vector3.MoveTowards(ship.transform.position, targetDir, 0.1f * Time.deltaTime);      
-    }
+    //    ship.transform.position = Vector3.MoveTowards(ship.transform.position, targetDir, 0.1f * Time.deltaTime);      
+    //}
 
 
-    //this is called by an event on button press
-    public void UI_OnOptionsCall(bool optionPanelActive)
-    {
-        mOptionPanelActive = optionPanelActive;
-        if (!shipMoved && !optionPanelActive)
-        {
-            ship.transform.position = shipMoveBackPos;
-            shipMoved = true;
-            MoveShipBack = true;
-        }
+    ////this is called by an event on button press
+    //public void UI_OnOptionsCall(bool optionPanelActive)
+    //{
+    //    mOptionPanelActive = optionPanelActive;
+    //    if (!shipMoved && !optionPanelActive)
+    //    {
+    //        ship.transform.position = shipMoveBackPos;
+    //        shipMoved = true;
+    //        MoveShipBack = true;
+    //    }
 
         
-    }
+    //}
 
-    //ShipSelect
-    public void UI_SwappedToShipSelectScreen(bool towards)
-    {   //call once on screen swap
-        if (towards)
-            Camera.main.GetComponent<Animation>().Play("CameraSelectShipPingpong");
-        else
-            Camera.main.GetComponent<Animation>().Play("CameraSelectShippong");
-    }
-    //move tray
-    public void setTrayMoveTo(int posIndex)
-    {   //called once by ship select advance/retreat selector
-        trayindex = posIndex;
-    }
-    public void MoveTray()
-    {//call every update
-        selectTray.transform.position = Vector3.MoveTowards(selectTray.transform.position, trayStartPos - new Vector3(0,0,trayindex*5), 100 * Time.deltaTime);
+    ////ShipSelect
+    //public void UI_SwappedToShipSelectScreen(bool towards)
+    //{   //call once on screen swap
+    //    if (towards)
+    //        Camera.main.GetComponent<Animation>().Play("CameraSelectShipPingpong");
+    //    else
+    //        Camera.main.GetComponent<Animation>().Play("CameraSelectShippong");
+    //}
+    ////move tray
+    //public void setTrayMoveTo(int posIndex)
+    //{   //called once by ship select advance/retreat selector
+    //    trayindex = posIndex;
+    //}
+    //public void MoveTray()
+    //{//call every update
+    //    selectTray.transform.position = Vector3.MoveTowards(selectTray.transform.position, trayStartPos - new Vector3(0,0,trayindex*5), 100 * Time.deltaTime);
+    //}
 
-    }
 
     public void UI_OnVolumeChanged(bool temp)
     {
         music.volume = PlayerPrefs.GetFloat("musicVolume");
 
     }
-
-
-
 
     public void ScreenChanged(ScreenElement newScreen)
     {

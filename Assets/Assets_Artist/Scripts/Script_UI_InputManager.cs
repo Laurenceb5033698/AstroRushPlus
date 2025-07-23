@@ -13,13 +13,14 @@ public class Script_UI_InputManager : MonoBehaviour
     public bool CancelInput { get; set; }
     public bool RightBumperInput { get; set; }
     public bool LeftBumperInput { get; set; }
-
+    public bool HoldActionInput {  get; set; }
 
     private InputAction _navigationAction;
     private InputAction _SubmitAction;
     private InputAction _CancelAction;
     private InputAction _HeaderNavigateRightAction;
     private InputAction _HeaderNavigateLeftAction;
+    public InputAction _HoldAction;
 
     public static PlayerInput PlayerInput {get; set; }
 
@@ -40,6 +41,8 @@ public class Script_UI_InputManager : MonoBehaviour
 
         _HeaderNavigateRightAction = PlayerInput.actions["HeaderRightBumper"];
         _HeaderNavigateLeftAction = PlayerInput.actions["HeaderLeftBumper"];
+
+        _HoldAction = PlayerInput.actions["HoldAction"];
     }
 
     /// <summary>
@@ -54,6 +57,7 @@ public class Script_UI_InputManager : MonoBehaviour
         RightBumperInput = _HeaderNavigateRightAction.triggered;
         LeftBumperInput = _HeaderNavigateLeftAction.triggered;
 
+        HoldActionInput = _HoldAction.IsPressed();
     }
 
 }

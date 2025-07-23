@@ -20,9 +20,9 @@ public class ChooseShip : MonoBehaviour {
     public void CallScreenChange()
     {
         //get reference to ui element and pass data to UI_shipselect. this changes screen
-        UI_ShipSelect shipScreen = (UI_ShipSelect)UIManager.GetShipUiObject();
-        if (shipScreen.enabled)
-            shipScreen.Button_ShipGenericPressed(shipIndex);
+        //UI_ShipSelect shipScreen = (UI_ShipSelect)UIManager.GetShipUiObject();
+        //if (shipScreen.enabled)
+        //    shipScreen.Button_ShipGenericPressed(shipIndex);
 
     }
 }

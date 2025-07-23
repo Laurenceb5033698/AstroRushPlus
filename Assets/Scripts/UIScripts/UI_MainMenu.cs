@@ -27,7 +27,7 @@ public class UI_MainMenu : ScreenElement
     public void Button_OptionsPressed()
     {
         UIManager.instance.OptionsButton();
-        MainMenu.instance.UI_OnOptionsCall(true);
+        //MainMenu.instance.UI_OnOptionsCall(true);
     }
     public void Button_MenuQuitPressed()
     {

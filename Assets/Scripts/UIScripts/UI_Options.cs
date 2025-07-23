@@ -47,9 +47,10 @@ public class UI_Options : ScreenElement {
         if (GameManager.instance != null)//if there is a game active
             UIManager.instance.Pause(false);//return to pause menu
         else
-            if (MainMenu.instance != null){//if there is a main menu active
-            MainMenu.instance.UI_OnOptionsCall(false);
-            UIManager.instance.ReturnToMenu();//return to menu
+            if (MainMenu.instance != null)
+            {//if there is a main menu active
+                //MainMenu.instance.UI_OnOptionsCall(false);
+                UIManager.instance.ReturnToMenu();//return to menu
             }
     }
 
