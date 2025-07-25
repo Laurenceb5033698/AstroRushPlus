@@ -195,9 +195,17 @@ public class UIManager : MonoBehaviour
 
     public void ScreenTransition(Screens _target)
     {
+        StartCoroutine(TransitionInternal(_target));
+    }
+
+    private IEnumerator TransitionInternal(Screens _target)
+    {
+        //wait one frame to change screen. prevents inputs from being chucked through multiple ui screens in one frame
+        yield return null;
         TransitionTo(_target);
         OnScreenChanged();
     }
+
     //Static Functions for script-UI interaction from other scenes
     public static ScreenElement GetShipUiObject()
     {

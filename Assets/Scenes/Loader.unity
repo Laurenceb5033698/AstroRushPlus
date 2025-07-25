@@ -3029,7 +3029,6 @@ GameObject:
   - component: {fileID: 481527767}
   - component: {fileID: 564747359}
   - component: {fileID: 564747360}
-  - component: {fileID: 564747361}
   m_Layer: 0
   m_Name: OLD_UIManager
   m_TagString: Untagged
@@ -3081,27 +3080,6 @@ MonoBehaviour:
   m_DefaultActionMap: UI
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &564747361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 564747358}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b4bc145470d9a44fa50ed92e27522ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _HoldAction:
-    m_Name: Hold
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 9ab8637b-f1d7-4349-bb8c-ecc863063425
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
 --- !u!1 &593863191
 GameObject:
   m_ObjectHideFlags: 0
@@ -5243,6 +5221,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -575.00006
+      objectReference: {fileID: 0}
+    - target: {fileID: 6313032881932369734, guid: ff4d20bc1660f894ea16f110c94186dd,
+        type: 3}
+      propertyPath: _HoldAction.m_Name
+      value: Hold
       objectReference: {fileID: 0}
     - target: {fileID: 7747588140232102525, guid: ff4d20bc1660f894ea16f110c94186dd,
         type: 3}
@@ -8810,6 +8793,41 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1176164746}
     m_Modifications:
+    - target: {fileID: 141844349678569182, guid: 6948edc0920db7f4797e046999b8ae72,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112887287612277902, guid: 6948edc0920db7f4797e046999b8ae72,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2829951730649483785, guid: 6948edc0920db7f4797e046999b8ae72,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4951639715065042497, guid: 6948edc0920db7f4797e046999b8ae72,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5367996904476712669, guid: 6948edc0920db7f4797e046999b8ae72,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6968570606412772510, guid: 6948edc0920db7f4797e046999b8ae72,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7283228997646916591, guid: 6948edc0920db7f4797e046999b8ae72,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7312232149946782003, guid: 6948edc0920db7f4797e046999b8ae72,
         type: 3}
       propertyPath: m_Pivot.x
@@ -8914,6 +8932,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MENU_DEMO_Main_Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 8298763869886455632, guid: 6948edc0920db7f4797e046999b8ae72,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

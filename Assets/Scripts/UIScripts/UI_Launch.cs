@@ -26,11 +26,11 @@ public class UI_Launch : ScreenElement
     //cancel goes back a step
     public override void Update()
     {
-        HandleSubmit();
+        //HandleSubmit();
         //HandleCancel();
         DemoHandleCancel();
         //header nav
-        Header.HandleRightBumper();
+        //Header.HandleRightBumper();
         Header.HandleLeftBumper();
 
         HoldToLaunch();

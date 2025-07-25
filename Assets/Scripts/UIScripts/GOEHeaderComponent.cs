@@ -53,7 +53,7 @@ public class GOEHeaderComponent : MonoBehaviour
     {
         if (m_tabIndex > HeaderTabIndex.SHIP)
         {
-            UIManager.Screens targetScreen = m_HeaderScreens[(int)m_tabIndex + 1];
+            UIManager.Screens targetScreen = m_HeaderScreens[(int)m_tabIndex - 1];
             UIManager.instance.ScreenTransition(targetScreen);
         }
     }
@@ -61,7 +61,7 @@ public class GOEHeaderComponent : MonoBehaviour
     //callback for clickable buttons on header
     public void ButtonHeaderScreen(int _targetScreen)
     {
-        if(_targetScreen >= 0 && _targetScreen < m_HeaderScreens.Length - 1)
+        if(_targetScreen >= 0 && _targetScreen < m_HeaderScreens.Length)
         {
             UIManager.Screens targetScreen = m_HeaderScreens[_targetScreen];
             UIManager.instance.ScreenTransition(targetScreen);

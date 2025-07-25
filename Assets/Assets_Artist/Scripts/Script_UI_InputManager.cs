@@ -32,6 +32,7 @@ public class Script_UI_InputManager : MonoBehaviour
         }
         else if (instance != this)
             Destroy(this);
+        Debug.Log("Script_UI_InputManager: " + gameObject.name);
 
         PlayerInput = GetComponent<PlayerInput>();
         _navigationAction = PlayerInput.actions["Navigate"];
