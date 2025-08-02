@@ -34,7 +34,7 @@ public class UI_Pause : ScreenElement
     public void Button_ContinuePressed()
     {
         if (GameManager.instance.GetShipRef().GetComponent<Stats>().IsAlive() )
-            UIManager.instance.Resume();
+            UIManager.instance.Resume(true);
     }
 
     public void Button_QuitToMenuPressed()
@@ -46,17 +46,17 @@ public class UI_Pause : ScreenElement
     {
         UIManager.instance.OptionsButton();
     }
-    public void setMessage(bool _isPlayerAlive)
+    public void setMessage(bool _isPlayerDead)
     {
-        if (_isPlayerAlive)
-        {
-            MsgGameOver.SetActive(false);
-            MsgPaused.SetActive(true);
-        }
-        else
+        if (_isPlayerDead)
         {
             MsgGameOver.SetActive(true);
             MsgPaused.SetActive(false);
+        }
+        else
+        {
+            MsgGameOver.SetActive(false);
+            MsgPaused.SetActive(true);
         }
     }
 }

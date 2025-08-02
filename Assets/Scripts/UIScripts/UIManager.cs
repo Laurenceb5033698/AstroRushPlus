@@ -155,9 +155,10 @@ public class UIManager : MonoBehaviour
         ((UI_Pause)mScreens[(int)mCurrentScreen]).setMessage(isPlayerDead);
         OnScreenChanged();
     }
-    public void Resume()
+    public void Resume(bool _returning)
     {
         ScreenTransition(Screens.GameScreen);
+        GameManager.instance.ResumingGame(_returning);
     }
 
     public void MenuQuit()

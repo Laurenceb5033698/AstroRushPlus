@@ -7,6 +7,7 @@ public class ServicesManager : MonoBehaviour
 
     public HomingService HomingService { get { return Get<HomingService>() as HomingService; } private set { m_Services.Add(value);} }
     public PauseService PauseService { get { return Get<PauseService>() as PauseService; } private set { m_Services.Add(value);} }
+    public GameStateService GameStateService { get { return Get<GameStateService>() as GameStateService; } private set { m_Services.Add(value);} }
 
     List<IService> m_Services;
 
@@ -29,6 +30,7 @@ public class ServicesManager : MonoBehaviour
         //add services
         HomingService = new HomingService();
         PauseService = new PauseService();
+        GameStateService = new GameStateService();
 
 
         //init services

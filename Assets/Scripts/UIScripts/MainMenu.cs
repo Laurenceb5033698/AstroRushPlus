@@ -49,8 +49,6 @@ public class MainMenu : MonoBehaviour {
         GlobalInputs = GetComponent<Inputs>();
 
         UIManager.ScreenChanged += ScreenChanged;
-        ui = UIManager.GetGameUiObject();
-        //((UI_MainMenu)ui).AttachMainMenuManager();
 
         if (PlayerPrefs.HasKey("musicVolume"))
             music.volume = PlayerPrefs.GetFloat("musicVolume");
@@ -97,103 +95,7 @@ public class MainMenu : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        switch (ui.name)
-        {
-            case "OptionsScreen":
-                //return from options menu
-                //((UI_Options)ui).ProcessInputs();
-                //if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) { ((UI_Options)ui).Button_OptionsReturnPressed(); UI_OnOptionsCall(false); }
-                break;
-            case "ShipSelectionScreen":
-                //on enter shipSelect: moves camera to ShipSelCamPos
-                //left/right change ship && change shipTray
-                //if (Input.GetKeyDown(KeyCode.D) || GlobalInputs.ScrollUp || GlobalInputs.LAnalogueXLeft || (GlobalInputs.DpadXPressed && GlobalInputs.DpadLeft)) ((UI_ShipSelect)ui).AdvanceSelector();//override moves ship tray +1
-                //if (Input.GetKeyDown(KeyCode.A) ||GlobalInputs.ScrollDown || GlobalInputs.LAnalogueXRight || (GlobalInputs.DpadXPressed && GlobalInputs.DpadRight)) ((UI_ShipSelect)ui).RetreatSelector();//override mores ship tray -1
-                ////A/enter submit && goto levelSelect
-                //if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return))// if A controller button or Y keyboard button
-                //{
-                //    ui.SubmitSelection();
-                //    trayindex = 0;
-                //}
-                ////back button
-                //if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1))
-                //{
-                //    ((UI_ShipSelect)ui).Button_ShipSelectReturnPressed();
-                //    trayindex = 0;
-                //}
-                //MoveTray();
-
-
-                break;
-            case "LevelSelect":
-                //if (GlobalInputs.LAnalogueYDown || (GlobalInputs.DpadYPressed && GlobalInputs.DpadDown )) ui.AdvanceSelector();
-                //if ( GlobalInputs.LAnalogueYUp || (GlobalInputs.DpadYPressed && GlobalInputs.DpadUp)) ui.RetreatSelector();
-
-                //if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return))// if A controller button or Y keyboard button
-                //{
-                //    ui.SubmitSelection();
-                //}
-                ////back button
-                //if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) ((UI_LevelSelect)ui).Button_LevelSelectReturnPressed();
-                //else if (Input.GetKeyDown(KeyCode.JoystickButton0)) ((UI_LevelSelect)ui).Button_AlphaLevelPressed(); //A button
-                //else if (Input.GetKeyDown(KeyCode.JoystickButton2)) ((UI_LevelSelect)ui).Button_BetaLevelPressed(); //X button
-                //else if (Input.GetKeyDown(KeyCode.JoystickButton3)) ((UI_LevelSelect)ui).Button_GammaLevelPressed(); //Y button
-                break;
-            case "TitleScreen":
-            default:
-                //if (GlobalInputs.LAnalogueYDown || (GlobalInputs.DpadYPressed && GlobalInputs.DpadDown)) ui.AdvanceSelector();
-                //if (GlobalInputs.LAnalogueYUp || (GlobalInputs.DpadYPressed && GlobalInputs.DpadUp)) ui.RetreatSelector();
-
-                //if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return))// if A controller button or Y keyboard button
-                //{
-                //    ui.SubmitSelection();
-                //}
-
-                //if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Return)) ((UI_MainMenu)ui).Button_StartGamePressed();  // if A controller button or Enter keyboard button
-                //else if (Input.GetKeyDown(KeyCode.JoystickButton3)) ((UI_MainMenu)ui).Button_OptionsPressed(); 
-                //else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) ((UI_MainMenu)ui).Button_MenuQuitPressed(); // B controller button or Escape button
-                break;
-        }
-        //if (!mOptionPanelActive)
-        //{
-        //    if (Vector3.Distance(ship.transform.position, shipStartPos) > 5)
-        //    {
-        //        MoveShipBack = true;
-        //    }
-        //    else
-        //    {
-        //        shipMoved = false;
-        //        MoveShip();
-        //    }  
-        //}
-        //else if (!shipMoved)
-        //{
-        //    ship.transform.position = Vector3.MoveTowards(ship.transform.position, shipMovePos, 20 * Time.deltaTime);
-
-        //    if (Vector3.Distance(ship.transform.position, shipStartPos) > 40)
-        //    {
-        //        shipMoved = true;
-        //        ship.transform.position = shipMoveBackPos;
-        //    }
-        //}
-
-        //if (MoveShipBack)
-        //{
-        //    ship.transform.position = Vector3.MoveTowards(ship.transform.position,shipStartPos,20 * Time.deltaTime);
-        //    if (Vector3.Distance(ship.transform.position, shipStartPos) < 0.5f)
-        //    {
-        //        ship.transform.position = shipStartPos;
-        //        MoveShipBack = false;
-        //    }
-        //}
-
-        //RotatePlanet();
-
-        //if (movingCamera)//moving camera is set from UI_ShipSelect screen
-        //{   //resets bool to false when anim finished
-        //    if (!Camera.main.GetComponent<Animation>().isPlaying)
-        //        movingCamera = false;
-        //}
+        
 
 
     }

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -9,10 +8,21 @@ public class GameManager : MonoBehaviour {
     public int currentScore = 0;
     //private int highestScore = 0;
 
+    //warpin effects timer
+    private bool m_Warping = true;
+     [SerializeField] private float m_WarpinTime = 2f;
+    private float m_currentWarp = 0;
+
+    //for returning from pause menu,
+    private GameState m_PreviousGamestate = GameState.WARPIN;
+
     [SerializeField] private GameObject[] playerShipPref = new GameObject[4];
     [SerializeField] private GameObject pointerPref;
     [SerializeField] private CameraScript cam;
-    private ScreenElement ui=null;
+
+    private int m_stageCounter = 0;
+    [SerializeField] private List<StageDataScriptable> m_StageDataPool;
+
     private AIManager aiMngr;
     private AsteroidManager asm;
     private GameObject pointer;
@@ -35,11 +45,7 @@ public class GameManager : MonoBehaviour {
 
         //scene needs to have finished loading before we instantiate anything
         SceneLoader.Loaded += SL_OnLoadingComplete;
-        UIManager.ScreenChanged += ScreenChanged;
-        ui = UIManager.GetGameUiObject();
-        //((UI_Game)ui).AttachGameManager();
-        
-        Time.timeScale = 1;
+
 	}
     
     void Start()
@@ -61,9 +67,11 @@ public class GameManager : MonoBehaviour {
         aiMngr.enabled = true;
         asm.enabled = true;
 
-        //set instantiated objects for hud
-        //UIManager.instance.setPlayershipObject(playerShip);
+        //at start of level, set warp in time.
+        m_currentWarp = Time.time + m_WarpinTime;
+        ServicesManager.Instance.GameStateService.GameState = GameState.WARPIN;
     }
+
     private void OnEnable()
     {
         UIManager.MusicvolumeChanged += UI_OnVolumeChanged;
@@ -74,95 +82,174 @@ public class GameManager : MonoBehaviour {
 
     }
     private void SL_OnLoadingComplete()
-    {//ensures instances are created in the right scene
+    {
+        //ensures instances are created in the right scene
         this.enabled = true;
     }
-    void OnDestroy(){//clean events
+    void OnDestroy()
+    {
+        //clean events
         SceneLoader.Loaded -= SL_OnLoadingComplete;
-        UIManager.ScreenChanged -= ScreenChanged;
-
-        //((UI_Game)ui).RemoveGameManager();
     }
 	// Update is called once per frame
 	void Update () 
     {
-        Vector3 ClosestEnemy = aiMngr.GetClosestShipPos(playerShip.transform.position);
-        pointer.GetComponent<Pointer>().SetNewTarget(ClosestEnemy);
         
-        Stats s = playerShip.GetComponent<Stats>();
+        
 
-        if (ServicesManager.Instance.PauseService.PauseState())
+        GameState gameState = ServicesManager.Instance.GameStateService.GameState;
+
+        switch (gameState)
         {
-            //paused
-            //pause screen
+            case GameState.WARPIN:
+                m_PreviousGamestate = GameState.WARPIN;
+                WarpIntoLevel();
+                break;
+            case GameState.MAINGAME:
+                m_PreviousGamestate = GameState.MAINGAME;
+                MainGame();
+                break;
+            case GameState.PICKUPGRADE:
+                m_PreviousGamestate = GameState.PICKUPGRADE;
+                PickingUpgrade();
+                break;
+            case GameState.WARPOUT:
+                m_PreviousGamestate = GameState.WARPOUT;
+                WarpOutofLevel();
+                break;
+            case GameState.PAUSE:
+                GamePaused();
+                break;
+        }
+    }
+
+    //#############
+    //State machine
+
+    private void WarpIntoLevel()
+    {
+        //wierd, ui is playing warp effect, maybe warpeffect vfx ends here
+        //end warp vfx
+        //once ended, transition to main game
+        //can pause manually here?
+        //somehow need to return to last state from pause
+        UpdateGameUI();
+        if(Time.time > m_currentWarp && m_Warping)
+        {
+            aiMngr.NewWave();
+            //ResumingGame();
+            //trigger ui for new level/objectives/hazards (depends on generated level)
+            ServicesManager.Instance.GameStateService.GameState = GameState.MAINGAME;
+
+            m_Warping = false;
+        }
+    }
+
+    private void MainGame()
+    {
+        if (!playerShip.GetComponent<Stats>().IsAlive())
+        {
+            //todo: maybe allow death sequence to play first
+            //gamestate pause
+            ServicesManager.Instance.GameStateService.GameState = GameState.PAUSE;
+            ServicesManager.Instance.PauseService.Pause();
+            //change ui to gameover screen.
+            UIManager.GetGameUiObject().Button_PausePressed(true);
+            return;
+        }
+
+        //if(aiMngr.EndoOfWave)
+        //{
+        //  if(!aiMngr.m_objectiveCompleted)
+        //  {       //upgrade }
+        //  else {  //evo }
+        //}
+        if (aiMngr.EndOfWave == true) 
+        { 
+            UIManager.instance.UpgradeScreen();
+            ServicesManager.Instance.GameStateService.GameState = GameState.PICKUPGRADE;
+            ServicesManager.Instance.PauseService.Pause();
+            aiMngr.NewWave();
         }
         else
         {
-            //running
-            UI_Game gamescreen = UIManager.GetGameUiObject();
-            if (gamescreen)
-            {
-                gamescreen.UpdateShipStats(s);
-            }
-        }
+            Vector3 ClosestEnemy = aiMngr.GetClosestShipPos(playerShip.transform.position);
+            pointer.GetComponent<Pointer>().SetNewTarget(ClosestEnemy);
 
-        switch (ui.name)
-        {
-            //case "OptionsScreen":
-            //break;
-            case "GameScreen":
-                //GameScreen ui controls/ updates
-                Time.timeScale = 1;
-                //UI_Game mUIg = ((UI_Game)ui);
-                //((UI_Game)ui).UpdateGameStats(currentScore, aiMngr.GetTotalShipLeft(), aiMngr.GetWaveNumber());
-                ((UI_Game)ui).UpdateShipStats(s);
-                if (!s.IsAlive())
-                    ((UI_Game)ui).Button_PausePressed(true);
-                else
-                //if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1))// B controller button or Escape button
-                //    ((UI_Game)ui).Button_PausePressed(false);
-                if (aiMngr.EndOfWave == true)
-                {
-                    UIManager.instance.UpgradeScreen();
-                    aiMngr.NewWave();
-                }
-                break;
-            case "UpgradeScreen":
-                //do upgrades
-                Time.timeScale = 0;
-
-                //((UI_Upgrade)ui).ProcessInputs();
-                //if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) {  ((UI_Upgrade)ui).Button_ConfirmUpgrades();}
-                //if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space))// if A controller button or Y keyboard button
-                //{
-                //    ui.SubmitSelection();
-                //}
-                break;
-            case "OptionsScreen":
-                //return from options menu
-                //((UI_Options)ui).ProcessInputs();
-                //if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)) { ((UI_Options)ui).Button_OptionsReturnPressed(); }
-                break;
-            case "PauseScreen":
-            default:
-                //PauseScreen ui controls / updates
-                Time.timeScale = 0;
-                //UI_Pause mUIp = (UI_Pause)ui;
-                //if (GlobalInputs.LAnalogueYDown || (GlobalInputs.DpadYPressed && GlobalInputs.DpadDown)) ui.AdvanceSelector();
-                //if (GlobalInputs.LAnalogueYUp || (GlobalInputs.DpadYPressed && GlobalInputs.DpadUp)) ui.RetreatSelector();
-
-                //if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space))// if A controller button or Y keyboard button
-                //{
-                //    ui.SubmitSelection();
-                //}
-                //else if (s.IsAlive() && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1)))// B controller button or Escape button
-                //    ((UI_Pause)ui).Button_ContinuePressed();
-                
-                break;
+            UpdateGameUI();
         }
         
 
     }
+
+    private void PickingUpgrade()
+    {
+        //currently viewing upgrade screen, or evo screen.
+        //game mostly does nothing here, waiting for player. is already paused.
+
+        // can either return to maingame, or warpout, depending on aimngr objective completed
+    }
+
+    private void WarpOutofLevel()
+    {
+        //enters this gamestate section from upgrade screen.
+        //start playing warp effect
+
+        UpdateGameUI();
+        if (Time.time > m_currentWarp && m_Warping) 
+        {
+            //playing full warp effect.
+            //  warp effect palys, but differnt wave data loaded, bg changes, ui updated, but same scene
+            EndLevel();
+            ServicesManager.Instance.GameStateService.GameState = GameState.WARPIN;
+        }
+
+    }
+
+    private void GamePaused()
+    {
+        //uh, dont think we do anything here
+        //ui is pause screen/settings.
+    }
+
+
+
+    public void ResumingGame(bool _returnToPrevious)
+    {
+        //called from ui, either via pause screen resume, or upgrade resume.
+        if (aiMngr.m_ObjectiveComplete && aiMngr.EndOfWave)
+        {
+            //boss is beaten, goto warpout
+            ServicesManager.Instance.GameStateService.GameState = GameState.WARPOUT;
+            ServicesManager.Instance.PauseService.Resume();
+            m_currentWarp = Time.time + m_WarpinTime;
+        }
+        else
+        {
+            //continue waves
+            ServicesManager.Instance.GameStateService.GameState = _returnToPrevious ? m_PreviousGamestate : GameState.MAINGAME;
+            ServicesManager.Instance.PauseService.Resume();
+            
+        }
+    }
+
+    private void UpdateGameUI()
+    {
+        Stats s = playerShip.GetComponent<Stats>();
+        UI_Game gamescreen = UIManager.GetGameUiObject();
+        if (gamescreen)
+        {
+            gamescreen.UpdateShipStats(s);
+        }
+    }
+
+    private void EndLevel()
+    {
+        aiMngr.NewStage(m_StageDataPool[m_stageCounter]);
+        m_stageCounter++;
+        //asm
+    }
+
     public void UI_OnVolumeChanged(bool temp)
     {
         music.volume = 0.2f * PlayerPrefs.GetFloat("musicVolume");
@@ -175,10 +262,6 @@ public class GameManager : MonoBehaviour {
     public GameObject GetShipRef()
     {
         return playerShip;
-    }
-    public void ScreenChanged(ScreenElement newScreen)
-    {
-        ui = newScreen;
     }
 
 

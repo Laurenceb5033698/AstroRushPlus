@@ -57,6 +57,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentScore: 0
+  m_WarpinTime: 2
   playerShipPref:
   - {fileID: 9203987926432576384, guid: ab80d76de3e4ed14e90e9086c9529a16, type: 3}
   - {fileID: 1285581705939522, guid: d8cc8145d1808a64cb64daa4b053aabe, type: 3}
@@ -65,6 +66,9 @@ MonoBehaviour:
   pointerPref: {fileID: 1000012266939556, guid: 38f2ce99039529744b1968d690fc052f,
     type: 3}
   cam: {fileID: 0}
+  m_StageDataPool:
+  - {fileID: 11400000, guid: 5cc106b1c2494b54493f80c07f004c53, type: 2}
+  - {fileID: 11400000, guid: 8fd297b8a6f56d143b48a4ea3859283d, type: 2}
   GlobalInputs: {fileID: 0}
   music: {fileID: 82205659764995654}
 --- !u!114 &114830234316784298
@@ -196,6 +200,7 @@ MonoBehaviour:
   rPickupManager: {fileID: 114830234316784298}
   player: {fileID: 0}
   EndOfWave: 0
+  m_ObjectiveComplete: 0
 --- !u!114 &114743006858785704
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ public class AIManager : MonoBehaviour {
     LevelDataScriptable levelData;
     
     List<GameObject> ActiveShips; //(AIs)
+    GameObject Bossman;
 
     //int maxActiveShips = 20; //(ship limit onscreen)
     int RemainingShipsToSpawn= 0 ;
@@ -29,7 +30,7 @@ public class AIManager : MonoBehaviour {
     [SerializeField] private GameObject player; //(Player Object (assigned through code)
 
     public bool EndOfWave = false;
-
+    public bool m_ObjectiveComplete = false;
 
 
 
@@ -52,7 +53,7 @@ public class AIManager : MonoBehaviour {
     void Start() {
 
         ActiveShips = new List<GameObject>();
-        NewWave();
+        //NewWave();
     }
 
     void Update() {
@@ -99,6 +100,19 @@ public class AIManager : MonoBehaviour {
                 SpawningShips = false; //end spawning
         }
     }
+    private GameObject SpawnBoss(BossLevelScriptable _bossLevel)
+    {
+        GameObject NewShip = Instantiate(_bossLevel.BossPrefab, GetRandomPosition(), Quaternion.identity);
+
+        //use difficulty value to add to bonus stats
+        float statbonus = levelData.Difficulty / 10;
+        NewShip.GetComponent<AICore>().Initialise(player, this, gameObject, statbonus);
+        NewShip.GetComponent<AICore>().UpdateStats(statbonus);
+
+        ActiveShips.Add(NewShip);
+        NewShip.transform.parent = SceneGroup.transform;
+        return NewShip;
+    }
 
     public void NewWave()
     {
@@ -112,8 +126,17 @@ public class AIManager : MonoBehaviour {
         //Debug.Log("number of differnt ship prefabs: " + Stage.StageLevels[0].NormalShipPrefabs.Count);
         //Debug.Log("Number of Elites in level: " + Stage.StageLevels[0].EliteShipPrefabs.Count);
 
+        if(levelData is BossLevelScriptable)
+        {
+            Bossman = SpawnBoss(levelData as BossLevelScriptable);
+        }
+        else
+        {
+            Bossman = null;
+        }
+
         EndOfWave = false;
-        //  ?bosswave? how? spawn separately?
+        
         newWaveSound.Play();    //play sound on end of wave
 
         //totalShipsThisWave = levelData.TotalShips;
@@ -155,6 +178,12 @@ public class AIManager : MonoBehaviour {
         rPickupManager.GetComponent<PickupManager>().SpawnPickup(ship.transform.position);
         //add ships points to upgrade points (UI?)
         GameManager.instance.AddScore( ship.GetComponent<AICore>().scoreValue );
+        if (ship == Bossman) 
+        {
+            m_ObjectiveComplete = true;
+            Bossman = null;
+            return;
+        }
         if (ActiveShips.Contains(ship))
             ActiveShips.Remove(ship);
     }
@@ -209,6 +238,26 @@ public class AIManager : MonoBehaviour {
 
         return pos;
     }
+
+
+    //this should become a part of randomised level creation.
+    public void NewStage(StageDataScriptable _stage)
+    {
+        //reset stage and wave vars.
+        WaveCounter = 0;
+        SlowIndex = 0;
+
+        foreach (GameObject go in ActiveShips)
+        {
+            Destroy(go);
+        }
+        ActiveShips.Clear();
+
+        Stage = _stage;
+        m_ObjectiveComplete = false;
+
+    }
+
 
     /////////////
     //  Getters
