@@ -85,11 +85,16 @@ public class UIManager : MonoBehaviour
         mScreens[(int)mCurrentScreen].gameObject.SetActive(true);
     }
 
-    public static ScreenElement GetGameUiObject()
+    public static UI_Game GetGameUiObject()
     {
         ScreenElement ui = null;
         ui = UIManager.instance.GetCurrentElement();
-        return ui;
+        if( ui is UI_Game)
+            return ui as UI_Game;
+        else
+        {
+            return null;
+        }
     }
     public ScreenElement GetCurrentElement()
     {

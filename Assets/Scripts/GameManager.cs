@@ -91,6 +91,21 @@ public class GameManager : MonoBehaviour {
         
         Stats s = playerShip.GetComponent<Stats>();
 
+        if (ServicesManager.Instance.PauseService.PauseState())
+        {
+            //paused
+            //pause screen
+        }
+        else
+        {
+            //running
+            UI_Game gamescreen = UIManager.GetGameUiObject();
+            if (gamescreen)
+            {
+                gamescreen.UpdateShipStats(s);
+            }
+        }
+
         switch (ui.name)
         {
             //case "OptionsScreen":

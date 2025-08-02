@@ -6,6 +6,7 @@ public class ServicesManager : MonoBehaviour
     public static ServicesManager Instance;
 
     public HomingService HomingService { get { return Get<HomingService>() as HomingService; } private set { m_Services.Add(value);} }
+    public PauseService PauseService { get { return Get<PauseService>() as PauseService; } private set { m_Services.Add(value);} }
 
     List<IService> m_Services;
 
@@ -27,11 +28,11 @@ public class ServicesManager : MonoBehaviour
 
         //add services
         HomingService = new HomingService();
+        PauseService = new PauseService();
 
-        
 
         //init services
-        foreach(IService service in m_Services)
+        foreach (IService service in m_Services)
         {
             service.Initiallise();
         }
