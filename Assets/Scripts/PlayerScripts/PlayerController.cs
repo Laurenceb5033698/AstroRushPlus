@@ -102,7 +102,7 @@ abstract public class PlayerController : MonoBehaviour {
 
     protected void FixedUpdate()
     {
-        if (rumbleTimer > Time.time)
+        if (rumbleTimer > Time.unscaledTime)
             GamePad.SetVibration(playerIndex, 0.4f, 0.4f);
         else
             GamePad.SetVibration(playerIndex, 0, 0);        
@@ -262,7 +262,7 @@ abstract public class PlayerController : MonoBehaviour {
                 Shield_effect(otherpos);
 
             stats.TakeDamage(amount);
-            rumbleTimer = Time.time + 0.3f;
+            rumbleTimer = Time.unscaledTime + 0.3f;
 
             //update uxml ui
             //HealthChanged();

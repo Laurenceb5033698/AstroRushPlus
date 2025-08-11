@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d4992405c501fe4db551744d7c18c85, type: 3}
+  m_Name: StageABoss
+  m_EditorClassIdentifier: 
+  NormalShipPrefabs:
+  - {fileID: 1000014282705904, guid: 72a6d6a147e1b6e40be82fed5ce6d959, type: 3}
+  - {fileID: 1879254951966198, guid: 59bc7c7683a0df040b54f5ff175c5ac1, type: 3}
+  - {fileID: 1136387554503754, guid: bc8685d98af04764ea6ad78ddaa80272, type: 3}
+  - {fileID: 1936799462492080, guid: 7e29b27c1cc62dc4aac31565d577ac38, type: 3}
+  - {fileID: 1958769108598396, guid: 6c774449d92124d4cbc50c724abbb6f6, type: 3}
+  EliteShipPrefabs: []
+  TotalShips: -1
+  MaxActiveShip: 5
+  Difficulty: 50
+  BossPrefab: {fileID: 1936799462492080, guid: 7e29b27c1cc62dc4aac31565d577ac38, type: 3}

@@ -36,6 +36,7 @@ public class UI_Game : ScreenElement
     //Button callbacks
     public void Button_PausePressed(bool isPlayerDead)
     {
+        ServicesManager.Instance.GameStateService.GameState = GameState.PAUSE;
         UIManager.instance.Pause(isPlayerDead);
     }
 

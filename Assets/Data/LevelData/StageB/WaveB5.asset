@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f713b82d8c5a64cb22a2b461bf4285, type: 3}
+  m_Name: WaveB5
+  m_EditorClassIdentifier: 
+  NormalShipPrefabs:
+  - {fileID: 1936799462492080, guid: 7e29b27c1cc62dc4aac31565d577ac38, type: 3}
+  - {fileID: 1958769108598396, guid: 6c774449d92124d4cbc50c724abbb6f6, type: 3}
+  - {fileID: 1879254951966198, guid: 59bc7c7683a0df040b54f5ff175c5ac1, type: 3}
+  - {fileID: 1800241870786566, guid: d67554b035ceb7e4981a9ca941f0bac1, type: 3}
+  EliteShipPrefabs: []
+  TotalShips: 25
+  MaxActiveShip: 20
+  Difficulty: 90

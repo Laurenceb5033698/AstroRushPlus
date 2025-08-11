@@ -243,6 +243,7 @@ public class AICore : MonoBehaviour {
         stats.block.Get(StatType.gAttack).SetBonusMod(statbonus);
         stats.block.Get(StatType.sSpecial).SetBonusMod(statbonus);
         stats.block.Get(StatType.sSpeed).SetBonusMod(statbonus);
+        stats.block.Get(StatType.sTurnrate).SetBonusMod(statbonus);
         stats.block.Get(StatType.sFuel).SetBonusMod(statbonus);
 
         //now propagate to arsenal

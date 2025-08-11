@@ -119,6 +119,8 @@ public class UIManager : MonoBehaviour
         {
             SceneTransitionTo(Screens.GameScreen);
             OnScreenChanged();
+            //gameManager handles this as it requires objects to be setup in start().
+            //ServicesManager.Instance.GameStateService.GameState = GameState.WARPIN;
         }
     }
 
@@ -155,10 +157,9 @@ public class UIManager : MonoBehaviour
         ((UI_Pause)mScreens[(int)mCurrentScreen]).setMessage(isPlayerDead);
         OnScreenChanged();
     }
-    public void Resume(bool _returning)
+    public void Resume()
     {
         ScreenTransition(Screens.GameScreen);
-        GameManager.instance.ResumingGame(_returning);
     }
 
     public void MenuQuit()
@@ -190,7 +191,6 @@ public class UIManager : MonoBehaviour
     {
         //new upgrade selection everytime upgrade screen is opened.
         ScreenTransition(Screens.UpgradeScreen);
-        (GetCurrentElement() as UI_Upgrade).GetRandomCardsFromPool();
     }
 
     public void NavigateMenuHeader(int _HeaderScreenIndex)
@@ -201,7 +201,8 @@ public class UIManager : MonoBehaviour
 
     public void ScreenTransition(Screens _target)
     {
-        StartCoroutine(TransitionInternal(_target));
+        //StartCoroutine(TransitionInternal(_target));
+        TransitionTo(_target);
     }
 
     private IEnumerator TransitionInternal(Screens _target)

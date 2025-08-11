@@ -9,7 +9,8 @@ public class ServicesManager : MonoBehaviour
     public PauseService PauseService { get { return Get<PauseService>() as PauseService; } private set { m_Services.Add(value);} }
     public GameStateService GameStateService { get { return Get<GameStateService>() as GameStateService; } private set { m_Services.Add(value);} }
 
-    List<IService> m_Services;
+    [SerializeField]
+    public List<IService> m_Services;
 
     private void Awake()
     {
@@ -38,6 +39,11 @@ public class ServicesManager : MonoBehaviour
         {
             service.Initiallise();
         }
+    }
+
+    private void Update()
+    {
+        GameStateService.Update();
     }
 
     private IService Get<T>()

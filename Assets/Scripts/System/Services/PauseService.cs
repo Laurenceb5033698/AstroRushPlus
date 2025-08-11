@@ -4,6 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Manages Timescale for all gameplay uses.
 /// </summary>
+[System.Serializable]
 public class PauseService : IService
 {
     private float m_Scale = 1;

@@ -108,7 +108,7 @@ public class ShipMovementComponent : MonoBehaviour
 
         if (_inputDirection != Vector3.zero || !drifting)
         {
-            m_velocity += transform.forward * delta * Time.fixedDeltaTime;
+            m_velocity += transform.forward * delta * Time.deltaTime;
             float newSpeed = m_velocity.magnitude;
 
             //180deg in 1s

@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class UI_Pause : ScreenElement
 {
@@ -28,17 +25,23 @@ public class UI_Pause : ScreenElement
     {
         UpgradePoolManager.instance.RestartingGame();
         UIManager.instance.RestartLevel();
+        //restarting causes scene to re-load.
+        //this means gamemanager goes through awake-start again, which sets gamestate.
 
     }
 
     public void Button_ContinuePressed()
     {
-        if (GameManager.instance.GetShipRef().GetComponent<Stats>().IsAlive() )
-            UIManager.instance.Resume(true);
+        if (GameManager.instance.GetShipRef().GetComponent<Stats>().IsAlive())
+        {
+            ServicesManager.Instance.GameStateService.GotoPreviousState();
+            UIManager.instance.Resume();
+        }
     }
 
     public void Button_QuitToMenuPressed()
     {
+        ServicesManager.Instance.GameStateService.GameState = GameState.MENU;
         UIManager.instance.EndLevel();
 
     }

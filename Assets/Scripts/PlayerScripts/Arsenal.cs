@@ -61,7 +61,7 @@ public class Arsenal : MonoBehaviour
 
     public void FireWeapon(Vector3 _aimDir)
     {
-        if (m_UWeapon)
+        if (m_UWeapon && m_UWeapon.isActiveAndEnabled)
             m_UWeapon.Shoot(_aimDir);
     }
 

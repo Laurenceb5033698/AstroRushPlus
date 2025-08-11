@@ -1914,7 +1914,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2712596688100726719}
-  - component: {fileID: 8903688908188867136}
   m_Layer: 5
   m_Name: GameObjectEmpty_Augments
   m_TagString: Untagged
@@ -1942,27 +1941,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8903688908188867136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1542041584113101539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b4bc145470d9a44fa50ed92e27522ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _HoldAction:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 0f1f596e-e4ef-4f81-809b-f15423cbed33
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
 --- !u!1 &1571208497564917275
 GameObject:
   m_ObjectHideFlags: 0
@@ -4618,7 +4596,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8342085552343759912}
-  - component: {fileID: 2947093811477680862}
   m_Layer: 5
   m_Name: GameObjectEmpty_ShipStats
   m_TagString: Untagged
@@ -4646,27 +4623,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2947093811477680862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6362523831752738425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b4bc145470d9a44fa50ed92e27522ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _HoldAction:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: a2e324dd-3e14-4f2d-9a5a-b3354f0dd517
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
 --- !u!1 &6438941663274907778
 GameObject:
   m_ObjectHideFlags: 0
@@ -6527,6 +6483,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8111289968445910603, guid: d7878b4f35f26634b872afed83826290,
+        type: 3}
+      propertyPath: m_tabIndex
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

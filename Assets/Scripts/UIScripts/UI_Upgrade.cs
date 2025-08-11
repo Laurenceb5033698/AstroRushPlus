@@ -22,7 +22,7 @@ public class UI_Upgrade : ScreenElement
 
     protected override void Cancel()
     {
-        UIManager.instance.Resume(false);
+        UIManager.instance.Resume();
     }
 
     //onsubmit - send card selection to player's upgrade manager
@@ -55,7 +55,8 @@ public class UI_Upgrade : ScreenElement
         if (_card > 2)
             _card = 2;
         UpgradePoolManager.instance.PickUpgrade(_card);
-        UIManager.instance.Resume(false);
+        UIManager.instance.Resume();
+        GameManager.instance.ResumeFromPickUpgrade();
     }
 
     //when enabled, rolls 3 cards to pick from.

@@ -2,36 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour 
+{
+    public static GameManager instance = null;
 
     private GameObject playerShip;
     public int currentScore = 0;
-    //private int highestScore = 0;
 
     //warpin effects timer
     private bool m_Warping = true;
-     [SerializeField] private float m_WarpinTime = 2f;
+     [SerializeField] public float m_WarpinTime = 2f;
     private float m_currentWarp = 0;
-
-    //for returning from pause menu,
-    private GameState m_PreviousGamestate = GameState.WARPIN;
 
     [SerializeField] private GameObject[] playerShipPref = new GameObject[4];
     [SerializeField] private GameObject pointerPref;
     [SerializeField] private CameraScript cam;
 
+    //Temp Stage Management.
     private int m_stageCounter = 0;
     [SerializeField] private List<StageDataScriptable> m_StageDataPool;
 
     private AIManager aiMngr;
     private AsteroidManager asm;
-    private GameObject pointer;
+    public GameObject pointer;
     public Inputs GlobalInputs;
-    
+
     [SerializeField] private AudioSource music;
 
-    public static GameManager instance = null;
-    // Use this for initialization
     void Awake () 
     {
         if (instance == null)
@@ -72,6 +69,8 @@ public class GameManager : MonoBehaviour {
         ServicesManager.Instance.GameStateService.GameState = GameState.WARPIN;
     }
 
+    
+
     private void OnEnable()
     {
         UIManager.MusicvolumeChanged += UI_OnVolumeChanged;
@@ -95,32 +94,33 @@ public class GameManager : MonoBehaviour {
 	void Update () 
     {
         
+        //m_CurrentStateLogic.Update();
         
 
-        GameState gameState = ServicesManager.Instance.GameStateService.GameState;
+        //GameState gameState = ServicesManager.Instance.GameStateService.GameState;
 
-        switch (gameState)
-        {
-            case GameState.WARPIN:
-                m_PreviousGamestate = GameState.WARPIN;
-                WarpIntoLevel();
-                break;
-            case GameState.MAINGAME:
-                m_PreviousGamestate = GameState.MAINGAME;
-                MainGame();
-                break;
-            case GameState.PICKUPGRADE:
-                m_PreviousGamestate = GameState.PICKUPGRADE;
-                PickingUpgrade();
-                break;
-            case GameState.WARPOUT:
-                m_PreviousGamestate = GameState.WARPOUT;
-                WarpOutofLevel();
-                break;
-            case GameState.PAUSE:
-                GamePaused();
-                break;
-        }
+        //switch (gameState)
+        //{
+        //    case GameState.WARPIN:
+        //        m_PreviousGamestate = GameState.WARPIN;
+        //        WarpIntoLevel();
+        //        break;
+        //    case GameState.MAINGAME:
+        //        m_PreviousGamestate = GameState.MAINGAME;
+        //        MainGame();
+        //        break;
+        //    case GameState.PICKUPGRADE:
+        //        m_PreviousGamestate = GameState.PICKUPGRADE;
+        //        PickingUpgrade();
+        //        break;
+        //    case GameState.WARPOUT:
+        //        m_PreviousGamestate = GameState.WARPOUT;
+        //        WarpOutofLevel();
+        //        break;
+        //    case GameState.PAUSE:
+        //        GamePaused();
+        //        break;
+        //}
     }
 
     //#############
@@ -214,21 +214,18 @@ public class GameManager : MonoBehaviour {
 
 
 
-    public void ResumingGame(bool _returnToPrevious)
+    public void ResumeFromPickUpgrade()
     {
-        //called from ui, either via pause screen resume, or upgrade resume.
+        //called from UI_Upgrade
         if (aiMngr.m_ObjectiveComplete && aiMngr.EndOfWave)
         {
             //boss is beaten, goto warpout
             ServicesManager.Instance.GameStateService.GameState = GameState.WARPOUT;
-            ServicesManager.Instance.PauseService.Resume();
-            m_currentWarp = Time.time + m_WarpinTime;
         }
         else
         {
             //continue waves
-            ServicesManager.Instance.GameStateService.GameState = _returnToPrevious ? m_PreviousGamestate : GameState.MAINGAME;
-            ServicesManager.Instance.PauseService.Resume();
+            ServicesManager.Instance.GameStateService.GameState = GameState.MAINGAME;
             
         }
     }
@@ -243,11 +240,14 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    private void EndLevel()
+    public void EndLevel()
     {
+        if (m_stageCounter >= m_StageDataPool.Count)
+        {
+            m_stageCounter = 0;
+        }
         aiMngr.NewStage(m_StageDataPool[m_stageCounter]);
         m_stageCounter++;
-        //asm
     }
 
     public void UI_OnVolumeChanged(bool temp)

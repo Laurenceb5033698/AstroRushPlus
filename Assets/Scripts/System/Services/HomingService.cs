@@ -5,6 +5,7 @@ using System.Linq;
 /// <summary>
 /// Homing service is used by missile homing Component to find and store currently targeted ships
 /// </summary>
+[System.Serializable]
 public class HomingService : IService
 {
 

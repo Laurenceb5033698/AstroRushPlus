@@ -105,11 +105,11 @@ public class AIManager : MonoBehaviour {
         GameObject NewShip = Instantiate(_bossLevel.BossPrefab, GetRandomPosition(), Quaternion.identity);
 
         //use difficulty value to add to bonus stats
-        float statbonus = levelData.Difficulty / 10;
+        float statbonus = levelData.Difficulty / 50;
         NewShip.GetComponent<AICore>().Initialise(player, this, gameObject, statbonus);
         NewShip.GetComponent<AICore>().UpdateStats(statbonus);
 
-        ActiveShips.Add(NewShip);
+        //ActiveShips.Add(NewShip);
         NewShip.transform.parent = SceneGroup.transform;
         return NewShip;
     }
@@ -182,6 +182,7 @@ public class AIManager : MonoBehaviour {
         {
             m_ObjectiveComplete = true;
             Bossman = null;
+            //boss dies, but remaining ships must spawn and be killed to leave stage.
             return;
         }
         if (ActiveShips.Contains(ship))
@@ -192,6 +193,12 @@ public class AIManager : MonoBehaviour {
     private void RepositionShip(int index)
     {   //called from SlowUpdate;
         GameObject currShip = ActiveShips[index];
+        if (currShip == null)
+        {
+            Debug.Log("AiManager: Ship gameobject Null. removing.");
+            ActiveShips.RemoveAt(index);
+            return;
+        }
         if (Vector3.Distance(player.transform.position, currShip.transform.position) > ResetDistance)
         {   //move ship into range and halt motion
             currShip.transform.position = GetRandomPosition();
@@ -216,6 +223,11 @@ public class AIManager : MonoBehaviour {
         Vector3 pos = Vector3.zero;
         float bestDistance = 100000.0f;
         float tempDistance;
+        //always point to bossman if it exists
+        if (Bossman)
+        {
+            return Bossman.transform.position;
+        }
 
         foreach ( GameObject ship in ActiveShips) { 
                 if (ship != null)
@@ -252,7 +264,11 @@ public class AIManager : MonoBehaviour {
             Destroy(go);
         }
         ActiveShips.Clear();
-
+        if (Bossman)
+        {
+            Destroy(Bossman);
+            Bossman = null;
+        }
         Stage = _stage;
         m_ObjectiveComplete = false;
 
