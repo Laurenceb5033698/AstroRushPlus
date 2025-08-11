@@ -20,9 +20,9 @@ public class Projectile : MonoBehaviour
     float m_cumulativePath = 0.0f;
     float m_falloffCurrent = 0.0f;
     float m_falloffPercent = 1.0f;
-    float m_sizeModifier = 1.0f;
+    //float m_sizeModifier = 1.0f;
 
-    bool m_ProjectileInteraction = false;
+    //bool m_ProjectileInteraction = false;
     protected virtual void Awake()
     {
        Startup();

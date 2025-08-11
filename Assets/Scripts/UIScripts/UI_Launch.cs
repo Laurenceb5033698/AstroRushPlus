@@ -11,7 +11,8 @@ public class UI_Launch : ScreenElement
     new void OnEnable()
     {
         //connect onhold action
-        Script_UI_InputManager.instance._HoldAction.performed += OnHoldPerformed;
+        if(Script_UI_InputManager.instance != null)
+            Script_UI_InputManager.instance._HoldAction.performed += OnHoldPerformed;
         base.OnEnable();
     }
 

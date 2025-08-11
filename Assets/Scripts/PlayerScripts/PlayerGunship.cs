@@ -6,7 +6,7 @@ using XInputDotNetPure; // for controller rumble
 public class PlayerGunship : PlayerController {
 
     //List of weapons
-    [SerializeField] private List<Weapon> AbilityGuns; //set at start, after arsenal awake
+    //[SerializeField] private List<Weapon> AbilityGuns; //set at start, after arsenal awake
     [SerializeField] private GameObject AbilityGunArray;    //holds all ability weapons
 
     [SerializeField] private float TurretChargeMax = 1.0f;
@@ -26,13 +26,13 @@ public class PlayerGunship : PlayerController {
         //SubClass implementation:
 
         //fetch all weapons attached to abilityGunArray object
-        AbilityGunArray.GetComponentsInChildren<Weapon>(AbilityGuns);
-        foreach( Weapon gun in AbilityGuns)
-        {   //bit of a hack, but each gun's tag = "playerShip".
-            //This means we can use the Weapon's own Gameobject as the spawn for projectiles (for better feels)
-            gun.SetShipObject(gun.gameObject);
-        }
-        AbilityGunArray.SetActive(false);
+        //AbilityGunArray.GetComponentsInChildren<Weapon>(AbilityGuns);
+        //foreach( Weapon gun in AbilityGuns)
+        //{   //bit of a hack, but each gun's tag = "playerShip".
+        //    //This means we can use the Weapon's own Gameobject as the spawn for projectiles (for better feels)
+        //    gun.SetShipObject(gun.gameObject);
+        //}
+        //AbilityGunArray.SetActive(false);
     }
     new void Update() {
         base.Update();
@@ -57,7 +57,7 @@ public class PlayerGunship : PlayerController {
         else
         {
             //end immediately when left trigger released
-            AbilityGunArray.SetActive(false);
+            //AbilityGunArray.SetActive(false);
             UsingAbility = false;
             InTurretMode = false;
         }
@@ -133,11 +133,11 @@ public class PlayerGunship : PlayerController {
     {   //shoots like arsenal
 
         //first, spin AbilityGunarray towards aimDir
-        AbilityGunArray.transform.rotation = Quaternion.RotateTowards(AbilityGunArray.transform.rotation, Quaternion.LookRotation(aimDir) * Quaternion.Euler(new Vector3(0, -90, 0)), 5);
+        //AbilityGunArray.transform.rotation = Quaternion.RotateTowards(AbilityGunArray.transform.rotation, Quaternion.LookRotation(aimDir) * Quaternion.Euler(new Vector3(0, -90, 0)), 5);
 
         //fire each
-        foreach( Weapon gun in AbilityGuns)
-          gun.Shoot(aimDir);
+        //foreach( Weapon gun in AbilityGuns)
+        //  gun.Shoot(aimDir);
     }
 
     private void TurretMovement()//movement while in Turret Mode

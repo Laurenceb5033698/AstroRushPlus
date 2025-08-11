@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour {
     
     [SerializeField] private GameObject planet;
     [SerializeField] private AudioSource music;
-    private ScreenElement ui = null;
+    //private ScreenElement ui = null;
     public Inputs GlobalInputs;
 
     // option menu
@@ -21,16 +21,16 @@ public class MainMenu : MonoBehaviour {
 
     // ship
     [SerializeField] private GameObject ship;
-    private Vector3 shipStartPos;
+    //private Vector3 shipStartPos;
     //private float timeToChangeDir;
     //private Vector3 targetDir;
     //private Vector3 targetRot;
 
     //  selectShip
     public GameObject selectTray;
-    private Vector3 trayStartPos;
+    //private Vector3 trayStartPos;
     public bool movingCamera = false;
-    private int trayindex = 0;
+    //private int trayindex = 0;
 
     [SerializeField] private Transform DefaultCameraPos;
     [SerializeField] private Transform SelectShipCameraPos;
@@ -159,7 +159,7 @@ public class MainMenu : MonoBehaviour {
 
     public void ScreenChanged(ScreenElement newScreen)
     {
-        ui = newScreen;
+        //ui = newScreen;
     }
 
 }
