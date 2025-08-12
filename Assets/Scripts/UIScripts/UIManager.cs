@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -11,16 +9,10 @@ public class UIManager : MonoBehaviour
     public delegate void ScreenEvent(ScreenElement screen);
     public static event ScreenEvent ScreenChanged;
 
-
-
-    //public static event GameEvent OnExitGame;
-
     public enum Screens { TitleMenu, ShipSelection, ShipConfig, Shop, Loadout, Launch, Loading, GameScreen, UpgradeScreen, PauseScreen, OptionsScreen, NumScreens }
 
     private ScreenElement[] mScreens;
     private Screens mCurrentScreen;
-
-    public int ShipSelectValue;
 
     public static UIManager instance = null;
 
@@ -34,10 +26,6 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         SceneLoader.Loaded += LoadingComplete;
-
-        ShipSelectValue = 0;
-
-
 
         //find canvas' in children and assign to apropriate slots
         mScreens = new ScreenElement[(int)Screens.NumScreens];
@@ -70,14 +58,9 @@ public class UIManager : MonoBehaviour
         //mScreens[(int)mCurrentScreen].OnScreenOpen();
     }
 
-    
     private void Update()
     {
-        
     }
-
-
-
 
     public void LoadingComplete()
     {
@@ -113,6 +96,9 @@ public class UIManager : MonoBehaviour
         mScreens[(int)screen].gameObject.SetActive(true);
         mCurrentScreen = screen;
     }
+
+    //#########
+    //Scene and screen transitions.
     public void StartGame(int lev)
     {
         if (SceneLoader.LoadLevel(lev))
@@ -137,7 +123,6 @@ public class UIManager : MonoBehaviour
         TransitionTo(Screens.GameScreen);
         OnScreenChanged();
     }
-
 
     //returns currently active screen
     private void OnScreenChanged(Screens targetScreen = Screens.NumScreens)
@@ -177,15 +162,7 @@ public class UIManager : MonoBehaviour
     public void ReturnToMenu()
     {
         ScreenTransition(Screens.TitleMenu);
-    } 
-    //public void LevelSelectButton()
-    //{
-    //    ScreenTransition(Screens.LevelSelect);
-    //}
-    //public void ShipSelectionButton()
-    //{
-    //    ScreenTransition(Screens.ShipSelectionScreen);
-    //}
+    }
 
     public void UpgradeScreen()
     {
@@ -193,24 +170,10 @@ public class UIManager : MonoBehaviour
         ScreenTransition(Screens.UpgradeScreen);
     }
 
-    public void NavigateMenuHeader(int _HeaderScreenIndex)
-    {
-        //transition to header at given index
-    }
-
-
     public void ScreenTransition(Screens _target)
     {
         //StartCoroutine(TransitionInternal(_target));
         TransitionTo(_target);
-    }
-
-    private IEnumerator TransitionInternal(Screens _target)
-    {
-        //wait one frame to change screen. prevents inputs from being chucked through multiple ui screens in one frame
-        yield return null;
-        TransitionTo(_target);
-        OnScreenChanged();
     }
 
     //Static Functions for script-UI interaction from other scenes
@@ -235,13 +198,6 @@ public class UIManager : MonoBehaviour
     {
         if (GamevolumeChanged != null)
             GamevolumeChanged(true);
-    }
-
-    //event - gamescene loaded: set object data for uxml hud
-    public void setPlayershipObject(GameObject playerShip)
-    {
-        //get playerhud ui component and set playership object
-        //mScreens[(int)Screens.GameScreen].gameObject.GetComponent<GameUIPlayerHealth>().onGameSceneLoaded(playerShip);
     }
 
     //new object selected, pass to screens

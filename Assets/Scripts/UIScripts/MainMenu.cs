@@ -3,42 +3,16 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MainMenu : MonoBehaviour {
-
-    
-    [SerializeField] private GameObject planet;
+/// <summary>
+/// Scene manager for main menu screens.
+/// should be used for any background animations while in menus.
+/// </summary>
+public class MainMenu : MonoBehaviour 
+{
     [SerializeField] private AudioSource music;
-    //private ScreenElement ui = null;
     public Inputs GlobalInputs;
 
-    // option menu
-    //private bool mOptionPanelActive = false;
-    //private bool shipMoved = false;
-    //private bool MoveShipBack = false;
-    //private Vector3 shipMovePos = new Vector3(-28,-15,-30);
-    //private Vector3 shipMoveBackPos = new Vector3(53,17,35);
-    //[SerializeField] private Toggle fullScreenToggleGO;
-
-    // ship
-    [SerializeField] private GameObject ship;
-    //private Vector3 shipStartPos;
-    //private float timeToChangeDir;
-    //private Vector3 targetDir;
-    //private Vector3 targetRot;
-
-    //  selectShip
-    public GameObject selectTray;
-    //private Vector3 trayStartPos;
-    public bool movingCamera = false;
-    //private int trayindex = 0;
-
-    [SerializeField] private Transform DefaultCameraPos;
-    [SerializeField] private Transform SelectShipCameraPos;
-
-
-    //
     public static MainMenu instance = null;
-
     void Awake()
     {
         if (instance == null)
@@ -48,8 +22,6 @@ public class MainMenu : MonoBehaviour {
 
         GlobalInputs = GetComponent<Inputs>();
 
-        UIManager.ScreenChanged += ScreenChanged;
-
         if (PlayerPrefs.HasKey("musicVolume"))
             music.volume = PlayerPrefs.GetFloat("musicVolume");
         else
@@ -58,108 +30,37 @@ public class MainMenu : MonoBehaviour {
             AudioListener.volume = PlayerPrefs.GetFloat("gameVolume");
         else
             PlayerPrefs.SetFloat("gameVolume", 0.5f);
-
-        PlayerPrefs.SetInt("showHints", 1);
         PlayerPrefs.Save();
 
         Screen.fullScreen = true;
-        //fullScreenToggleGO.isOn = true;
-
-        
     }
+        
     private void OnDestroy()
     {
-        UIManager.ScreenChanged -= ScreenChanged;
-        //UIManager.instance.ReturnToMenu();
-        //((UI_MainMenu)ui).RemoveMainMenuManager();
+    }
 
+    void Start () 
+    {
     }
-    // Use this for initialization
-    void Start () {
-        //shipStartPos = ship.transform.position;
-        //trayStartPos = selectTray.transform.position;
-        //targetRot = ship.transform.eulerAngles;
-        Time.timeScale = 1;
-        //timeToChangeDir = Time.time + 3f;
-        //float temp = 3f;
-        //targetDir = new Vector3(shipStartPos.x + Random.Range(-temp, temp), shipStartPos.y + Random.Range(-temp, temp), shipStartPos.z + Random.Range(-temp, temp));
-    }
-    private void OnEnable(){
-        //UIManager.Options += UI_OnOptionsCall;//subscribe to options toggle event
+
+    private void OnEnable()
+    {
         UIManager.MusicvolumeChanged += UI_OnVolumeChanged;
     }
-    private void OnDisable(){
-        //UIManager.Options -= UI_OnOptionsCall;//unsubscribe
+
+    private void OnDisable()
+    { 
         UIManager.MusicvolumeChanged -= UI_OnVolumeChanged;
     }
-    // Update is called once per frame
+
     void Update()
     {
-        
-
-
     }
-
-    //private void RotatePlanet()
-    //{
-    //    planet.transform.Rotate(Vector3.up * -1*Time.deltaTime);
-    //}
-
-    //private void MoveShip()
-    //{
-    //    if (Time.time > timeToChangeDir)
-    //    {
-    //        timeToChangeDir = Time.time + 3f;
-    //        float temp = 3f;
-    //        targetDir = new Vector3(shipStartPos.x + Random.Range(-temp, temp), shipStartPos.y + Random.Range(-temp, temp), shipStartPos.z + Random.Range(-temp, temp));
-    //    }
-
-    //    ship.transform.position = Vector3.MoveTowards(ship.transform.position, targetDir, 0.1f * Time.deltaTime);      
-    //}
-
-
-    ////this is called by an event on button press
-    //public void UI_OnOptionsCall(bool optionPanelActive)
-    //{
-    //    mOptionPanelActive = optionPanelActive;
-    //    if (!shipMoved && !optionPanelActive)
-    //    {
-    //        ship.transform.position = shipMoveBackPos;
-    //        shipMoved = true;
-    //        MoveShipBack = true;
-    //    }
-
-        
-    //}
-
-    ////ShipSelect
-    //public void UI_SwappedToShipSelectScreen(bool towards)
-    //{   //call once on screen swap
-    //    if (towards)
-    //        Camera.main.GetComponent<Animation>().Play("CameraSelectShipPingpong");
-    //    else
-    //        Camera.main.GetComponent<Animation>().Play("CameraSelectShippong");
-    //}
-    ////move tray
-    //public void setTrayMoveTo(int posIndex)
-    //{   //called once by ship select advance/retreat selector
-    //    trayindex = posIndex;
-    //}
-    //public void MoveTray()
-    //{//call every update
-    //    selectTray.transform.position = Vector3.MoveTowards(selectTray.transform.position, trayStartPos - new Vector3(0,0,trayindex*5), 100 * Time.deltaTime);
-    //}
-
 
     public void UI_OnVolumeChanged(bool temp)
     {
         music.volume = PlayerPrefs.GetFloat("musicVolume");
-
     }
 
-    public void ScreenChanged(ScreenElement newScreen)
-    {
-        //ui = newScreen;
-    }
 
 }

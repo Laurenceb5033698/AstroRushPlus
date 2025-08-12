@@ -6,8 +6,6 @@ public class UI_Game : ScreenElement
     // health, boost, special, missile
     [SerializeField] private Image[] statBars = new Image[4];     
 
-    //private float healthFlashingTimer = 0;
-    //private bool hpActive = true;
     [SerializeField] private GameObject healthIndicator;
     [SerializeField] private GameObject healthVignette;
 

@@ -811,7 +811,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 727602f5c4d03e6458fceff8fe624a03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShipSelectValue: 0
 --- !u!4 &1176164746
 Transform:
   m_ObjectHideFlags: 0
@@ -1358,6 +1357,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MENU_DEMO_Main_Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 8622382341490344524, guid: 6948edc0920db7f4797e046999b8ae72,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1952,7 +1956,17 @@ PrefabInstance:
     - target: {fileID: 667927081017729580, guid: 58fada47628af0f49a3d874a1720be8f,
         type: 3}
       propertyPath: m_Size
-      value: 1
+      value: 0.34000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 667927081017729580, guid: 58fada47628af0f49a3d874a1720be8f,
+        type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3112370472693993629, guid: 58fada47628af0f49a3d874a1720be8f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 3300
       objectReference: {fileID: 0}
     - target: {fileID: 3764466165297484929, guid: 58fada47628af0f49a3d874a1720be8f,
         type: 3}
@@ -2103,6 +2117,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4294901248
+      objectReference: {fileID: 0}
+    - target: {fileID: 8623738708288615143, guid: 58fada47628af0f49a3d874a1720be8f,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

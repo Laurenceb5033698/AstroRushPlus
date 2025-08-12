@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour 
@@ -42,13 +41,12 @@ public class GameManager : MonoBehaviour
 
         //scene needs to have finished loading before we instantiate anything
         SceneLoader.Loaded += SL_OnLoadingComplete;
-
 	}
     
     void Start()
     {
         //playerfactory type stuff
-        playerShip = (GameObject)Instantiate(playerShipPref[UIManager.instance.ShipSelectValue], Vector3.zero, Quaternion.identity);
+        playerShip = (GameObject)Instantiate(playerShipPref[0], Vector3.zero, Quaternion.identity);
         playerShip.GetComponent<PlayerController>().SetInputs(GlobalInputs);
         //restarting should get correct object to upgrade module.
         UpgradePoolManager.instance.AssignPlayerStatsToUpgradeManager(playerShip);
@@ -56,7 +54,6 @@ public class GameManager : MonoBehaviour
         pointer = (GameObject)Instantiate(pointerPref, Vector3.zero, Quaternion.identity);
         pointer.GetComponent<Pointer>().SetFollowTarget(playerShip);
         cam.SetTarget(playerShip); // give the player ship reference to the camera
-
 
         aiMngr = GetComponent<AIManager>();
         asm = GetComponent<AsteroidManager>();
@@ -69,8 +66,6 @@ public class GameManager : MonoBehaviour
         ServicesManager.Instance.GameStateService.GameState = GameState.WARPIN;
     }
 
-    
-
     private void OnEnable()
     {
         UIManager.MusicvolumeChanged += UI_OnVolumeChanged;
@@ -78,8 +73,8 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         UIManager.MusicvolumeChanged -= UI_OnVolumeChanged;
-
     }
+
     private void SL_OnLoadingComplete()
     {
         //ensures instances are created in the right scene
@@ -90,37 +85,8 @@ public class GameManager : MonoBehaviour
         //clean events
         SceneLoader.Loaded -= SL_OnLoadingComplete;
     }
-	// Update is called once per frame
-	void Update () 
-    {
-        
-        //m_CurrentStateLogic.Update();
-        
 
-        //GameState gameState = ServicesManager.Instance.GameStateService.GameState;
-
-        //switch (gameState)
-        //{
-        //    case GameState.WARPIN:
-        //        m_PreviousGamestate = GameState.WARPIN;
-        //        WarpIntoLevel();
-        //        break;
-        //    case GameState.MAINGAME:
-        //        m_PreviousGamestate = GameState.MAINGAME;
-        //        MainGame();
-        //        break;
-        //    case GameState.PICKUPGRADE:
-        //        m_PreviousGamestate = GameState.PICKUPGRADE;
-        //        PickingUpgrade();
-        //        break;
-        //    case GameState.WARPOUT:
-        //        m_PreviousGamestate = GameState.WARPOUT;
-        //        WarpOutofLevel();
-        //        break;
-        //    case GameState.PAUSE:
-        //        GamePaused();
-        //        break;
-        //}
+	void Update () {
     }
 
     //#############
