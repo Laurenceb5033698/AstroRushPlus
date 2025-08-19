@@ -1,8 +1,4 @@
-﻿using Microsoft.Unity.VisualStudio.Editor;
-using UnityEngine;
-using UnityEngine.Purchasing;
-
-
+﻿using UnityEngine;
 
 [System.Serializable]
 public class Stat
@@ -30,8 +26,16 @@ public class Stat
 
     private float RecalculateMax()
     {
-        //general formula for calculating max. scale+mod cannot reduce lower than 5%
-        Max = (BaseStatMax+flat) * Mathf.Max(0.05f, (1+scale) * (1+mod));
+        float multiplier = (scale + mod);
+        float percentAdjust = 1 + Mathf.Abs(multiplier);
+
+        //  1/x, as multiplier grows more negative, result approaches > 0.
+        if (multiplier < 0 )
+        {
+            percentAdjust = 1 / percentAdjust;
+        }
+
+        Max = (BaseStatMax+flat) * percentAdjust;
         return Max;
     }
 

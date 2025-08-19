@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngineInternal;
+﻿using UnityEngine;
 
 /// <summary>
 /// Holds all the stats relevant to a ship.
@@ -12,12 +8,24 @@ public class Stats : MonoBehaviour
 {
     public StatBlock block = new StatBlock();
 
+    public Buffs m_Buffs;
+    private StatBuff m_PassiveShieldRegenBuff;
+
     //Internal Current values for stats that have current and max. Get using properties ShipHealth, ShipShield, ShipFuel
     //generally speaking these are important values.
     [SerializeField] private float Health;
     [SerializeField] private float Shield;
     [SerializeField] private float Fuel;
     [SerializeField] private int Bombs;
+
+    //regen timers
+    [Range(0f, 10f)]
+    [SerializeField] private float m_ShieldRegenDelay = 4.0f;
+    private float m_TimeSinceDamage;
+    bool m_shieldBuffApplied = false;
+
+    private float m_RegenHealthTimer;
+    private float m_RegenShieldTimer;
 
     //Status effects
     [SerializeField]
@@ -32,6 +40,10 @@ public class Stats : MonoBehaviour
     {
         //required to use inspector values
         block.RecalculateStats();
+        m_Buffs = GetComponent<Buffs>();
+        if(m_Buffs == null )
+            m_Buffs = gameObject.AddComponent<Buffs>();
+        CreatePassiveShieldRegenBuff();
 
         //set current values from each respective max
         Health = Get(StatType.sHealth);
@@ -47,7 +59,7 @@ public class Stats : MonoBehaviour
     private void Update()
     {
         decreaseEmp();
-
+        UpdateRegeneration();
     }
 
     public float Get(StatType _type)
@@ -60,6 +72,7 @@ public class Stats : MonoBehaviour
     {
         if (!GodMode)
         {
+            m_TimeSinceDamage = Time.time + m_ShieldRegenDelay;
             //inCombat = true;
             if (ShipShield > 0) //if we have shields
                 if (Shield - val > 0)   //and the damage taken is lower than sheild health
@@ -127,6 +140,90 @@ public class Stats : MonoBehaviour
         return Get(StatType.sShield);
     }
 
+
+    private void UpdateRegeneration()
+    {
+        //while in main gamestate, ship can heal and recharge shield.
+        if (ServicesManager.Instance.GameStateService.GameState == GameState.MAINGAME)
+        {
+            ManageCombatShieldRegenBuff();
+            //each process regenerates 1 tick of regen for its respective stat per second.
+            RegenerateHealth();
+            RegenerateShield();
+        }
+    }
+
+    //Regenerate functions apply regen stat onto health in given timeframe.
+    //they do not control the amount of regen applied.
+    private void RegenerateHealth()
+    {
+        if (m_RegenHealthTimer > Time.time)
+            return;
+        if (!IsAlive() || Health >= Get(StatType.sHealth))
+            return;
+
+        float regenValue = Get(StatType.sHealthRegen);
+        if (regenValue <= 0.0f)
+            return;
+
+        //applies 1 tick of regen each second.
+        ShipHealth = regenValue;
+        m_RegenHealthTimer = Time.time + 1;
+    }
+
+    private void RegenerateShield()
+    {
+        if (m_RegenShieldTimer > Time.time)
+            return;
+        if (!IsAlive() || Shield >= Get(StatType.sShield))
+            return;
+
+        float regenValue = Get(StatType.sShieldRegen);
+        if (regenValue <= 0.0f)
+            return;
+
+        //applies 1 tick of regen each second.
+        ShipShield = regenValue;
+        m_RegenShieldTimer = Time.time + 1;
+    }
+
+    private void ManageCombatShieldRegenBuff()
+    {
+        if (m_PassiveShieldRegenBuff.expired())
+        {
+            //when expired, buff is automatically removed by buffs update.
+            m_shieldBuffApplied = false;
+        }
+
+        if (m_TimeSinceDamage <= Time.time)
+        {
+            //apply new passive shield regen buff
+            if (!m_shieldBuffApplied)
+            {
+                //reset timer, and apply.
+                m_PassiveShieldRegenBuff.SetTimer(20);
+                m_Buffs.AddExistingBuff(m_PassiveShieldRegenBuff);
+                m_shieldBuffApplied = true;
+            }
+        }
+        else
+        {
+            //been hit, or waiting: remove buff if applied
+            if (m_shieldBuffApplied)
+            {
+                //remove buff
+                m_Buffs.RemoveExistingBuff(m_PassiveShieldRegenBuff);
+                m_PassiveShieldRegenBuff.SetTimer(0);
+                m_shieldBuffApplied = false;
+            }
+        }        
+    }
+
+    private void CreatePassiveShieldRegenBuff()
+    {
+        //shield buff, 20s duration, 5 regen/s
+        m_PassiveShieldRegenBuff = new StatBuff(StatType.sShieldRegen, this, BuffType.FlatStat, 20.0f, 5.0f);
+    }
 
     //  Speed & movement
     //-----------------------------------------------------------------------------------------
