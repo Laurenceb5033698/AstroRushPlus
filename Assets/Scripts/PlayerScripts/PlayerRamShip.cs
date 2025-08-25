@@ -212,9 +212,9 @@ public class PlayerRamShip : PlayerController
         if (c.gameObject.tag == "EnemyShip")
         {
             if (Ramming)
-                c.gameObject.GetComponent<AICore>().TakeDamage(transform.position, 200);
+                c.gameObject.GetComponent<AICore>().TakeDamage(gameObject.GetComponent<EventSource>(), transform.position, 200);
             else
-                c.gameObject.GetComponent<AICore>().TakeDamage(transform.position, 50);
+                c.gameObject.GetComponent<AICore>().TakeDamage(gameObject.GetComponent<EventSource>(), transform.position, 50);
         }
     }
 

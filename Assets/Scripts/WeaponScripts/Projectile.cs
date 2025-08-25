@@ -12,6 +12,7 @@ public class Projectile : MonoBehaviour
     private List<float> m_TrailWidthMult;
 
     public string ownertag;
+    public EventSource OwnerEventSource;
     public GameObject psImpactPrefab;
 
     public BulletStats m_Stats;
@@ -52,6 +53,7 @@ public class Projectile : MonoBehaviour
     virtual public void SetupValues(string _ownerTag, Stats _setupStats)
     {
         ownertag = _ownerTag;
+        OwnerEventSource = _setupStats.gameObject.GetComponent<EventSource>();
         m_Stats = new BulletStats();
         m_Stats.SetupValues(_setupStats, false);
         motor.Setup(_ownerTag, m_Stats);
@@ -163,7 +165,7 @@ public class Projectile : MonoBehaviour
     {
         foreach (HitData hit in _data.hitObjects)
         {
-            hit.damageable.TakeDamage(transform.position, CalcDamage());
+            hit.damageable.TakeDamage(OwnerEventSource, transform.position, CalcDamage());
             SpawnHitVisuals(hit.hitPos);
             applyImpulse(hit.damageable.GetRigidbody());
         }

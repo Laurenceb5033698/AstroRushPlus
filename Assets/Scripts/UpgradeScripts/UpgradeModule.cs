@@ -1,8 +1,6 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 //base module for upgrades
 //each module represents a unique upgrade that can be picked ingame

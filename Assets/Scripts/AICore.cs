@@ -188,11 +188,16 @@ public class AICore : MonoBehaviour {
         GetComponentInChildren<Animation>().Play();
     }
 
-    virtual public void TakeDamage(Vector3 otherpos, float amount)
+    virtual public void TakeDamage(EventSource _offender, Vector3 otherpos, float amount)
     {   //Default method for Taking Damage
         if (shield_Emitter != null && stats.ShipShield > 0)
             Shield_effect(otherpos);
-        stats.TakeDamage(amount);
+        Stats.OnDamageReturn ret = stats.TakeDamage(amount);
+        if (ret != Stats.OnDamageReturn.None)
+        {
+            if (ret == Stats.OnDamageReturn.Damaged) { _offender.OnDamageEvent(this.gameObject); }
+            else _offender.OnKillEvent(this.gameObject);
+        }
     }
 
     private void OnCollisionStay(Collision c)
@@ -212,7 +217,7 @@ public class AICore : MonoBehaviour {
                 //1 damage minimum on impact, takes more damage from fast collision.
                 float velocityDamage = c.relativeVelocity.magnitude;
                 int impactDamage = 1 + Mathf.FloorToInt(velocityDamage / 20);
-                TakeDamage(c.gameObject.transform.position, impactDamage);
+                TakeDamage(this.gameObject.GetComponent<EventSource>(), c.gameObject.transform.position, impactDamage);
             }
         }
     }

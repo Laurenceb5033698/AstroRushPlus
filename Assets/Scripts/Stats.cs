@@ -67,9 +67,17 @@ public class Stats : MonoBehaviour
         return block.Get(_type).Get();
     }
 
-    //  Functions
-    public void TakeDamage(float val)
+    public enum OnDamageReturn
     {
+        Killed,
+        Damaged,
+        None
+    }
+    //  Functions
+    //returns result of taking damage.
+    public OnDamageReturn TakeDamage(float val)
+    {
+        OnDamageReturn ret = OnDamageReturn.None;
         if (!GodMode)
         {
             m_TimeSinceDamage = Time.time + m_ShieldRegenDelay;
@@ -84,7 +92,9 @@ public class Stats : MonoBehaviour
                 }
             else
                 ShipHealth = -val;   //shield is at 0, so deal damage directly to health
+            ret = OnDamageReturn.Damaged;
         }
+        return IsAlive() ? ret : OnDamageReturn.Killed;
     }
 
     //Properties

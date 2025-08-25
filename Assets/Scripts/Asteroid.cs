@@ -31,11 +31,11 @@ public class Asteroid : MonoBehaviour
         {
             //int impactDamage = Mathf.FloorToInt(c.relativeVelocity.magnitude);
             int impactDamage = 4;
-            TakeDamage(c.transform.position, impactDamage);
+            TakeDamage(c.gameObject.GetComponent<EventSource>(), c.transform.position, impactDamage);
             
         }
     }
-    public void TakeDamage(Vector3 _otherpos, float val)
+    public void TakeDamage(EventSource _offender, Vector3 _otherpos, float val)
     {
         hp.TakeDamage(val);
         if (!hp.IsAlive())

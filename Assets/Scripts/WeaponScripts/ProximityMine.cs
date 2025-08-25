@@ -63,14 +63,14 @@ public class ProximityMine : Projectile {
 
                 if (victim.gameObject.tag == "Asteroid")
                 {
-                    victim.gameObject.GetComponent<Asteroid>().TakeDamage(transform.position, m_Stats.damage);
+                    victim.gameObject.GetComponent<Asteroid>().TakeDamage(OwnerEventSource, transform.position, m_Stats.damage);
                     applyImpulse(victim.GetComponent<Rigidbody>());
                 }
                 else
                 {
                     if (victim.gameObject.tag == "EnemyShip")
                     {
-                        victim.GetComponentInParent<AICore>().TakeDamage(transform.position, m_Stats.damage);
+                        victim.GetComponentInParent<AICore>().TakeDamage(OwnerEventSource, transform.position, m_Stats.damage);
                         applyImpulse(victim.GetComponentInParent<Rigidbody>());
                     }
                 }

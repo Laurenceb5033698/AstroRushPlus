@@ -26,7 +26,7 @@ public class NukeComponent : BaseMissileComponent
             {
                 //dmg decreases over distance, to a minmum of 0.5x at the edge.
                 float damageOverDistance = bulletStats.aoeDamage - (bulletStats.aoeDamage * (dist * DamageScalerFactor));
-                otherDamageable.TakeDamage(transform.position, damageOverDistance);
+                otherDamageable.TakeDamage(GetComponent<Projectile>().OwnerEventSource, transform.position, damageOverDistance);
                 GetComponent<Projectile>().applyImpulse(otherDamageable.GetRigidbody());
             }
 

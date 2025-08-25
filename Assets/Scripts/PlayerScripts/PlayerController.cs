@@ -236,7 +236,7 @@ abstract public class PlayerController : MonoBehaviour {
         TakeDamage(c.transform.position, impactDamage);
         if (c.gameObject.CompareTag("EnemyShip"))
         {
-            c.gameObject.GetComponent<AICore>().TakeDamage(transform.position, impactDamage);
+            c.gameObject.GetComponent<AICore>().TakeDamage(this.gameObject.GetComponent<EventSource>(), transform.position, impactDamage);
         }
     }
     protected void Shield_effect(Vector3 other)

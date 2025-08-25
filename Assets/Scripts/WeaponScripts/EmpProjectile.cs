@@ -15,7 +15,7 @@ public class EmpProjectile : Projectile {
             Damageable otherDamageable = other.GetComponent<Damageable>();
             if (otherDamageable)
             {
-                otherDamageable.TakeDamage(transform.position, CalcDamage());
+                otherDamageable.TakeDamage(OwnerEventSource, transform.position, CalcDamage());
                 applyImpulse(otherDamageable.GetRigidbody());
                 if(otherDamageable is Player_Damageable || otherDamageable is AI_Damageable)
                 {
