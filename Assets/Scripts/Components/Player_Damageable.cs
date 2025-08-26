@@ -6,9 +6,12 @@ public class Player_Damageable : Damageable
     {
         GetComponentInParent<PlayerController>().TakeDamage(_OtherPos, _Amount);
     }
-
     public override Rigidbody GetRigidbody()
     {
         return GetComponentInParent<Rigidbody>();
+    }
+    public override EventSource GetEventSource()
+    {
+        return GetComponentInParent<EventSource>();
     }
 }

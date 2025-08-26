@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AoeEffect : MonoBehaviour {
 
+    public EventSource OwnerEventSource;
     public string ownertag; //(eg player)
     public float lifetime = 5f;//lifetime in seconds
 
@@ -29,8 +30,9 @@ public class AoeEffect : MonoBehaviour {
             DestroySelf();
     }
 
-    public void SetupValues(float dmg, string str)
+    public void SetupValues(EventSource _ownerSource, float dmg, string str)
     {
+        OwnerEventSource = _ownerSource;
         ownertag = str;
         effectAmount = dmg;
     }
@@ -90,7 +92,7 @@ public class AoeEffect : MonoBehaviour {
             case Effect.DAMAGE:
                 if (Time.time - LastPeriodicEffect < PeriodicEffectCooldown)
                     break;
-                other.GetComponentInParent<AICore>().TakeDamage(transform.position, effectAmount);
+                other.GetComponentInParent<AICore>().TakeDamage(OwnerEventSource, transform.position, effectAmount);
                 break;
             case Effect.EMP:
                 other.GetComponentInParent<Stats>().SetDisable(0.25f);
@@ -116,7 +118,7 @@ public class AoeEffect : MonoBehaviour {
                 {
                     if (Time.time - LastPeriodicEffect < PeriodicEffectCooldown)
                         break;
-                    other.gameObject.GetComponent<Asteroid>().TakeDamage(transform.position, effectAmount);
+                    other.gameObject.GetComponent<Asteroid>().TakeDamage(OwnerEventSource, transform.position, effectAmount);
                 }
                     break;
                 case Effect.EMP:

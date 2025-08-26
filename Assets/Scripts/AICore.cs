@@ -193,10 +193,15 @@ public class AICore : MonoBehaviour {
         if (shield_Emitter != null && stats.ShipShield > 0)
             Shield_effect(otherpos);
         Stats.OnDamageReturn ret = stats.TakeDamage(amount);
-        if (ret != Stats.OnDamageReturn.None)
+        if (_offender)
         {
-            if (ret == Stats.OnDamageReturn.Damaged) { _offender.OnDamageEvent(this.gameObject); }
-            else _offender.OnKillEvent(this.gameObject);
+            if (ret != Stats.OnDamageReturn.None)
+            {
+                if (ret == Stats.OnDamageReturn.Damaged)
+                    _offender.OnDamageEvent(this.gameObject);
+                else
+                    _offender.OnKillEvent(this.gameObject);
+            }
         }
     }
 
@@ -208,6 +213,7 @@ public class AICore : MonoBehaviour {
 
     void OnCollisionEnter(Collision c)
     {   //Collided with any rigidbody object
+        Damageable damageable = c.gameObject.GetComponent<Damageable>();           
         if (!c.gameObject.GetComponent<Projectile>())
         {
             rb.AddForce(((gameObject.transform.position - c.gameObject.transform.position).normalized) * CollisionImpulse, ForceMode.Impulse);
@@ -217,7 +223,7 @@ public class AICore : MonoBehaviour {
                 //1 damage minimum on impact, takes more damage from fast collision.
                 float velocityDamage = c.relativeVelocity.magnitude;
                 int impactDamage = 1 + Mathf.FloorToInt(velocityDamage / 20);
-                TakeDamage(this.gameObject.GetComponent<EventSource>(), c.gameObject.transform.position, impactDamage);
+                TakeDamage(damageable?damageable.GetEventSource():null, c.gameObject.transform.position, impactDamage);
             }
         }
     }

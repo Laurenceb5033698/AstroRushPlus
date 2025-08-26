@@ -84,7 +84,7 @@ public class ProximityMine : Projectile {
         else
         {
             GameObject instance = Instantiate(AoeEffectPrefab, transform.position, transform.rotation);
-            instance.GetComponent<AoeEffect>().SetupValues(m_Stats.damage, ownertag);
+            instance.GetComponent<AoeEffect>().SetupValues(OwnerEventSource, m_Stats.damage, ownertag);
         }
 
         Instantiate(psImpactPrefab, transform.position, transform.rotation);

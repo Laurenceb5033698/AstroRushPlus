@@ -10065,6 +10065,7 @@ GameObject:
   - component: {fileID: 676784933233422032}
   - component: {fileID: 6016978936969265397}
   - component: {fileID: 5520616335482222358}
+  - component: {fileID: 8025336389281008474}
   - component: {fileID: 1632157384311678071}
   - component: {fileID: 8074728522188550559}
   m_Layer: 0
@@ -10378,12 +10379,26 @@ MonoBehaviour:
       flat: 0
       scale: 0
       mod: 0
+  m_Buffs: {fileID: 0}
   Health: 0
   Shield: 0
   Fuel: 0
   Bombs: 0
+  m_ShieldRegenDelay: 4
   GodMode: 0
   EmpDisabled: 0
+--- !u!114 &8025336389281008474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9203987926432576384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7980737231637fe4e984a86afae783ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &1632157384311678071
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -77,6 +77,11 @@ public class Stats : MonoBehaviour
     //returns result of taking damage.
     public OnDamageReturn TakeDamage(float val)
     {
+        //already dead, return none.
+        if (!IsAlive())
+        {
+            return OnDamageReturn.None;
+        }
         OnDamageReturn ret = OnDamageReturn.None;
         if (!GodMode)
         {

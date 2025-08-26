@@ -24,6 +24,8 @@ abstract public class PlayerController : MonoBehaviour {
     protected Rigidbody rb; 	// ship's rigid body
     protected Stats stats;
     protected ShipMovementComponent motor;
+    protected EventSource eventSource;
+
     [SerializeField] protected ParticleSystem shield_Emitter;
     [SerializeField] public Arsenal arsenal;
     [SerializeField] protected Equipment equipment;
@@ -51,6 +53,7 @@ abstract public class PlayerController : MonoBehaviour {
         stats = ship.GetComponent<Stats>();
         arsenal = ship.GetComponentInChildren<Arsenal>();
         motor = ship.GetComponent<ShipMovementComponent>();
+        eventSource = ship.GetComponent<EventSource>();
 
         //single weapon "Equipment" is a collection for Ordinance
         equipment = ship.GetComponentInChildren<Equipment>();
@@ -236,7 +239,7 @@ abstract public class PlayerController : MonoBehaviour {
         TakeDamage(c.transform.position, impactDamage);
         if (c.gameObject.CompareTag("EnemyShip"))
         {
-            c.gameObject.GetComponent<AICore>().TakeDamage(this.gameObject.GetComponent<EventSource>(), transform.position, impactDamage);
+            c.gameObject.GetComponent<AICore>().TakeDamage(eventSource, transform.position, impactDamage);
         }
     }
     protected void Shield_effect(Vector3 other)

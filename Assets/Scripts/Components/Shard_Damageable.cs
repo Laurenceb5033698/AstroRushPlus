@@ -10,4 +10,8 @@ public class Shard_Damageable : Damageable
     {
         return GetComponent<Rigidbody>();
     }
+    public override EventSource GetEventSource()
+    {
+        return null;
+    }
 }

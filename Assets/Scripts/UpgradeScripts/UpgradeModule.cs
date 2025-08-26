@@ -10,13 +10,9 @@ using UnityEngine;
 [System.Serializable]
 public class UpgradeModule 
 {
-
-
-
     //Stat modifiers;
     //set via scriptable object in editor.
     [SerializeField] List<Stat> m_upgradeList;
-
 
     public UpgradeModule(List<Stat> _list)
     {

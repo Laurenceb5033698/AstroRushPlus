@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 54000014048845214}
   - component: {fileID: -1762062801775575115}
   - component: {fileID: 114023974720588430}
+  - component: {fileID: 1854070442891416930}
   m_Layer: 0
   m_Name: AI_RedShip
   m_TagString: EnemyShip
@@ -437,9 +438,12 @@ MonoBehaviour:
       flat: 0
       scale: 0
       mod: 0
+  m_Buffs: {fileID: 0}
   Health: 0
   Shield: 0
   Fuel: 0
+  Bombs: 0
+  m_ShieldRegenDelay: 4
   GodMode: 0
   EmpDisabled: 0
 --- !u!114 &114023974720588430
@@ -471,6 +475,18 @@ MonoBehaviour:
   player: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
   CollisionImpulse: 90
+--- !u!114 &1854070442891416930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012975942040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7980737231637fe4e984a86afae783ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1301550233696906
 GameObject:
   m_ObjectHideFlags: 0

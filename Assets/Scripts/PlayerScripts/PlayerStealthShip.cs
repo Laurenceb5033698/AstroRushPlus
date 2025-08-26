@@ -90,7 +90,7 @@ public class PlayerStealthShip : PlayerController {
         mShipModel.GetComponent<Renderer>().material = mRegularShipMat;
         //do aoe emp
         GameObject emp = Instantiate<GameObject>(mEMPAttack, transform.position, transform.rotation);
-        emp.GetComponent<AoeEffect>().SetupValues(0, tag);
+        emp.GetComponent<AoeEffect>().SetupValues(eventSource, 0, tag);
     }
 
     override protected void MoveShip()

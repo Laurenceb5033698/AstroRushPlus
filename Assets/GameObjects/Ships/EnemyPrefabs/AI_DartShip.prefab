@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 54213872836633418}
   - component: {fileID: -3513222262510764495}
   - component: {fileID: 114214345557345870}
+  - component: {fileID: 1988497379739256973}
   m_Layer: 0
   m_Name: AI_DartShip
   m_TagString: EnemyShip
@@ -313,9 +314,12 @@ MonoBehaviour:
       flat: 0
       scale: 0
       mod: 0
+  m_Buffs: {fileID: 0}
   Health: 0
   Shield: 0
   Fuel: 0
+  Bombs: 0
+  m_ShieldRegenDelay: 4
   GodMode: 0
   EmpDisabled: 0
 --- !u!114 &114214345557345870
@@ -347,6 +351,18 @@ MonoBehaviour:
   player: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
   CollisionImpulse: 80
+--- !u!114 &1988497379739256973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136387554503754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7980737231637fe4e984a86afae783ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1136589758670528
 GameObject:
   m_ObjectHideFlags: 0

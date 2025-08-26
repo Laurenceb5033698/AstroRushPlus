@@ -10,4 +10,8 @@ public class AI_Damageable : Damageable
     {
         return GetComponentInParent<Rigidbody>();
     }
+    public override EventSource GetEventSource()
+    {
+        return GetComponentInParent<EventSource>();
+    }
 }

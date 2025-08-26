@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public class EventSource : MonoBehaviour
 {
-    public delegate void Interaction(GameObject target);
+    public delegate void Interaction(GameObject _HostObject, GameObject target);
     public Interaction OnKill;
     public Interaction OnDamage;
     public Interaction OnCollide;
@@ -16,17 +16,20 @@ public class EventSource : MonoBehaviour
     //A target was killed by this objects damage.
     public void OnKillEvent(GameObject _object)
     {
-        OnKill(_object);
+        if(OnKill != null)
+            OnKill(this.gameObject, _object);
     }
     //A target was Damaged, but not killed by this object's damage.
     public void OnDamageEvent(GameObject _object) 
     {
-        OnDamage(_object); 
+        if (OnDamage != null)
+            OnDamage(this.gameObject, _object); 
     }
     //A target was collided with by this object, but not killed.
     public void OnCollideEvent(GameObject _object)
     {
-        OnCollide(_object);
+        if (OnCollide != null)
+            OnCollide(this.gameObject, _object);
     }
 
 

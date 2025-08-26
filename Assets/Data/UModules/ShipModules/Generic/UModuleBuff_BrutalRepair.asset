@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41ef6b5a173945849b346f9032c61e47, type: 3}
+  m_Name: UModuleBuff_BrutalRepair
+  m_EditorClassIdentifier: 
+  DisplayDetails:
+    Txt_name: Brutal Repairs
+    Txt_description: Regain a small amount of health each time you kill a ship
+    Txt_stat: Repair Hull 5hp / 2s per kill
+    Type: 3
+    Fill_Icon: {fileID: 2800000, guid: b307bb556347fe4479231484163cca65, type: 3}
+  m_UpgradeList: []
+  m_BuffStats:
+  - BuffType: 0
+    appliedStatType: 6
+    condition: 12
+    value: 5
+    duration: 2

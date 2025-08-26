@@ -10,4 +10,8 @@ public class Asteroid_Damageable : Damageable
     {
         return GetComponent<Rigidbody>();
     }
+    public override EventSource GetEventSource()
+    {
+        return null;
+    }
 }

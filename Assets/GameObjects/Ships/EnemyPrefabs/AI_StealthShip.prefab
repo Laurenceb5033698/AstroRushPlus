@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 54000013212791408}
   - component: {fileID: 2790777525657224881}
   - component: {fileID: 114908258343461838}
+  - component: {fileID: 319419936839768217}
   m_Layer: 0
   m_Name: AI_StealthShip
   m_TagString: EnemyShip
@@ -315,9 +316,12 @@ MonoBehaviour:
       flat: 0
       scale: 0
       mod: 0
+  m_Buffs: {fileID: 0}
   Health: 0
   Shield: 0
   Fuel: 0
+  Bombs: 0
+  m_ShieldRegenDelay: 4
   GodMode: 0
   EmpDisabled: 0
 --- !u!114 &114908258343461838
@@ -355,6 +359,18 @@ MonoBehaviour:
   ParticleStealthTransitEffect: {fileID: 198789656430824008}
   mStealthedShipMat: {fileID: 2100000, guid: 01fd587d5df82d54cb6537ed85dbcafa, type: 2}
   mShipModel: {fileID: 0}
+--- !u!114 &319419936839768217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000014282705904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7980737231637fe4e984a86afae783ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1225936756456016
 GameObject:
   m_ObjectHideFlags: 0
