@@ -59,6 +59,7 @@ public class Missile : Projectile
     {
         ownertag = _ownerTag;
         m_Stats = new BulletStats();
+        OwnerEventSource = _setupStats.GetComponent<EventSource>();
         m_Stats.SetupValues(_setupStats, true);
         motor.Setup(_ownerTag, m_Stats);
     }
