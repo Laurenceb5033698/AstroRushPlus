@@ -40,7 +40,9 @@ public class UI_Game : ScreenElement
 
     public void Button_TestUpgrade()
     {
-        UIManager.instance.UpgradeScreen();
+        //use standard upgrade state for testing upgrades.
+        ServicesManager.Instance.GameStateService.GameState = GameState.PICKUPGRADE;
+
     }
 
     //public void UpdateGameStats(int score, int NoEnemy, int Wave)

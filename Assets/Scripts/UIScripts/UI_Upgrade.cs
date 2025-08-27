@@ -14,7 +14,7 @@ public class UI_Upgrade : ScreenElement
     public override void Update()
     {
         HandleSubmit();
-        HandleCancel();
+        //HandleCancel();
         //left/right selecting
         HandleNavigateLeft();
         HandleNavigateRight();
@@ -22,7 +22,7 @@ public class UI_Upgrade : ScreenElement
 
     protected override void Cancel()
     {
-        UIManager.instance.Resume();
+        //UIManager.instance.Resume();
     }
 
     //onsubmit - send card selection to player's upgrade manager

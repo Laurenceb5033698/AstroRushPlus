@@ -123,7 +123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6708653996247581408}
-  - component: {fileID: 3715317847803065221}
+  - component: {fileID: 2569784705812645993}
   - component: {fileID: 497746360367549724}
   - component: {fileID: 8886846486020165213}
   m_Layer: 0
@@ -149,7 +149,7 @@ Transform:
   - {fileID: 736510874397319121}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3715317847803065221
+--- !u!114 &2569784705812645993
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,7 +158,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3105571229022771100}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4199e54f7fc0b8944acfcbcf563e11c3, type: 3}
+  m_Script: {fileID: 11500000, guid: 090ba4611203ce0478744944a4115109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_AudioSource: {fileID: 8886846486020165213}
@@ -170,6 +170,7 @@ MonoBehaviour:
   m_AimingIndicatorHolder: {fileID: 6146273159852905951}
   m_BulletPrefab: {fileID: 1683499338915968, guid: 18b80e292984bd344a3243cd2d7b95e1,
     type: 3}
+  m_BurstDelay: 0.2
 --- !u!114 &497746360367549724
 MonoBehaviour:
   m_ObjectHideFlags: 0

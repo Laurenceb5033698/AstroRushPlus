@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.GPUSort;
+using System.Linq;
 
 /// <summary>
 /// Represents a UI menu / view that can be enabled/disabled form UIManager.
@@ -199,6 +200,8 @@ abstract public class ScreenElement : MonoBehaviour {
     /// </summary>
     public void SubmitSelection()
     {
+        if (SelectableList.Length == 0)
+            return;
         Selectable selectedObject = SelectableList[selector].GetComponent<Selectable>();
         if (selectedObject)
         {
