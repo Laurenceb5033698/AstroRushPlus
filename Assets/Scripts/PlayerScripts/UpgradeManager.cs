@@ -16,9 +16,14 @@ public class UpgradeManager : MonoBehaviour
 
     //use this to test applying a module to a ship.
     [SerializeField] UModuleScriptable m_TestModule;
+    [SerializeField] UModuleScriptable m_BaseStatsModule;
 
     void Start()
     {
+        if(shipStats != null && m_BaseStatsModule != null)
+        {
+            AddNewModule(m_BaseStatsModule);
+        }
     }
 
     

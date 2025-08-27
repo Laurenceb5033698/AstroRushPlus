@@ -48,6 +48,8 @@ public class AICore : MonoBehaviour {
         stats = gameObject.GetComponent<Stats>();       //local stats
         rb = gameObject.GetComponent<Rigidbody>();     //local rigidbody
         shield_Emitter = gameObject.GetComponentInChildren<ParticleSystem>();
+        //set upgrade stats
+        GetComponent<UpgradeManager>().shipStats = stats;
 
         arsenal = GetComponentInChildren<Arsenal>();        //local weapons platform
     }

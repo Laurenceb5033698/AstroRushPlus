@@ -67,8 +67,9 @@ public class Stat
     /// <summary>
     /// adds to all modifiers, only recalculates once.
     /// </summary>
-    public void AddModifiers(float _flat, float _scale, float _bonus)
+    public void AddModifiers(float _baseFlat, float _flat, float _scale, float _bonus)
     {
+        BaseStatMax += _baseFlat;
         flat += _flat;
         scale += _scale;
         mod += _bonus;
@@ -80,6 +81,6 @@ public class Stat
     /// <param name="_otherStat"> The actual stat that is changed.</param>
     public void PassModifiers(Stat _otherStat)
     {
-        _otherStat.AddModifiers(flat,scale,mod);
+        _otherStat.AddModifiers(BaseStatMax,flat,scale,mod);
     }
 }
