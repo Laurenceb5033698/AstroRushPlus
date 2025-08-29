@@ -101,6 +101,8 @@ Material:
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
+    - _Bool_RotateDissolveAxis: 0
+    - _Bools_HitMask: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -109,17 +111,20 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _Displacement_Strength: 0.2
-    - _Dissolve: 0
-    - _Dissolve_Edge_Thickness: 0.07
-    - _Dissolve_Scale: 4.87
+    - _Dissolve: 0.083
+    - _Dissolve_Edge_Thickness: 0.08
+    - _Dissolve_Scale: 2.9
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _Fresnel_Depth_Offset: 3
+    - _Fresnel_Dissapate: 1
     - _Fresnel_Power: 2
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Hit_Sphere_Hardness: 0.5
+    - _Hit_Sphere_Radius: 1.18
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -143,6 +148,7 @@ Material:
     - _Dissolve_Edge_Colour: {r: 41.731827, g: 0.8433688, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Hit_Position: {r: 34, g: 0, b: 56, a: 0}
+    - _Hit_Sphere_Position: {r: -2.71, g: 0, b: 2.8, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

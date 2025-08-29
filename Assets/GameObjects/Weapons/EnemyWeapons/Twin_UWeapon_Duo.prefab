@@ -56,6 +56,7 @@ MonoBehaviour:
   m_AimingIndicatorHolder: {fileID: 7881679605924790102}
   m_BulletPrefab: {fileID: 1791828775739272, guid: 1aee3d1ac2c033442a7021477256d266,
     type: 3}
+  m_BurstDelay: 0.2
 --- !u!114 &4742884803744544479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,10 +79,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: f7e7576d9c16c4c48a5e573145ccc626, type: 3}
+  m_Resource: {fileID: 8300000, guid: f7e7576d9c16c4c48a5e573145ccc626, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
