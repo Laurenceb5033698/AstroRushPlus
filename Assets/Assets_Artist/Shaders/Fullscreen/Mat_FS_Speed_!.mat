@@ -7,13 +7,12 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat_FS_Health_3
-  m_Shader: {fileID: -6465566751694194690, guid: f46ceac6a3b6fa943ac29b8346da9efa,
+  m_Name: Mat_FS_Speed_!
+  m_Shader: {fileID: -6465566751694194690, guid: 9a922f42b3ae8d34f9930fefc794f018,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _ENUM_SWITCH_COLOR_A
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -25,6 +24,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Texture_Speed:
+        m_Texture: {fileID: 2800000, guid: 85e7b3a14c4a84e4eabccfa37c597eee, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -40,25 +43,16 @@ Material:
     m_Ints: []
     m_Floats:
     - _Alpha_Intensity: 1
-    - _Alpha_Power: 1
-    - _ENUM_SWITCH_COLOR: 0
+    - _Alpha_Power: 0
     - _Fullscreen_AlphaBlendOperation: 0
-    - _Fullscreen_BlendMode: 1
+    - _Fullscreen_BlendMode: 0
     - _Fullscreen_ColorBlendOperation: 0
     - _Fullscreen_DepthWrite: 0
     - _Fullscreen_DstAlphaBlend: 10
     - _Fullscreen_DstColorBlend: 10
     - _Fullscreen_SrcAlphaBlend: 1
     - _Fullscreen_SrcColorBlend: 5
-    - _Lerp_1_Vaue: 0
-    - _Lerp_2_Value: 0
-    - _Pulse_Frequency: 4
-    - _Rotation_Speed: 0
-    - _Voronoi_Scale: 12
-    - _Voronoi_Speed: 1
     m_Colors:
-    - _Color_Health: {r: 0.47847795, g: 22.627415, b: 0, a: 0}
-    - _Tiling_Health_Shape: {r: 1, g: 1, b: 0, a: 0}
-    - _Tiling_Speed_Health_Shape: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0, g: 315.00684, b: 512, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
