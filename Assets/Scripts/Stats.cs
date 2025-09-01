@@ -44,13 +44,21 @@ public class Stats : MonoBehaviour
         if(m_Buffs == null )
             m_Buffs = gameObject.AddComponent<Buffs>();
         CreatePassiveShieldRegenBuff();
+    }
 
+    /// <summary>
+    /// called by upgrade manager after base stats are loaded.
+    /// needed to include loadout and ship base stats in starting health.
+    /// </summary>
+    public void PostLoaded()
+    {
         //set current values from each respective max
         Health = Get(StatType.sHealth);
         Shield = Get(StatType.sShield);
         Fuel = Get(StatType.sFuel);
-        Bombs = Mathf.FloorToInt( Get(StatType.mAmmo));
+        Bombs = Mathf.FloorToInt(Get(StatType.mAmmo));
     }
+
 
     private void Start()
     {

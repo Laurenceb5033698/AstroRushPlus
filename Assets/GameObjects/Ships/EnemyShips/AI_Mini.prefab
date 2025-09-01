@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 7387021641246740053}
   m_Layer: 0
   m_Name: Mesh_Body
-  m_TagString: Untagged
+  m_TagString: EnemyShip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -244,7 +244,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 7795961872398941749, guid: 95682bb98018663478abab6bf88ef843, type: 3}
 --- !u!114 &7387021641246740053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,7 +320,7 @@ GameObject:
   - component: {fileID: 1308714698615229576}
   m_Layer: 0
   m_Name: AI_Mini
-  m_TagString: Untagged
+  m_TagString: EnemyShip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -333,7 +333,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6963890791978106895}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.5392337, y: 0, z: -0.090488434}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -350,9 +350,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6963890791978106895}
   serializedVersion: 4
-  m_Mass: 10
+  m_Mass: 8
   m_Drag: 1
-  m_AngularDrag: 0.5
+  m_AngularDrag: 0.2
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -649,7 +649,8 @@ MonoBehaviour:
   arsenal: {fileID: 0}
   SceneManagerObject: {fileID: 0}
   aiManager: {fileID: 0}
-  psDestructPrefab: {fileID: 0}
+  psDestructPrefab: {fileID: 2249290968049800215, guid: 0b5bfad2671b1af49bbf3b8d9670cc55,
+    type: 3}
   shield_Emitter: {fileID: 0}
   player: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}

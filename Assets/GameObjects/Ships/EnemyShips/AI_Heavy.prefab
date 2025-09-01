@@ -136,14 +136,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5702809835515936191}
-  - component: {fileID: 5017529872253820624}
   - component: {fileID: 6434489261214241143}
   - component: {fileID: 1049776754602278521}
   - component: {fileID: 8171026882422788314}
-  - component: {fileID: 6528564722917590554}
+  - component: {fileID: 5375901164387168130}
   m_Layer: 0
   m_Name: Heavy_Body
-  m_TagString: PlayerShip
+  m_TagString: EnemyShip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,28 +164,6 @@ Transform:
   - {fileID: 7126424877088729372}
   m_Father: {fileID: 1181354214041155645}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5017529872253820624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1985992788436139575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e40840309c685c94a8dfa58532a26bd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thrusters:
-  - {fileID: 0}
-  alternate:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  maintrails: []
-  altTrails:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!33 &6434489261214241143
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -262,7 +239,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6944786486060461299, guid: 91cf8195dfe484444872c6211fd2f2b5, type: 3}
---- !u!114 &6528564722917590554
+--- !u!114 &5375901164387168130
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -271,7 +248,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1985992788436139575}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60948103df322df47813eadd017a3716, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a96b914867807c49af51ffcbba57a0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2565365706785607182
@@ -406,9 +383,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2985814060695827370}
   serializedVersion: 4
-  m_Mass: 10
+  m_Mass: 50
   m_Drag: 1
-  m_AngularDrag: 0.8
+  m_AngularDrag: 0.1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -705,7 +682,8 @@ MonoBehaviour:
   arsenal: {fileID: 0}
   SceneManagerObject: {fileID: 0}
   aiManager: {fileID: 0}
-  psDestructPrefab: {fileID: 0}
+  psDestructPrefab: {fileID: 2249290968049800215, guid: 0b5bfad2671b1af49bbf3b8d9670cc55,
+    type: 3}
   shield_Emitter: {fileID: 0}
   player: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}

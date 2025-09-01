@@ -20,12 +20,22 @@ public class UpgradeManager : MonoBehaviour
 
     void Start()
     {
-        if(shipStats != null && m_BaseStatsModule != null)
+        //start function is only properly called for enemyai, as the upgrade manager is on their gameobject.
+        //for the player, upgrade manager is created when game starts.
+        ApplyBaseStats();
+    }
+
+    public void ApplyBaseStats()
+    {
+        if (shipStats != null && m_BaseStatsModule != null)
         {
             AddNewModule(m_BaseStatsModule);
         }
+        if (shipStats)
+        {
+            shipStats.PostLoaded();
+        }
     }
-
     
     void Update()
     {

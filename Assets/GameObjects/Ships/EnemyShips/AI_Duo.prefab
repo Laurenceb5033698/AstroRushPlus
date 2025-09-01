@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1514846503408097158}
+  - component: {fileID: 3161492899556531910}
   m_Layer: 0
   m_Name: Arsenal
   m_TagString: Untagged
@@ -32,6 +33,20 @@ Transform:
   - {fileID: 3317678211462489715}
   m_Father: {fileID: 457007948776046216}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3161492899556531910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220241761083578504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19d406162d2e4bb43ae98089ad5be4f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ship: {fileID: 0}
+  m_UWeapon: {fileID: 0}
 --- !u!1 &782778287269026866
 GameObject:
   m_ObjectHideFlags: 0
@@ -47,7 +62,7 @@ GameObject:
   - component: {fileID: 9148352203021064562}
   m_Layer: 0
   m_Name: Mesh_Body
-  m_TagString: Untagged
+  m_TagString: EnemyShip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -289,7 +304,7 @@ GameObject:
   - component: {fileID: 4182223900045645920}
   m_Layer: 0
   m_Name: AI_Duo
-  m_TagString: Untagged
+  m_TagString: EnemyShip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -618,7 +633,8 @@ MonoBehaviour:
   arsenal: {fileID: 0}
   SceneManagerObject: {fileID: 0}
   aiManager: {fileID: 0}
-  psDestructPrefab: {fileID: 0}
+  psDestructPrefab: {fileID: 2249290968049800215, guid: 0b5bfad2671b1af49bbf3b8d9670cc55,
+    type: 3}
   shield_Emitter: {fileID: 0}
   player: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}

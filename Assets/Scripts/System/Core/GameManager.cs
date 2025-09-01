@@ -46,10 +46,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //playerfactory type stuff
-        playerShip = (GameObject)Instantiate(playerShipPref[0], Vector3.zero, Quaternion.identity);
-        playerShip.GetComponent<PlayerController>().SetInputs(GlobalInputs);
-        //restarting should get correct object to upgrade module.
-        UpgradePoolManager.instance.AssignPlayerStatsToUpgradeManager(playerShip);
+        ShipFactory playerFactory = new ShipFactory();
+        playerFactory.SetVaraibles(playerShipPref[0], GlobalInputs);
+        playerShip = playerFactory.CreatePlayerShip();
+
 
         pointer = (GameObject)Instantiate(pointerPref, Vector3.zero, Quaternion.identity);
         pointer.GetComponent<Pointer>().SetFollowTarget(playerShip);
