@@ -25,9 +25,6 @@
             "m_Id": "ebc68cd304924e78af5f11aa395bffc1"
         },
         {
-            "m_Id": "e34e70c998f44c4f80bd0dbee975f3bd"
-        },
-        {
             "m_Id": "1a033371cc5b4c60913022230f6c2930"
         },
         {
@@ -215,9 +212,6 @@
         },
         {
             "m_Id": "2e13aacea16f41cf8bfb9f8ece47e0ae"
-        },
-        {
-            "m_Id": "20ed1ef440644d4b97c8906f395009cd"
         },
         {
             "m_Id": "a9bd209673a6415cb73de82e6deb66e0"
@@ -1768,9 +1762,6 @@
             "m_Id": "ebc68cd304924e78af5f11aa395bffc1"
         },
         {
-            "m_Id": "e34e70c998f44c4f80bd0dbee975f3bd"
-        },
-        {
             "m_Id": "1a033371cc5b4c60913022230f6c2930"
         },
         {
@@ -2220,10 +2211,10 @@
     "m_Guid": {
         "m_GuidSerialized": "9ff52e0c-2f7d-4147-98a5-419f32616b64"
     },
-    "m_Name": "SphereMask_Radius",
+    "m_Name": "VertexDisplacement_Radius",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "SphereMask_Radius",
-    "m_DefaultReferenceName": "_SphereMask_Radius",
+    "m_RefNameGeneratedByDisplayName": "VertexDisplacement_Radius",
+    "m_DefaultReferenceName": "_VertexDisplacement_Radius",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -2358,42 +2349,6 @@
         "y": 0.0,
         "z": 0.0,
         "w": 0.0
-    }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
-    "m_ObjectId": "20ed1ef440644d4b97c8906f395009cd",
-    "m_Group": {
-        "m_Id": "caea890ec9474952b51301a31ffa9a9c"
-    },
-    "m_Name": "Property",
-    "m_DrawState": {
-        "m_Expanded": true,
-        "m_Position": {
-            "serializedVersion": "2",
-            "x": -777.0,
-            "y": -1845.0,
-            "width": 138.99993896484376,
-            "height": 34.0
-        }
-    },
-    "m_Slots": [
-        {
-            "m_Id": "63ca36ce8b794d289ef0baa6b2e26520"
-        }
-    ],
-    "synonyms": [],
-    "m_Precision": 0,
-    "m_PreviewExpanded": true,
-    "m_DismissedVersion": 0,
-    "m_PreviewMode": 0,
-    "m_CustomColors": {
-        "m_SerializableColors": []
-    },
-    "m_Property": {
-        "m_Id": "e34e70c998f44c4f80bd0dbee975f3bd"
     }
 }
 
@@ -2628,8 +2583,8 @@
     "m_ObjectId": "2ad225321aed4c2a80f4db1efc135dbb",
     "m_Title": "FRESNEL",
     "m_Position": {
-        "x": -3419.999755859375,
-        "y": -809.9999389648438
+        "x": -3420.0,
+        "y": -810.0
     }
 }
 
@@ -3303,8 +3258,8 @@
     "m_Hidden": false,
     "m_Value": {
         "r": 0.0,
-        "g": 0.6102464199066162,
-        "b": 1.0,
+        "g": 2.440985679626465,
+        "b": 4.0,
         "a": 1.0
     },
     "isMainColor": false,
@@ -3360,7 +3315,7 @@
     "m_Title": "Hit Mask",
     "m_Position": {
         "x": -2177.0,
-        "y": -1529.0001220703125
+        "y": -1529.0
     }
 }
 
@@ -3680,7 +3635,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "47208ae3cf3e46d68e63868de9238ed4",
     "m_Id": 0,
-    "m_DisplayName": "SphereMask_Radius",
+    "m_DisplayName": "VertexDisplacement_Radius",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -4389,8 +4344,8 @@
     "m_ObjectId": "5b1889b1babc4e1985f68a6b13c909e0",
     "m_Title": "HideShield except hits",
     "m_Position": {
-        "x": -1655.000244140625,
-        "y": -1055.0001220703125
+        "x": -1655.0,
+        "y": -1055.0
     }
 }
 
@@ -4679,29 +4634,6 @@
     },
     "m_Labels": [],
     "m_Space": 0
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
-    "m_ObjectId": "63ca36ce8b794d289ef0baa6b2e26520",
-    "m_Id": 0,
-    "m_DisplayName": "Hit_Position",
-    "m_SlotType": 1,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Out",
-    "m_StageCapability": 3,
-    "m_Value": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_DefaultValue": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_Labels": []
 }
 
 {
@@ -5274,8 +5206,8 @@
     "m_ObjectId": "7e6af2e2dd014c55879a8d4b393e9e82",
     "m_Title": "DissolveEdge",
     "m_Position": {
-        "x": -2089.999755859375,
-        "y": 829.9998779296875
+        "x": -2090.0,
+        "y": 830.0
     }
 }
 
@@ -6807,7 +6739,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "ae54cb6edede473290d329ee2eaa39a4",
     "m_Id": 0,
-    "m_DisplayName": "SphereMask_Hardness",
+    "m_DisplayName": "VertexDisplacement_Hardenss",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -7745,8 +7677,8 @@
     "m_ObjectId": "caea890ec9474952b51301a31ffa9a9c",
     "m_Title": "Displacement",
     "m_Position": {
-        "x": -840.9998779296875,
-        "y": -2605.999755859375
+        "x": -841.0,
+        "y": -2606.0
     }
 }
 
@@ -8026,10 +7958,10 @@
     "m_Guid": {
         "m_GuidSerialized": "5204573a-be7e-4745-9a52-68554fb07938"
     },
-    "m_Name": "SphereMask_Hardness",
+    "m_Name": "VertexDisplacement_Hardenss",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "SphereMask_Hardness",
-    "m_DefaultReferenceName": "_SphereMask_Hardness",
+    "m_RefNameGeneratedByDisplayName": "VertexDisplacement_Hardenss",
+    "m_DefaultReferenceName": "_VertexDisplacement_Hardenss",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -8250,7 +8182,7 @@
     "m_AlembicMotionVectors": false,
     "m_SupportsLODCrossFade": false,
     "m_CustomEditorGUI": "",
-    "m_SupportVFX": false
+    "m_SupportVFX": true
 }
 
 {
@@ -8545,34 +8477,6 @@
     "m_Value": 0.5,
     "m_DefaultValue": 0.5,
     "m_Labels": []
-}
-
-{
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector3ShaderProperty",
-    "m_ObjectId": "e34e70c998f44c4f80bd0dbee975f3bd",
-    "m_Guid": {
-        "m_GuidSerialized": "82200ebb-c542-4c35-afd6-265aa38a7799"
-    },
-    "m_Name": "Hit_Position",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Hit_Position",
-    "m_DefaultReferenceName": "_Hit_Position",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_DismissedVersion": 0,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "w": 0.0
-    }
 }
 
 {
@@ -8998,8 +8902,8 @@
     "m_ObjectId": "ef9f6282461547648b080503cab1c3e6",
     "m_Title": "DISSOLVE",
     "m_Position": {
-        "x": -3505.999755859375,
-        "y": 162.9999237060547
+        "x": -3506.0,
+        "y": 163.0
     }
 }
 

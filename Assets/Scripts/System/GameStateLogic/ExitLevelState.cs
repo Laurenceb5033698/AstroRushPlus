@@ -30,8 +30,8 @@ public class ExitLevelState : StateTransition
         {
             //playing full warp effect.
             //  warp effect palys, but differnt wave data loaded, bg changes, ui updated, but same scene
-            ServicesManager.Instance.GameStateService.GameState = GameState.WARPIN;
             GameManager.instance.EndLevel();
+            ServicesManager.Instance.GameStateService.GameState = GameState.WARPIN;
 
         }
     }

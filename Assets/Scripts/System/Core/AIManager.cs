@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class AIManager : MonoBehaviour {
@@ -13,12 +12,13 @@ public class AIManager : MonoBehaviour {
 
     //int maxActiveShips = 20; //(ship limit onscreen)
     int RemainingShipsToSpawn= 0 ;
+    int ElitesSpawned = 0;
     //int totalShipsThisWave = 2; //(+2 per wave)
 
     float spawnDelay = 1f;
     float spawnTimer = 0f;
-    float ResetDistance = 300f;
-    float minResetDistance = 150f;
+    float ResetDistance = 200f;
+    float minResetDistance = 120f;
     bool SpawningShips = false;
     int SlowIndex = 0;  //slowUpdate ship Index
     int WaveCounter = 0;
@@ -35,36 +35,25 @@ public class AIManager : MonoBehaviour {
 
 
     private void Awake()
-    {   //set references
-        //Debug.Log( "number of levels in Stage: " + Stage.StageLevels.Count);
-        //Debug.Log( "Total ships in this level: " + Stage.StageLevels[0].TotalShips );
-        //Debug.Log( "Max number of active ships: " + Stage.StageLevels[0].MaxActiveShip );
-        //Debug.Log( "Level Difficulty: " + Stage.StageLevels[0].Difficulty );
-        //Debug.Log( "number of differnt ship prefabs: " + Stage.StageLevels[0].NormalShipPrefabs.Count );
-        //Debug.Log( "Number of Elites in level: " + Stage.StageLevels[0].EliteShipPrefabs.Count );
+    {
         levelData = Stage.StageLevels[0];
-
     }
+
     void OnEnable()
     {
         player = GetComponent<GameManager>().GetShipRef();
     }
 
-    void Start() {
-
+    void Start() 
+    {
         ActiveShips = new List<GameObject>();
-        //NewWave();
     }
 
-    void Update() {
-        
-        //wave management
+    private void Update()
+    {
         if (SpawningShips)
         {
-            if (ActiveShips.Count < levelData.MaxActiveShip)
-            {
-                SpawnShip();
-            }
+            DoEnemySpawning();
         }
         else
         {  //all ships spawned
@@ -80,38 +69,68 @@ public class AIManager : MonoBehaviour {
         
     }
 
-    private void SpawnShip()
-    {   //spawns a random ship from set prefabs in a random place
+    private void DoEnemySpawning()
+    {
+        if (ActiveShips.Count >= levelData.MaxActiveShip)
+            return;
+        
         if (spawnTimer < Time.time)
         {
-            GameObject RandomPref = levelData.NormalShipPrefabs[Random.Range(0, levelData.NormalShipPrefabs.Count)];
-            GameObject NewShip = Instantiate(RandomPref, GetRandomPosition(), Quaternion.identity);
+            bool spawnElites = false;
+            if (levelData.EliteShipPrefabs.Count > 0 && ElitesSpawned < levelData.EliteShipPrefabs.Count)
+            {
+                spawnElites = true;
+            }
+            if (spawnElites)
+            {
+                CreateEnemy(levelData.EliteShipPrefabs);
+                ElitesSpawned++;
+            }
+            else
+            {
+                CreateEnemy(levelData.NormalShipPrefabs);
+                if (--RemainingShipsToSpawn == 0)
+                    SpawningShips = false; //end spawning
+            }
 
-            //use difficulty value to add to bonus stats
-            float statbonus = levelData.Difficulty / 100;
-            NewShip.GetComponent<AICore>().Initialise(player, this, gameObject, statbonus);
-            NewShip.GetComponent<AICore>().UpdateStats(statbonus);
-
-            ActiveShips.Add(NewShip);
-            NewShip.transform.parent = SceneGroup.transform;
-            
             spawnTimer = Time.time + spawnDelay;
-            if (--RemainingShipsToSpawn == 0)
-                SpawningShips = false; //end spawning
         }
+        
     }
-    private GameObject SpawnBoss(BossLevelScriptable _bossLevel)
-    {
-        GameObject NewShip = Instantiate(_bossLevel.BossPrefab, GetRandomPosition(), Quaternion.identity);
 
+    //spawns a random ship from set prefabs in a random place
+    private void CreateEnemy(List<GameObject> _prefabList)
+    {   
+        SpawnShip(_prefabList[Random.Range(0, _prefabList.Count)]);
+    }
+
+    private void SpawnShip(GameObject _prefab)
+    {
+        GameObject NewShip = SpawnEnemyShip(_prefab);
         //use difficulty value to add to bonus stats
-        float statbonus = levelData.Difficulty / 50;
+        float statbonus = levelData.Difficulty / 100;
         NewShip.GetComponent<AICore>().Initialise(player, this, gameObject, statbonus);
         NewShip.GetComponent<AICore>().UpdateStats(statbonus);
 
-        //ActiveShips.Add(NewShip);
+        ActiveShips.Add(NewShip);
         NewShip.transform.parent = SceneGroup.transform;
-        return NewShip;
+    }
+    private GameObject SpawnBoss(BossLevelScriptable _bossLevel)
+    {
+        GameObject BossShip = SpawnEnemyShip(_bossLevel.BossPrefab);
+
+        //use difficulty value to add to bonus stats
+        float statbonus = levelData.Difficulty / 50;
+        BossShip.GetComponent<AICore>().Initialise(player, this, gameObject, statbonus);
+        BossShip.GetComponent<AICore>().UpdateStats(statbonus);
+
+        BossShip.transform.parent = SceneGroup.transform;
+        return BossShip;
+    }
+
+    private GameObject SpawnEnemyShip(GameObject _prefab)
+    {
+        return Instantiate(_prefab, GetRandomPosition(), Quaternion.identity); ;
     }
 
     public void NewWave()
@@ -141,6 +160,7 @@ public class AIManager : MonoBehaviour {
 
         //totalShipsThisWave = levelData.TotalShips;
         RemainingShipsToSpawn = levelData.TotalShips;
+        ElitesSpawned = 0;
         SpawningShips = true;
         ++WaveCounter;
     }
@@ -213,9 +233,10 @@ public class AIManager : MonoBehaviour {
     //
     
     private Vector3 GetRandomPosition()
-    {   //used in spawning and repositioning ships
-        float angle = Mathf.Deg2Rad * Random.Range(0, 360);
-        return player.transform.position + new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * Random.Range(minResetDistance, ResetDistance);     // player position + direction * distance
+    {
+        Vector2 insideCircle = Random.insideUnitCircle;
+        Vector3 normalisedDirection = new Vector3(insideCircle.x, 0, insideCircle.y).normalized;
+        return player.transform.position + normalisedDirection * Random.Range(minResetDistance, ResetDistance);     // player position + direction * distance
     }
 
     public Vector3 GetClosestShipPos(Vector3 from)

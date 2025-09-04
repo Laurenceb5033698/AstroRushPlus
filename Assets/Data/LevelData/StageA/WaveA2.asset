@@ -10,18 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54f713b82d8c5a64cb22a2b461bf4285, type: 3}
-  m_Name: StageALvl5
+  m_Name: WaveA2
   m_EditorClassIdentifier: 
   NormalShipPrefabs:
-  - {fileID: 8908882563087209764, guid: 18425a729b818e34c9e1e98ebae74ae6, type: 3}
-  - {fileID: 2985814060695827370, guid: 6c93f458ccda9ac4383566ac5d5407c6, type: 3}
-  - {fileID: 6991925742181230686, guid: 515b8086506185c479d5165ed83a7a2e, type: 3}
+  - {fileID: 6963890791978106895, guid: c580165d718ec6d49970e33f8b939a5f, type: 3}
+  - {fileID: 5905408885748206144, guid: 03837ff0d7f5efa44a91fa300280531e, type: 3}
   - {fileID: 5919045715780012292, guid: f84d95cefcd084548b482ed973aa0c55, type: 3}
-  EliteShipPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  TotalShips: 15
-  MaxActiveShip: 10
-  Difficulty: 40
+  EliteShipPrefabs: []
+  TotalShips: 5
+  MaxActiveShip: 6
+  Difficulty: 10

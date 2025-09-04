@@ -27,7 +27,8 @@ public class AICore : MonoBehaviour {
 
     //Visual Effects
     [SerializeField] private GameObject psDestructPrefab;
-    [SerializeField] private ParticleSystem shield_Emitter;
+    [SerializeField] protected Shield m_ShieldVisuals;
+    ShipRotationHandler tilthandler;
 
     //Movement Behavior
     public GameObject player;
@@ -47,7 +48,9 @@ public class AICore : MonoBehaviour {
     {   //Setup AICore references
         stats = gameObject.GetComponent<Stats>();       //local stats
         rb = gameObject.GetComponent<Rigidbody>();     //local rigidbody
-        shield_Emitter = gameObject.GetComponentInChildren<ParticleSystem>();
+        m_ShieldVisuals = GetComponentInChildren<Shield>();
+        tilthandler = GetComponentInChildren<ShipRotationHandler>();
+
         //set upgrade stats
         GetComponent<UpgradeManager>().shipStats = stats;
 
@@ -150,7 +153,7 @@ public class AICore : MonoBehaviour {
 
     virtual protected void Move()
     {   //Default Ship movement behavior
-        float currentSpeed = (dist <= innerRange) ? stats.GetSpecial() : stats.GetMainThrust();//use speeds from Stats. Change on prefabs
+        float currentSpeed = GetMaxSpeed();//use speeds from Stats. Change on prefabs
 
         rb.AddForce(gameObject.transform.forward * currentSpeed * 20 * Time.deltaTime, ForceMode.Acceleration);
         
@@ -168,31 +171,42 @@ public class AICore : MonoBehaviour {
         
         float torque = stats.GetRotSpeed() * torqueMul;
         rb.AddRelativeTorque(Vector3.up * torque * angle * Time.deltaTime);
+        ShipTilt();
+    }
 
-        
-        
+    protected void ShipTilt()
+    {
+        float newSpeed = rb.linearVelocity.magnitude;
+
+        //calculate tilt amount
+        //if speed > amount then tilt more
+        float tiltModifier = 0.5f;
+        if (newSpeed > GetMaxSpeed() / 2)
+        {
+            tiltModifier = newSpeed / GetMaxSpeed();
+        }
+        //rotate visualrig by tilt amount
+        tilthandler.Tilt(controlDir.normalized, tiltModifier);
     }
 
     protected void LateUpdate()
     {   //Align ship to y-plane (stops unwanted wobbling)
         transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
+        //if(transform.position.y > 1 || transform.position.y < -1)
+        //{
+        //    transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+        //}
     }
 
 
-    virtual protected void Shield_effect(Vector3 other)
-    {   //Default shield visual effect method
-        Vector3 dir = other - shield_Emitter.transform.position;
-        dir.Normalize();
-        shield_Emitter.transform.rotation = Quaternion.LookRotation(dir, Vector3.up) * Quaternion.Euler(0, -90, 0);
-
-        shield_Emitter.Play();
-        GetComponentInChildren<Animation>().Stop();
-        GetComponentInChildren<Animation>().Play();
+    virtual protected void Shield_effect(Vector3 _dmgPos)
+    {
+        m_ShieldVisuals.ShieldHit(_dmgPos);
     }
 
     virtual public void TakeDamage(EventSource _offender, Vector3 otherpos, float amount)
     {   //Default method for Taking Damage
-        if (shield_Emitter != null && stats.ShipShield > 0)
+        if (m_ShieldVisuals != null && stats.ShipShield > 0)
             Shield_effect(otherpos);
         Stats.OnDamageReturn ret = stats.TakeDamage(amount);
         if (_offender)
@@ -263,8 +277,19 @@ public class AICore : MonoBehaviour {
         arsenal.UpdateDamageFromAttackStat();
     }
 
+    //#######
+    //util
     public bool GetAlive()
     {
         return stats.IsAlive();
+    }
+
+    private float GetMaxSpeed()
+    {
+        if (dist <= innerRange)
+        {
+            return stats.GetMainThrust() * 1.5f;
+        }
+        return stats.GetMainThrust();
     }
 }

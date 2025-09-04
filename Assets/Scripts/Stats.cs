@@ -149,6 +149,10 @@ public class Stats : MonoBehaviour
     {
         return (Health > 0);
     }
+    public bool IsShielded()
+    {
+        return (Shield > 0);
+    }
 
     public float GetHealth()
     {

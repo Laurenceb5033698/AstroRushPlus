@@ -158,6 +158,8 @@ GameObject:
   - component: {fileID: 1206443231237223816}
   - component: {fileID: 2936780483825440135}
   - component: {fileID: 7819449378871026376}
+  - component: {fileID: 8709346839435508586}
+  - component: {fileID: 8462049935414423281}
   m_Layer: 0
   m_Name: M_Enemy_Ship_Duo_1
   m_TagString: Untagged
@@ -233,6 +235,40 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8709346839435508586
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2771407891588092161}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7544453399704659720, guid: 4aafd08631ce81c41b20c69335376218, type: 3}
+--- !u!114 &8462049935414423281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2771407891588092161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a96b914867807c49af51ffcbba57a0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3137900918330127624
 GameObject:
   m_ObjectHideFlags: 0

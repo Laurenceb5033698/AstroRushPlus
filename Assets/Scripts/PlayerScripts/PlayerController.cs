@@ -26,7 +26,7 @@ abstract public class PlayerController : MonoBehaviour {
     protected ShipMovementComponent motor;
     protected EventSource eventSource;
 
-    [SerializeField] protected ParticleSystem shield_Emitter;
+    [SerializeField] protected Shield m_ShieldVisuals;
     [SerializeField] public Arsenal arsenal;
     [SerializeField] protected Equipment equipment;
     
@@ -54,7 +54,7 @@ abstract public class PlayerController : MonoBehaviour {
         arsenal = ship.GetComponentInChildren<Arsenal>();
         motor = ship.GetComponent<ShipMovementComponent>();
         eventSource = ship.GetComponent<EventSource>();
-
+        m_ShieldVisuals = GetComponentInChildren<Shield>();
         //single weapon "Equipment" is a collection for Ordinance
         equipment = ship.GetComponentInChildren<Equipment>();
     }
@@ -242,16 +242,10 @@ abstract public class PlayerController : MonoBehaviour {
             c.gameObject.GetComponent<AICore>().TakeDamage(eventSource, transform.position, impactDamage);
         }
     }
-    protected void Shield_effect(Vector3 other)
+    //hit effect on shield
+    protected void Shield_effect(Vector3 _dmgPos)
     {
-        //Debug.Log("Collision Entered: " + other.gameObject.name);
-        Vector3 dir = other - shield_Emitter.transform.position;
-        dir.Normalize();
-        shield_Emitter.transform.rotation = Quaternion.LookRotation(dir, Vector3.up) * Quaternion.Euler(0, -90, 0);
-
-        shield_Emitter.Play();
-        GetComponentInChildren<Animation>().Stop();
-        GetComponentInChildren<Animation>().Play();
+        m_ShieldVisuals.ShieldHit(_dmgPos);
 
     }
 
