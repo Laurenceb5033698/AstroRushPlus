@@ -342,7 +342,7 @@ Rigidbody:
   m_GameObject: {fileID: 5905408885748206144}
   serializedVersion: 4
   m_Mass: 5
-  m_Drag: 1
+  m_Drag: 0.9
   m_AngularDrag: 0.1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -691,9 +691,7 @@ PositionConstraint:
   m_AffectTranslationZ: 0
   m_Active: 1
   m_IsLocked: 1
-  m_Sources:
-  - sourceTransform: {fileID: 6329796500206976053}
-    weight: 1
+  m_Sources: []
 --- !u!1 &6971712628817927469
 GameObject:
   m_ObjectHideFlags: 0

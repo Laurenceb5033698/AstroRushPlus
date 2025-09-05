@@ -307,7 +307,6 @@ GameObject:
   - component: {fileID: 5066662297576024695}
   - component: {fileID: 6477546032992859657}
   - component: {fileID: 7919203828399703989}
-  - component: {fileID: 257214387637971948}
   m_Layer: 0
   m_Name: AI_Tank
   m_TagString: EnemyShip
@@ -340,9 +339,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8908882563087209764}
   serializedVersion: 4
-  m_Mass: 25
-  m_Drag: 0.8
-  m_AngularDrag: 0.1
+  m_Mass: 30
+  m_Drag: 4
+  m_AngularDrag: 20
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -352,8 +351,8 @@ Rigidbody:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
+  m_ImplicitCom: 0
+  m_ImplicitTensor: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
@@ -630,10 +629,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreValue: 0
   innerRange: 30
-  MaxShootRange: 30
-  MinShootRange: 9
-  KeepAwayRange: 10
-  torqueMultiplier: 3
+  MaxShootRange: 55
+  MinShootRange: 5
+  KeepAwayRange: 25
+  torqueMultiplier: 4
   rb: {fileID: 0}
   stats: {fileID: 0}
   arsenal: {fileID: 0}
@@ -644,7 +643,7 @@ MonoBehaviour:
   m_ShieldVisuals: {fileID: 0}
   player: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
-  CollisionImpulse: 50
+  CollisionImpulse: 100
 --- !u!114 &6477546032992859657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -673,26 +672,6 @@ MonoBehaviour:
   m_modules: []
   m_TestModule: {fileID: 0}
   m_BaseStatsModule: {fileID: 11400000, guid: 85dd71f73978aa14c93fb201b42777b6, type: 2}
---- !u!1818360608 &257214387637971948
-PositionConstraint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8908882563087209764}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Weight: 1
-  m_TranslationAtRest: {x: 0, y: 0, z: 0}
-  m_TranslationOffset: {x: 0, y: 0, z: 0}
-  m_AffectTranslationX: 0
-  m_AffectTranslationY: 1
-  m_AffectTranslationZ: 0
-  m_Active: 1
-  m_IsLocked: 1
-  m_Sources:
-  - sourceTransform: {fileID: 7168578817981991448}
-    weight: 1
 --- !u!1001 &6829936935572778722
 PrefabInstance:
   m_ObjectHideFlags: 0

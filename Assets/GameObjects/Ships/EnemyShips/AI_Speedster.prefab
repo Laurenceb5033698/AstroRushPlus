@@ -61,7 +61,6 @@ GameObject:
   - component: {fileID: 3062983301492256628}
   - component: {fileID: 2253584416288211165}
   - component: {fileID: 660888956741710047}
-  - component: {fileID: 8202250135410166865}
   m_Layer: 0
   m_Name: AI_Speedster
   m_TagString: EnemyShip
@@ -95,8 +94,8 @@ Rigidbody:
   m_GameObject: {fileID: 2385239216707384116}
   serializedVersion: 4
   m_Mass: 10
-  m_Drag: 0.6
-  m_AngularDrag: 0.3
+  m_Drag: 1
+  m_AngularDrag: 25
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -106,8 +105,8 @@ Rigidbody:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
+  m_ImplicitCom: 0
+  m_ImplicitTensor: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 2
@@ -383,11 +382,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 0
-  innerRange: 20
+  innerRange: 40
   MaxShootRange: 50
-  MinShootRange: 9
-  KeepAwayRange: 10
-  torqueMultiplier: 3
+  MinShootRange: 10
+  KeepAwayRange: 25
+  torqueMultiplier: 2
   rb: {fileID: 0}
   stats: {fileID: 0}
   arsenal: {fileID: 0}
@@ -427,26 +426,6 @@ MonoBehaviour:
   m_modules: []
   m_TestModule: {fileID: 0}
   m_BaseStatsModule: {fileID: 11400000, guid: fe90d47e04ff9a64bb1adfe5aff65623, type: 2}
---- !u!1818360608 &8202250135410166865
-PositionConstraint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2385239216707384116}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Weight: 1
-  m_TranslationAtRest: {x: 0, y: 0, z: 0}
-  m_TranslationOffset: {x: 0, y: 0, z: 0}
-  m_AffectTranslationX: 0
-  m_AffectTranslationY: 1
-  m_AffectTranslationZ: 0
-  m_Active: 1
-  m_IsLocked: 1
-  m_Sources:
-  - sourceTransform: {fileID: 7675230847411879203}
-    weight: 1
 --- !u!1 &3778664745092842287
 GameObject:
   m_ObjectHideFlags: 0

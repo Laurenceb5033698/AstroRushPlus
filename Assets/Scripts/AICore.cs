@@ -36,6 +36,8 @@ public class AICore : MonoBehaviour {
     protected Vector3 controlDir;
     protected Vector3 AttackDir;
 
+    protected Vector3 ShipVelocity;
+
     public float CollisionImpulse = 50;
     protected float dist;             //dist to destination
     protected float torqueMul = 1f;   //amplify turn speed
@@ -62,6 +64,7 @@ public class AICore : MonoBehaviour {
             Debug.Log("No weapon attached.");
         else
             arsenal.SetShipObject(gameObject);
+        ShipVelocity = new Vector3(0,0,0);
     }
 	
 
@@ -154,9 +157,9 @@ public class AICore : MonoBehaviour {
     virtual protected void Move()
     {   //Default Ship movement behavior
         float currentSpeed = GetMaxSpeed();//use speeds from Stats. Change on prefabs
-
-        rb.AddForce(gameObject.transform.forward * currentSpeed * 20 * Time.deltaTime, ForceMode.Acceleration);
-        
+        ShipVelocity = gameObject.transform.forward * currentSpeed * Time.fixedDeltaTime;
+        ShipVelocity.y = 0;
+        //rb.AddForce(gameObject.transform.forward * currentSpeed * 20 * Time.deltaTime, ForceMode.Acceleration);
     }
 
     virtual protected void Turn()
@@ -170,7 +173,7 @@ public class AICore : MonoBehaviour {
         angle = angle / -180;
         
         float torque = stats.GetRotSpeed() * torqueMul;
-        rb.AddRelativeTorque(Vector3.up * torque * angle * Time.deltaTime);
+        rb.AddRelativeTorque(Vector3.up * torque * angle * Time.fixedDeltaTime);
         ShipTilt();
     }
 
@@ -198,6 +201,11 @@ public class AICore : MonoBehaviour {
         //}
     }
 
+    private void FixedUpdate()
+    {
+        
+        rb.MovePosition(new Vector3(transform.position.x,0,transform.position.z)+ ShipVelocity);
+    }
 
     virtual protected void Shield_effect(Vector3 _dmgPos)
     {
@@ -269,8 +277,8 @@ public class AICore : MonoBehaviour {
         stats.block.Get(StatType.sShield).SetBonusMod(statbonus);
         stats.block.Get(StatType.gAttack).SetBonusMod(statbonus);
         stats.block.Get(StatType.sSpecial).SetBonusMod(statbonus);
-        stats.block.Get(StatType.sSpeed).SetBonusMod(statbonus);
-        stats.block.Get(StatType.sTurnrate).SetBonusMod(statbonus);
+        //stats.block.Get(StatType.sSpeed).SetBonusMod(statbonus);
+        //stats.block.Get(StatType.sTurnrate).SetBonusMod(statbonus);
         stats.block.Get(StatType.sFuel).SetBonusMod(statbonus);
 
         //now propagate to arsenal
@@ -288,7 +296,7 @@ public class AICore : MonoBehaviour {
     {
         if (dist <= innerRange)
         {
-            return stats.GetMainThrust() * 1.5f;
+            return stats.GetMainThrust() * 1.1f;
         }
         return stats.GetMainThrust();
     }
