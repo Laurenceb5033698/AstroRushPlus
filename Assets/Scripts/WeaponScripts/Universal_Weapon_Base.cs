@@ -1,11 +1,4 @@
-using NUnit.Framework;
-using Unity.Collections;
-using System.Collections.Generic;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
-using System.Collections;
-using UnityEngine.UIElements;
-using static UnityEngine.ParticleSystem;
 
 /// <summary>
 /// Handles system settings and structural methods for Universal_Weapon.

@@ -1,7 +1,4 @@
-using Unity.Burst.Intrinsics;
-using UnityEditor.ShaderGraph;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 /// <summary>
 /// player and ai ship movement component.

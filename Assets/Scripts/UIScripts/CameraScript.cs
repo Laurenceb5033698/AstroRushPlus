@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor.Search;
 
 /// <summary>
 /// Tracking Camera and Camera Shake.

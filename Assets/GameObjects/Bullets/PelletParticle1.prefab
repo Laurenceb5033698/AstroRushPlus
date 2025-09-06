@@ -68,10 +68,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02c042e829aff5c4ea10553468284705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
-  lifetime: 0.4
   ownertag: 
-  speed: 100
+  OwnerEventSource: {fileID: 0}
   psImpactPrefab: {fileID: 1601477976887962, guid: 053fa22b342258d4ba4937010b60f134,
     type: 3}
 --- !u!1 &2159376064586348520
@@ -90,7 +88,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &599414972479816781
 Transform:
   m_ObjectHideFlags: 0
