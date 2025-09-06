@@ -148,6 +148,7 @@ public class AIManager : MonoBehaviour {
         if(levelData is BossLevelScriptable)
         {
             Bossman = SpawnBoss(levelData as BossLevelScriptable);
+            m_ObjectiveComplete = false;
         }
         else
         {
